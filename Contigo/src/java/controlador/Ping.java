@@ -37,10 +37,10 @@ public class Ping extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Ping</title>");            
+            out.println("<title>ajá</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Ping at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Esto es un Servlet Ping at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
