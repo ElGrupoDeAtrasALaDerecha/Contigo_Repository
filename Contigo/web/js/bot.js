@@ -24,7 +24,7 @@ websocket.onmessage=function(event){
 		ping();
 	}else{
 		let obj=JSON.parse(event.data);
-		if(obj.tipo==="numero sala"){
+		if(obj.tipo==="codigo sala"){
 			numeroSala=obj.numero;
 		}else if(obj.tipo==="respuesta"){
 			pintarRespuesta(obj.mensaje);
