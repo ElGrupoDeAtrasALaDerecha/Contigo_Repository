@@ -1,5 +1,6 @@
+package usa.modelo.dto;
 
-import java.util.*;
+
 
 /**
  * 
