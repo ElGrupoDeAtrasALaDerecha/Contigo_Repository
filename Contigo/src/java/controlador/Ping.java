@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
+import contibot.ContiBot;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,12 +14,19 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Santiago Pérez
  */
-@WebServlet(name = "Ping", urlPatterns = {"/ping"})
+@WebServlet(name = "ping", urlPatterns = {"/ping"})
 public class Ping extends HttpServlet {
 
+    public Ping() {
+        ContiBot server = new ContiBot(new InetSocketAddress(30001));
+        server.start();
+    }
+
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods.a
      *
      * @param request servlet request
      * @param response servlet response

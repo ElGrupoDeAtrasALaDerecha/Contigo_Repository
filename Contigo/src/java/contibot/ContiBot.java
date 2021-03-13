@@ -43,12 +43,24 @@ public class ContiBot extends WebSocketServer {
         System.out.println("Mensaje entrante "+mensaje);
         JSONObject obj = new JSONObject(mensaje);
         String tipo = (String) obj.get("tipo");
+        JSONObject objRespuesta = new JSONObject();
         Sala sala = null;
         String objeto = "";
         switch(tipo){
                 case "ping":
                     ws.send("pong");
-        
+                    break;
+                case "primer ingreso":
+                    objRespuesta.put("tipo","codigo sala");
+                    objRespuesta.put("numero", "1");
+                    ws.send(objRespuesta.toString());
+                    break;
+                case "mensaje":
+                    objRespuesta.put("tipo","respuesta");
+                    objRespuesta.put("mensaje","hola");
+                    ws.send(objRespuesta.toString());
+                    break;
+                    
         } 
     }
 
