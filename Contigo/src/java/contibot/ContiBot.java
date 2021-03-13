@@ -49,14 +49,17 @@ public class ContiBot extends WebSocketServer {
         switch(tipo){
                 case "ping":
                     ws.send("pong");
+                    break;
                 case "primer ingreso":
                     objRespuesta.put("tipo","codigo sala");
                     objRespuesta.put("numero", "1");
-                    ws.send(objRespuesta.toString());   
-                case "mensaje":
-                    objRespuesta.put("tipo","mensaje");
-                    objRespuesta.put("respuesta","hola");
                     ws.send(objRespuesta.toString());
+                    break;
+                case "mensaje":
+                    objRespuesta.put("tipo","respuesta");
+                    objRespuesta.put("mensaje","hola");
+                    ws.send(objRespuesta.toString());
+                    break;
                     
         } 
     }
