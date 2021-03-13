@@ -1,4 +1,4 @@
-package contibot;
+package usa.contibot;
 
 import java.net.InetSocketAddress;
 import java.util.LinkedList;

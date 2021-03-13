@@ -4,6 +4,6 @@ package modelo.dto;
  *
  * @author Santiago Pérez
  */
-public class Sala {
+public class Estudiante {
     
 }
