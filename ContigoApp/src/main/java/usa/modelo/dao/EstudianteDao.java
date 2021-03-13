@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- *
+ * Clase de acceso a datos de estudiantes
+ * @author Valeria Bermúdez, Laura Blanco, Santiago Cáceres y Santiago Pérez
  * @since 2021-03-13
  */
 public class EstudianteDao implements IDao<Estudiante>{
