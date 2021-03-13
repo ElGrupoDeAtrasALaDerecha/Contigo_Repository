@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    String bd = "mybici";
+    String bd = "contigoBD";
     private final String url = "jdbc:mysql://localhost:3306/" + bd + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     static Connection con = null;
 
@@ -28,7 +28,7 @@ public class Conexion {
 
     public static Connection tomarConexion() {
         if (con == null) {
-            con= new Conexion();
+            Conexion conexion = new Conexion();
         }
         return con;
     }
