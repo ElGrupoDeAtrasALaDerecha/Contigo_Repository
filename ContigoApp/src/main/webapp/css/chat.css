@@ -1,0 +1,167 @@
+/*-----fondo del chat-------*/
+#chatCompleto{
+    margin-left: 400px;
+    padding-bottom:0px;
+    background-image: linear-gradient(45000deg, #edf3f5, #626fe6);
+    opacity: 100%;
+    width:490px;
+    border:1px solid #070707; 
+    margin-top: 0cm;
+    position: relative;
+}
+body {
+	font-family: 'KaushanScript-Regular';
+	src: url('letra.ttf');
+}
+#conti{
+    position: relative;
+    margin-top: 0px;
+    width: 10px;
+    height: 10px;
+}
+#logo{
+    width: 420px;
+    height: 500px;
+}
+#titulo{
+    width: 100%;
+    height: 5%;
+    background-color: rgb(0, 0, 0);
+    opacity: 100%;
+    border:1px solid #575353; 
+    text-align: center;
+}
+h1 {
+    color: #ffffff;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 150%;
+    font-style: oblique;
+  }
+/*-----fondo general-------*/
+.diagonal-box {
+	background-image: linear-gradient(45000deg, #180a27, #08010f);
+	transform: skewY(0deg);
+  opacity: 100%;
+    height: 100%;
+    width: 100%;
+}
+#titulo_vista{
+    position: static;
+    margin-left: 560px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+/*chat y mensajes*/
+  /*-----mensajes-------*/
+  #chat {
+    text-align:left;
+    margin:0 auto;
+    margin-bottom:2px;
+    padding:25px;
+    border:1px solid #111213;
+    width: 11px;
+    background-color: #eee;
+}
+/*
+#mensaje{
+    background-color: #a4c4a3;
+    margin: 0 auto;
+    padding: 10px;
+    width: 490px;
+}*/
+
+#mensaje input{
+    border: solid 1px #232053;
+    outline: none;
+    padding: 10px;
+    width: 310px;
+}
+/*boton del mensaje*/
+#mensaje button{
+    height: 35px;
+    font-size: 16px;
+    width: 50px;
+}/*tamaño chatmns*/
+#chat {
+    height: 400px;
+    width: 430px;
+    overflow: hidden;
+    overflow-y: scroll 
+}
+#mensajes{
+    height: 400px;
+    width: 400px;
+    overflow-y: scroll 
+}
+
+#chat #mensajes .mensaje-autor{
+    margin-bottom: 5px;
+}
+#chat #mensajes .mensaje-autor img, #chat #mensajes .mensaje-amigo img{
+    display: inline-block;
+    vertical-align: top;
+}
+#chat #mensajes .mensaje-autor .contenido{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+    display: inline-block;
+    font-size: 13px;
+    padding: 15px;
+    vertical-align: top;
+    width: 280px;
+}
+#chat #mensajes .mensaje-autor .fecha{
+    color: #777;
+    font-style: italic;
+    font-size: 13px;
+    text-align: right;
+    margin-right: 35px;
+    margin-top: 10px;
+}
+#chat #mensajes .mensaje-autor .flecha-izquierda{
+    display: inline-block;
+    margin-right: -6px;
+    margin-top: 10px;
+    width: 0; 
+    height: 0; 
+    border-top: 0px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid white;
+}
+#chat #mensajes .mensaje-amigo{
+    margin-bottom: 50px;
+}
+#chat #mensajes .mensaje-amigo .contenido{
+    background-color: #3990BF;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    font-size: 13px;
+    padding: 15px;
+    vertical-align: top;
+    width: 280px;
+}
+#chat #mensajes .mensaje-amigo .flecha-derecha{
+    display: inline-block;
+    margin-left: -6px;
+    margin-top: 10px;
+    width: 0; 
+    height: 0; 
+    border-top: 0px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #3990BF;
+}
+#chat #mensajes .mensaje-amigo img, #chat #mensajes .mensaje-autor img{
+    border-radius: 5px;
+}
+#chat #mensajes .mensaje-amigo .fecha{
+    color: #777;
+    font-style: italic;
+    font-size: 13px;
+    text-align: left;
+    margin-top: 10px;
+}
+
