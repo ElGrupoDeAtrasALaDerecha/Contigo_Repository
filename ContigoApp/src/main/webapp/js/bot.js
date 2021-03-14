@@ -42,13 +42,19 @@ websocket.onmessage = function (event) {
 	}
 }
 
-
+/**
+ * Función que envía un mensaje (serializado) al servidor
+ * @param {*} object 
+ */
 function enviarMensaje(object) {
 	var stringObject = JSON.stringify(object);
 	websocket.send(stringObject);
 	console.log("Enviando: " + stringObject);
 }
 
+/**
+ * Función que manda un ping al servidor para verigicar la conexión
+ */
 function ping() {
 	myPing = { tipo: "ping", message: "heartbeating" };
 	var prom = wait(28000)  // prom, is a promise
@@ -75,68 +81,36 @@ function enviarCredenciales() {
 
 function pintarRespuesta(respuesta) {
 	console.log(respuesta);
+	let txtConti=`<div id="mns_tiempo_conti" class="mensaje-autor">
+	<i class="bi bi-person"></i>
+	<div class="flecha-izquierda"></div>
+	<div id="" class="contenido">${respuesta}</div>
+	<div id="tiempo-msn-conti" class="fecha">Enviado hace y minutos</div>               
+	</div>
+	`
+	$("#mensajes").append(txtConti);
 }
 
 
-
 /**
- * Información a conti
+ * Mensaje al bot conti
+ * @param {string} mensaje 
  */
 function decirleAConti(mensaje) {
 	let datos = {
 		tipo: "mensaje",
-		"numero sala": "1",
+		"numero sala": numeroSala,
 		mensaje: mensaje
 	}
 	enviarMensaje(datos);
 }
 
 
-
-
-// Eventos de vista
-
-
-$(document).ready(function () {
-	$('#btn_enviar_mns').click(function () {
-		$('input[type="text"]').val('');
-	});
-});
-
-$("#btn_enviar_mns").click(function () {
-	console.log(mueveReloj());
-	var mns = $("#Enviarmensaje").val();
-	let mensaje = `<div class="contenido">
-    ${mns} 
-    </div>
-    <div class="flecha-derecha"></div>
-        <i class="bi bi-person-fill"></i>
-        <div id="tiempo-msn-usuario" class="fecha">
-        ${mueveReloj()}
-        </div> `
-	$("#mns_tiempo_usuario").append(mensaje)
-	visibilidadUsuario();
-});
-
-$(document).ready(function () {
-	document.getElementById('mns_tiempo_usuario').style.display = 'none';
-})
-
-function visibilidadUsuario() {
-	var x = document.getElementById("mns_tiempo_usuario");
-	if (x.style.display === "none") {
-		x.style.display = "block";
-	}
-}
-
-$("body").keyup(function (e) {
-	if (e.keyCode == 13) {
-		$('#btn_enviar_mns').click();
-	}
-});
-
-/*reloj*/
-function mueveReloj() {
+/**
+ * Función del Reloj 
+ * @returns texto string con la hora
+ */
+ function mueveReloj() {
 	momentoActual = new Date()
 	hora = momentoActual.getHours()
 	minuto = momentoActual.getMinutes()
@@ -161,3 +135,34 @@ function mueveReloj() {
 	setTimeout("mueveReloj()", 1000)
 	return horaImprimible;
 }
+
+
+// Eventos de vista
+
+
+$(document).ready(function () {
+	$('#btn_enviar_mns').click(function () {
+		$('input[type="text"]').val('');
+	});
+});
+
+$("#btn_enviar_mns").click(function () {
+	console.log(mueveReloj());
+	var mns = $("#Enviarmensaje").val();
+	decirleAConti(mns);
+	let mensaje = `
+	<div id="mns_tiempo_usuario" class="mensaje-amigo">
+	<div class="contenido">${mns} </div>
+    <div class="flecha-derecha"></div>
+    <i class="bi bi-person-fill"></i>
+    <div id="tiempo-msn-usuario" class="fecha">${mueveReloj()}</div>
+	</div>`
+	$("#mensajes").append(mensaje);
+});
+
+
+$("body").keyup(function (e) {
+	if (e.keyCode == 13) {
+		$('#btn_enviar_mns').click();
+	}
+});
