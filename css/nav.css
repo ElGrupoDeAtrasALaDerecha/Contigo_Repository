@@ -1,0 +1,44 @@
+/*Menu*/
+nav{
+    color:rgba(255,255,255,1);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    position: absolute;
+    width: 100%;
+}
+#logo{
+    margin: 0 0 0 2%;
+}
+#contigo-1{
+    float: left;
+    font-family: 'Kaushan Script';
+    font-size: 50px;
+    font-weight: lighter;
+
+
+}
+#cont_op{
+    float: flex;
+    padding-top: 1%;
+    text-align: center;
+    width: 100%;
+}
+nav ul{
+    list-style:none;
+    margin: 0 auto;
+    padding-left: 14%;
+    width: 50%;
+}
+nav ul::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+#menu ul li{
+    float: left;
+    padding: 0% 5%;
+}
+nav ul li a:hover{
+    border-bottom: solid 2px #fde9c9;
+    border-radius: 5%;
+}
