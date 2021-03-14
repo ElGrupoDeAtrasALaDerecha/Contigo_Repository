@@ -67,4 +67,7 @@ public class EstudianteDao implements IDao<Estudiante>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public Estudiante consultarPorToken(String token){
+        return new Estudiante();
+    }
 }
