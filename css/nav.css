@@ -1,0 +1,47 @@
+/*Menu*/
+#menu{
+    background-color:  #222831;
+    color:rgba(255,255,255,1);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    position: relative;
+}
+#menu ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+#menu ul li{
+    display:inline-block;
+    padding-right: 22px;
+    padding-left: 22px;
+    padding-bottom: 5px;
+}
+#menu ul li a{
+    color:rgba(255,255,255,1);
+    text-decoration: none;
+}
+#contigo-1{
+    font-family: 'Kaushan Script', cursive;
+    font-size: 54px;
+}
+#up{
+    /* border: solid 1px yellow; */
+    text-align: center;
+    margin:0 auto;
+    margin-top: -60px;
+    padding-left: 10%;
+    position: absolute;
+    font-weight: lighter;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+#up li:hover{
+    border-bottom: solid 2px #fde9c9;
+    border-radius: 5%;
+}
+#salir{
+    float: right;
+}
