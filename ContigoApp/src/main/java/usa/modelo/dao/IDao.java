@@ -7,5 +7,6 @@ package usa.modelo.dao;
 interface IDao<T> {
     boolean crear(T t);
     T consultar(String id);
-    
+    boolean actualizar(T t);
+    boolean eliminar(String id);
 }
