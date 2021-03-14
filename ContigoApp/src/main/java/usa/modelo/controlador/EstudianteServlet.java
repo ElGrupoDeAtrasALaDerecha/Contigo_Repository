@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dto.Estudiante;
+import usa.modelo.dto.Institucion;
 import usa.utils.Utils;
 
 /**
@@ -64,14 +65,32 @@ public class EstudianteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            /*
             Estudiante estudiante = new Estudiante();
             estudiante.setPrimerNombre("Pablo");
             estudiante.setPrimerApellido("Escobar");
             Gson gson = new Gson();
             String mensaje=gson.toJson(estudiante,Estudiante.class);
             System.out.println(mensaje);
-            out.print(mensaje);
+            out.print(mensaje);*/
+            Institucion ins = new Institucion();
+            ins.setNombre(request.getParameter("nom"));
+            ins.setDireccion(request.getParameter("dire"));
+            ins.setBarrio(request.getParameter("ba"));
+            ins.setTelefono(request.getParameter("tele"));
+            ins.setCorreo(request.getParameter("co"));
+            ins.setContraseña(request.getParameter("con"));
+            Gson gson = new Gson();
+            String info=gson.toJson(ins,Institucion.class);
+            out.print(info);
+            /*
+            String depa=request.getParameter("de");
+            String muni=request.getParameter("mu");
+            String sect=request.getParameter("sec");
+            String pag=request.getParameter("pa");
+            */
+            
+            
         }
     }
 
