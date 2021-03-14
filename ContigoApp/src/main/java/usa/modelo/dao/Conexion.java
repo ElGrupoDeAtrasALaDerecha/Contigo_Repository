@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    String bd = "contigoBD";
+    String bd = "contigo";
     private final String url = "jdbc:mysql://localhost:3306/" + bd + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     static Connection con = null;
 
     private Conexion() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(url, "root", "1234");
+            con = DriverManager.getConnection(url, "root", "123456");
 
 
             if (con != null) {
