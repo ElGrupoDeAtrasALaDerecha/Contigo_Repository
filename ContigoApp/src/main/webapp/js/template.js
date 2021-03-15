@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    let footer=`<div id="footer">
+$(document).ready(function () {
+  const footer = `<div id="footer">
 <div id="superior">
     <ul>
         <li><a href="#" class="menuFooter">Inicio</a></li>
@@ -64,9 +64,9 @@ $(document).ready(function(){
         <span>Copyright © 2021 Contigo. Creado por El Grupo De Atrás A La Derecha</span>
     </div>
 </div>
-</div>`;
+</div>`
 
-let menuSuperior=`<div id="menu">
+  const menuSuperior = `<div id="menu">
 <ul>
     <li><a id="contigo-1" href="#">Contigo</a></li>
     <div id="up">
@@ -74,11 +74,11 @@ let menuSuperior=`<div id="menu">
         <li><a href="#">Contacto</a></li>
         <li><a href="#">About Us</a></li>
         <li><a href="#">Ayuda</a></li>
-        <li style="float:right;"><a href="#">Salir</a></li>
+        <li style="float:right;"><a href="ingresar.html">Salir</a></li>
     </div>
 </ul>
-</div>`;
+</div>`
 
-    $("body").prepend(menuSuperior);
-    $("body").append(footer)
-});
+  $('body').prepend(menuSuperior)
+  $('body').append(footer)
+})
