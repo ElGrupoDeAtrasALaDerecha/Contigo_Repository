@@ -1,4 +1,8 @@
 
+*{
+    margin: 0 0;
+    padding: 0 0;
+}
 /*Menu*/
 #menu{
     background-color:  #222831;
@@ -37,6 +41,10 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
+    }
+    #up li:hover{
+        border-bottom: solid 2px white;
+        border-radius: 5%;
     }
 /*Datos*/
 #Datos{
@@ -140,7 +148,9 @@ h1{
 #contigo2{
     font-family: 'Kaushan Script', cursive;
     font-size: 70px;
+    font-style: normal;
 }
+
 #superior ul{
     list-style:none;
     margin:0;
@@ -158,6 +168,9 @@ h1{
 #superior{
     text-align: center;
     font-weight: lighter;
+}
+#superior ul li a:hover{
+    color: #4f75a7;
 }
 #Inferior{
     text-align: center;

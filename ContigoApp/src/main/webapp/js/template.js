@@ -2,10 +2,10 @@ $(document).ready(function(){
     let footer=`<div id="footer">
 <div id="superior">
     <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Contacto</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Ayuda</a></li>
+        <li><a href="#" class="menuFooter">Inicio</a></li>
+        <li><a href="#" class="menuFooter">Contacto</a></li>
+        <li><a href="#" class="menuFooter">About Us</a></li>
+        <li><a href="#" class="menuFooter">Ayuda</a></li>
     </ul>
     <hr>
 </div>
@@ -74,6 +74,7 @@ let menuSuperior=`<div id="menu">
         <li><a href="#">Contacto</a></li>
         <li><a href="#">About Us</a></li>
         <li><a href="#">Ayuda</a></li>
+        <li style="float:right;"><a href="#">Salir</a></li>
     </div>
 </ul>
 </div>`;
