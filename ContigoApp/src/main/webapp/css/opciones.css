@@ -1,0 +1,103 @@
+*,*:before, *:after{ 
+    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+h2{
+    color: white;
+    font-family: 'Kaushan Script';
+    font-size: 60px;
+    margin-bottom: 30%;
+    padding: 30% 0 3%;
+    text-align: center;
+    font-weight: lighter;
+}
+#contenedor_op1{
+    /* border: solid green 1px; */
+    background-image: url(../img/conv_bk.jpg);
+    background-position: center center;
+    background-size: cover;
+    float: left;
+    width: 50%;
+    
+}
+#cont1{
+    background-color: #3434349f;
+    padding-bottom: 10%;
+}
+#contenedor_op2{
+    /* border: solid green 1px; */
+    background-image: url(../img/dcs_bk.jpg);
+    background-position: center center;
+    background-size: cover;
+    float: right;
+    width: 50%;
+}
+#cont2{
+    background-color:  #2d4059af;
+    padding-bottom: 10%;
+}
+h2 a:hover{
+    color: #fde9c9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+    html{
+        background-color: rgba(247, 0, 0, 0.103);
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    html{
+        background-color: rgba(247, 181, 0, 0.103);
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    html{
+        background-color: rgba(132, 247, 0, 0.103);
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    html{
+        background-color: rgba(0, 16, 247, 0.103);
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    html{
+        background-color: rgba(247, 0, 247, 0.103);
+    }
+}
