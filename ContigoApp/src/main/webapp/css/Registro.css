@@ -26,6 +26,7 @@
     font-family: 'Kaushan Script', cursive;
     font-size: 54px;
 }
+
 #up{
     text-align: center;
     margin: auto;
@@ -42,6 +43,11 @@
     background-color: rgba(255,255,255,1);
     padding-bottom: 45px;
     padding-top: 25px;
+}
+
+#boton{
+    text-align: center;
+    padding-top: 20px;
 }
 #table-datos{
     display: table;
@@ -89,6 +95,18 @@ h1{
     background-color: #2d4059;
     color: rgba(255,255,255,1);
     text-align: left;
+}
+#Button2{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 25px;
+    width: 400px;
+    border: none;
+    background-color: #2d4059;
+    color: rgba(255,255,255,1);
+    text-align: center;
 }
 #Columna-datos2{
     padding-left: 50px;
