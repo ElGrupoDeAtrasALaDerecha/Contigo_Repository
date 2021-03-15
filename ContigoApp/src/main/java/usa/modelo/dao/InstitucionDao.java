@@ -13,7 +13,8 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import usa.modelo.dto.Institucion;
-
+import java.sql.*;
+import org.json.JSONObject;
 /**
  *
  * @author santi
@@ -21,8 +22,12 @@ import usa.modelo.dto.Institucion;
 public class InstitucionDao implements IDao<Institucion> {
 
     PreparedStatement pat;
+    Statement stmt; 	            
+    ResultSet result;
+    
     @Override
     public boolean crear(Institucion t) {
+        /*
         try {
             String sql = "insert into  institucion (Direccion_idDireccion,nombre) values (?,?)";
             Connection conn = Conexion.tomarConexion();
@@ -33,8 +38,9 @@ public class InstitucionDao implements IDao<Institucion> {
             pat.close();
             return insert;
         } catch (SQLException ex) {
-            Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
         return false;
     }
 
@@ -56,12 +62,28 @@ public class InstitucionDao implements IDao<Institucion> {
     @Override
     public LinkedList<Institucion> listarTodos() {
         LinkedList<Institucion> instituciones = new LinkedList();
+        JSONObject myObject = new JSONObject();
         //pat sirve como el cur() de py 
         try {
             String sql = "select * from institucion";
             Connection conn = Conexion.tomarConexion();
-            pat = conn.prepareStatement(sql);
-            pat.execute();
+            stmt =conn.createStatement();
+            result = stmt.executeQuery(sql);
+            while(result.next()){
+                int municipio = result.getInt("MUNICIPIO_id");
+                int meto_pago = result.getInt("METODO_PAGO_id");
+                String nom = result.getString("nombre");
+                String correo = result.getString("correo");
+                String dire = result.getString("direccion");
+                boolean tipoins = result.getBoolean("tipoInstitucion");
+                boolean calen = result.getBoolean("calendario");
+                String barrio = result.getString("barrio");
+                String tel = result.getString("telefono");
+                String con = result.getString("contraseña");
+                String pagweb = result.getString("web");
+                
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
