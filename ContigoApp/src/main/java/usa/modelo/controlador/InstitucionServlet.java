@@ -13,6 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import usa.modelo.dao.InstitucionDao;
 import usa.modelo.dto.Institucion;
 import usa.utils.Utils;
 
@@ -64,10 +67,20 @@ public class InstitucionServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
         String nom = Utils.readParams(request);
-        Institucion ins = (Institucion)gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        String info = gson.toJson(ins, Institucion.class);
         System.out.println(nom);
-        out.print(info);
+        System.out.println("esto es una prueba");
+        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
+        InstitucionDao dao = new InstitucionDao();
+        JSONObject json = new JSONObject();
+        JSONArray arreglo = new JSONArray();
+        for (Institucion i : dao.listarTodos()) {
+            arreglo.put(gson.toJsonTree(i, Institucion.class));
+        }
+        json.put("tipo", "ok");
+        json.put("mensaje", "Estudiante creado");
+        json.put("istituciones", arreglo);
+        System.out.println(json.toString());
+        out.print(json.toString());
     }
 
     /**
@@ -79,17 +92,15 @@ public class InstitucionServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
         String nom = Utils.readParams(request);
         System.out.println(nom);
-        Institucion ins = (Institucion)gson.fromJson(nom, Institucion.class); //forma de leer datos cast
+        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
         String info = gson.toJson(ins, Institucion.class);
         out.print(info);
-        
     }
 
     /**
