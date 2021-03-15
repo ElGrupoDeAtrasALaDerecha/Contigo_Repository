@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="css/footer.css">-->
+    <link rel="stylesheet" href="css/admin_inst.css">
+    <!--<link rel="stylesheet" href="css/nav.css">-->
+    <link rel="stylesheet" href="css/navfooter.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Contigo</title>
+</head>
+<body>
+    <h2>Administración de Recursos</h2>
+    <div id="contenedor">
+        <section id="contenedor_cc">
+            <h3>Grados</h3>
+            <div class="contenedor_credencial">
+                <select name="Grados" class="credencial"  id="Texto" required>
+                    <option value="" disabled selected>Grados</option> 
+                    <option value="0">Trasnsición</option>
+                    <option value="1">Primero</option>
+                    <option value="2">Segundo</option>
+                    <option value="3">Tercero</option>
+                    <option value="4">Cuarto</option>
+                    <option value="5">Quinto</option>
+                    <option value="6">Sexto</option>
+                    <option value="7">Septimo</option>
+                    <option value="8">Octavo</option>
+                    <option value="9">Noveno</option>
+                    <option value="10">Decimo</option>
+                    <option value="11">Once</option>
+                    <option value="12">Docentes</option>
+                </select>
+            </div>
+            <div class="contenedor_credencial">
+                <input type="button" class="btn credencial" value="Generar Código">
+            </div>
+            <div class="contenedor_credencial">
+                <input type="text" class="credencial" value="Código" readonly style="font-style: italic;">
+            </div>
+            <div class="contenedor_credencial">
+                <input type="button" class=" btn credencial" value="Listar Grados">
+            </div>
+        </section>
+        <section id="contenedor_conv">
+            <h3>Conversatorios</h3>
+            <div class="contenedor_credencial">
+                <input type="button" class="btn credencial" value="Programar">
+            </div><div class="contenedor_credencial">
+                <input type="button" class="btn credencial" value="Cancelar">
+            </div>
+        </section>
+    </div>
+    
+</body>
+<script src="js/template.js"></script>
+</html>
