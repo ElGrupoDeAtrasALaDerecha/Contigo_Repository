@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    String bd = "contigo";
+    String bd = "contigoBD";
     private final String url = "jdbc:mysql://localhost:3306/" + bd + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     static Connection con = null;
 

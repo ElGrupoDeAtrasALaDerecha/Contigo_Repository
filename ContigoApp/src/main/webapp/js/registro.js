@@ -1,7 +1,7 @@
-function info_institucion(){
+function resgistrar_institucion(){
     departamento =$("#departamento").val();
     municipio =$("#municipio").val();
-    nombre  =$("#nombre").val();
+    nom  =$("#nombre").val();
     sector =$("#sector").val();
     direccion =$("#direccion").val();
     barrio =$("#barrio").val();
@@ -12,23 +12,23 @@ function info_institucion(){
     conficontra =$("#conficontra").val();
 
     informacion={
-            municipio:municipio,
-            nombre:nombre,
+            idMunicipio:municipio,
+            nombre:nom,
             tipoInstitucion:sector,
             direccion:direccion,
             barrio:barrio,
             telefono:tel,
             correo:correo,
-            pag:pagw,
+            pagina:pagw,
             contraseña:contra
     };
-    
+    console.log(informacion);
     
     $.ajax({
-        url: "Estudiante",
-        type: "GET",
-
-        data:informacion,
+        url: "Institucion",
+        type: "POST",
+        dataType: "json",
+        data:JSON.stringify(informacion),
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function() {
             
@@ -36,8 +36,7 @@ function info_institucion(){
         success: function(result, textStatus, request) {
             console.log(result);
             if (result != "error") {
-                $("#resultado").empty();
-                $("#resultado").append(result.resultado);
+                console.log(result);
                 
             } else {
                 console.log("error");
