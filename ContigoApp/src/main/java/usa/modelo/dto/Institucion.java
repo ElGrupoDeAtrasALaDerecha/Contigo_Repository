@@ -55,12 +55,23 @@ public class Institucion {
     /**
      * 
      */
-    private Municipio municipio;
+    private int idMunicipio;
 
     /**
      * 
      */
     private String contraseña;
+    
+    
+    private String pagina;
+
+    public String getPagina() {
+        return pagina;
+    }
+
+    public void setPagina(String pagina) {
+        this.pagina = pagina;
+    }
 
     public int getId() {
         return id;
@@ -126,12 +137,12 @@ public class Institucion {
         this.telefono = telefono;
     }
 
-    public Municipio getMunicipio() {
-        return municipio;
+    public int getIdMunicipio() {
+        return idMunicipio;
     }
 
-    public void setMunicipio(Municipio municipio) {
-        this.municipio = municipio;
+    public void setIdMunicipio(int idMunicipio) {
+        this.idMunicipio = idMunicipio;
     }
 
     public String getContraseña() {
