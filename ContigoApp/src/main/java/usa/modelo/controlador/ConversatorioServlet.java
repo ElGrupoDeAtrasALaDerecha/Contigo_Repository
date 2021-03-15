@@ -5,6 +5,7 @@
  */
 package usa.modelo.controlador;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
+import usa.modelo.dao.ConversatoriosDao;
+import usa.modelo.dto.Conversatorio;
+import usa.utils.Utils;
 
 /**
  *
@@ -56,9 +61,31 @@ public class ConversatorioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-      
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /*
+            Estudiante estudiante = new Estudiante();
+            estudiante.setPrimerNombre("Pablo");
+            estudiante.setPrimerApellido("Escobar");
+            Gson gson = new Gson();
+            String mensaje=gson.toJson(estudiante,Estudiante.class);
+            System.out.println(mensaje);
+            out.print(mensaje);*/
+            
+         
+            
+        }
+        
+        String mensaje = Utils.readParams(request);
+        System.out.println(mensaje);   
+        response.setContentType("application/json;charset=UTF-8");
+        Gson gson = new Gson();
+        Conversatorio conver = (Conversatorio)gson.fromJson(mensaje, Conversatorio.class);
+        ConversatoriosDao dao = new ConversatoriosDao();
+        JSONObject json = new JSONObject();
+        dao.consultar(mensaje);
+        
     }
 
     /**
@@ -70,10 +97,10 @@ public class ConversatorioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
+    
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
