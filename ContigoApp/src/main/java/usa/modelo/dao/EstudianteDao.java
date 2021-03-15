@@ -1,4 +1,3 @@
-
 package usa.modelo.dao;
 
 import usa.modelo.dto.Estudiante;
@@ -6,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  * @since 2021-03-13
  */
 public class EstudianteDao implements IDao<Estudiante>{
-    
 
     private PreparedStatement pat;
     @Override
@@ -62,5 +61,13 @@ public class EstudianteDao implements IDao<Estudiante>{
     public boolean eliminar(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public LinkedList<Estudiante> listarTodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
+    public Estudiante consultarPorToken(String token){
+        return new Estudiante();
+    }
 }

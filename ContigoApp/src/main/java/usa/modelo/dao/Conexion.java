@@ -13,7 +13,7 @@ public class Conexion {
     private Conexion() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(url, "root", "1234");
+            con = DriverManager.getConnection(url, "root", "123456");
 
 
             if (con != null) {
