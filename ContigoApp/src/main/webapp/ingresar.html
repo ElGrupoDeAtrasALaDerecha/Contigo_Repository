@@ -33,7 +33,7 @@
                 <input type="text" class="credencial" id="Texto" placeholder="Contraseña" name="password">
             </div>
             <div class="contenedor_credencial">
-                <input type="button" class="btn_ing" id="Button" value="Ingresar" name="ingresar">
+                <input type="button" class="btn_ing" id="ing_inst" value="Ingresar" name="ingresar">
             </div>
             <div class="contenedor_credencial">
                 <a class="registro">Registra tu institución</a>
@@ -125,3 +125,9 @@
     </footer>
 </body>
 </html>
+<!-- Script temporal para ingreso institución -->
+<script type="text/javascript">
+    document.getElementById("ing_inst").onclick = function () {
+        location.href = "admin_inst.html";
+    };
+</script>
