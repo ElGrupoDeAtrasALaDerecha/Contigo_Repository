@@ -1,0 +1,197 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:wght@300&display=swap');
+/* CSS Document */
+* {
+	padding: 0px;
+	margin: 0px;
+}
+body {
+	font-family: 'Kaushan Script', cursive;;
+	src: url('letra.ttf');
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Kaushan Script', cursive;;
+	src: url('letra.ttf');
+}
+a {
+	outline: none !important;
+}
+/*-----Banner-------*/
+.navbar-brand {
+	font-family: 'Kaushan Script', cursive;;
+	src: url('letra.ttf');
+	color: #ffffff;
+	font-size: 26px;
+}
+.navbar-brand:hover {
+	color: #222831;
+}
+.navbar-toggle {
+	background-color: #fff;
+}
+.navbar-toggle .icon-bar {
+	background-color: RGBA(0, 0, 0, 0.48);
+}
+/*-----Fondo de pagina principal-------*/
+.banner {
+	background-attachment: fixed;
+	background-color: #222831;
+	background-image: url(../img/FondoA.jpg);
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #222831;
+	cursor: default;
+	text-align: center;
+	width: 100%;
+	float: left;
+}
+
+.bg-overlay {
+	padding: 250px 0 220px;
+	background-color: RGBA(34, 40, 49, 0.84);
+}
+
+/*-----Fuente principal-------*/
+.banner-text h2 {
+	font-size: 80px;
+}
+
+/*-----Color letra principal Banner-------*/
+.banner-text h2 span {
+	color: white;
+}
+/*-----Tamaño letra-------*/
+.banner-text p {
+	font-size: 15px;
+}
+/*-----Fondo de los botones superiores-------*/
+.banner-button {
+	border: rgba(204, 204, 204, 0.18) 1px solid;
+	padding: 12px 35px;
+	color: #ccc;
+	text-decoration: none;
+	display: inline-block;
+	border-radius: 25px 25px 25px 25px;
+	font-size: 15px;
+	margin-top: 50px;
+}
+/*-----Fondo de los botones Banner-------*/
+.banner-button:hover {
+	background-color: #ccc;
+	text-decoration: none;
+	color: #000;
+}
+.mynav {
+	transition: all 0.8s ease-in;
+	background: #222831 none repeat scroll 0% 0%;
+}
+
+
+/*-----Banner 2-------*/
+.banner2 {
+	background-attachment: fixed;
+	background-color: #222831;
+	background-image: url(images/FondoB.jpg);
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #222831;
+	cursor: default;
+	text-align: center;
+	width: 100%;
+	float: left;
+}
+
+
+/*-----Header & Banner Ends-------*/
+
+/*-----Features Starts-------*/
+.features {
+	padding: 100px 0px;
+	float: left;
+	width: 100%;
+	background-color: #222831
+}
+
+
+/*-----Portafolio front-------*/
+
+.Columna-imagenes2{
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+
+#Espacios{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.contenido
+{
+	padding-right:20px;
+	padding-left:20px;
+	background-color: #222831
+}
+
+.fila
+{
+	margin-right:-15px;
+	margin-left:-15px
+}
+
+.portafolio {
+	padding: 50px 0;
+	background-color: #222831;
+	float: left;
+	width: 100%;
+}
+
+#Caja-texto{
+width: 100%;
+height: 100%;
+overflow: hidden;
+position: relative;
+}
+
+.textoSobre-img {
+display:block ;
+position:absolute;
+bottom:0px;
+z-index: 10;
+background:rgba(48,71,94,3);
+width: 100%;
+height: 15%;
+padding: .3em ;
+font-size: 15px;
+color: white;
+}
+
+#Caja-texto:hover .textoSobre-img{
+	height:40% ;
+}
+
+img, .img-portafolio 
+{
+	max-width: 100%;
+	height: auto;
+	object-fit: cover;
+
+}
+.img-portafolio:hover {
+	opacity: 0.3;
+}
+.block {
+	padding-left: 0px !important;
+}
+
+@media (min-width:0px) and (max-width: 600px) {
+	.bg-overlay {
+		padding: 180px 0 120px;
+	}
+.features, .about, .portfolio, .contact, .testimonials {
+	padding: 50px 0px;
+}
+
+}

@@ -1,0 +1,134 @@
+*,*:before, *:after{ 
+    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.clearfix:before,.clearfix:after{
+    content:'';
+    display: block;
+}
+.clearfix:after{
+    clear:both;
+}
+h2{
+    /* border: solid green 1px; */
+    padding: 1% 0;
+    text-align: center;
+}
+h3{
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2% 0 3%;
+    text-align: center;
+}
+#contenedor{
+    /* border: solid rgb(1, 252, 1) 1px; */
+    align-items: flex-start;
+    display: flex;
+    margin-bottom: 7%;
+}
+#contenedor_cc{
+    /* border: solid green 1px; */
+    background-color: white;
+    width: 50%;
+}
+#contenedor_conv{
+    /* border: solid green 1px; */
+    background-color: white;
+    width: 50%;
+}
+
+::placeholder {
+    color: white;
+    font-style: italic;
+    font-weight: normal;
+}
+.credencial{
+    border: solid 2px gray ;
+    border-radius: 34px;
+    color: grey;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin:0 auto 4%;
+    padding: 2% 5%;
+    width: 80%;
+}
+.btn{
+    background-color: #2D4059;
+    border: none;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+.btn:hover{
+    background-color: #374a64;
+    color: #fde9c9;
+}
+.contenedor_credencial{
+    /* border: solid green 1px; */
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+    html{
+        background-color: rgba(247, 0, 0, 0.103);
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    html{
+        background-color: rgba(247, 181, 0, 0.103);
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    html{
+        background-color: rgba(132, 247, 0, 0.103);
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    html{
+        background-color: rgba(0, 16, 247, 0.103);
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    html{
+        background-color: rgba(247, 0, 247, 0.103);
+    }
+}
