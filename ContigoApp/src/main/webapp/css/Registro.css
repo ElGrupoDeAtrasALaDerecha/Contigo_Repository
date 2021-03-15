@@ -67,10 +67,11 @@
     text-decoration: none;
 }
 h1{
-    padding-top: 40px;
-    text-align: center;
+    font-family: 'Open Sans', sans-serif;
     font-size: 20px;
     font-weight: bold;
+    padding-top: 40px;
+    text-align: center;
 }
 .Texto{
     padding-bottom: 9px;
