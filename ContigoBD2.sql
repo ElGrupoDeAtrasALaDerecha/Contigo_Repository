@@ -1,6 +1,6 @@
-drop database if exist contigoBD;
+drop database if exists contigoBD;
 create database contigoBD;
-use contigoBD
+use contigoBD;
 
 CREATE TABLE METODO_PAGO (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
