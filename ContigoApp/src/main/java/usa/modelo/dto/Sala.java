@@ -1,5 +1,5 @@
 package usa.modelo.dto;
-
+import javax.websocket.Session;
 /**
  * 
  */
@@ -8,7 +8,6 @@ public class Sala extends Thread{
     /**
      *  Constructor
      */
-
 
     private int codigo;
 
@@ -21,6 +20,8 @@ public class Sala extends Thread{
      * 
      */
     private PersonalCalificado personaCalificada;
+    
+    private Session sesionEstudiante,sesionPersonal;
 
     public int getCodigo() {
         return codigo;
@@ -44,6 +45,22 @@ public class Sala extends Thread{
 
     public void setPersonaCalificada(PersonalCalificado personaCalificada) {
         this.personaCalificada = personaCalificada;
+    }
+
+    public Session getSesionEstudiante() {
+        return sesionEstudiante;
+    }
+
+    public void setSesionEstudiante(Session sesionEstudiante) {
+        this.sesionEstudiante = sesionEstudiante;
+    }
+
+    public Session getSesionPersonal() {
+        return sesionPersonal;
+    }
+
+    public void setSesionPersonal(Session sesionPersonal) {
+        this.sesionPersonal = sesionPersonal;
     }
 
 

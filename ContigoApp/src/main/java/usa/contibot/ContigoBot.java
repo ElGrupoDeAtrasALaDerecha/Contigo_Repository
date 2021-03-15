@@ -12,6 +12,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import org.json.JSONObject;
 import usa.modelo.dao.EstudianteDao;
+import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
 import usa.modelo.dto.PersonalCalificado;
 import usa.modelo.dto.Sala;
@@ -28,10 +29,14 @@ import static usa.utils.Utils.generarNumeroSala;
 public class ContigoBot {
 
     private LinkedList<Session> sesiones;
+    private LinkedList<Session> personal;
+    private LinkedList<Sala> salas;
 
     public ContigoBot() {
         super();
         this.sesiones = new LinkedList();
+        this.salas=new LinkedList();
+        this.personal = new LinkedList();
     }
 
     @OnOpen
@@ -56,12 +61,13 @@ public class ContigoBot {
                     break;
                 case "primer ingreso":
                     System.out.println("Creando sala");
-                    //EstudianteDao dao=new EstudianteDao();
-                    //Estudiante estudiante = dao.consultarPorToken((String) obj.get("token"));
+                    EstudianteDao dao=new EstudianteDao();
+                    Estudiante estudiante = dao.consultarPorToken((String) obj.get("token"));
                     System.out.println("Sesion  :" +sesion.getId());
                     int numerosala = generarNumeroSala();
                     sala = new Sala();
-                    this.sesiones.add(sesion);
+                    sala.setEstudiante(estudiante);
+                    sala.setSesionEstudiante(sesion);
                     sala.setCodigo(numerosala);
                     objRespuesta.put("tipo", "codigo sala");
                     objRespuesta.put("numero", numerosala);
@@ -70,6 +76,13 @@ public class ContigoBot {
                 case "mensaje":
                     objRespuesta.put("tipo", "respuesta");
                     objRespuesta.put("mensaje", "Hola estoy contigo , ¿Tienes alguna pregunta ?");
+                    sesion.getBasicRemote().sendText(objRespuesta.toString());
+                    break;
+                case "ingreso personal":
+                    PersonalCalificadoDao personalDao=new PersonalCalificadoDao();
+                    PersonalCalificado personal = personalDao.consultarPorToken((String) obj.get("token"));
+                    int numeroSala = obj.getInt("numeroSala");
+                    
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
                     break;
 
@@ -94,4 +107,6 @@ public class ContigoBot {
     public void onError(Session sesion, Throwable t){
         
     }
+    
+    
 }
