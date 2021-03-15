@@ -1,8 +1,4 @@
 
-*{
-    margin: 0 0;
-    padding: 0 0;
-}
 /*Menu*/
 #menu{
     background-color:  #222831;
@@ -30,7 +26,6 @@
     font-family: 'Kaushan Script', cursive;
     font-size: 54px;
 }
-
 #up{
     text-align: center;
     margin: auto;
@@ -42,20 +37,11 @@
     margin-left: auto;
     margin-right: auto;
     }
-    #up li:hover{
-        border-bottom: solid 2px white;
-        border-radius: 5%;
-    }
 /*Datos*/
 #Datos{
     background-color: rgba(255,255,255,1);
     padding-bottom: 45px;
     padding-top: 25px;
-}
-
-#boton{
-    text-align: center;
-    padding-top: 20px;
 }
 #table-datos{
     display: table;
@@ -67,13 +53,12 @@
     text-decoration: none;
 }
 h1{
-    font-family: 'Open Sans', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
     padding-top: 40px;
     text-align: center;
+    font-size: 20px;
+    font-weight: bold;
 }
-.Texto{
+#Texto{
     padding-bottom: 9px;
     padding-top: 9px;
     padding-left: 5%;
@@ -104,18 +89,6 @@ h1{
     background-color: #2d4059;
     color: rgba(255,255,255,1);
     text-align: left;
-}
-#Button2{
-    padding-bottom: 9px;
-    padding-top: 9px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 25px;
-    width: 400px;
-    border: none;
-    background-color: #2d4059;
-    color: rgba(255,255,255,1);
-    text-align: center;
 }
 #Columna-datos2{
     padding-left: 50px;
@@ -149,9 +122,7 @@ h1{
 #contigo2{
     font-family: 'Kaushan Script', cursive;
     font-size: 70px;
-    font-style: normal;
 }
-
 #superior ul{
     list-style:none;
     margin:0;
@@ -169,9 +140,6 @@ h1{
 #superior{
     text-align: center;
     font-weight: lighter;
-}
-#superior ul li a:hover{
-    color: #4f75a7;
 }
 #Inferior{
     text-align: center;
