@@ -1,0 +1,156 @@
+*,*:before, *:after{ 
+    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.clearfix:before,.clearfix:after{
+    content:'';
+    display: table;
+}
+.clearfix:after{
+    clear:both;
+}
+h2{
+    color: white;
+    font-family: 'Kaushan Script';
+    font-size: 60px;
+    padding: 25% 0 3%;
+    text-align: center;
+    font-weight: lighter;
+}
+#contenedor_iI{
+    /* border: solid green 1px; */
+    background-image: url(../img/school.jpg);
+    background-position: center center;
+    background-size: cover;
+    float: left;
+    width: 50%;
+    
+}
+#cont1{
+    background-color: #3434349f;
+    padding-bottom: 10%;
+}
+#contenedor_iE{
+    /* border: solid green 1px; */
+    background-image: url(../img/m1.jpg);
+    background-position: center center;
+    background-size: cover;
+    float: right;
+    width: 50%;
+}
+#cont2{
+    background-color:  #2d4059af;
+    padding-bottom: 10%;
+
+}
+::placeholder {
+     color: white;
+     font-style: italic;
+    font-weight: normal;
+
+}
+.credencial{
+    background-color: #ffffff93;
+    border: none;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 4%;
+    margin:0 auto 4%;
+    padding: 2% 5%;
+    width: 60%;
+}
+.btn_ing{
+    background-color: #2D4059;
+    border: none;
+    border-radius: 18px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    margin: 5% 0 10% 0;
+    padding: 1.5% 6%;
+    -webkit-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+}
+.btn_ing:hover{
+    background-color: #374a64;
+}
+.contenedor_credencial{
+    /* border: solid green 1px; */
+    text-align: center;
+}
+.registro{
+    color: rgb(239, 239, 241);
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+}
+.registro:hover{
+    color: #fde9c9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+    html{
+        background-color: rgba(247, 0, 0, 0.103);
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    html{
+        background-color: rgba(247, 181, 0, 0.103);
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    html{
+        background-color: rgba(132, 247, 0, 0.103);
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    html{
+        background-color: rgba(0, 16, 247, 0.103);
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    html{
+        background-color: rgba(247, 0, 247, 0.103);
+    }
+}
