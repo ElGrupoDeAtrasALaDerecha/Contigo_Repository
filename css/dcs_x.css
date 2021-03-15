@@ -1,0 +1,116 @@
+*,*:before, *:after{ 
+    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.clearfix:before,.clearfix:after{
+    content:'';
+    display: table;
+}
+.clearfix:after{
+    clear:both;
+}
+h2{
+    color: white;
+    font-family: 'Kaushan Script';
+    font-size: 60px;
+    padding: 3% 0 3%;
+    text-align: center;
+}
+#contenedor{
+    /* border: solid rgb(1, 252, 1) 1px; */
+        color: rgb(0, 0, 0);
+}
+#color_bk{
+    background-color:#3434349d;
+    padding-bottom: 15%;
+}
+#contenedor_dsc{
+    /* border: solid green 1px; */
+    float: left;
+    width: 50%;
+    
+}
+#contenedor_esc{
+    float: right;
+    width: 50%;
+}
+p{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    margin: 0 auto;
+    width: 50%;
+}
+#esc{
+    font-family: 'Kaushan Script';
+    font-size: 50px;
+    margin: 0 auto;
+    list-style: none;
+    width: 60%;
+}
+#esc li{
+    margin-bottom: 7%;
+}
+#esc li a:hover{
+    color: #fde9c9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+    html{
+        background-color: rgba(247, 0, 0, 0.103);
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    html{
+        background-color: rgba(247, 181, 0, 0.103);
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    html{
+        background-color: rgba(132, 247, 0, 0.103);
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    html{
+        background-color: rgba(0, 16, 247, 0.103);
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    html{
+        background-color: rgba(247, 0, 247, 0.103);
+    }
+}
