@@ -36,7 +36,10 @@ websocket.onmessage = function (event) {
 		let obj = JSON.parse(event.data);
 		if (obj.tipo === "codigo sala") {
 			numeroSala = obj.numero;
+			pintarRespuesta(obj.mensaje);
 		} else if (obj.tipo === "respuesta") {
+			pintarRespuesta(obj.mensaje);
+		}else if (obj.tipo === "mensajeDePersonal") {
 			pintarRespuesta(obj.mensaje);
 		}
 	}
@@ -68,7 +71,7 @@ function ping() {
  */
 function enviarCredenciales() {
 	let datos = {
-		tipo: "primer ingreso",
+		tipo: "ingreso estudiante",
 		token: getCookie("token")
 	}
 	enviarMensaje(datos);
@@ -99,7 +102,7 @@ function pintarRespuesta(respuesta) {
 function decirleAConti(mensaje) {
 	let datos = {
 		tipo: "mensaje",
-		"numero sala": numeroSala,
+		numeroSala: numeroSala,
 		mensaje: mensaje
 	}
 	enviarMensaje(datos);
@@ -147,7 +150,6 @@ $(document).ready(function () {
 });
 
 $("#btn_enviar_mns").click(function () {
-	console.log(mueveReloj());
 	var mns = $("#Enviarmensaje").val();
 	decirleAConti(mns);
 	let mensaje = `

@@ -20,7 +20,7 @@ public class Persona {
     /**
      * 
      */
-    private String tipoDocumento;
+    private int tipoDocumento;
 
     /**
      * 
@@ -46,7 +46,22 @@ public class Persona {
      * 
      */
     private String fechaDeNacimiento;
+    
+    private String genero;
+    
+    
+    private String token;
 
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    
+    
     public String getDocumento() {
         return documento;
     }
@@ -55,13 +70,15 @@ public class Persona {
         this.documento = documento;
     }
 
-    public String getTipoDocumento() {
+    public int getTipoDocumento() {
         return tipoDocumento;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
+    public void setTipoDocumento(int tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
+
+    
 
     public String getPrimerNombre() {
         return primerNombre;
@@ -101,6 +118,14 @@ public class Persona {
 
     public void setFechaDeNacimiento(String fechaDeNacimiento) {
         this.fechaDeNacimiento = fechaDeNacimiento;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }
