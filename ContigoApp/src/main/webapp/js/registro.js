@@ -1,3 +1,31 @@
+var departamentos;
+var municipios;
+function dep(){
+    $.ajax({
+        url: "Departamento",
+        type: "GET",
+        dataType: "json",
+        success: function(result, textStatus, request) {
+            console.log(result);
+            if (result != "error") {
+                console.log(result);
+                departamentos = result.Departamentos;
+            } else {
+                console.log("error");
+            }
+
+        },
+        complete: function(result) {
+        
+
+        },
+        error: function(result) {
+
+        }
+
+    });
+}
+
 function resgistrar_institucion(){
     departamento =$("#departamento").val();
     municipio =$("#municipio").val();

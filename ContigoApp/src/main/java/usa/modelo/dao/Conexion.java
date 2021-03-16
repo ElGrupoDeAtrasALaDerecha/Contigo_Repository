@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    String bd = "mybici";
+    String bd = "contigoBD";
     String user= "root";
-    String password="1234";
+    String password="123456";
     String host="localhost";
     String port="3306";
     private final String url = "jdbc:mysql://"+host+":"+port+"/"+bd+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";
