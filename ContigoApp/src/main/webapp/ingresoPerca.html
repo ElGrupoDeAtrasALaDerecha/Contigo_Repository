@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
+    <link rel="stylesheet" href="css/perca.css">
+    <link rel="stylesheet" href="css/navfooter.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/template.js"></script>
+    <title>Contigo</title>
+</head>
+<body>
+    <section id="contenedor">
+        <div id="box1">
+            <h2>Equipo de Trabajo</h2>
+            <div class="contenedor_credencial">
+                <input type="text" class="credencial" id="Texto" placeholder="Corrreo electrónico" name="usr_perca">
+            </div>
+            <div class="contenedor_credencial">
+                <input type="text" class="credencial" id="Texto" placeholder="Contraseña" name="password">
+            </div>
+            <div class="contenedor_credencial">
+                <input type="button" class="btn_ing" id="ing_perca" value="Ingresar" name="ingresar">
+            </div>
+            <div class="contenedor_credencial">
+                <a class="registro" href="registroPerCa.html">Registrate</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+<script type="text/javascript">
+    document.getElementById("ing_perca").onclick = function () {
+        location.href = "admin_perca.html";
+    };
+</script> 

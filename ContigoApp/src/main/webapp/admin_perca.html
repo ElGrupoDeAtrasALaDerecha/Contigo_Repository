@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
+    <link rel="stylesheet" href="css/admin_inst.css">
+    <link rel="stylesheet" href="css/navfooter.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/template.js"></script>
+    <title>Contigo</title>
+</head>
+<body>
+    <h2>Administración de Herramientas</h2>
+    <div id="contenedor">
+        <section id="contenedor_cc">
+            <h3>Gestion de Conversatorios</h3>    
+            <div class="contenedor_credencial">
+                <input type="button" class="btn credencial" id="crear_cnv" value="Crear conversatorio">
+            </div>
+            <div class="contenedor_credencial">
+                <input type="button" class=" btn credencial" id="list_cnv" value="Listar conversatorios">
+            </div>
+        </section>
+        <section id="contenedor_conv">
+            <h3>Solicitudes Contibot</h3>
+            <div class="contenedor_credencial">
+                <input type="button" class="btn credencial" id="see_chat" value="Atender chat">
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    document.getElementById("crear_cnv").onclick = function () {
+        location.href = "crear_cnv.html";
+    };
+</script> 

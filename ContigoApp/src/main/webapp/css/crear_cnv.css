@@ -1,0 +1,87 @@
+*,*:before, *:after{ 
+    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+h2{
+    /* border: solid green 1px; */
+    padding: 1% 0;
+    text-align: center;
+}
+#contenedor{
+    /* border: solid rgb(252, 1, 1) 1px; */
+    align-items: flex-start;
+    display: flex;
+    padding: 2% 0;
+}
+#contenedor_cc{
+    /* border: solid green 1px; */
+    background-color: white;
+    width: 50%;
+}
+#contenedor_conv{
+    /* border: solid rgb(153, 69, 146) 1px; */
+    background-color: white;
+    padding-right:5%;
+    width: 50%;
+}
+
+::placeholder {
+    color: gray;
+    font-style: italic;
+    font-weight: normal;
+}
+.credencial{
+    border: solid 2px gray ;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin:0 auto 4%;
+    padding: 2% 5%;
+    width: 80%;
+}
+.btn{
+    background-color: #2D4059;
+    border: none;
+    border-radius: 32px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    margin-bottom: 5%;
+    padding: 1% 5%;
+}
+.btn:hover{
+    background-color: #374a64;
+    color: #fde9c9;
+}
+.contenedor_credencial{
+    /* border: solid green 1px; */
+    text-align: center;
+}
+#cursos{
+    /* border: solid rgb(25, 80, 231) 1px; */
+    margin: 0 auto;
+    width: 70%;
+    text-align: left;
+}
+#f1,#f2{
+    /* border: solid rgb(25, 231, 94) 1px; */
+    float: left;
+    width: 50%;
+}
+#f2{
+    float: right;
+}
+.checkbox{
+    /* border: solid rgb(231, 25, 25) 1px; */
+    padding-bottom:5%; 
+}
+.bq{
+    border: solid 2.5px #2D4059;
+}

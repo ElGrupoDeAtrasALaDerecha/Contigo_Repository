@@ -38,6 +38,9 @@ $(document).ready(function () {
                 <div>
                     <span><a href="#">FAQS</a></span>
                 </div>
+                <div>
+                    <span><a href="ingresoPerca.html">Equipo</a></span>
+                </div>
             </div>
         </td>
         <td id="Columna-footer">
@@ -68,7 +71,7 @@ $(document).ready(function () {
 
   const menuSuperior = `<div id="menu">
 <ul>
-    <li><a id="contigo-1" href="#">Contigo</a></li>
+    <li><a id="contigo-1" href="index.html">Contigo</a></li>
     <div id="up">
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Contacto</a></li>
