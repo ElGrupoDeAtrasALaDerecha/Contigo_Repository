@@ -1,5 +1,6 @@
 package usa.contibot;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -10,10 +11,12 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
+import usa.modelo.dto.Mensaje;
 import usa.modelo.dto.PersonalCalificado;
 import usa.modelo.dto.Sala;
 import static usa.utils.Utils.generarNumeroSala;
@@ -53,6 +56,7 @@ public class ContigoBot {
         String tipo = (String) obj.get("tipo");
         JSONObject objRespuesta = new JSONObject();
         Sala sala = null;
+        int numeroSala;
         String objeto = "";
         try {
             switch (tipo) {
@@ -75,23 +79,30 @@ public class ContigoBot {
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
                     break;
                 case "mensaje":
-                    objRespuesta.put("tipo", "respuesta");
+                    objRespuesta.put("tipo", "respuestaConti");
                     objRespuesta.put("mensaje", "Hola estoy contigo , ¿Tienes alguna pregunta ?");
-                    int numero=obj.getInt("numero sala");
-                    sala =buscarSalas(numero);
+                    numeroSala = obj.getInt("numerosala");
+                    sala = buscarSalas(numeroSala);
                     sala.recibirMensajeEstudiante(obj, objRespuesta);
                     break;
                 case "ingreso personal":
                     PersonalCalificadoDao personalDao = new PersonalCalificadoDao();
                     PersonalCalificado personal = personalDao.consultarPorToken((String) obj.get("token"));
-                    int numeroSala = obj.getInt("numeroSala");
-                    
+                    numeroSala = obj.getInt("numeroSala");
+                    sala.setPersonaCalificada(personal);
+                    sala.setSesionPersonal(sesion);
+                    objRespuesta.put("tipo", "salas");
+                    objRespuesta.put("sala", listarSalas());
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
                     break;
-
+                case "mensaje personal" :
+                    numeroSala =obj.getInt("numero");
+                    sala=buscarSalas(numeroSala);
+                    sala.recibirMensajePersonal(obj, objRespuesta);
+                    break;
+                    
             }
             System.out.println(mensaje);
-            System.out.println("ajá");
         } catch (IOException ex) {
             Logger.getLogger(ContigoBot.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -113,11 +124,27 @@ public class ContigoBot {
 
     public Sala buscarSalas(int numeroSala) {
         for (int i = 0; i < salas.size(); i++) {
-            Sala sala=salas.get(i);
-            if (sala.getCodigo()==numeroSala) {
+            Sala sala = salas.get(i);
+            if (sala.getCodigo() == numeroSala) {
                 return sala;
             }
         }
         return null;
+    }
+
+    public JSONArray listarSalas() {
+        JSONArray array = new JSONArray();
+        for (Sala sala : salas) {
+            JSONObject objSalas = new JSONObject();
+            objSalas.put("numero sala", sala.getCodigo());
+            objSalas.put("estudiante", sala.getEstudiante().getPrimerNombre() + " " + sala.getEstudiante().getPrimerApellido());
+            JSONArray jsonmensajes = new JSONArray();
+            for (Mensaje mensaje : sala.getMensajes()) {
+                Gson gson = new Gson();
+                array.put(new JSONObject(gson.toJson(mensaje, Mensaje.class)));
+            }
+              objSalas.put("mensajes",jsonmensajes);
+        }
+        return array;
     }
 }

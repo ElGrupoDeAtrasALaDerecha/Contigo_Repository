@@ -94,11 +94,21 @@ public class Sala extends Thread {
             objRespuesta.put("tipo", "respuesta");
             objRespuesta.put("mensaje", "Hola estoy contigo , ¿Tienes alguna pregunta ?");
             sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
+        } else {
+            objRespuesta.put("tipo", "mensajeEstudiante");
+            objRespuesta.put("mensaje", mensaje);
+            sesionPersonal.getBasicRemote().sendText(objRespuesta.toString());
         }
     }
 
-    public void enviarMensajePersonal(JSONObject obj) {
-        
+    public void recibirMensajePersonal(JSONObject obj, JSONObject objRespuesta) throws IOException {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setEmisor(personaCalificada.getPrimerNombre() + " " + personaCalificada.getPrimerApellido());
+        mensaje.setMensaje(obj.getString("mensaje"));
+        mensajes.add(mensaje);
+        objRespuesta.put("tipo", "mensajeDePersonal");
+        objRespuesta.put("mensaje", mensaje);
+        sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
     }
 
 }
