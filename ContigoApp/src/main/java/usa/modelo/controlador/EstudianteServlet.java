@@ -91,6 +91,7 @@ public class EstudianteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         String mensaje = Utils.readParams(request);
         System.out.println(mensaje);
+        response.setContentType("application/json;charset=UTF-8");
         Gson gson = new Gson();
         Estudiante estudiante= (Estudiante)gson.fromJson(mensaje, Estudiante.class);
         EstudianteDao dao = new EstudianteDao();
