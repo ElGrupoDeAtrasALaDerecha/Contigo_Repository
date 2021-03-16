@@ -1,27 +1,37 @@
 package usa.modelo.dto;
+
+import java.io.IOException;
+import java.util.LinkedList;
 import javax.websocket.Session;
+import org.json.JSONObject;
+
 /**
- * 
+ *
  */
-public class Sala extends Thread{
+public class Sala extends Thread {
 
     /**
-     *  Constructor
+     * Constructor
      */
-
     private int codigo;
 
     /**
-     * 
+     *
      */
     private Estudiante estudiante;
 
     /**
-     * 
+     *
      */
     private PersonalCalificado personaCalificada;
-    
-    private Session sesionEstudiante,sesionPersonal;
+
+    private Session sesionEstudiante, sesionPersonal;
+
+    private LinkedList<Mensaje> mensajes;
+
+    public Sala() {
+        this.mensajes = new LinkedList();
+    }
 
     public int getCodigo() {
         return codigo;
@@ -63,7 +73,32 @@ public class Sala extends Thread{
         this.sesionPersonal = sesionPersonal;
     }
 
+    public LinkedList<Mensaje> getMensajes() {
+        return mensajes;
+    }
 
-    
+    public void setMensajes(LinkedList<Mensaje> mensajes) {
+        this.mensajes = mensajes;
+    }
+
+    public void recibirMensajeEstudiante(JSONObject objRecibido, JSONObject objRespuesta) throws IOException {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setEmisor(estudiante.getPrimerNombre() + " " + estudiante.getPrimerApellido());
+        mensaje.setMensaje(objRecibido.getString("mensaje"));
+        mensajes.add(mensaje);
+        if (sesionPersonal == null) {
+            Mensaje mensaje2 = new Mensaje();
+            mensaje.setEmisor("Conti");
+            mensaje.setMensaje(objRecibido.getString("mensaje"));
+            mensajes.add(mensaje);
+            objRespuesta.put("tipo", "respuesta");
+            objRespuesta.put("mensaje", "Hola estoy contigo , ¿Tienes alguna pregunta ?");
+            sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
+        }
+    }
+
+    public void enviarMensajePersonal(JSONObject obj) {
+        
+    }
 
 }

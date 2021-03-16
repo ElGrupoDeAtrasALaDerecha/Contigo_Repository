@@ -35,7 +35,7 @@ public class ContigoBot {
     public ContigoBot() {
         super();
         this.sesiones = new LinkedList();
-        this.salas=new LinkedList();
+        this.salas = new LinkedList();
         this.personal = new LinkedList();
     }
 
@@ -59,11 +59,11 @@ public class ContigoBot {
                 case "ping":
                     sesion.getBasicRemote().sendText("pong");
                     break;
-                case "primer ingreso":
+                case "ingreso estudiante":
                     System.out.println("Creando sala");
-                    EstudianteDao dao=new EstudianteDao();
+                    EstudianteDao dao = new EstudianteDao();
                     Estudiante estudiante = dao.consultarPorToken((String) obj.get("token"));
-                    System.out.println("Sesion  :" +sesion.getId());
+                    System.out.println("Sesion  :" + sesion.getId());
                     int numerosala = generarNumeroSala();
                     sala = new Sala();
                     sala.setEstudiante(estudiante);
@@ -71,15 +71,18 @@ public class ContigoBot {
                     sala.setCodigo(numerosala);
                     objRespuesta.put("tipo", "codigo sala");
                     objRespuesta.put("numero", numerosala);
+                    salas.add(sala);
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
                     break;
                 case "mensaje":
                     objRespuesta.put("tipo", "respuesta");
                     objRespuesta.put("mensaje", "Hola estoy contigo , ¿Tienes alguna pregunta ?");
-                    sesion.getBasicRemote().sendText(objRespuesta.toString());
+                    int numero=obj.getInt("numero sala");
+                    sala =buscarSalas(numero);
+                    sala.recibirMensajeEstudiante(obj, objRespuesta);
                     break;
                 case "ingreso personal":
-                    PersonalCalificadoDao personalDao=new PersonalCalificadoDao();
+                    PersonalCalificadoDao personalDao = new PersonalCalificadoDao();
                     PersonalCalificado personal = personalDao.consultarPorToken((String) obj.get("token"));
                     int numeroSala = obj.getInt("numeroSala");
                     
@@ -101,13 +104,20 @@ public class ContigoBot {
             this.sesiones.remove();
         }
 
-        
     }
-    
+
     @OnError
-    public void onError(Session sesion, Throwable t){
-        
+    public void onError(Session sesion, Throwable t) {
+
     }
-    
-    
+
+    public Sala buscarSalas(int numeroSala) {
+        for (int i = 0; i < salas.size(); i++) {
+            Sala sala=salas.get(i);
+            if (sala.getCodigo()==numeroSala) {
+                return sala;
+            }
+        }
+        return null;
+    }
 }
