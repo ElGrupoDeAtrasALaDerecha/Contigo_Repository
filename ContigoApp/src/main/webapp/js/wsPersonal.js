@@ -1,14 +1,12 @@
 /**
- * Script de bot conti front-end
+ * Script de bot conti front-end (vista de personal calificado)
  */
 
 
 
-/*$("#btnPanico").click(function(){
-    window.location.assign("chat2.html");
-});*/
 
 var numeroSala;
+var listaSalas;
 
 /**
 * Promesa
@@ -36,8 +34,10 @@ websocket.onmessage = function (event) {
 		let obj = JSON.parse(event.data);
 		if (obj.tipo === "codigo sala") {
 			numeroSala = obj.numero;
-		} else if (obj.tipo === "respuesta") {
 			pintarRespuesta(obj.mensaje);
+		} else if (obj.tipo === "salas") {
+			listaSalas=obj.salas;
+			pintarSalas();
 		}
 	}
 }
@@ -68,7 +68,7 @@ function ping() {
  */
 function enviarCredenciales() {
 	let datos = {
-		tipo: "primer ingreso",
+		tipo: "ingreso personal",
 		token: getCookie("token")
 	}
 	enviarMensaje(datos);
@@ -96,7 +96,7 @@ function pintarRespuesta(respuesta) {
  * Mensaje al bot conti
  * @param {string} mensaje 
  */
-function decirleAConti(mensaje) {
+function decirleAEstudiante(mensaje) {
 	let datos = {
 		tipo: "mensaje",
 		"numero sala": numeroSala,
@@ -105,6 +105,13 @@ function decirleAConti(mensaje) {
 	enviarMensaje(datos);
 }
 
+
+function pintarSalas(){
+	console.log(listaSalas);
+	for (let i = 0; i < listaSalas.length; i++) {
+		let sala=listaSalas[i];
+	}
+}
 
 /**
  * Función del Reloj 
@@ -147,7 +154,6 @@ $(document).ready(function () {
 });
 
 $("#btn_enviar_mns").click(function () {
-	console.log(mueveReloj());
 	var mns = $("#Enviarmensaje").val();
 	decirleAConti(mns);
 	let mensaje = `

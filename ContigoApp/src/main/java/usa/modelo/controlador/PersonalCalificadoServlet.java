@@ -38,6 +38,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
         PersonalCalificadoDao dao = new PersonalCalificadoDao();
         LinkedList <PersonalCalificado>personales=dao.listarTodos();
         Gson gson = new Gson();
@@ -62,6 +63,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         Gson gson = new Gson();
         PersonalCalificado personal = (PersonalCalificado) gson.fromJson(parametros, PersonalCalificado.class);
