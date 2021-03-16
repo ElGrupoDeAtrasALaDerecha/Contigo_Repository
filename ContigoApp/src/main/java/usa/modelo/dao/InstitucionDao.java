@@ -21,8 +21,10 @@ import usa.modelo.dto.Institucion;
 public class InstitucionDao implements IDao<Institucion> {
 
     PreparedStatement pat;
+    
     @Override
     public boolean crear(Institucion t) {
+        /*
         try {
             String sql = "insert into  institucion (Direccion_idDireccion,nombre) values (?,?)";
             Connection conn = Conexion.tomarConexion();
@@ -36,7 +38,11 @@ public class InstitucionDao implements IDao<Institucion> {
             Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+        
+*/
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 
     @Override
     public Institucion consultar(String id) {
