@@ -98,8 +98,8 @@ function pintarRespuesta(respuesta) {
  */
 function decirleAEstudiante(mensaje) {
 	let datos = {
-		tipo: "mensaje",
-		"numero sala": numeroSala,
+		tipo: "mensaje personal",
+		numeroSala: numeroSala,
 		mensaje: mensaje
 	}
 	enviarMensaje(datos);

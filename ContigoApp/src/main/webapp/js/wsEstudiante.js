@@ -39,6 +39,8 @@ websocket.onmessage = function (event) {
 			pintarRespuesta(obj.mensaje);
 		} else if (obj.tipo === "respuesta") {
 			pintarRespuesta(obj.mensaje);
+		}else if (obj.tipo === "mensajeDePersonal") {
+			pintarRespuesta(obj.mensaje);
 		}
 	}
 }
@@ -100,7 +102,7 @@ function pintarRespuesta(respuesta) {
 function decirleAConti(mensaje) {
 	let datos = {
 		tipo: "mensaje",
-		"numero sala": numeroSala,
+		numeroSala: numeroSala,
 		mensaje: mensaje
 	}
 	enviarMensaje(datos);
