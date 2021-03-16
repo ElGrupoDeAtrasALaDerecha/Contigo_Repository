@@ -27,13 +27,13 @@ public class InstitucionDao implements IDao<Institucion> {
             String sql = "insert into  institucion (Direccion_idDireccion,nombre) values (?,?)";
             Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
-            pat.setInt(1, proveedor.getDireccion().getIdDireccion());
-            pat.setString(2, proveedor.getNombre());
+            //pat.setInt(1, proveedor.getDireccion().getIdDireccion());
+            //pat.setString(2, proveedor.getNombre());
             boolean insert = pat.execute();
             pat.close();
             return insert;
         } catch (SQLException ex) {
-            Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(SedeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
