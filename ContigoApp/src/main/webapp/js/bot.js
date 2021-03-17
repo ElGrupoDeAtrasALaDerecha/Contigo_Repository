@@ -153,7 +153,6 @@ $("#btn_enviar_mns").click(function () {
 	let mensaje = `
 	<div id="mns_tiempo_usuario" class="mensaje-amigo">
 	<div class="contenido">${mns} </div>
-    <div class="flecha-derecha"></div>
     <i class="bi bi-person-fill"></i>
     <div id="tiempo-msn-usuario" class="fecha">${mueveReloj()}</div>
 	</div>`

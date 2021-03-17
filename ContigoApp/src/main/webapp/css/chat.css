@@ -1,12 +1,10 @@
 /*-----fondo del chat-------*/
 #chatCompleto{
-    margin-left: 400px;
-    padding-bottom:0px;
-    background-image: linear-gradient(45000deg, #edf3f5, #626fe6);
+    margin-left: 40%;
+    background-image: linear-gradient(45000deg, #cde5ec, #aed2d3);
     opacity: 100%;
-    width:490px;
+    width:30%;
     border:1px solid #070707; 
-    margin-top: 0cm;
     position: relative;
 }
 body {
@@ -15,13 +13,15 @@ body {
 }
 #conti{
     position: relative;
-    margin-top: 0px;
     width: 10px;
     height: 10px;
 }
 #logo{
-    width: 420px;
-    height: 500px;
+    margin-top: 2000%;
+    margin-left: 3000%;
+    position: static;
+    width: 5500%;
+    height: 5500%;
 }
 #titulo{
     width: 100%;
@@ -40,17 +40,20 @@ h1 {
   }
 /*-----fondo general-------*/
 .diagonal-box {
-	background-image: linear-gradient(45000deg, #180a27, #08010f);
+	background-image: linear-gradient(45000deg, #ffffff, #ffffff);
 	transform: skewY(0deg);
   opacity: 100%;
     height: 100%;
     width: 100%;
 }
 #titulo_vista{
+    font-family: 'Kaushan Script', cursive;
+    font-size: 350%;
     position: static;
-    margin-left: 560px;
-    margin-bottom: 20px;
-    margin-top: 0px;
+    margin-left: 50%;
+    margin-bottom: 3%;
+    color: #070707;
+    
 }
 
 /*chat y mensajes*/
@@ -58,11 +61,10 @@ h1 {
   #chat {
     text-align:left;
     margin:0 auto;
-    margin-bottom:2px;
-    padding:25px;
+    padding:2%;
     border:1px solid #111213;
-    width: 11px;
-    background-color: #eee;
+    width: 20%;
+    background-color: rgb(255, 255, 255);
 }
 /*
 #mensaje{
@@ -76,28 +78,27 @@ h1 {
     border: solid 1px #232053;
     outline: none;
     padding: 10px;
-    width: 310px;
+    width: 75%;
 }
 /*boton del mensaje*/
 #mensaje button{
-    height: 35px;
-    font-size: 16px;
-    width: 50px;
+    height: 35%;
+    font-size: 100%;
+    width: 15%;
 }/*tamaño chatmns*/
 #chat {
-    height: 400px;
-    width: 430px;
+    width: 90%;
     overflow: hidden;
     overflow-y: scroll 
 }
 #mensajes{
     height: 400px;
-    width: 400px;
+    width: 400%;
     overflow-y: scroll 
 }
 
 #chat #mensajes .mensaje-autor{
-    margin-bottom: 5px;
+    margin-bottom: 2%;
 }
 #chat #mensajes .mensaje-autor img, #chat #mensajes .mensaje-amigo img{
     display: inline-block;
@@ -116,11 +117,11 @@ h1 {
 #chat #mensajes .mensaje-autor .fecha{
     color: #777;
     font-style: italic;
-    font-size: 13px;
-    text-align: right;
-    margin-right: 35px;
-    margin-top: 10px;
+    font-size: 90%;
+    text-align: left;
+    margin-top: 1%;
 }
+/*
 #chat #mensajes .mensaje-autor .flecha-izquierda{
     display: inline-block;
     margin-right: -6px;
@@ -130,20 +131,20 @@ h1 {
     border-top: 0px solid transparent;
     border-bottom: 15px solid transparent;
     border-right: 15px solid white;
-}
+}*/
 #chat #mensajes .mensaje-amigo{
-    margin-bottom: 50px;
+    margin-bottom: 2%;
 }
 #chat #mensajes .mensaje-amigo .contenido{
-    background-color: #3990BF;
-    border-radius: 5px;
+    background-color: #273238;
+    border-radius: 5%;
     color: white;
     display: inline-block;
-    font-size: 13px;
-    padding: 15px;
+    font-size: 100%;
+    padding: 1%;
     vertical-align: top;
-    width: 280px;
-}
+    width: 22%;
+}/*
 #chat #mensajes .mensaje-amigo .flecha-derecha{
     display: inline-block;
     margin-left: -6px;
@@ -153,15 +154,15 @@ h1 {
     border-top: 0px solid transparent;
     border-bottom: 15px solid transparent;
     border-left: 15px solid #3990BF;
-}
+}*/
 #chat #mensajes .mensaje-amigo img, #chat #mensajes .mensaje-autor img{
-    border-radius: 5px;
+    border-radius: 5%;
 }
 #chat #mensajes .mensaje-amigo .fecha{
     color: #777;
     font-style: italic;
-    font-size: 13px;
+    font-size: 90%;
     text-align: left;
-    margin-top: 10px;
+    margin-top: 1%;
 }
 
