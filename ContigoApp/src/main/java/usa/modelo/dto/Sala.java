@@ -81,7 +81,11 @@ public class Sala extends Thread {
         this.mensajes = mensajes;
     }
 
-    public void recibirMensajeEstudiante(JSONObject objRecibido, JSONObject objRespuesta) throws IOException {
+    public void recibirMensajeEstudiante(JSONObject objRecibido, JSONObject objRespuesta,Session sesion) throws IOException {
+        if(sesion.getId().equals(sesionEstudiante.getId())){
+            System.out.println("Son iguales :D");
+        }
+        
         Mensaje mensaje = new Mensaje();
         mensaje.setEmisor(estudiante.getPrimerNombre() + " " + estudiante.getPrimerApellido());
         mensaje.setMensaje(objRecibido.getString("mensaje"));
@@ -92,7 +96,7 @@ public class Sala extends Thread {
             mensaje.setMensaje(objRecibido.getString("mensaje"));
             mensajes.add(mensaje);
             objRespuesta.put("tipo", "respuesta");
-            objRespuesta.put("mensaje", "Hola estoy contigo , ¿Tienes alguna pregunta ?");
+            objRespuesta.put("mensaje", "Déjame hablo con mis amigos para que vengan a ayudarte, ¿vale?");
             sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
         } else {
             objRespuesta.put("tipo", "mensajeEstudiante");
