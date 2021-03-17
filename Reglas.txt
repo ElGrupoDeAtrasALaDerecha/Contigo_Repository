@@ -1,0 +1,69 @@
+Datos estudiante
+
+{
+    tipo: ingreso estudiante,
+    token: ddghjjkjgf
+},
+
+
+
+Conversación:
+
+{
+    tipo: mensaje,
+    numero sala: 3,
+    mensaje: mensaje
+
+},
+
+
+Ingreso Personal
+
+{
+    tipo : ingreso personal,
+    token: ewrwerwrw
+
+}
+
+Mensaje Personal 
+
+{
+
+   tipo : mensaje personal,
+   numero sala: 3,
+   mensaje : mensaje
+}
+
+
+================================================
+Respuestas:
+{
+    tipo: codigo sala,
+    numero: 3 ,
+    mensaje : saludo
+}
+
+
+Respuesta de "mensaje:
+{
+    tipo: respuestaConti,
+    mensaje: mensaje
+}
+
+Respuesta conexion personal :
+{
+    tipo: salas ,
+    salas : [
+        {numero sala: numerosala,
+        estudiante : estudiante,
+	mensajes :mensaje }
+
+]}
+
+Mensaje Estudiante a Personal
+
+{
+
+	tipo: mensajeEstudiante,
+	mensaje:mensaje
+}
