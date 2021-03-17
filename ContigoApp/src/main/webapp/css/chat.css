@@ -50,8 +50,7 @@ h1 {
   /*-----mensajes-------*/
   #chat {
     text-align:left;
-    margin-left: 0%;
-    margin-right: 0%;
+    margin:0 auto;
     padding:0%;
     border:1px solid #111213;
     width: 100%;
