@@ -34,6 +34,7 @@ Mensaje Personal
    mensaje : mensaje
 }
 
+
 ================================================
 Respuestas:
 {
@@ -43,7 +44,7 @@ Respuestas:
 }
 
 
-Respuesta de mensaje:
+Respuesta de "mensaje:
 {
     tipo: respuestaConti,
     mensaje: mensaje
@@ -59,3 +60,10 @@ Respuesta conexion personal :
 
 ]}
 
+Mensaje Estudiante a Personal
+
+{
+
+	tipo: mensajeEstudiante,
+	mensaje:mensaje
+}
