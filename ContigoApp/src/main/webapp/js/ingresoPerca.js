@@ -7,14 +7,17 @@ $("#Ingresar").click(function(e){
             correo: email,
             contraseña: pass
         };
-        loginUsuario(obj)
+        loginPersonalCalificado(obj);
     }else{
         alert("Formato de correo inválido") ;
     }
 });
 
-
-function loginUsuario(obj){
+/**
+ * Función login
+ * @param {*} obj 
+ */
+function loginPersonalCalificado(obj){
     $.ajax({
         method: 'POST',
         url: 'LoginPersonalCalificado',
