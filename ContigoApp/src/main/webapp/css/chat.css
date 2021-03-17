@@ -1,35 +1,9 @@
-/*-----fondo del chat-------*/
-#chatCompleto{
-    margin-left: 40%;
-    opacity: 100%;
-    width:30%;
-    border:1px solid #070707; 
-    position: relative;
-}
 body {
 	font-family: 'KaushanScript-Regular';
 	src: url('letra.ttf');
+    
 }
-#conti{
-    position: relative;
-    width: 10px;
-    height: 10px;
-}
-#logo{
-    margin-top: 2000%;
-    margin-left: 3000%;
-    position: static;
-    width: 5500%;
-    height: 5500%;
-}
-#titulo{
-    width: 100%;
-    height: 5%;
-    background-color: rgb(0, 0, 0);
-    opacity: 100%;
-    border:1px solid #575353; 
-    text-align: center;
-}
+
 h1 {
     color: #ffffff;
     text-align: center;
@@ -37,64 +11,70 @@ h1 {
     font-size: 150%;
     font-style: oblique;
   }
-/*-----fondo general-------*/
-.diagonal-box {
-	background-image: linear-gradient(45000deg, #ffffff, #ffffff);
-	transform: skewY(0deg);
-  opacity: 100%;
-    height: 100%;
-    width: 100%;
+#conti{
+    margin-top: 2%;
 }
-
+#logo{
+    width: 25%;
+    height: 45%;
+    margin-top: 15%;
+    margin-left: 25%;
+    position: absolute;
+}
+#pin{
+    width: 100%;
+    height: 100%;
+}
 /*chat y mensajes*/
+ #chatCompleto{
+    margin-left: 40%;
+    margin-top: 5%;
+    opacity: 100%;
+    width:30%;
+    border:1px solid #000000; 
+    
+}
+#titulo{
+    width: 100%;
+    height: 5%;
+    background-color: #222831;
+    opacity: 100%;
+    border:1px solid #575353; 
+}
   /*-----mensajes-------*/
   #chat {
+    overflow: hidden;
     text-align:left;
-    margin:0 auto;
-    padding:0%;
-    border:1px solid #111213;
+    border:1px solid #000000;
     width: 100%;
     background-color: rgb(255, 255, 255);
 }
-/*
 #mensaje{
-    background-color: #a4c4a3;
-    margin: 0 auto;
-    padding: 10px;
-    width: 490px;
-}*/
-
+    background-color: #ebebeb;
+    padding: 1%;
+    width: 100%;
+}
 #mensaje input{
     border: solid 1px #232053;
     outline: none;
     padding: 10px;
-    margin-left: 5%;
-    width: 75%;
+    width: 85%;
 }
 /*boton del mensaje*/
 #mensaje button{
-    height: 35%;
+    height: 38%;
     font-size: 100%;
-    width: 15%;
-}/*tamaño chatmns*/
-#chat {
-    width: 90%;
-    overflow: hidden;
-    overflow-y: scroll 
+    width: 10%;
 }
 #mensajes{
     height: 400px;
     width: 400%;
     overflow-y: scroll 
 }
-
 #chat #mensajes .mensaje-autor{
     margin-bottom: 2%;
 }
-#chat #mensajes .mensaje-autor img, #chat #mensajes .mensaje-amigo img{
-    display: inline-block;
-    vertical-align: top;
-}
+/*
 #chat #mensajes .mensaje-autor .contenido{
     background-color: white;
     border-radius: 5px;
@@ -111,41 +91,23 @@ h1 {
     font-size: 90%;
     text-align: left;
     margin-top: 1%;
-}
-/*
-#chat #mensajes .mensaje-autor .flecha-izquierda{
-    display: inline-block;
-    margin-right: -6px;
-    margin-top: 10px;
-    width: 0; 
-    height: 0; 
-    border-top: 0px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-right: 15px solid white;
 }*/
+
 #chat #mensajes .mensaje-amigo{
-    margin-bottom: 2%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    margin-left: 1%;
 }
 #chat #mensajes .mensaje-amigo .contenido{
     background-color: #273238;
-    border-radius: 5%;
+    border-radius: 2%;
     color: white;
     display: inline-block;
     font-size: 100%;
     padding: 1%;
     vertical-align: top;
-    width: 22%;
-}/*
-#chat #mensajes .mensaje-amigo .flecha-derecha{
-    display: inline-block;
-    margin-left: -6px;
-    margin-top: 10px;
-    width: 0; 
-    height: 0; 
-    border-top: 0px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-left: 15px solid #3990BF;
-}*/
+    width: 23%;
+}
 #chat #mensajes .mensaje-amigo img, #chat #mensajes .mensaje-autor img{
     border-radius: 5%;
 }
@@ -154,6 +116,6 @@ h1 {
     font-style: italic;
     font-size: 90%;
     text-align: left;
-    margin-top: 1%;
+    margin-top: 0%;
 }
 

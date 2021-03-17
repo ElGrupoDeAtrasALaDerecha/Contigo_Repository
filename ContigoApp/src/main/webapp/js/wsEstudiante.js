@@ -151,7 +151,8 @@ $(document).ready(function () {
 
 $("#btn_enviar_mns").click(function () {
 	var mns = $("#Enviarmensaje").val();
-	decirleAConti(mns);
+	if(mns!==""){
+		decirleAConti(mns);
 	let mensaje = `
 	<div id="mns_tiempo_usuario" class="mensaje-amigo">
 	<div class="contenido">${mns} </div>
@@ -159,6 +160,8 @@ $("#btn_enviar_mns").click(function () {
     <div id="tiempo-msn-usuario" class="fecha">${mueveReloj()}</div>
 	</div>`
 	$("#mensajes").append(mensaje);
+	}
+	
 });
 
 
