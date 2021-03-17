@@ -9,10 +9,9 @@ function ListarConver() {
     };
 
     $.ajax({
-        url: "Conversatorio",
+        url: "Conversatorio?id=10",
         type: "GET",
         dataType: "json",
-        data: JSON.stringify(informacion),
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {
         },
