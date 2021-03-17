@@ -13,6 +13,7 @@ create procedure insertarPersonalCalificado (
   _genero VARCHAR(15),
   _correo VARCHAR(80)
 )
+
 begin
 insert into PERSONA(documento,TIPO_DOCUMENTO_id,primerNombre,segundoNombre,primerApellido,segundoApellido ,token ,fechaNacimiento ,contraseña,genero)
 values(_documento,_TIPO_DOCUMENTO_ID,_primerNombre,_segundoNombre,_primerApellido,_segundoApellido ,_token ,_fechaNacimiento ,sha(_contraseña),_genero);
