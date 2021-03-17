@@ -16,7 +16,12 @@ import java.util.logging.Logger;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
-
+/**
+ * Clase de acceso a datos del personal calificado
+ * @author Valeria Bermúdez y Santiago Pérez
+ * @version 1.0.0
+ * @since 2021-03-16
+ */
 public class PersonalCalificadoDao implements IPersonalCalificadoDao {
 
     @Override

@@ -65,12 +65,13 @@ public class LoginEstudianteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         JSONObject parametroJson = new JSONObject(parametros);
         EstudianteDao dao = new EstudianteDao();
         JSONObject respuesta = new JSONObject();
-        Estudiante estudiante = dao.consultarPorCredenciales(parametroJson.getString("usuario"), parametroJson.getString("contraseña"));
+        Estudiante estudiante = dao.consultarPorCredenciales(parametroJson.getString("documento"), parametroJson.getString("contraseña"));
         if (estudiante != null) {
             Gson gson = new Gson();
             JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
@@ -82,6 +83,7 @@ public class LoginEstudianteServlet extends HttpServlet {
             respuesta.put("tipo", "error");
             respuesta.put("mensaje", "documento o contraseña incorrecta ");
         }
+        out.print(respuesta.toString());
     }
 
     /**

@@ -45,7 +45,7 @@ CREATE TABLE PERSONA (
   segundoNombre VARCHAR(30) NULL,
   primerApellido VARCHAR(30) NOT NULL,
   segundoApellido VARCHAR(30) NULL,
-  token VARCHAR(200) NOT NULL,
+  token VARCHAR(200) NOT NULL unique,
   fechaNacimiento DATE NOT NULL,
   contraseña VARCHAR(200) NOT NULL,
   genero VARCHAR(15),
