@@ -1,33 +1,32 @@
-$("#Ingresar").click(function(e){
+$("#ing_est").click(function(e){
     e.preventDefault();
-    var email=$("#correo").val();
+    var doc=$("#documento").val();
     var pass=$("#contraseña").val();
-    if(validarEmail(email)){
         var obj={
-            correo: email,
+            documento: doc,
             contraseña: pass
         };
-        loginPersonalCalificado(obj);
-    }else{
-        alert("Formato de correo inválido") ;
-    }
+        console.log(obj);
+        loginEstudiante(obj);
 });
 
 /**
  * Función login
  * @param {*} obj 
  */
-function loginPersonalCalificado(obj){
+function loginEstudiante(obj){
     $.ajax({
         method: 'POST',
-        url: 'LoginPersonalCalificado',
-        data: obj,
+        url: 'LoginEstudiante',
+        data: JSON.stringify(obj),
         dataType: "json",
         success: function(response) {
+            console.log(response);
+            debugger
             if(response.tipo==="ok"){
-                setCookie("token",response.personal.token,0.3);
+                setCookie("token",response.estudiante.token,0.3);
                 alert("Mensaje: "+response.mensaje)
-                $(location).attr('href','admin_perca.html')
+                $(location).attr('href','opciones.html');
             }
             else{
                 alert("Error: "+response.mensaje)
