@@ -1,6 +1,8 @@
 @charset "utf-8";
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:wght@300&display=swap');
+
+
 /* CSS Document */
 * {
 	padding: 0px;
@@ -93,7 +95,7 @@ a {
 .banner2 {
 	background-attachment: fixed;
 	background-color: #222831;
-	background-image: url(images/FondoB.jpg);
+	background-image: url(../img/FondoB.jpg);
 	background-position: top center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -182,9 +184,67 @@ img, .img-portafolio
 .img-portafolio:hover {
 	opacity: 0.3;
 }
-.block {
-	padding-left: 0px !important;
+
+/*-----Contenido conversatorio-------*/
+/*-----Agregar-------*/
+.contenidoV
+{
+	margin: 20px auto;
+	max-width: 900px;
+	background-color: #222831; 
+	height: 100%;
+	overflow: hidden;
+	
 }
+
+
+.block {
+	background-color: #222831;
+	width: 31.33%;
+	height: 100%;
+	float: left;
+	margin: 1%;
+	box-sizing:border-box;
+	color:rgba(255,255,255,1);
+    font-family: 'Open Sans', sans-serif;
+	font-size: 20px;
+}
+
+
+
+@media screen and (max-width:640px){
+
+.block
+{
+background-color: #222831;
+width: 47.9%;
+}
+
+.first-child{
+  width: 98%;
+  background-color: #222831;
+  clear: both
+}
+.last-child{
+  width: 98%;
+  background-color: #222831;
+  clear: both
+}
+}
+
+
+.imgRedonda {
+    width: 200px;
+    height: 200px;
+    border-radius:100px;
+    border:5px solid white;
+	display:block;
+	margin:auto;
+}
+
+/*-----Formulario mitad-------*/
+
+
 
 @media (min-width:0px) and (max-width: 600px) {
 	.bg-overlay {

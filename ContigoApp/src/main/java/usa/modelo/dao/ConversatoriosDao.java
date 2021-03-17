@@ -5,23 +5,54 @@
  */
 package usa.modelo.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import usa.modelo.dto.Conversatorio;
 
 /**
  *
- * @author migue
+ * Clase de Conversatorios
+ *
+ * @author Miguel Angel Rippe y Natalia Montenegro
+ * @since 2021-03-13
  */
-public class ConversatoriosDao implements IDao<Conversatorio>{
+public class ConversatoriosDao implements IDao<Conversatorio> {
 // SQL
-    @Override
-    public boolean crear(Conversatorio t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+    private PreparedStatement pat;
 
     @Override
+    public boolean crear(Conversatorio conver) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @Override
     public Conversatorio consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conversatorio conver = null;
+        Connection conn = Conexion.tomarConexion();
+        try {
+            String sql = "select * from Conversatorio where id =\"" + id + "\"";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            conver = new Conversatorio();
+            while (rs.next()) {
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return conver;
     }
 
     @Override
@@ -36,7 +67,24 @@ public class ConversatoriosDao implements IDao<Conversatorio>{
 
     @Override
     public LinkedList<Conversatorio> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList<Conversatorio> conversatorios = new LinkedList();
+        Connection conn = Conexion.tomarConexion();
+        try {
+            String sql = "select * from Conversatorio";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                Conversatorio conversatorio = new Conversatorio();
+                conversatorio.setCronograma(rs.getString("cronograma"));
+                conversatorio.setOrador(rs.getInt("PERSONAL_PERSONA_documento"));
+                conversatorio.setTitulo(rs.getString("titulo"));
+               
+                conversatorios.add(conversatorio);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return conversatorios;
     }
-    
 }
