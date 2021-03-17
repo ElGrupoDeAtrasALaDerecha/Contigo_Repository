@@ -97,5 +97,35 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
     public PersonalCalificado consultarPorToken(String token) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public PersonalCalificado consultarPorCredenciales(String correo, String contraseña) {
+         PersonalCalificado personal = null;
+        Connection conn = Conexion.tomarConexion();
+        try {
+
+            String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento"
+                    + "where pc.correo = \"" + correo + "\"  and p.contraseña = sha(\"" + contraseña + "\");";
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                personal = new PersonalCalificado();
+                personal.setPrimerApellido("primerNombre");
+                personal.setDocumento(rs.getString("documento"));
+                personal.setPrimerNombre(rs.getString("primerNombre"));
+                personal.setSegundoNombre(rs.getString("segundoNombre"));
+                personal.setPrimerApellido(rs.getString("primerApellido"));
+                personal.setSegundoApellido(rs.getString("segundoApellido"));
+                personal.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toString());
+                personal.setGenero(rs.getString("genero"));
+                personal.setCorreo(rs.getString("correo"));
+                personal.setToken(rs.getString("token"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return personal;
+    }
     
 }
