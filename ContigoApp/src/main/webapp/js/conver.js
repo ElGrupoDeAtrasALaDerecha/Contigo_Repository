@@ -1,31 +1,31 @@
-function ListarConver(){
+$("#btnlista").click(function () {
+    ListarConver();
+});
+
+
+function ListarConver() {
+    informacion = {
+        idConver: 10,
+    };
+
     $.ajax({
-        url: "Institucion",
+        url: "Conversatorio",
         type: "GET",
         dataType: "json",
-        data:JSON.stringify(informacion),
+        data: JSON.stringify(informacion),
         contentType: "JSON application/json charset=utf-8",
-        beforeSend: function() {
-            
+        beforeSend: function () {
         },
-        success: function(result, textStatus, request) {
+        success: function (result, textStatus, request) {
             console.log(result);
             if (result != "error") {
                 console.log(result);
-                
             } else {
                 console.log("error");
             }
+        }, complete: function (result) {
 
-        },
-        complete: function(result) {
-        
-
-        },
-        error: function(result) {
-
+        }, error: function (result) {
         }
-
     });
-
 }

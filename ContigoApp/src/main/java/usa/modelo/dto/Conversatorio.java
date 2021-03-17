@@ -29,7 +29,7 @@ public class Conversatorio {
     /**
      * 
      */
-    private String orador;
+    private int orador;
 
     public int getId() {
         return id;
@@ -55,14 +55,15 @@ public class Conversatorio {
         this.cronograma = cronograma;
     }
 
-    public String getOrador() {
+    public int getOrador() {
         return orador;
     }
 
-    public void setOrador(String orador) {
+    public void setOrador(int orador) {
         this.orador = orador;
     }
 
+ 
 
     
     

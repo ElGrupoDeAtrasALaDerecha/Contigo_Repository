@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    String bd = "mybici";
+    String bd = "contigoBD";
     String user= "root";
     String password="1234";
     String host="localhost";
