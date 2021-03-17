@@ -83,6 +83,8 @@ public class PersonalCalificadoServlet extends HttpServlet {
                 respuesta.put("mensaje","Ya existe un usuario con ese nombre documento");
             }
         }
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
     }
 
     @Override
