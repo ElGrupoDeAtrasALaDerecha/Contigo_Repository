@@ -104,7 +104,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         Connection conn = Conexion.tomarConexion();
         try {
 
-            String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento"
+            String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
                     + "where pc.correo = \"" + correo + "\"  and p.contraseña = sha(\"" + contraseña + "\");";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();

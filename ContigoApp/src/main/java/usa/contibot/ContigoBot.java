@@ -75,15 +75,14 @@ public class ContigoBot {
                     sala.setCodigo(numerosala);
                     objRespuesta.put("tipo", "codigo sala");
                     objRespuesta.put("numero", numerosala);
+                    objRespuesta.put("mensaje","Hola estoy contigo , ¿Tienes alguna pregunta ?");
                     salas.add(sala);
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
                     break;
                 case "mensaje":
-                    objRespuesta.put("tipo", "respuestaConti");
-                    objRespuesta.put("mensaje", "Hola estoy contigo , ¿Tienes alguna pregunta ?");
-                    numeroSala = obj.getInt("numerosala");
+                    numeroSala = obj.getInt("numeroSala");
                     sala = buscarSalas(numeroSala);
-                    sala.recibirMensajeEstudiante(obj, objRespuesta);
+                    sala.recibirMensajeEstudiante(obj, objRespuesta,sesion);
                     break;
                 case "ingreso personal":
                     PersonalCalificadoDao personalDao = new PersonalCalificadoDao();
