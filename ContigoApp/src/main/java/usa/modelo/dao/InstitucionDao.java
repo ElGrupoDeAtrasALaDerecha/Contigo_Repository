@@ -42,9 +42,6 @@ public class InstitucionDao implements IDao<Institucion> {
         }
         */
         return false;
-        
-*/
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
