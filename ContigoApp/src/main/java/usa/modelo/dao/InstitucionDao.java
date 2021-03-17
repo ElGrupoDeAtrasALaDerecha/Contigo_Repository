@@ -61,33 +61,32 @@ public class InstitucionDao implements IDao<Institucion> {
 
     @Override
     public LinkedList<Institucion> listarTodos() {
-        LinkedList<Institucion> instituciones = new LinkedList();
-        JSONObject myObject = new JSONObject();
+        LinkedList<Institucion> instituciones = new LinkedList<Institucion>();
         //pat sirve como el cur() de py 
         try {
             String sql = "select * from institucion";
             Connection conn = Conexion.tomarConexion();
-            stmt =conn.createStatement();
-            result = stmt.executeQuery(sql);
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
             while(result.next()){
-                int municipio = result.getInt("MUNICIPIO_id");
-                int meto_pago = result.getInt("METODO_PAGO_id");
-                String nom = result.getString("nombre");
-                String correo = result.getString("correo");
-                String dire = result.getString("direccion");
-                boolean tipoins = result.getBoolean("tipoInstitucion");
-                boolean calen = result.getBoolean("calendario");
-                String barrio = result.getString("barrio");
-                String tel = result.getString("telefono");
-                String con = result.getString("contraseña");
-                String pagweb = result.getString("web");
-                
+                Institucion ins = new Institucion();
+                ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
+                //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
+                ins.setNombre(result.getString("nombre"));
+                ins.setCorreo(result.getString("correo"));
+                ins.setDireccion(result.getString("direccion"));
+                ins.setTipoInstitucion(result.getBoolean("tipoInstitucion"));
+                //boolean calen = result.getBoolean("calendario"); //falta en front
+                ins.setBarrio(result.getString("barrio"));
+                ins.setTelefono(result.getString("telefono"));
+                ins.setContraseña(result.getString("contraseña"));
+                ins.setPagina(result.getString("web"));
+                instituciones.add(ins);
             }
-            
+            return instituciones;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return instituciones;
     }
 

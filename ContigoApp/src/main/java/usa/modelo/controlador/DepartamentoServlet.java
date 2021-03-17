@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.InstitucionDao;
-import usa.modelo.dto.Institucion;
-import usa.utils.Utils;
+import usa.modelo.dao.DepartamentoDao;
+import usa.modelo.dto.Departamento;
+
 
 /**
  *
  * @author santi
  */
-@WebServlet(name = "InstitucionServlet", urlPatterns = {"/Institucion"})
-public class InstitucionServlet extends HttpServlet {
+@WebServlet(name = "DepartamentoServlet", urlPatterns = {"/Departamento"})
+public class DepartamentoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +43,10 @@ public class InstitucionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InstitucionServlet</title>");
+            out.println("<title>Servlet DepartamentoServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InstitucionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DepartamentoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,19 +66,13 @@ public class InstitucionServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        String nom = Utils.readParams(request);
-        System.out.println(nom);
-        System.out.println("jajajaja");
-        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        InstitucionDao dao = new InstitucionDao();
+        DepartamentoDao dao = new DepartamentoDao();
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray();
-        for (Institucion i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Institucion.class)));
+        for (Departamento i : dao.listarTodos()) {
+            arreglo.put(new JSONObject(gson.toJson(i, Departamento.class)));
         }
-        json.put("tipo", "ok");
-        json.put("mensaje", "Estudiante creado");
-        json.put("istituciones", arreglo);
+        json.put("Departamentos", arreglo);//
         System.out.println(json.toString());
         out.print(json.toString());
     }
@@ -92,15 +86,9 @@ public class InstitucionServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        Gson gson = new Gson();
-        String nom = Utils.readParams(request);
-        System.out.println(nom);
-        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        String info = gson.toJson(ins, Institucion.class);
-        out.print(info);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
