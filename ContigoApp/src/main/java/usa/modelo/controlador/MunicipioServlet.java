@@ -15,16 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.DepartamentoDao;
-import usa.modelo.dto.Departamento;
-
+import usa.modelo.dao.MunicipioDao;
+import usa.modelo.dto.Municipio;
 
 /**
  *
  * @author santi
  */
-@WebServlet(name = "DepartamentoServlet", urlPatterns = {"/Departamento"})
-public class DepartamentoServlet extends HttpServlet {
+@WebServlet(name = "MunicipioServlet", urlPatterns = {"/Municipio"})
+public class MunicipioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +42,10 @@ public class DepartamentoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DepartamentoServlet</title>");
+            out.println("<title>Servlet MunicipioServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DepartamentoServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MunicipioServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,18 +62,19 @@ public class DepartamentoServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+            response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        DepartamentoDao dao = new DepartamentoDao();
+        MunicipioDao dao = new MunicipioDao();
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray();
-        for (Departamento i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Departamento.class)));
+        for (Municipio i : dao.listarTodos()) {
+            arreglo.put(new JSONObject(gson.toJson(i, Municipio.class)));
         }
-        json.put("Departamentos", arreglo);//
+        json.put("Municipios", arreglo);//
         System.out.println(json.toString());
         out.print(json.toString());
+        
     }
 
     /**

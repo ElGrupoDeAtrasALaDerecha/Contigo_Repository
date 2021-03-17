@@ -25,7 +25,7 @@ public class Municipio {
     /**
      * 
      */
-    private Departamento departamento;
+    private int departamentoId;
 
     public int getId() {
         return id;
@@ -43,13 +43,15 @@ public class Municipio {
         this.nombre = nombre;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
+    public int getDepartamentoId() {
+        return departamentoId;
     }
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+    public void setDepartamentoId(int departamentoId) {
+        this.departamentoId = departamentoId;
     }
+
+ 
 
 
 
