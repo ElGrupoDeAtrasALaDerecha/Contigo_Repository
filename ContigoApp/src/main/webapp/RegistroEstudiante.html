@@ -8,13 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
     <link rel="stylesheet" href="css/Registro.css">
+    <link rel="stylesheet" href="css/cssRegistro.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap"
         rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -31,13 +32,17 @@
                         </select>
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="T.I o C.C" name="TIoCC">
+                        <input type="number" id="TIoCC" class="Texto" placeholder="Numero de documento" name="TIoCC">
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Primer nombre" name="PrimerNombre">
+                        <input type="text"
+                            onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))"
+                            id="PrimerNombre" class="Texto" placeholder="Primer nombre" name="PrimerNombre">
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Primer apellido" name="PrimerApellido">
+                        <input type="text" id="PrimerApellido" class="Texto" placeholder="Primer apellido"
+                            name="PrimerApellido"
+                            onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
                     <div id="Espacios">
                         <select class="select-css Texto" name="Genero" id="Genero">
@@ -47,37 +52,74 @@
                         </select>
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Correo electrónico" name="CorreoElectronico">
+                        <input type="text" class="Texto" id="CorreoElectronico" placeholder="Correo electrónico"
+                            name="CorreoElectronico">
                     </div>
                 </td>
                 <td id="Columna-datos2">
-                    <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Código institucional" name="CodigoInstitucional">
+                    <span class="textFecha" id="textFecha">Fecha de nacimiento</span>
+                    <div id="Espacios4">
+                        <input type="date" class="Texto" id="FechaNacimiento" name="FechaNacimiento" max="2020-03-24">
                     </div>
-                    <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Segundo nombre" name="SegundoNombre">
+                    <div id="Espacios5">
+                        <input type="text" class="Texto" id="CodigoInstitucional" placeholder="Código institucional"
+                            name="CodigoInstitucional">
                     </div>
-                    <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Segundo apellido" name="SegundoApellido">
+                    <div id="Espacios5">
+                        <input type="text" class="Texto" placeholder="Segundo nombre" name="SegundoNombre"
+                            onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
-                    <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Fecha de nacimiento: dd/MM/AAAA" name="FechaNacimiento">
+                    <div id="Espacios5">
+                        <input type="text" class="Texto" id="SegundoApellido" placeholder="Segundo apellido"
+                            name="SegundoApellido"
+                            onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
-                    <div id="Espacios2">
+
+                   
+                    <div id="Espacios5">
                         <input type="password" class="Texto" id="contra" placeholder="Contraseña" name="Contraseña">
                     </div>
-                    <div id="Espacios2">
-                        <input type="password" class="Texto" id="conficontra" placeholder="Confirmar contraseña" name="ConfirmarContraseña">
+                    <div id="Espacios5">
+                        <input type="password" class="Texto" id="conficontra" placeholder="Confirmar contraseña"
+                            name="ConfirmarContraseña">
                     </div>
                 </td>
             </tr>
-            
+
         </table>
         <div id="boton">
-            <input type="button" id="Button2" value="Crear usuario" name="CrearUsuario">
+            <input type="button" id="Button2" value="Crear usuario" name="CrearUsuario" onClick="Ingresar();">
         </div>
     </div>
-    
+    <script>
+
+
+            function Ingresar() {
+            TipoDocumento = document.getElementById("TipoDocumento").value;
+            TIoCC = document.getElementById("TIoCC").value;
+            PrimerNombre = document.getElementById("PrimerNombre").value;
+            PrimerApellido = document.getElementById("PrimerApellido").value;
+            Genero = document.getElementById("Genero").value;
+            CorreoElectronico = document.getElementById("CorreoElectronico").value;
+            CodigoInstitucional = document.getElementById("CodigoInstitucional").value;
+            SegundoApellido = document.getElementById("SegundoApellido").value;
+            FechaNacimiento = document.getElementById("FechaNacimiento").value;
+            contra = document.getElementById("contra").value;
+            conficontra = document.getElementById("conficontra").value;
+            var expReg= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+            var esValido=expReg.test(CorreoElectronico);
+
+            if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CorreoElectronico == "" || CodigoInstitucional == "" || SegundoApellido == "" || FechaNacimiento == "" || contra == "" || conficontra == "") {
+                alert("Todos los campos son obligatorios.");
+            } else if (contra != conficontra) {
+                alert("No coincide su contraseña con la confirmación");
+            } else if(esValido!=true){
+                alert("El correo es invalido")
+            }else{
+                alert("Bienvenido");
+            }
+     }
+    </script>
     <script src="js/js_componentes/bootstrap.min.js"></script>
     <script src="js/js_componentes/bootstrap.min.js"></script>
     <script src="js/template.js"></script>
