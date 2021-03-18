@@ -1,15 +1,21 @@
 var departamentos;
 var municipios;
-function dep() {
+var ca = null;
+
+window.onload = function depas() {
     $.ajax({
         url: "Departamento",
         type: "GET",
         dataType: "json",
         success: function (result, textStatus, request) {
-            console.log(result);
             if (result != "error") {
                 console.log(result);
                 departamentos = result.Departamentos;
+                for (var i = 0; i < departamentos.length; i++) {
+                    let departa = '<option value ="' + departamentos[i].id + '">' + departamentos[i].nombre +
+                        '</option>';
+                    $("#departamento").append(departa);
+                }
             } else {
                 console.log("error");
             }
@@ -24,10 +30,12 @@ function dep() {
         }
 
     });
+    munici();
 }
 
-function resgistrar_institucion() {
-    departamento = $("#departamento").val();
+
+
+function registrar_institucion() {
     municipio = $("#municipio").val();
     nom = $("#nombre").val();
     sector = $("#sector").val();
@@ -37,7 +45,15 @@ function resgistrar_institucion() {
     correo = $("#correo").val();
     pagw = $("#web").val();
     contra = $("#contra").val();
-    conficontra = $("#conficontra").val();
+    calen = $("#Calendario").val();
+
+    if (calen == 0) {
+        ca = false;
+    } else {
+        ca = true;
+    }
+
+   
 
     informacion = {
         idMunicipio: municipio,
@@ -48,7 +64,8 @@ function resgistrar_institucion() {
         telefono: tel,
         correo: correo,
         pagina: pagw,
-        contraseña: contra
+        contraseña: contra,
+        calendario: ca
     };
     console.log(informacion);
 
@@ -91,10 +108,10 @@ function munici() {
         type: "GET",
         dataType: "json",
         success: function (result, textStatus, request) {
-            console.log(result);
             if (result != "error") {
                 console.log(result);
                 municipios = result.Municipios;
+                
             } else {
                 console.log("error");
             }
@@ -110,3 +127,30 @@ function munici() {
     });
 }
 
+var departamento;
+
+ $("#departamento").click(function(){
+    departamento = $("#departamento").val();
+    consultarMunicipiosPorDepartamento(departamento);
+ });
+
+function consultarMunicipiosPorDepartamento(departamento_ID){
+    let municipiosAPintar=new Array();
+    for (let i = 0; i < municipios.length; i++) {
+        if(municipios[i].departamentoId===parseInt(departamento_ID,10)){
+            municipiosAPintar.push(municipios[i]);
+        }
+    }
+    llenarMunicipios(municipiosAPintar);
+}
+
+function llenarMunicipios(municipiosAPintar){
+    $('#municipio').empty();
+    let txt = '';
+    for(let i=0; i<municipiosAPintar.length; i++){
+        txt='<option value ="' + municipiosAPintar[i].id + '">' + municipiosAPintar[i].nombre +
+        '</option>';
+        $('#municipio').append(txt);
+    };
+    
+}
