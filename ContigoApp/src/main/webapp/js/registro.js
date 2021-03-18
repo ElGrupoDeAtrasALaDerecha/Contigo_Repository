@@ -1,6 +1,8 @@
 var departamentos;
 var municipios;
 var ca = null;
+var sec = null;
+var idpago = 1;
 
 window.onload = function depas() {
     $.ajax({
@@ -53,21 +55,26 @@ function registrar_institucion() {
         ca = true;
     }
 
-   
+    if (sector == 0) {
+        sec = false;
+    } else {
+        sec = true;
+    }
+
 
     informacion = {
-        idMunicipio: municipio,
+        idMunicipio: parseInt(municipio,10),
         nombre: nom,
-        tipoInstitucion: sector,
+        tipoInstitucion: sec,
         direccion: direccion,
         barrio: barrio,
         telefono: tel,
         correo: correo,
         pagina: pagw,
         contraseña: contra,
-        calendario: ca
+        calendario: ca,
+        idpago: idpago
     };
-    console.log(informacion);
 
     $.ajax({
         url: "Institucion",
@@ -111,7 +118,7 @@ function munici() {
             if (result != "error") {
                 console.log(result);
                 municipios = result.Municipios;
-                
+
             } else {
                 console.log("error");
             }
@@ -129,28 +136,56 @@ function munici() {
 
 var departamento;
 
- $("#departamento").click(function(){
+$("#departamento").click(function () {
     departamento = $("#departamento").val();
     consultarMunicipiosPorDepartamento(departamento);
- });
+});
 
-function consultarMunicipiosPorDepartamento(departamento_ID){
-    let municipiosAPintar=new Array();
+function consultarMunicipiosPorDepartamento(departamento_ID) {
+    let municipiosAPintar = new Array();
     for (let i = 0; i < municipios.length; i++) {
-        if(municipios[i].departamentoId===parseInt(departamento_ID,10)){
+        if (municipios[i].departamentoId === parseInt(departamento_ID, 10)) {
             municipiosAPintar.push(municipios[i]);
         }
     }
     llenarMunicipios(municipiosAPintar);
 }
 
-function llenarMunicipios(municipiosAPintar){
+function llenarMunicipios(municipiosAPintar) {
     $('#municipio').empty();
     let txt = '';
-    for(let i=0; i<municipiosAPintar.length; i++){
-        txt='<option value ="' + municipiosAPintar[i].id + '">' + municipiosAPintar[i].nombre +
-        '</option>';
+    for (let i = 0; i < municipiosAPintar.length; i++) {
+        txt = '<option value ="' + municipiosAPintar[i].id + '">' + municipiosAPintar[i].nombre +
+            '</option>';
         $('#municipio').append(txt);
     };
-    
+
+}
+
+function Ingresar() {
+    departamento = document.getElementById("departamento").value;
+    municipio = document.getElementById("municipio").value;
+    nombre = document.getElementById("nombre").value;
+    sector = document.getElementById("sector").value;
+    direccion = document.getElementById("direccion").value;
+    barrio = document.getElementById("barrio").value;
+    telefono = document.getElementById("telefono").value;
+    correo = document.getElementById("correo").value;
+    web = document.getElementById("web").value;
+    Calendario = document.getElementById("Calendario").value;
+    contra = document.getElementById("contra").value;
+    conficontra = document.getElementById("conficontra").value;
+    var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    var esValido = expReg.test(correo);
+
+    if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || web == "" || Calendario == "" || contra == "" || conficontra == "") {
+        alert("Todos los campos son obligatorios.");
+    } else if (contra != conficontra) {
+        alert("No coincide su contraseña con la confirmación");
+    } else if (esValido != true) {
+        alert("El correo es invalido")
+    } else {
+        alert("Bienvenido");
+        registrar_institucion();
+    }
 }

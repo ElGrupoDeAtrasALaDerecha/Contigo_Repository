@@ -83,43 +83,9 @@
             </tr>
         </table>
         <div id="boton">
-            <input type="button" id="Button2" value="Seleccionar método de pago" name="MetodoPago" onClick="Ingresar();" onclick="registrar_institucion()" >
+            <input type="button" id="Button2" value="Seleccionar método de pago" name="MetodoPago"  onclick="Ingresar()" >
         </div>
-
-
-
     </div>
-    <script>
-
-
-        function Ingresar() {
-            departamento = document.getElementById("departamento").value;
-            municipio = document.getElementById("municipio").value;
-            nombre = document.getElementById("nombre").value;
-            sector = document.getElementById("sector").value;
-            direccion = document.getElementById("direccion").value;
-            barrio = document.getElementById("barrio").value;
-            telefono = document.getElementById("telefono").value;
-            correo = document.getElementById("correo").value;
-            web = document.getElementById("web").value;
-            Calendario = document.getElementById("Calendario").value;
-            contra = document.getElementById("contra").value;
-            conficontra = document.getElementById("conficontra").value;
-        var expReg= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-        var esValido=expReg.test(correo);
-
-        if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || web == "" || Calendario == "" || contra == "" || conficontra == "") {
-            alert("Todos los campos son obligatorios.");
-        } else if (contra != conficontra) {
-            alert("No coincide su contraseña con la confirmación");
-        } else if(esValido!=true){
-            alert("El correo es invalido")
-        }else{
-            alert("Bienvenido");
-        }
- }
-</script>
-
     <script src="js/js_componentes/bootstrap.min.js"></script>
     <script src="js/registro.js"></script>
     <script src="js/template.js"></script>
