@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div id="Espacios">
-                        <input type="text" id="nombre" class="Texto" placeholder="Nombre de la institucion" name="NombreDeLaInstitucion">
+                        <input type="text" id="nombre" class="Texto" placeholder="Nombre de la institucion" name="NombreDeLaInstitucion" onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
                     <div id="Espacios">
                         <select class="select-css Texto" name="Sector" id="sector">
@@ -51,24 +51,18 @@
                         <input type="text" class="Texto" id="direccion" placeholder="Dirección" name="Direccion">
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" id="barrio" placeholder="Barrio" name="Barrio">
+                        <input type="text" class="Texto" id="barrio" placeholder="Barrio" name="Barrio" onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
                 </td>
                 <td id="Columna-datos2">
                     <div id="Espacios3">
-                        <input type="text" class="Texto" id="telefono" placeholder="Telefono" name="Correo">
+                        <input type="number" class="Texto" id="telefono" placeholder="Telefono" name="Telefono">
                     </div>
                     <div id="Espacios3">
                         <input type="text" class="Texto" id="correo" placeholder="Correo" name="Correo">
                     </div>
                     <div id="Espacios2">
                         <input type="text" class="Texto" id="web" placeholder="Página Web" name="PaginaWeb">
-                    </div>
-                    <div id="Espacios2">
-                        <input type="password" class="Texto" id="contra" placeholder="Contraseña" name="Contraseña">
-                    </div>
-                    <div id="Espacios2">
-                        <input type="password" class="Texto" id="conficontra" placeholder="Confirmar contraseña" name="ConfirmarContraseña">
                     </div>
                     <div id="Espacios">
                         <select class="select-css Texto" name="Calendario" id="Calendario">
@@ -77,18 +71,54 @@
                             <option value="1">B</option>
                         </select>
                     </div>
+                    <div id="Espacios2">
+                        <input type="password" class="Texto" id="contra" placeholder="Contraseña" name="Contraseña">
+                    </div>
+                    <div id="Espacios2">
+                        <input type="password" class="Texto" id="conficontra" placeholder="Confirmar contraseña" name="ConfirmarContraseña">
+                    </div>
+                   
                     
                 </td>
             </tr>
         </table>
         <div id="boton">
-            <input type="button" id="Button2" value="Seleccionar método de pago" name="MetodoPago" onclick="resgistrar_institucion()">
+            <input type="button" id="Button2" value="Seleccionar método de pago" name="MetodoPago" onClick="Ingresar();" onclick="registrar_institucion()" >
         </div>
 
 
 
     </div>
-    
+    <script>
+
+
+        function Ingresar() {
+            departamento = document.getElementById("departamento").value;
+            municipio = document.getElementById("municipio").value;
+            nombre = document.getElementById("nombre").value;
+            sector = document.getElementById("sector").value;
+            direccion = document.getElementById("direccion").value;
+            barrio = document.getElementById("barrio").value;
+            telefono = document.getElementById("telefono").value;
+            correo = document.getElementById("correo").value;
+            web = document.getElementById("web").value;
+            Calendario = document.getElementById("Calendario").value;
+            contra = document.getElementById("contra").value;
+            conficontra = document.getElementById("conficontra").value;
+        var expReg= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+        var esValido=expReg.test(correo);
+
+        if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || web == "" || Calendario == "" || contra == "" || conficontra == "") {
+            alert("Todos los campos son obligatorios.");
+        } else if (contra != conficontra) {
+            alert("No coincide su contraseña con la confirmación");
+        } else if(esValido!=true){
+            alert("El correo es invalido")
+        }else{
+            alert("Bienvenido");
+        }
+ }
+</script>
 
     <script src="js/js_componentes/bootstrap.min.js"></script>
     <script src="js/registro.js"></script>
