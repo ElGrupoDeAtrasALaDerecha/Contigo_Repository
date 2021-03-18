@@ -14,7 +14,7 @@ public class Conversatorio {
     private int id;
     private String titulo;
     private String cronograma;
-    private int orador;
+    private String orador;
     private String imagen;
     private String descripcion;
 
@@ -57,11 +57,13 @@ public class Conversatorio {
         this.cronograma = cronograma;
     }
 
-    public int getOrador() {
+    public String getOrador() {
         return orador;
     }
-    
-    public void setOrador(int orador) {
+
+    public void setOrador(String orador) {
         this.orador = orador;
-    } 
+    }
+
+ 
 }

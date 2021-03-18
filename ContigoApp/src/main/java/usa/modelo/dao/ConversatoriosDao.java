@@ -76,9 +76,10 @@ public class ConversatoriosDao implements IDao<Conversatorio> {
             while (rs.next()) {
                 Conversatorio conversatorio = new Conversatorio();
                 conversatorio.setCronograma(rs.getString("cronograma"));
-                conversatorio.setOrador(rs.getInt("PERSONAL_PERSONA_documento"));
+                conversatorio.setOrador(rs.getString("PERSONAL_PERSONA_documento"));
                 conversatorio.setTitulo(rs.getString("titulo"));
-               
+               conversatorio.setImagen(rs.getString("imagen"));
+               conversatorio.setDescripcion(rs.getString("descripcion"));
                 conversatorios.add(conversatorio);
             }
         } catch (SQLException ex) {

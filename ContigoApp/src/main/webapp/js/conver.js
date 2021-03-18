@@ -1,13 +1,12 @@
 $("#btnlista").click(function () {
-    ListarConver();
+    LlamarConver();
 });
 
 
-function ListarConver() {
+function LlamarConver() {
     informacion = {
         idConver: 10,
     };
-
     $.ajax({
         url: "Conversatorio",
         type: "GET",
@@ -16,7 +15,9 @@ function ListarConver() {
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
-            console.log(result);
+            console.log(result.conversatorios);
+            conversatorios = result.conversatorios;
+            listarConver(conversatorios);
             if (result != "error") {
                 console.log(result);
             } else {
@@ -28,3 +29,19 @@ function ListarConver() {
         }
     });
 }
+
+function listarConver(conversatorio){
+    $("#conver").empty(); 
+	for (var i = 0; i<conversatorio.length; i++) {
+        text= '<div class="col-md-6 col-sm-6">'+
+        '<div id="Caja-texto">'+
+          '<img src="'+conversatorios[i].imagen+'" class="img-portafolio">'+
+          '<div class="textoSobre-img">'+ conversatorios[i].titulo +
+          '</div>'+
+        '</div>'+
+      '</div>';
+      $("#conver").append(text);
+	}
+};
+
+
