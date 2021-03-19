@@ -1,4 +1,4 @@
-
+var salaElegida;
 function agregarNombreChat_sinA(nombre,id){
     let texto= `<button id="${id}" class="chat_estudiante" class="ui inverted black basic button">
     
@@ -12,7 +12,8 @@ function agregarNombreChat_sinA(nombre,id){
 </button>`
 $("#chats_sin_a").append(texto);
 $("#"+id).click(function (){
-    aparecerChat(nombre)
+    aparecerChat(nombre);
+    salaElegida=id;
 });
 }
 
