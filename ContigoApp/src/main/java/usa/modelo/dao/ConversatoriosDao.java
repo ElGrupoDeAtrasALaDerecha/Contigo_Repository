@@ -41,12 +41,12 @@ public class ConversatoriosDao implements IDao<Conversatorio> {
         Conversatorio conver = null;
         Connection conn = Conexion.tomarConexion();
         try {
-            String sql = "select * from Conversatorio where id =\"" + id + "\"";
+            String sql = "select * from Persona where id =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             conver = new Conversatorio();
             while (rs.next()) {
-
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,8 +78,9 @@ public class ConversatoriosDao implements IDao<Conversatorio> {
                 conversatorio.setCronograma(rs.getString("cronograma"));
                 conversatorio.setOrador(rs.getString("PERSONAL_PERSONA_documento"));
                 conversatorio.setTitulo(rs.getString("titulo"));
-               conversatorio.setImagen(rs.getString("imagen"));
-               conversatorio.setDescripcion(rs.getString("descripcion"));
+                conversatorio.setImagen(rs.getString("imagen"));
+                conversatorio.setDescripcion(rs.getString("descripcion"));
+                conversatorio.setId(rs.getInt("id"));
                 conversatorios.add(conversatorio);
             }
         } catch (SQLException ex) {

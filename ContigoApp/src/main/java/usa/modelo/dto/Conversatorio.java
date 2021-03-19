@@ -1,7 +1,7 @@
 package usa.modelo.dto;
 
 /**
- * 
+ *
  */
 public class Conversatorio {
 
@@ -15,6 +15,12 @@ public class Conversatorio {
     private String titulo;
     private String cronograma;
     private String orador;
+    private String nombreOrador;
+    private String primerApellidoOrador;
+    private String segundoApellidoOrador;
+    private String fotoOrador;
+    private String biografia;
+    private String infografia;
     private String imagen;
     private String descripcion;
 
@@ -33,6 +39,7 @@ public class Conversatorio {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+
     public int getId() {
         return id;
     }
@@ -65,5 +72,4 @@ public class Conversatorio {
         this.orador = orador;
     }
 
- 
 }

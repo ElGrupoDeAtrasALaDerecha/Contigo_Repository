@@ -47,7 +47,11 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         }
         return false;
     }
-
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     @Override
     public PersonalCalificado consultar(String id) {
         return new PersonalCalificado();

@@ -67,6 +67,7 @@ public class ConversatorioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ConversatoriosDao dao = new ConversatoriosDao();
         LinkedList <Conversatorio>conversatorios=dao.listarTodos();
+     
         Gson gson = new Gson();
         JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray();
