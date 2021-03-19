@@ -81,22 +81,22 @@ public class Sala extends Thread {
         this.mensajes = mensajes;
     }
 
-    public void recibirMensajeEstudiante(JSONObject objRecibido, JSONObject objRespuesta,Session sesion) throws IOException {
-        if(sesion.getId().equals(sesionEstudiante.getId())){
+    public void recibirMensajeEstudiante(JSONObject objRecibido, JSONObject objRespuesta, Session sesion) throws IOException {
+        if (sesion.getId().equals(sesionEstudiante.getId())) {
             System.out.println("Son iguales :D");
         }
-        
+
         Mensaje mensaje = new Mensaje();
         mensaje.setEmisor(estudiante.getPrimerNombre() + " " + estudiante.getPrimerApellido());
         mensaje.setMensaje(objRecibido.getString("mensaje"));
         mensajes.add(mensaje);
         if (sesionPersonal == null) {
             Mensaje mensaje2 = new Mensaje();
-            mensaje.setEmisor("Conti");
-            mensaje.setMensaje(objRecibido.getString("mensaje"));
-            mensajes.add(mensaje);
+            mensaje2.setEmisor("Conti");
+            mensaje2.setMensaje("Déjame hablo con mis amigos para que vengan a ayudarte, ¿vale?");
+            mensajes.add(mensaje2);
             objRespuesta.put("tipo", "respuesta");
-            objRespuesta.put("mensaje", "Déjame hablo con mis amigos para que vengan a ayudarte, ¿vale?");
+            objRespuesta.put("mensaje", mensaje2.getMensaje());
             sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
         } else {
             objRespuesta.put("tipo", "mensajeEstudiante");
@@ -113,6 +113,18 @@ public class Sala extends Thread {
         objRespuesta.put("tipo", "mensajeDePersonal");
         objRespuesta.put("mensaje", mensaje);
         sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
+    }
+
+    public void enviarAdvertenciaAEstudiante(JSONObject obj) throws IOException {
+        JSONObject mensaje = new JSONObject();
+        Mensaje advertencia = new Mensaje();
+        advertencia.setEmisor("Conti");
+        advertencia.setMensaje("Lo siento , el personal se ha desconectado espera busco otro amigo");
+        mensajes.add(advertencia);
+        mensaje.put("tipo", "perdidaConexion");
+        mensaje.put("mensaje", advertencia.getMensaje());
+        sesionEstudiante.getBasicRemote().sendText(mensaje.toString());
+
     }
 
 }
