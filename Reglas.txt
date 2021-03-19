@@ -94,6 +94,7 @@ Advertencia estudiante
 Estudiante desconectado
 {
 	tipo: desconexionEstudiante,
-	mensaje: mensaje
+	mensaje: mensaje,
+    numeroSala: numero
 
 }
