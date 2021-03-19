@@ -46,7 +46,7 @@ CREATE TABLE PERSONA (
   segundoApellido VARCHAR(30) NULL,
   token VARCHAR(200) NOT NULL,
   fechaNacimiento DATE NOT NULL,
-  contrase�a VARCHAR(200) NOT NULL,
+  contraseña VARCHAR(200) NOT NULL,
   genero VARCHAR(15) NULL,
   PRIMARY KEY(documento),
   INDEX PERSONA_FKIndex1(TIPO_DOCUMENTO_id),

@@ -124,3 +124,37 @@ function colocarInfo(array, orador, personal) {
 }
 
 
+function crearConversatorio(){
+  
+        titulo = $("#texto").val();
+     
+        informacion = {
+            Titulo: titulo,
+        };
+
+        console.log(informacion);
+        $.ajax({
+            url: "Conversatorio",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(informacion),
+            contentType: "JSON application/json charset=utf-8",
+            beforeSend: function () {
+            },
+            success: function (result, textStatus, request) {
+                console.log(result);
+                if (result != "error") {
+                    console.log(result);
+                } else {
+                    console.log("error");
+                }
+            },
+            complete: function (result) {
+            },
+            error: function (result) {
+            }
+        });
+
+
+}
+

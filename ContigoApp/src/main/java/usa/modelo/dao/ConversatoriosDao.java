@@ -28,7 +28,21 @@ public class ConversatoriosDao implements IDao<Conversatorio> {
 
     @Override
     public boolean crear(Conversatorio conver) {
-        throw new UnsupportedOperationException("Not supported yet.");
+               try {
+            Connection con = Conexion.tomarConexion();
+            String sql = "insert into CONVERSATORIO (PERSONAL_PERSONA_documento,titulo,cronograma,imagen,descripcion)values(?,?,?,?,?,?);";
+            pat = con.prepareStatement(sql);
+            pat.setString(1, conver.getOrador());
+            pat.setString(2, conver.getTitulo());
+            pat.setString(3, conver.getCronograma());
+            pat.setString(4, conver.getImagen());
+            pat.setString(5, conver.getDescripcion());
+            pat.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
