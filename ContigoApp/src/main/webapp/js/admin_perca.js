@@ -1,14 +1,12 @@
 
 function agregarNombreChat_sinA(nombre,id){
-    let texto= `<button id="${id}" class="chat_estudiante" class="ui inverted black basic button">
-    
+    let texto= `<button id="${id}" class="chat_estudiante_sinA" >
         <font style="vertical-align: inherit;">
             <font style="vertical-align: inherit;"></font>
             <i class="user circle icon"></i>
             ${nombre}
         </font>
         </font>
-    
 </button>`
 $("#chats_sin_a").append(texto);
 $("#"+id).click(function (){
@@ -17,15 +15,13 @@ $("#"+id).click(function (){
 }
 
 function agregarNombreChat_A(nombre,id){
-    let texto= `<button id="${id}" class="chat_estudiante" class="ui black basic button">
-    <a class="item active">
+    let texto= `<button id="${id}" class="chat_estudiante_A" class="ui black basic button">
         <font style="vertical-align: inherit;">
             <font style="vertical-align: inherit;"></font>
             <i class="user circle icon"></i>
             ${nombre}
         </font>
         </font>
-    </a>
 </button>`
 $("#chats_atendidos").append(texto);
 $("#"+id).click(function (){
