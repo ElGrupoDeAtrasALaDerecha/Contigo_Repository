@@ -19,70 +19,48 @@
     <title>Contigo</title>
 </head>
 <!---->
+
 <body>
-    <h2>Panel principal</h2>  
-     <div id="contenido" class="ui grid">
-        <div class="ui seven wide grey column">
-            <h1>Chats</h1>
-            <div class="ui middle aligned divided list">
-                <div class="item">
-                  <div class="right floated content">
-                    <div class="ui button">Add</div>
-                  </div>
-                  <img class="ui avatar image" src="/images/avatar2/small/lena.png">
-                  <div class="content">
-                    Lena
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="right floated content">
-                    <div class="ui button">Add</div>
-                  </div>
-                  <img class="ui avatar image" src="/images/avatar2/small/lindsay.png">
-                  <div class="content">
-                    Lindsay
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="right floated content">
-                    <div class="ui button">Add</div>
-                  </div>
-                  <img class="ui avatar image" src="/images/avatar2/small/mark.png">
-                  <div class="content">
-                    Mark
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="right floated content">
-                    <div class="ui button">Add</div>
-                  </div>
-                  <img class="ui avatar image" src="/images/avatar2/small/molly.png">
-                  <div class="content">
-                    Maly
-                  </div>
-                </div>
-              </div>
-        </div>
-        <div class="ui vertical divider">
-					
-        </div>
-        <div class="ui seven wide column">
-            <h1>Mensajes</h1>
-            <div id="chat">
-                <div id="mensajes">
-                    
+    <h2>Panel principal</h2>
+    <div id="contenido" class="ui grid">
+        <div class="ui black row">
+            <div class="ui wide one column">
+
+            </div>
+            <div class="ui seven wide black column">
+                <h1>Chats</h1>
+                <div class="ui middle aligned divided list">
+                    <div class="item">
+                        <div class="right floated content">
+                            <div class="ui button">Add</div>
+                        </div>
+                        <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/small/lena.png">
+                        <div class="content">
+                            <a>Lena</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="mensaje">
-                <input id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
-                <button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
-                    <i class="bi bi-arrow-right-circle-fill"></i>
-                </button>
+            <div class="ui seven wide column" style="background-color:  #222831;">
+                <h1>Mensajes</h1>
+                <div id="chat">
+                    <div id="mensajes">
+
+                    </div>
+                </div>
+                <div id="mensaje">
+                    <input id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
+                    <button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
+                        <i class="bi bi-arrow-right-circle-fill"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="ui wide one column">
+
             </div>
         </div>
-    </div>
-    
-    
+        
+
     </div>
 
     <div id="registroConversatorio" class="ui modal">

@@ -75,7 +75,7 @@ public class ContigoBot {
                     sala.setCodigo(numerosala);
                     objRespuesta.put("tipo", "codigo sala");
                     objRespuesta.put("numero", numerosala);
-                    objRespuesta.put("mensaje", "Hola estoy contigo , ¿Tienes alguna pregunta ?");
+                    objRespuesta.put("mensaje", "Hola. Soy Conti y estoy contigo, ¿tienes alguna pregunta?");
                     salas.add(sala);
                     JSONArray jsonmensajes = new JSONArray();
                     for (Mensaje m : sala.getMensajes()) {
