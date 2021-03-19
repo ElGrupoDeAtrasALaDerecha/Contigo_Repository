@@ -1,41 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css">
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
     <link rel="stylesheet" href="css/admin_inst.css">
     <link rel="stylesheet" href="css/navfooter.css">
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/chat.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <script src="js/template.js"></script>
     <title>Contigo</title>
 </head>
+<!---->
 <body>
-    <h2>Administración de Herramientas</h2>
-    <div id="contenedor">
-        <section id="contenedor_cc">
-            <h3>Gestion de Conversatorios</h3>    
-            <div class="contenedor_credencial">
-                <input type="button" class="btn credencial" id="crear_cnv" value="Crear conversatorio">
+    <h2>Panel principal</h2>
+    <div id="contenido" class="ui grid">
+        <div class="ui seven wide grey column">
+            <h1>Chats</h1>
+            <div class="ui middle aligned divided list">
+                <div class="item">
+                  <div class="right floated content">
+                    <div class="ui button">Add</div>
+                  </div>
+                  <img class="ui avatar image" src="/images/avatar2/small/lena.png">
+                  <div class="content">
+                    Lena
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="right floated content">
+                    <div class="ui button">Add</div>
+                  </div>
+                  <img class="ui avatar image" src="/images/avatar2/small/lindsay.png">
+                  <div class="content">
+                    Lindsay
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="right floated content">
+                    <div class="ui button">Add</div>
+                  </div>
+                  <img class="ui avatar image" src="/images/avatar2/small/mark.png">
+                  <div class="content">
+                    Mark
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="right floated content">
+                    <div class="ui button">Add</div>
+                  </div>
+                  <img class="ui avatar image" src="/images/avatar2/small/molly.png">
+                  <div class="content">
+                    Maly
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="ui vertical divider">
+					
+        </div>
+        <div class="ui seven wide column">
+            <h1>Mensajes</h1>
+            <div id="chat">
+                <div id="mensajes">
+                    
+                </div>
             </div>
-            <div class="contenedor_credencial">
-                <input type="button" class=" btn credencial" id="list_cnv" value="Listar conversatorios">
+            <div id="mensaje">
+                <input id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
+                <button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
+                    <i class="bi bi-arrow-right-circle-fill"></i>
+                </button>
             </div>
-        </section>
-        <section id="contenedor_conv">
-            <h3>Solicitudes Contibot</h3>
-            <div class="contenedor_credencial">
-                <input type="button" class="btn credencial" id="see_chat" value="Atender chat">
-            </div>
-        </section>
+        </div>
     </div>
+    
+    
+    </div>
+
+    <div id="registroConversatorio" class="ui modal">
+        <h2>Crea tu converatorio</h2>
+        <div id="contenedor">
+            <section id="contenedor_cc">
+                <div class="contenedor_credencial">
+                    <input type="text" class="credencial" id="Texto" placeholder="Título del conversatorio"
+                        name="tlt_cnv">
+                    <p>Selecciona los cursos a los cuales va dirigido este conversatorio:</p>
+                    <div id="cursos">
+                        <div id="f1">
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Transición</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Primaria</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Bachillerato</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Primero</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Segundo</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Tercero</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Cuarto</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Docentes</label>
+                            </div>
+                        </div>
+                        <div id="f2">
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Quinto</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Sexto</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Septimo</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Octavo</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Noveno</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Decimo</label>
+                            </div>
+                            <div class="form-check form-switch checkbox">
+                                <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Once</label>
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                </div>
+
+            </section>
+            <section id="contenedor_conv">
+                <p>Cronograma: Cada bloque representan 10 minutos. Es decir que 2 horas son 12 bloques.</p>
+                <div class="contenedor_credencial">
+                    <select name="Grados" class="credencial" id="bloques" required onchange="n_bloques();">
+                        <option value="" disabled selected>Número de bloques</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <div id="box">
+                        <div id="contenedor_bloques"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="contenedor_credencial">
+            <input type="button" class="btn" id="" value="Crear conversatorio">
+        </div>
+    </div>
+
 </body>
+<script src="js/funciones.js"></script>
+<script src="js/adminPerca.js"></script>
+<script src="js/wsPersonal.js"></script>
+
+
 </html>
-<script type="text/javascript">
-    document.getElementById("crear_cnv").onclick = function () {
-        location.href = "crear_cnv.html";
-    };
-</script> 
