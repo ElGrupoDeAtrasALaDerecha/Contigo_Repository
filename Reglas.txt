@@ -35,6 +35,9 @@ Mensaje Personal
 }
 
 
+
+
+
 ================================================
 Respuestas:
 {
@@ -66,4 +69,31 @@ Mensaje Estudiante a Personal
 
 	tipo: mensajeEstudiante,
 	mensaje:mensaje
+}
+
+
+Nuevo estudiante
+
+{
+
+	tipo: nuevoEstudiante,
+	estudiante:estudiante,
+	numeroSala:numero,
+	mensajes:mensajes
+
+
+}
+
+Advertencia estudiante
+{
+	tipo: perdidaConexion,
+	mensaje: mensaje
+
+}
+
+Estudiante desconectado
+{
+	tipo: desconexionEstudiante,
+	mensaje: mensaje
+
 }
