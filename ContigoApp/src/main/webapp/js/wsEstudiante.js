@@ -41,6 +41,8 @@ websocket.onmessage = function (event) {
 			pintarRespuesta(obj.mensaje);
 		}else if (obj.tipo === "mensajeDePersonal") {
 			pintarRespuesta(obj.mensaje);
+		}else if (obj.tipo === "perdidaConexion") {
+			alert(obj.mensaje);
 		}
 	}
 }
