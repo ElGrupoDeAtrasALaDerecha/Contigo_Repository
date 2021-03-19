@@ -38,6 +38,7 @@ Mensaje Personal
 
 
 
+
 ================================================
 Respuestas:
 {
@@ -59,7 +60,9 @@ Respuesta conexion personal :
     salas : [
         {numero sala: numerosala,
         estudiante : estudiante,
-	mensajes :mensaje }
+	atendido:boolean,
+	mensajes :mensaje
+ }
 
 ]}
 
@@ -97,3 +100,4 @@ Estudiante desconectado
 	mensaje: mensaje
 
 }
+
