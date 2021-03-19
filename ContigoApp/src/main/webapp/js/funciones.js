@@ -45,3 +45,11 @@ function checkCookie() {
       return false;
     }
 } 
+
+/**
+ * Función que borra una cookie
+ * @param {string} name 
+ */
+function delete_cookie(name) {
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }

@@ -25,7 +25,8 @@ function agregarNombreChat_A(nombre,id){
 </button>`
 $("#chats_atendidos").append(texto);
 $("#"+id).click(function (){
-    aparecerChat(nombre)
+    aparecerChat(nombre);
+    salaElegida=id;
 });
 }
 function aparecerChat(nombre){
