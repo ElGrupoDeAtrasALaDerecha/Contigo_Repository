@@ -39,6 +39,13 @@ websocket.onmessage = function (event) {
 		else if (obj.tipo === "mensajeEstudiante") {
 			pintarRespuesta(obj.mensaje)
 		}
+		else if (obj.tipo === "nuevoEstudiante") {
+			agregarEstudianteALista(obj);
+		}else if (obj.tipo === "desconexionEstudiante") {
+			removerEstudianteDeLista(obj);
+		}
+		
+		
 	}
 }
 
@@ -80,7 +87,6 @@ function enviarCredenciales() {
  */
 
 function pintarRespuesta(respuesta) {
-	console.log(respuesta);
 	let txtConti=`<div id="mns_tiempo_conti" class="mensaje-autor">
 	<i class="bi bi-person"></i>
 	<div class="flecha-izquierda"></div>
@@ -144,6 +150,21 @@ function pintarSalas(){
 }
 
 
+/**
+ * 
+ * @param {*} obj 
+ */
+function agregarEstudianteALista(obj){
+
+}
+
+/**
+ * 
+ * @param {*} obj 
+ */
+ function removerEstudianteDeLista(obj){
+
+}
 // Eventos de vista
 
 
