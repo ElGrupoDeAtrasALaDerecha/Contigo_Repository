@@ -73,7 +73,7 @@ function registrar_institucion() {
         pagina: pagw,
         contraseña: contra,
         calendario: ca,
-        idpago: idpago
+        METODO_PAGO_id: idpago
     };
 
     $.ajax({
@@ -86,8 +86,7 @@ function registrar_institucion() {
 
         },
         success: function (result, textStatus, request) {
-            console.log(result);
-            if (result != "error") {
+            if (result.tipo != "error") {
                 console.log(result);
 
             } else {
@@ -100,7 +99,7 @@ function registrar_institucion() {
 
         },
         error: function (result) {
-
+            console.log(result);
         }
 
     });
@@ -178,14 +177,13 @@ function Ingresar() {
     var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     var esValido = expReg.test(correo);
 
-    if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || web == "" || Calendario == "" || contra == "" || conficontra == "") {
+    if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || Calendario == "" || contra == "" || conficontra == "") {
         alert("Todos los campos son obligatorios.");
     } else if (contra != conficontra) {
         alert("No coincide su contraseña con la confirmación");
     } else if (esValido != true) {
         alert("El correo es invalido")
     } else {
-        alert("Bienvenido");
         registrar_institucion();
     }
 }

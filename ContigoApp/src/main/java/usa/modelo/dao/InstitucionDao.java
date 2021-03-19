@@ -26,8 +26,8 @@ public class InstitucionDao implements IDao<Institucion> {
     ResultSet result;
     
     @Override
-    public boolean crear(Institucion t) {
-        Institucion ins = new Institucion();
+    public boolean crear(Institucion ins) {
+        
         try {
             String sql = "insert into  institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web ) "
                     + "values (?,?,?,?,?,?,?,?,?,?,?)";
@@ -44,9 +44,9 @@ public class InstitucionDao implements IDao<Institucion> {
             pat.setString(9, ins.getTelefono());
             pat.setString(10, ins.getContraseña());
             pat.setString(11, ins.getPagina());
-            boolean insert = pat.execute();
+            pat.execute();
             pat.close();
-            return insert;
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
