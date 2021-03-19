@@ -32,12 +32,12 @@ websocket.onmessage = function (event) {
 		ping();
 	} else {
 		let obj = JSON.parse(event.data);
-		if (obj.tipo === "codigo sala") {
-			numeroSala = obj.numero;
-			pintarRespuesta(obj.mensaje);
-		} else if (obj.tipo === "salas") {
+		if (obj.tipo === "salas") {
 			listaSalas=obj.salas;
 			pintarSalas();
+		}
+		else if (obj.tipo === "mensajeEstudiante") {
+			pintarRespuesta(obj.mensaje)
 		}
 	}
 }
@@ -152,10 +152,12 @@ $(document).ready(function () {
 		$('input[type="text"]').val('');
 	});
 });
-
+/**
+ * Al dar click, se envía un mensaje a un estudiante
+ */
 $("#btn_enviar_mns").click(function () {
 	var mns = $("#Enviarmensaje").val();
-	decirleAConti(mns);
+	decirleAEstudiante(mns);
 	let mensaje = `
 	<div id="mns_tiempo_usuario" class="mensaje-amigo">
 	<div class="contenido">${mns} </div>
