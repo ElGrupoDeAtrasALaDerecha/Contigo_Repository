@@ -1,4 +1,4 @@
-
+var salaElegida;
 function agregarNombre(nombre,id){
     let texto= `<button id="${id}" class="chat_estudiante">
     <a class="item active">
@@ -11,7 +11,8 @@ function agregarNombre(nombre,id){
 </button>`
 $("#lista_chats").append(texto);
 $("#"+id).click(function (){
-    aparecerChat(nombre)
+    aparecerChat(nombre);
+    salaElegida=id;
 });
 }
 function aparecerChat(nombre){
