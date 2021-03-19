@@ -1,0 +1,18 @@
+#lista_chats{
+    background-color: rgb(236, 236, 236);
+}
+#chat_con_est{
+    background-color: rgb(255, 255, 255);
+}
+.chat_estudiante{
+    width: 100%;
+}
+/*chat y mensajes*/
+#chatCompleto2{
+    margin-left: 0%;
+    margin-top: 1%;
+    opacity: 100%;
+    width:100%;
+    border:1px solid #000000; 
+    
+}
