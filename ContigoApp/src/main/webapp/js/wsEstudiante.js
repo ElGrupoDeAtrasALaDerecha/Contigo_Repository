@@ -87,10 +87,9 @@ function enviarCredenciales() {
 function pintarRespuesta(respuesta) {
 	console.log(respuesta);
 	let txtConti=`<div id="mns_tiempo_conti" class="mensaje-autor">
-	<i class="bi bi-person"></i>
-	<div class="flecha-izquierda"></div>
 	<div id="" class="contenido">${respuesta}</div>
-	<div id="tiempo-msn-conti" class="fecha">Enviado hace y minutos</div>               
+	<i class="bi bi-person"></i>
+	<div id="tiempo-msn-conti" class="fecha">${mueveReloj()}</div>               
 	</div>
 	`
 	$("#mensajes").append(txtConti);
