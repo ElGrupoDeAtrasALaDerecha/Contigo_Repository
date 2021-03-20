@@ -26,7 +26,6 @@ function loginPersonalCalificado(obj){
         dataType: "json",
         success: function(response) {
             console.log(response);
-            debugger
             if(response.tipo==="ok"){
                 setCookie("token",response.personal.token,0.3);
                 alert("Mensaje: "+response.mensaje)
