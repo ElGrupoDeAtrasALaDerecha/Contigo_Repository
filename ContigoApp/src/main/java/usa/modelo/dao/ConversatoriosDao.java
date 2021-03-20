@@ -95,6 +95,8 @@ public class ConversatoriosDao implements IDao<Conversatorio> {
                 conversatorio.setImagen(rs.getString("imagen"));
                 conversatorio.setDescripcion(rs.getString("descripcion"));
                 conversatorio.setId(rs.getInt("id"));
+                conversatorio.setInfografia(rs.getString("infografia"));
+                conversatorio.setLugar(rs.getString("lugar"));
                 conversatorios.add(conversatorio);
             }
         } catch (SQLException ex) {

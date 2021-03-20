@@ -121,6 +121,12 @@ function colocarInfo(array, orador, personal) {
         '<br> <br><br><br><br><br><br>'
 
     $("#cronograma").append(text);
+
+
+    text='<br>'+
+    '<br>'+
+    '<img src="'+array.infografia+'">'
+    $("#infografia").append(text);
 }
 
 

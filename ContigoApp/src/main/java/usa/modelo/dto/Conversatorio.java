@@ -15,15 +15,27 @@ public class Conversatorio {
     private String titulo;
     private String cronograma;
     private String orador;
-    private String nombreOrador;
-    private String primerApellidoOrador;
-    private String segundoApellidoOrador;
-    private String fotoOrador;
-    private String biografia;
     private String infografia;
+    private String lugar;
     private String imagen;
     private String descripcion;
+    
+    public String getInfografia() {
+        return infografia;
+    }
 
+    public void setInfografia(String infografia) {
+        this.infografia = infografia;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }
