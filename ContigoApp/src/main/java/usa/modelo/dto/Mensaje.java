@@ -12,6 +12,7 @@ package usa.modelo.dto;
 public class Mensaje {
     private String mensaje;
     private String emisor;
+    private int tipo;
 
     public String getMensaje() {
         return mensaje;
@@ -27,6 +28,14 @@ public class Mensaje {
 
     public void setEmisor(String emisor) {
         this.emisor = emisor;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
     
 }
