@@ -98,3 +98,19 @@ Estudiante desconectado
     numeroSala: numero
 
 }
+
+
+Aviso de que un estudiante está siendo atendido
+
+{
+    tipo: estudianteAtendido
+    numeroSala: numero
+}
+
+
+Aviso a un personal calificado que está atendiendo un estudiante
+{
+    tipo: conversacion,
+    conversacion: [lista de mensajes],
+    estudiante: datos del estudiante
+}
