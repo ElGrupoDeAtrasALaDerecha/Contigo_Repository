@@ -55,7 +55,7 @@ public class ConversatoriosDao implements IDao<Conversatorio> {
         Conversatorio conver = null;
         Connection conn = Conexion.tomarConexion();
         try {
-            String sql = "select * from Persona where id =\"" + id + "\"";
+            String sql = "select * from Conversatorio where id =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             conver = new Conversatorio();
