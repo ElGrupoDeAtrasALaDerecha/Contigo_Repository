@@ -1,22 +1,22 @@
-$("#ing_perca").click(function(e){
-    e.preventDefault();
-    var email=$("#correo").val();
-    var pass=$("#contraseña").val();
-    if(validarEmail(email)){
-        var obj={
-            correo: email,
-            contraseña: pass
-        };
-        console.log(obj);
-        loginPersonalCalificado(obj);
-    }else{
-        alert("Formato de correo inválido") ;
+$('#ing_perca').click(function (e) {
+  e.preventDefault()
+  var email = $('#correo').val()
+  var pass = $('#contraseña').val()
+  if (validarEmail(email)) {
+    var obj = {
+      correo: email,
+      contraseña: pass
     }
-});
+    console.log(obj)
+    loginPersonalCalificado(obj)
+  } else {
+    alert('Formato de correo inválido')
+  }
+})
 
 /**
  * Función login
- * @param {*} obj 
+ * @param {*} obj
  */
 function loginPersonalCalificado(obj){
     $.ajax({
@@ -40,4 +40,3 @@ function loginPersonalCalificado(obj){
         }
     }); 
 }
-

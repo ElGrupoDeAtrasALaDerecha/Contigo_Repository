@@ -47,7 +47,30 @@ public class InstitucionDao implements IDao<Institucion> {
 
     @Override
     public Institucion consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Institucion ins = new Institucion();
+        try {
+            String sql = "select * from institucion where id = " + id;
+            Connection conn = Conexion.tomarConexion();
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();    
+            while(result.next()){
+                ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
+                //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
+                ins.setNombre(result.getString("nombre"));
+                ins.setCorreo(result.getString("correo"));
+                ins.setDireccion(result.getString("direccion"));
+                ins.setTipoInstitucion(result.getBoolean("tipoInstitucion"));
+                //boolean calen = result.getBoolean("calendario"); //falta en front
+                ins.setBarrio(result.getString("barrio"));
+                ins.setTelefono(result.getString("telefono"));
+                ins.setContraseña(result.getString("contraseña"));
+                ins.setPagina(result.getString("web")); 
+            }
+            return ins;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ins;
     }
 
     @Override
