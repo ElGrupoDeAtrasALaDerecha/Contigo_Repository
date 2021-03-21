@@ -102,3 +102,21 @@ Estudiante desconectado
 
 }
 
+<<<<<<< HEAD
+=======
+
+Aviso de que un estudiante está siendo atendido
+
+{
+    tipo: estudianteAtendido
+    numeroSala: numero
+}
+
+
+Aviso a un personal calificado que está atendiendo un estudiante
+{
+    tipo: conversacion,
+    conversacion: [lista de mensajes],
+    estudiante: datos del estudiante
+}
+>>>>>>> aa7db82c078a8ab6494e6a57eb9682f71d070eac

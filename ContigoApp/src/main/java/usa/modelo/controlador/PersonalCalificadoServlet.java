@@ -1,10 +1,8 @@
 
 package usa.modelo.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,15 +33,9 @@ public class PersonalCalificadoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PersonalCalificadoDao dao = new PersonalCalificadoDao();
-        LinkedList <PersonalCalificado>personales=dao.listarTodos();
-        Gson gson = new Gson();
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray();
         respuesta.put("tipo", "ok");
-        for (PersonalCalificado personal:personales) {
-            arreglo.put(new JSONObject(gson.toJson(personal,PersonalCalificado.class)));
-        }
-        respuesta.put("personales",arreglo);
+        respuesta.put("personales",new JSONArray(Utils.toJson(dao.listarTodos())));
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
         
@@ -61,8 +53,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
-        Gson gson = new Gson();
-        PersonalCalificado personal = (PersonalCalificado) gson.fromJson(parametros, PersonalCalificado.class);
+        PersonalCalificado personal = (PersonalCalificado) Utils.fromJson(parametros, PersonalCalificado.class);
         PersonalCalificadoDao dao = new PersonalCalificadoDao();
         JSONObject respuesta = new JSONObject();
         if (dao.consultar(personal.getDocumento())!=null){
@@ -91,8 +82,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String parametros = Utils.readParams(request);
         String documento=request.getParameter("document");
-        Gson gson = new Gson();
-        PersonalCalificado personal = (PersonalCalificado) gson.fromJson(parametros, PersonalCalificado.class);
+        PersonalCalificado personal = (PersonalCalificado) Utils.fromJson(parametros, PersonalCalificado.class);
         PersonalCalificadoDao dao = new PersonalCalificadoDao();
         JSONObject respuesta = new JSONObject();
         if (dao.consultar(personal.getDocumento())==null){
