@@ -1,5 +1,6 @@
 package usa.modelo.dao;
 
+import java.sql.CallableStatement;
 import usa.modelo.dto.Estudiante;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import usa.utils.Utils;
 /**
  * Clase de acceso a datos de estudiantes
  *
@@ -21,12 +23,22 @@ public class EstudianteDao implements IDao<Estudiante> {
     @Override
     public boolean crear(Estudiante estudiante) {
         try {
-            Connection con = Conexion.tomarConexion();
-            String sql = "insert into Estudiante (primerNombre,segundoNombre,....) values (?,?,?,?,?,?)";
-            pat = con.prepareStatement(sql);
-            pat.setString(1, estudiante.getPrimerNombre());
-            pat.setString(2, estudiante.getSegundoNombre());
-            pat.execute();
+            String sql = "call insertarEstudiante(?,?,?,?,?,?,?,?,?,?,?)";
+            Connection conn = Conexion.tomarConexion();
+            CallableStatement call = conn.prepareCall(sql);
+            call.setString("_documento", estudiante.getDocumento());
+            call.setInt("_TIPO_DOCUMENTO_ID", estudiante.getTipoDocumento());
+            call.setString("_primerNombre", estudiante.getPrimerNombre());
+            call.setString("_segundoNombre", estudiante.getSegundoNombre());
+            call.setString("_primerApellido", estudiante.getPrimerApellido());
+            call.setString("_segundoApellido", estudiante.getSegundoApellido());
+            call.setString("_token", Utils.generateNewToken());
+            call.setString("_fechaNacimiento", estudiante.getFechaDeNacimiento());
+            call.setString("_genero",estudiante.getGenero());
+            //call.setString("correo", estudiante.getCorreo());
+            call.setString("_contraseña", estudiante.getContraseña());
+            call.setString("_GRADO_codigo", estudiante.getGrado());
+            call.execute();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);

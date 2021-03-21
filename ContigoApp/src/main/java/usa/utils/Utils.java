@@ -21,7 +21,7 @@ public class Utils {
                 jb.append(line);
             }
         } catch (Exception e) {
-            /* report an error */ }
+            /* report an error a*/ }
 
         line = jb.toString();
         return line;

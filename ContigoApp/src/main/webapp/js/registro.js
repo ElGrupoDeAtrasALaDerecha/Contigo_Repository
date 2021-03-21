@@ -88,7 +88,6 @@ function registrar_institucion() {
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
                 console.log(result);
-                alert("Institución registrada correctamente")
             } else {
                 console.log("error");
             }
