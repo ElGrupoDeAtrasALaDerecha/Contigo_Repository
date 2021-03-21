@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usa.modelo.controlador;
+package usa.controlador;
 
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -15,16 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.InstitucionDao;
-import usa.modelo.dto.Institucion;
-import usa.utils.Utils;
+import usa.modelo.dao.MunicipioDao;
+import usa.modelo.dto.Municipio;
 
 /**
  *
  * @author santi
  */
-@WebServlet(name = "InstitucionServlet", urlPatterns = {"/Institucion"})
-public class InstitucionServlet extends HttpServlet {
+@WebServlet(name = "MunicipioServlet", urlPatterns = {"/Municipio"})
+public class MunicipioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +42,10 @@ public class InstitucionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InstitucionServlet</title>");
+            out.println("<title>Servlet MunicipioServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InstitucionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MunicipioServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,24 +62,18 @@ public class InstitucionServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+            response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        String nom = Utils.readParams(request);
-        System.out.println(nom);
-        System.out.println("jajajaja");
-        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        InstitucionDao dao = new InstitucionDao();
+        MunicipioDao dao = new MunicipioDao();
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray();
-        for (Institucion i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Institucion.class)));
+        for (Municipio i : dao.listarTodos()) {
+            arreglo.put(new JSONObject(gson.toJson(i, Municipio.class)));
         }
-        json.put("tipo", "ok");
-        json.put("mensaje", "Estudiante creado");
-        json.put("istituciones", arreglo);
-        System.out.println(json.toString());
+        json.put("Municipios", arreglo);
         out.print(json.toString());
+        
     }
 
     /**
@@ -92,23 +85,9 @@ public class InstitucionServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        JSONObject json = new JSONObject();
-        Gson gson = new Gson();
-        String nom = Utils.readParams(request);
-        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        System.out.println(nom);
-        InstitucionDao instuti = new InstitucionDao();
-        if (instuti.crear(ins)) {
-            json.put("tipo", "ok");
-            json.put("mensaje", "Institucion registrada correctamente");
-        }else{
-            json.put("tipo", "error");
-            json.put("mensaje", "Error al registrar institucion");
-        }
-        out.print(json.toString());
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**

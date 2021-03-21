@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usa.modelo.controlador;
+package usa.controlador;
 
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,16 +16,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.DepartamentoDao;
-import usa.modelo.dto.Departamento;
-
+import usa.modelo.dao.ConversatoriosDao;
+import usa.modelo.dto.Conversatorio;
+import usa.utils.Utils;
 
 /**
+ * Clase de Conversatorios
  *
- * @author santi
+ * @author Miguel Angel Rippe y Natalia Montenegro
+ * @since 2021-03-13
  */
-@WebServlet(name = "DepartamentoServlet", urlPatterns = {"/Departamento"})
-public class DepartamentoServlet extends HttpServlet {
+@WebServlet(name = "ConversatorioServlet", urlPatterns = {"/Conversatorio"})
+public class ConversatorioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +46,10 @@ public class DepartamentoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DepartamentoServlet</title>");
+            out.println("<title>Servlet ConversatorioServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DepartamentoServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConversatorioServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,17 +66,20 @@ public class DepartamentoServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        ConversatoriosDao dao = new ConversatoriosDao();
+        LinkedList<Conversatorio> conversatorios = dao.listarTodos();
+
         Gson gson = new Gson();
-        DepartamentoDao dao = new DepartamentoDao();
-        JSONObject json = new JSONObject();
+        JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray();
-        for (Departamento i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Departamento.class)));
+        respuesta.put("tipo", "ok");
+        for (Conversatorio conversatorio : conversatorios) {
+            arreglo.put(new JSONObject(gson.toJson(conversatorio, Conversatorio.class)));
         }
-        json.put("Departamentos", arreglo);//
-        out.print(json.toString());
+        respuesta.put("conversatorios", arreglo);
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+
     }
 
     /**
@@ -85,9 +91,36 @@ public class DepartamentoServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        String parametros = Utils.readParams(request);
+        Gson gson = new Gson();
+        Conversatorio conver = (Conversatorio) gson.fromJson(parametros, Conversatorio.class);
+        ConversatoriosDao dao = new ConversatoriosDao();
+        JSONObject respuesta = new JSONObject();
+
+        if (dao.crear(conver)) {
+            respuesta.put("tipo", "ok");
+            respuesta.put("mensaje", "El conversatorio fue agendado correctamente");
+      
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No se ha podido crear el conversatorio");
+        }
+
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+    }
+
+
+@Override
+        protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+        protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -96,7 +129,7 @@ public class DepartamentoServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

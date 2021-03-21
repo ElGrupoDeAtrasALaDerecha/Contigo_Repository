@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usa.modelo.controlador;
+package usa.controlador;
 
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -15,15 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import usa.modelo.dao.EstudianteDao;
+import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
+import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**
+ * Clase Servlet Login Estudiante
  *
- * @author Santiago Pérez
+ * @author Valeria Bermúdez - Santiago Pérez
  */
-@WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
-public class EstudianteServlet extends HttpServlet {
+@WebServlet(name = "LoginEstudianteServlet", urlPatterns = {"/LoginEstudiante"})
+public class LoginEstudianteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,39 +45,12 @@ public class EstudianteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Estudiante</title>");            
+            out.println("<title>Servlet LoginEstudianteServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Estudiante at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginEstudianteServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /*
-            Estudiante estudiante = new Estudiante();
-            estudiante.setPrimerNombre("Pablo");
-            estudiante.setPrimerApellido("Escobar");
-            Gson gson = new Gson();
-            String mensaje=gson.toJson(estudiante,Estudiante.class);
-            System.out.println(mensaje);
-            out.print(mensaje);*/
-            
-         
-            
         }
     }
 
@@ -87,26 +63,27 @@ public class EstudianteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        JSONObject json = new JSONObject();
-        Gson gson = new Gson();
-        String mensaje = Utils.readParams(request);
-        System.out.println(mensaje);
-        Estudiante estudiante= (Estudiante)gson.fromJson(mensaje, Estudiante.class);
-        
-        
+        response.setContentType("application/json;charset=UTF-8");
+        String parametros = Utils.readParams(request);
+        JSONObject parametroJson = new JSONObject(parametros);
         EstudianteDao dao = new EstudianteDao();
-        if(dao.crear(estudiante)){
-            json.put("tipo","ok");
-            json.put("mensaje","Estudiante creado");
-        }else{
-            json.put("tipo","error");
-            json.put("mensaje","Error al crear estudiante");
+        JSONObject respuesta = new JSONObject();
+        Estudiante estudiante = dao.consultarPorCredenciales(parametroJson.getString("documento"), parametroJson.getString("contraseña"));
+        if (estudiante != null) {
+            Gson gson = new Gson();
+            JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
+            estudianteJson.remove("contraseña");
+            respuesta.put("tipo", "ok");
+            respuesta.put("mensaje", "Bienvenido ");
+            respuesta.put("estudiante", estudianteJson);
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "documento o contraseña incorrecta ");
         }
-        out.print(json.toString());
-        
+        out.print(respuesta.toString());
     }
 
     /**
