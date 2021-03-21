@@ -36,6 +36,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
             call.setString("_genero",personal.getGenero());
             call.setString("_correo", personal.getCorreo());
             call.execute();
+            call.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
