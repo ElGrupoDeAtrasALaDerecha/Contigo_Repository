@@ -2,7 +2,7 @@ $(document).ready(function () {
   const footer = `<div id="footer">
 <div id="superior">
     <ul>
-        <li><div class="inicio"><a href="#" class="menuFooter">Inicio</a><div></li>
+        <li><a href="#" class="menuFooter">Inicio</a></li>
         <li><a href="Conversatorios.html" class="menuFooter">Conversatorios</a></li>
         <li><a href="decisiones.html" class="menuFooter">Decisiones</a></li>
         <li><a href="#" class="menuFooter">Ayuda</a></li>
@@ -73,7 +73,7 @@ $(document).ready(function () {
 <ul>
     <li><a id="contigo-1" href="index.html">Contigo</a></li>
     <div id="up">
-        <li><a href="#">Inicio</a></li>
+        <li><a href="opciones.html">Inicio</a></li>
         <li><a href="Conversatorios.html">Conversatorios</a></li>
         <li><a href="decisiones.html">Decisiones</a></li>
         <li><a href="#">Ayuda</a></li>
