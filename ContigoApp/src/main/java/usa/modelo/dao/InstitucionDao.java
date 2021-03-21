@@ -26,21 +26,31 @@ public class InstitucionDao implements IDao<Institucion> {
     ResultSet result;
     
     @Override
-    public boolean crear(Institucion t) {
-        /*
+    public boolean crear(Institucion ins) {
+        
         try {
-            String sql = "insert into  institucion (Direccion_idDireccion,nombre) values (?,?)";
+            String sql = "insert into  institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web ) "
+                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
             Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
-            //pat.setInt(1, proveedor.getDireccion().getIdDireccion());
-            //pat.setString(2, proveedor.getNombre());
-            boolean insert = pat.execute();
+            pat.setInt(1, ins.getIdMunicipio());
+            pat.setInt(2, ins.getMETODO_PAGO_id());
+            pat.setString(3, ins.getNombre());
+            pat.setString(4, ins.getCorreo());
+            pat.setString(5, ins.getDireccion());
+            pat.setBoolean(6, ins.isTipoInstitucion());
+            pat.setBoolean(7, ins.isCalendario());
+            pat.setString(8, ins.getBarrio());
+            pat.setString(9, ins.getTelefono());
+            pat.setString(10, ins.getContraseña());
+            pat.setString(11, ins.getPagina());
+            pat.execute();
             pat.close();
-            return insert;
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
+        
         return false;
     }
 

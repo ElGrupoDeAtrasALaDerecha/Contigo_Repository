@@ -71,8 +71,7 @@ public class MunicipioServlet extends HttpServlet {
         for (Municipio i : dao.listarTodos()) {
             arreglo.put(new JSONObject(gson.toJson(i, Municipio.class)));
         }
-        json.put("Municipios", arreglo);//
-        System.out.println(json.toString());
+        json.put("Municipios", arreglo);
         out.print(json.toString());
         
     }

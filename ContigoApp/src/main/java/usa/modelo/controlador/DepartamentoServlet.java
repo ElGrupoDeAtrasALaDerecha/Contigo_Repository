@@ -73,7 +73,6 @@ public class DepartamentoServlet extends HttpServlet {
             arreglo.put(new JSONObject(gson.toJson(i, Departamento.class)));
         }
         json.put("Departamentos", arreglo);//
-        System.out.println(json.toString());
         out.print(json.toString());
     }
 

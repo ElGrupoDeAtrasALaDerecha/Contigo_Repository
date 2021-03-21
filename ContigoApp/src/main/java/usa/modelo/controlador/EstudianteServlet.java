@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dto.Estudiante;
-import usa.modelo.dto.Institucion;
 import usa.utils.Utils;
 
 /**
@@ -89,13 +88,16 @@ public class EstudianteServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+        Gson gson = new Gson();
         String mensaje = Utils.readParams(request);
         System.out.println(mensaje);
-        response.setContentType("application/json;charset=UTF-8");
-        Gson gson = new Gson();
         Estudiante estudiante= (Estudiante)gson.fromJson(mensaje, Estudiante.class);
+        
+        
         EstudianteDao dao = new EstudianteDao();
-        JSONObject json = new JSONObject();
         if(dao.crear(estudiante)){
             json.put("tipo","ok");
             json.put("mensaje","Estudiante creado");
@@ -103,10 +105,8 @@ public class EstudianteServlet extends HttpServlet {
             json.put("tipo","error");
             json.put("mensaje","Error al crear estudiante");
         }
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.print(json.toString());
-        }
+        out.print(json.toString());
+        
     }
 
     /**
