@@ -1,7 +1,7 @@
 package usa.modelo.dto;
 
 /**
- * 
+ *
  */
 public class Conversatorio {
 
@@ -14,10 +14,28 @@ public class Conversatorio {
     private int id;
     private String titulo;
     private String cronograma;
-    private int orador;
+    private String orador;
+    private String infografia;
+    private String lugar;
     private String imagen;
     private String descripcion;
+    
+    public String getInfografia() {
+        return infografia;
+    }
 
+    public void setInfografia(String infografia) {
+        this.infografia = infografia;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -33,6 +51,7 @@ public class Conversatorio {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+
     public int getId() {
         return id;
     }
@@ -57,11 +76,12 @@ public class Conversatorio {
         this.cronograma = cronograma;
     }
 
-    public int getOrador() {
+    public String getOrador() {
         return orador;
     }
-    
-    public void setOrador(int orador) {
+
+    public void setOrador(String orador) {
         this.orador = orador;
-    } 
+    }
+
 }

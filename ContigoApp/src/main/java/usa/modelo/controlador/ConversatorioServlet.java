@@ -22,6 +22,7 @@ import usa.utils.Utils;
 
 /**
  * Clase de Conversatorios
+ *
  * @author Miguel Angel Rippe y Natalia Montenegro
  * @since 2021-03-13
  */
@@ -66,21 +67,20 @@ public class ConversatorioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ConversatoriosDao dao = new ConversatoriosDao();
-        LinkedList <Conversatorio>conversatorios=dao.listarTodos();
+        LinkedList<Conversatorio> conversatorios = dao.listarTodos();
+
         Gson gson = new Gson();
         JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray();
         respuesta.put("tipo", "ok");
-        for (Conversatorio conversatorio:conversatorios) {
-            arreglo.put(new JSONObject(gson.toJson(conversatorio,Conversatorio.class)));
+        for (Conversatorio conversatorio : conversatorios) {
+            arreglo.put(new JSONObject(gson.toJson(conversatorio, Conversatorio.class)));
         }
-        respuesta.put("conversatorios",arreglo);
+        respuesta.put("conversatorios", arreglo);
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
-        
-    } 
 
-    
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -92,16 +92,34 @@ public class ConversatorioServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        String parametros = Utils.readParams(request);
+        Gson gson = new Gson();
+        Conversatorio conver = (Conversatorio) gson.fromJson(parametros, Conversatorio.class);
+        ConversatoriosDao dao = new ConversatoriosDao();
+        JSONObject respuesta = new JSONObject();
 
+        if (dao.crear(conver)) {
+            respuesta.put("tipo", "ok");
+            respuesta.put("mensaje", "El conversatorio fue agendado correctamente");
+      
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No se ha podido crear el conversatorio");
+        }
+
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+@Override
+        protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -111,7 +129,7 @@ public class ConversatorioServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

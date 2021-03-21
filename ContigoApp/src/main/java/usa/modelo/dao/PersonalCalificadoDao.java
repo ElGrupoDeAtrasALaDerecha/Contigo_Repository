@@ -43,7 +43,11 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         }
         return false;
     }
-
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     @Override
     public PersonalCalificado consultar(String id) {
         Connection conn = Conexion.tomarConexion();

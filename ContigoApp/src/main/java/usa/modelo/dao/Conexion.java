@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * @author Santiago Pérez
  */
 public class Conexion {
-
+//a
     String bd = "contigoBD";
     String user= "root";
     String password="1234";

@@ -18,7 +18,10 @@ public class PersonalCalificado extends Persona {
     public String getCorreo() {
         return correo;
     }
-
+    /**
+     * 
+     * @param correo 
+     */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
