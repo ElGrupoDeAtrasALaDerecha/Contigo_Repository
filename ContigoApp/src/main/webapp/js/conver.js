@@ -105,7 +105,7 @@ function colocarInfo(array, orador, personal) {
                 '</h2>' +
                 '</center>' +
                 '<br>' +
-                '<p>Aquí se escribe toda la información del orador</p>' +
+                '<p></p>' +
                 '<br>'
             $("#orador").append(text);
         }
@@ -115,51 +115,65 @@ function colocarInfo(array, orador, personal) {
         '<br><br>' +
         '<p>' + array.descripcion + '</p>' +
         '<br><br>' +
+        'Lugar:' +
+        '<br><br>' +
+        '<p>' + array.lugar + '</p>' +
+        '<br><br>' +
         'Cronograma:' +
         '<br><br>' +
         '<p>' + array.cronograma + '</p>' +
-        '<br> <br><br><br><br><br><br>'
+        '<br><br><br><br><br><br><br><br>'+
+        '<br><br><br><br><br><br><br><br>'+
+        '<br><br><br><br>'
 
     $("#cronograma").append(text);
 
-
-    text='<br>'+
-    '<br>'+
-    '<img src="'+array.infografia+'">'
+    text = '<br>' +
+        '<img src="' + array.infografia + '">'
+        '<br>'+
+        '<br>' 
     $("#infografia").append(text);
+    text = '<h2>' +
+        '<span>' + array.titulo + '</span>' +
+        '<br>' +
+        '</h2>' +
+        '<p> </p>' +
+        '<h3><span></span> </h3>' +
+        '<a href="blog.html" class="banner-button">Botón de pánico</a>'
+    $("#titulo").append(text);
 }
 
 
-function crearConversatorio(){
-  
-        titulo = $("#texto").val();
-     
-        informacion = {
-            Titulo: titulo,
-        };
+function crearConversatorio() {
 
-        console.log(informacion);
-        $.ajax({
-            url: "Conversatorio",
-            type: "POST",
-            dataType: "json",
-            data: JSON.stringify(informacion),
-            contentType: "JSON application/json charset=utf-8",
-            beforeSend: function () {
-            },
-            success: function (result, textStatus, request) {
+    titulo = $("#texto").val();
+
+    informacion = {
+        Titulo: titulo,
+    };
+
+    console.log(informacion);
+    $.ajax({
+        url: "Conversatorio",
+        type: "POST",
+        dataType: "json",
+        data: JSON.stringify(informacion),
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            console.log(result);
+            if (result != "error") {
                 console.log(result);
-                if (result != "error") {
-                    console.log(result);
-                } else {
-                    console.log("error");
-                }
-            },
-            complete: function (result) {
-            },
-            error: function (result) {
+            } else {
+                console.log("error");
             }
-        });
+        },
+        complete: function (result) {
+        },
+        error: function (result) {
+        }
+    });
 
 
 }
