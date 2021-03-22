@@ -30,6 +30,7 @@ function loginPersonalCalificado(obj){
                 setCookie("token",response.personal.token,0.3);
                 alert("Mensaje: "+response.mensaje)
                 $(location).attr('href','admin_perca.html');
+                tipoUsuario=2;
             }
             else{
                 alert("Error: "+response.mensaje)
