@@ -96,7 +96,7 @@ function colocarInfo(array, orador, personal) {
     for (var i = 0; i < personal.length; i++) {
         if (personal[i].documento === orador) {
             text = '<br>' +
-                '<img src="" class="imgRedonda">' +
+                '<img src="https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg" class="imgRedonda">' +
                 '<br> Orador:' +
                 '<center>' +
                 '<h2>' +
@@ -143,10 +143,16 @@ function colocarInfo(array, orador, personal) {
     $("#titulo").append(text);
 }
 
+$("#btnCrear").on("click", function () {
+    crearConversatorio();
+});
 
 function crearConversatorio() {
 
-    titulo = $("#texto").val();
+    titulo = $("#Texto").val();
+    descripcion = $("#Descripcion").val();
+    lugar = $("#Lugar").val();
+    console.log(tipoUsuario);
 
     informacion = {
         Titulo: titulo,
