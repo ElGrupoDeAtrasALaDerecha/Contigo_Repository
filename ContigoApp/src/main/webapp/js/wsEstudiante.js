@@ -4,9 +4,12 @@
 
 
 
-/*$("#btnPanico").click(function(){
-	window.location.assign("chat2.html");
-});*/
+$(document).ready(function(){
+	if(getCookie("tipoUsuario")!==1){
+		alert("No autorizado");
+		window.location.assign("index.html");
+	}
+})
 
 var numeroSala;
 
