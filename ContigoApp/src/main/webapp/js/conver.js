@@ -152,7 +152,7 @@ function crearConversatorio() {
     titulo = $("#Texto").val();
     descripcion = $("#Descripcion").val();
     lugar = $("#Lugar").val();
-
+    console.log(tipoUsuario);
 
     informacion = {
         Titulo: titulo,
