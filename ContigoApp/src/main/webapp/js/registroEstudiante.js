@@ -38,7 +38,7 @@ function registrar_estudiante() {
     gen = $("#Genero").val();
     fena = $("#FechaNacimiento").val();
     codins = $("#CodigoInstitucional").val();
-    snom = $("#Segundo nombre").val();
+    snom = $("#SegundoNombre").val();
     sape = $("#SegundoApellido").val();
     con = $("#contra").val()
 
@@ -99,7 +99,7 @@ function Ingresar() {
     contra = document.getElementById("contra").value;
     conficontra = document.getElementById("conficontra").value;
     var expReg= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-    var esValido=expReg.test(CorreoElectronico);
+    
 
     if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CodigoInstitucional == "" || SegundoApellido == "" || FechaNacimiento == "" || contra == "" || conficontra == "") {
         alert("Todos los campos son obligatorios.");
