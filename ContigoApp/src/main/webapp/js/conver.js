@@ -143,10 +143,16 @@ function colocarInfo(array, orador, personal) {
     $("#titulo").append(text);
 }
 
+$("#btnCrear").on("click", function () {
+    crearConversatorio();
+});
 
 function crearConversatorio() {
 
-    titulo = $("#texto").val();
+    titulo = $("#Texto").val();
+    descripcion = $("#Descripcion").val();
+    lugar = $("#Lugar").val();
+
 
     informacion = {
         Titulo: titulo,
