@@ -24,7 +24,8 @@ function loginEstudiante(obj){
             console.log(response);
             if(response.tipo==="ok"){
                 setCookie("token",response.estudiante.token,0.3);
-                alert("Mensaje: "+response.mensaje)
+                alert("Mensaje: "+response.mensaje);
+                tipoUsuario=1;
                 $(location).attr('href','opciones.html');
             }
             else{

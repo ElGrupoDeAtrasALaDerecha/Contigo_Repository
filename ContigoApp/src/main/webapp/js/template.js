@@ -1,3 +1,5 @@
+var tipoUsuario=0;
+
 $(document).ready(function () {
   const footer = `<div id="footer">
 <div id="superior">
