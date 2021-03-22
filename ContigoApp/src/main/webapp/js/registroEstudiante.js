@@ -36,7 +36,6 @@ function registrar_estudiante() {
     pnom = $("#PrimerNombre").val();
     pape = $("#PrimerApellido").val();
     gen = $("#Genero").val();
-    corre = $("#CorreoElectronico").val();
     fena = $("#FechaNacimiento").val();
     codins = $("#CodigoInstitucional").val();
     snom = $("#Segundo nombre").val();
@@ -94,7 +93,6 @@ function Ingresar() {
     PrimerNombre = document.getElementById("PrimerNombre").value;
     PrimerApellido = document.getElementById("PrimerApellido").value;
     Genero = document.getElementById("Genero").value;
-    CorreoElectronico = document.getElementById("CorreoElectronico").value;
     CodigoInstitucional = document.getElementById("CodigoInstitucional").value;
     SegundoApellido = document.getElementById("SegundoApellido").value;
     FechaNacimiento = document.getElementById("FechaNacimiento").value;
@@ -103,12 +101,10 @@ function Ingresar() {
     var expReg= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     var esValido=expReg.test(CorreoElectronico);
 
-    if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CorreoElectronico == "" || CodigoInstitucional == "" || SegundoApellido == "" || FechaNacimiento == "" || contra == "" || conficontra == "") {
+    if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CodigoInstitucional == "" || SegundoApellido == "" || FechaNacimiento == "" || contra == "" || conficontra == "") {
         alert("Todos los campos son obligatorios.");
     } else if (contra != conficontra) {
         alert("No coincide su contraseña con la confirmación");
-    } else if(esValido!=true){
-        alert("El correo es invalido")
     }else{
         registrar_estudiante();
     }
