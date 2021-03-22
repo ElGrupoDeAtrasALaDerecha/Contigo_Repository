@@ -1,0 +1,7 @@
+#btnAyuda
+{
+  position: fixed;
+  z-index: 10000;
+  top: 90%;
+  left: 95%;
+}

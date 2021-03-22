@@ -5,52 +5,49 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Privado</title>
-    <link rel="stylesheet" type="text/css" href="css/css_componentes/bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css" href="css/css_componentes/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/navfooter.css">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
 
 </head>
-
-<body class="diagonal-box">
-    <div id="titulo_conti" >
-        <div id="conti">
-            <img id="logo" src="Iconos/CONTI.png" >
+<body>
+    <div id="conti" >
+        <div id="logo">
+            <img id="pin" src="Iconos/CONTI.png" >
         </div>
-    </div>
-    <div id="chatCompleto">
-        <div id="titulo">
-            <h1>Conti</h1>
-        </div>
-        
-            <div id="mensajes">
-                
+        <div id="chatCompleto">
+            <div id="titulo">
+                <h1>Conti</h1>
             </div>
-        
+            <div id="chat">
+                <div id="mensajes">
 
-        <div id="mensaje">
-            <input id="Enviarmensaje" type="text" placeholder="Escribir mensaje..." width="2000px">
-            <button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
-                <i class="bi bi-arrow-right-circle-fill"></i>
-            </button>
+                </div>
+            </div>
+            <div id="mensaje">
+                <input id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
+                <button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
+                    <i class="bi bi-arrow-right-circle-fill"></i>
+                </button>
+            </div>
         </div>
     </div>
-    <form name="form_reloj">
+
+    <form name="form_reloj" style="position: relative;">
         <input type="text" name="reloj" size="10">
     </form>
     <br>
-    
 
 </body>
+<script src="js/template.js"></script>
 <script src="js/funciones.js"></script>
 <script type="text/javascript" src="js/js_componentes/bootstrap.min.js"></script>
 <script src="js/wsEstudiante.js"></script>
-<script src="js/template.js"></script>
+
 
 </html>

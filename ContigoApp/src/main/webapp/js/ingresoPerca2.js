@@ -18,25 +18,25 @@ $('#ing_perca').click(function (e) {
  * Función login
  * @param {*} obj
  */
-function loginPersonalCalificado (obj) {
-  $.ajax({
-    method: 'POST',
-    url: 'LoginPersonalCalificado',
-    data: JSON.stringify(obj),
-    dataType: 'json',
-    success: function (response) {
-      console.log(response)
-      debugger
-      if (response.tipo === 'ok') {
-        setCookie('token', response.personal.token, 0.3)
-        alert('Mensaje: ' + response.mensaje)
-        $(location).attr('href', 'admin_perca.html')
-      } else {
-        alert('Error: ' + response.mensaje)
-      }
-    },
-    error: function (response) {
-      console.log(JSON.stringify(response))
-    }
-  })
+function loginPersonalCalificado(obj){
+    $.ajax({
+        method: 'POST',
+        url: 'LoginPersonalCalificado',
+        data: JSON.stringify(obj),
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            if(response.tipo==="ok"){
+                setCookie("token",response.personal.token,0.3);
+                alert("Mensaje: "+response.mensaje)
+                $(location).attr('href','admin_perca.html');
+            }
+            else{
+                alert("Error: "+response.mensaje)
+            }
+        },
+        error: function(response){
+            console.log(JSON.stringify(response))
+        }
+    }); 
 }

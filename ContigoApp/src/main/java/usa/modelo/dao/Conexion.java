@@ -22,6 +22,8 @@ public class Conexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url);
+
+            
             if (con != null) {
                 System.out.println("Conexion a base de datos exitosa");
             }

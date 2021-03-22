@@ -1,5 +1,6 @@
 package usa.utils;
 
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -10,6 +11,7 @@ public class Utils {
 
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
+    private static final Gson gson = new Gson();
 
     public static String readParams(HttpServletRequest request) {
         StringBuffer jb = new StringBuffer();
@@ -21,7 +23,7 @@ public class Utils {
                 jb.append(line);
             }
         } catch (Exception e) {
-            /* report an error */ }
+            /* report an error a*/ }
 
         line = jb.toString();
         return line;
@@ -40,5 +42,13 @@ public class Utils {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);
         return base64Encoder.encodeToString(randomBytes);
+    }
+    
+    
+    public static String toJson(Object o){
+        return gson.toJson(o);
+    }
+    public static Object fromJson(String s, Class T){
+        return gson.fromJson(s,T);
     }
 }

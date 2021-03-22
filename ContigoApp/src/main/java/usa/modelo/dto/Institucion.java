@@ -1,8 +1,7 @@
 package usa.modelo.dto;
 
-
 /**
- * 
+ *
  */
 public class Institucion {
 
@@ -13,57 +12,66 @@ public class Institucion {
     }
 
     /**
-     * 
+     *
      */
     private int id;
 
     /**
-     * 
+     *
      */
     private String nombre;
 
     /**
-     * 
+     *
      */
     private String correo;
 
     /**
-     * 
+     *
      */
     private String direccion;
 
     /**
-     * 
+     *
      */
     private boolean tipoInstitucion;
 
     /**
-     * 
+     *
      */
     private boolean calendario;
 
     /**
-     * 
+     *
      */
     private String barrio;
 
     /**
-     * 
+     *
      */
     private String telefono;
 
     /**
-     * 
+     *
      */
     private int idMunicipio;
 
     /**
-     * 
+     *
      */
     private String contraseña;
-    
-    
+
     private String pagina;
+
+    private int METODO_PAGO_id;
+
+    public int getMETODO_PAGO_id() {
+        return METODO_PAGO_id;
+    }
+
+    public void setMETODO_PAGO_id(int METODO_PAGO_id) {
+        this.METODO_PAGO_id = METODO_PAGO_id;
+    }
 
     public String getPagina() {
         return pagina;
@@ -152,8 +160,5 @@ public class Institucion {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-
-
-
 
 }

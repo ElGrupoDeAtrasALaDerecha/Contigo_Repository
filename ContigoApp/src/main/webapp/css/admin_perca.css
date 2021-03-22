@@ -1,0 +1,59 @@
+#lista_chats{
+    background-color: rgb(255, 255, 255);
+    margin-left: 5%;
+    height: 89%;
+    border-radius: 80%;
+}
+#chats_sin_a{
+    overflow: hidden;
+    text-align:left;
+    height: 50%;
+    border:1px solid #000000;
+    width: 95%;
+    background-color: rgb(231, 231, 231);
+}
+h4{
+    text-decoration: none;
+    font-style: italic;
+    text-align: center;
+    color:rgb(0, 0, 0);
+}
+#chats_atendidos{
+    overflow: hidden;
+    height: 50%;
+    text-align:left;
+    border:1px solid #000000;
+    width: 95%;
+    background-color: rgb(255, 255, 255);
+}
+#chat_con_est{
+    background-color: rgb(255, 255, 255);
+}
+.chat_estudiante_A{
+    width: 85%;
+    height: 15%;
+    margin-bottom: 1%;
+    margin-left: 3%;
+    border-top-color: rgb(4, 0, 245);
+    font-size: 100%;
+    background-color: rgb(245, 245, 245);
+}
+.chat_estudiante_sinA{
+    width: 85%;
+    height: 15%;
+    margin-bottom: 1%;
+    margin-left: 3%;
+    border-top-color: rgb(238, 20, 220);
+    font-size: 100%;
+    background-color: rgb(255, 255, 255);
+}
+
+/*chat y mensajes*/
+#chatCompleto2{
+    margin-left: 0%;
+    margin-top: 1%;
+    opacity: 100%;
+    width:100%;
+    border:1px solid #000000; 
+    
+}

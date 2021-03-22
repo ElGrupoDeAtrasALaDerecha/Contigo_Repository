@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
 import java.sql.CallableStatement;
@@ -39,8 +34,9 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
             call.setString("_token", Utils.generateNewToken());
             call.setString("_fechaNacimiento", personal.getFechaDeNacimiento());
             call.setString("_genero",personal.getGenero());
-            call.setString("correo", personal.getCorreo());
+            call.setString("_correo", personal.getCorreo());
             call.execute();
+            call.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +50,31 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
      */
     @Override
     public PersonalCalificado consultar(String id) {
-        return new PersonalCalificado();
+        Connection conn = Conexion.tomarConexion();
+        PersonalCalificado personalCalificado =null;
+        String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
+                + "where p.documento="+id+";";
+        try {
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()){                
+                personalCalificado = new PersonalCalificado();
+                personalCalificado.setDocumento(rs.getString("documento"));
+                personalCalificado.setPrimerNombre(rs.getString("primerNombre"));
+                personalCalificado.setSegundoNombre(rs.getString("segundoNombre"));
+                personalCalificado.setPrimerApellido(rs.getString("primerApellido"));
+                personalCalificado.setSegundoApellido(rs.getString("segundoApellido"));
+                personalCalificado.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toString());
+                personalCalificado.setGenero(rs.getString("genero"));
+                personalCalificado.setCorreo(rs.getString("correo"));
+                personalCalificado.setToken(rs.getString("token"));
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return personalCalificado;
     }
 
     @Override
@@ -99,7 +119,30 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
 
     @Override
     public PersonalCalificado consultarPorToken(String token) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = Conexion.tomarConexion();
+        PersonalCalificado personalCalificado =null;
+        String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
+                + "where p.token='"+token+"';";
+        try {
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()){                
+                personalCalificado = new PersonalCalificado();
+                personalCalificado.setDocumento(rs.getString("documento"));
+                personalCalificado.setPrimerNombre(rs.getString("primerNombre"));
+                personalCalificado.setSegundoNombre(rs.getString("segundoNombre"));
+                personalCalificado.setPrimerApellido(rs.getString("primerApellido"));
+                personalCalificado.setSegundoApellido(rs.getString("segundoApellido"));
+                personalCalificado.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toString());
+                personalCalificado.setGenero(rs.getString("genero"));
+                personalCalificado.setCorreo(rs.getString("correo"));
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return personalCalificado;
     }
 
     @Override

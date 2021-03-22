@@ -1,0 +1,117 @@
+*{
+    margin: 0 0;
+    padding: 0 0;
+}
+/*Datos*/
+#Datos{
+    background-color: rgba(255,255,255,1);
+    padding-bottom: 45px;
+    padding-top: 25px;
+}
+
+#boton{
+    text-align: center;
+    padding-top: 20px;
+    outline:none;
+}
+#table-datos{
+    display: table;
+    margin: auto;
+}
+#Columna-datos{
+    padding-left: 50px;
+    padding-right: 50px;
+    text-decoration: none;
+}
+h1{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    padding-top: 40px;
+    text-align: center;
+}
+.Texto{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 25px;
+    text-decoration: none;
+    width: 450px;
+    border: solid;
+    border-width: 1px;
+    border-color: #9c9999 solid;
+    color: #9c9999;
+    overflow: hidden;
+    font-weight: lighter;
+    outline:none;
+}
+#textFecha{
+    color: #9c9999;
+    font-weight: lighter;
+    font-size: 10px;
+    padding-left: 5%;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+#Espacios{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#Button{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 25px;
+    width: 450px;
+    border: none;
+    background-color: #2d4059;
+    color: rgba(255,255,255,1);
+    text-align: left;
+}
+#Button2{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 25px;
+    width: 400px;
+    border: none;
+    background-color: #2d4059;
+    color: rgba(255,255,255,1);
+    text-align: center;
+    outline:none;
+}
+#Columna-datos2{
+    padding-left: 50px;
+    padding-right: 50px;
+    text-decoration: none;
+}
+#Espacios2{
+    padding-top: 11px;
+    padding-bottom: 10px;
+}
+#Espacios3{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+#Espacios4{
+    padding-top: -15px;
+    padding-bottom: 20px;
+}
+#Espacios5{
+    padding-top: 0px;
+    padding-bottom: 20px;
+}
+
+
+.select-css {
+    appearance: none;
+    background-image: url("Imagen/flecha.png");
+    background-repeat: no-repeat, repeat;
+    background-position: right .9em top 50%, 0 0;
+    background-size: .99em auto, 100%;
+  }
