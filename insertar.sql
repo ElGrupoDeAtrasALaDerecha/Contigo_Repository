@@ -1,4 +1,7 @@
-insert into TIPO_DOCUMENTO (tipo) values ("Cédula de ciudadanía");
+Insert INTO TIPO_DOCUMENTO (tipo) values ("Cédula de ciudadanía");
+INSERT INTO tipo_documento (tipo) values ("Tarjeta de indentidad");
+INSERT INTO tipo_documento (tipo) values ("Registro civil");
+INSERT INTO tipo_documento (tipo) values ("Cédula de extranjería");
 
 call insertarPersonalCalificado(  "1000853623",1,"Santiago","","Pérez" ,"González","1","2000-07-26","1234","masculino","santipego0001@gmail.com");
 

@@ -8,6 +8,7 @@ package usa.controlador;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,19 +67,13 @@ public class InstitucionServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        String nom = Utils.readParams(request);
-        System.out.println(nom);
-        System.out.println("jajajaja");
-        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
         InstitucionDao dao = new InstitucionDao();
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray();
         for (Institucion i : dao.listarTodos()) {
             arreglo.put(new JSONObject(gson.toJson(i, Institucion.class)));
         }
-        json.put("tipo", "ok");
-        json.put("mensaje", "Estudiante creado");
-        json.put("istituciones", arreglo);
+        json.put("Instituciones", arreglo);
         System.out.println(json.toString());
         out.print(json.toString());
     }
@@ -101,14 +96,23 @@ public class InstitucionServlet extends HttpServlet {
         Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
         System.out.println(nom);
         InstitucionDao instuti = new InstitucionDao();
-        if (instuti.crear(ins)) {
-            json.put("tipo", "ok");
-            json.put("mensaje", "Institucion registrada correctamente");
-        }else{
+
+        if (instuti.consultar(ins.getNombre()) != null) {
             json.put("tipo", "error");
-            json.put("mensaje", "Error al registrar institucion");
+            json.put("mensaje", "Ya existe una institucion con este nombre");
+        } else {
+            if (instuti.crear(ins)) {
+                json.put("tipo", "ok");
+                json.put("mensaje", "Institucion registrada correctamente");
+            } else {
+                json.put("tipo", "error");
+                json.put("mensaje", "Error al registrar institucion");
+            }
         }
         out.print(json.toString());
+        /*
+        
+         */
     }
 
     /**

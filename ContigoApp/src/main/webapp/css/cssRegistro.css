@@ -71,6 +71,7 @@ input[type=number]::-webkit-inner-spin-button {
     background-color: #2d4059;
     color: rgba(255,255,255,1);
     text-align: left;
+    outline:none;
 }
 #Button2{
     padding-bottom: 9px;

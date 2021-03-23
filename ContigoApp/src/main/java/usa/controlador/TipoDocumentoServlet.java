@@ -15,15 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.MunicipioDao;
-import usa.modelo.dto.Municipio;
+import usa.modelo.dao.TipoDocumentoDao;
+import usa.modelo.dto.TipoDocumento;
 
 /**
  *
  * @author santi
  */
-@WebServlet(name = "MunicipioServlet", urlPatterns = {"/Municipio"})
-public class MunicipioServlet extends HttpServlet {
+@WebServlet(name = "TipoDocumentoServlet", urlPatterns = {"/TipoDocumento"})
+public class TipoDocumentoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,20 +32,20 @@ public class MunicipioServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs545
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            /* TODO output your page here. You may use following sample code. df*/
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MunicipioServlet</title>");
+            out.println("<title>Servlet TipoDocumentoServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MunicipioServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TipoDocumentoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,15 +65,14 @@ public class MunicipioServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        MunicipioDao dao = new MunicipioDao();
+        TipoDocumentoDao dao = new TipoDocumentoDao();
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray();
-        for (Municipio i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Municipio.class)));
+        for (TipoDocumento i : dao.listarTodos()) {
+            arreglo.put(new JSONObject(gson.toJson(i, TipoDocumento.class)));
         }
-        json.put("Municipios", arreglo);
+        json.put("Identificaciones", arreglo);
         out.print(json.toString());
-
     }
 
     /**
@@ -82,7 +81,7 @@ public class MunicipioServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs. a
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

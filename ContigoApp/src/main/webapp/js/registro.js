@@ -1,5 +1,6 @@
 var departamentos;
 var municipios;
+var instituciones;
 var ca = null;
 var sec = null;
 var idpago = 1;
@@ -34,8 +35,6 @@ window.onload = function depas() {
     });
     munici();
 }
-
-
 
 function registrar_institucion() {
     municipio = $("#municipio").val();
@@ -82,8 +81,7 @@ function registrar_institucion() {
         dataType: "json",
         data: JSON.stringify(informacion),
         contentType: "JSON application/json charset=utf-8",
-        beforeSend: function () {
-
+        beforeSend: function () {  
         },
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
@@ -102,8 +100,6 @@ function registrar_institucion() {
         }
 
     });
-
-
 }
 
 
