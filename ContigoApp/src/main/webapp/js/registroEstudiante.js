@@ -109,3 +109,4 @@ function Ingresar() {
         registrar_estudiante();
     }
 }
+

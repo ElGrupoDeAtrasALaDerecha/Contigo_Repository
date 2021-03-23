@@ -35,7 +35,6 @@ public class EstudianteDao implements IDao<Estudiante> {
             call.setString("_token", Utils.generateNewToken());
             call.setString("_fechaNacimiento", estudiante.getFechaDeNacimiento());
             call.setString("_genero",estudiante.getGenero());
-            //call.setString("correo", estudiante.getCorreo());
             call.setString("_contraseña", estudiante.getContraseña());
             call.setString("_GRADO_codigo", estudiante.getGrado());
             call.execute();

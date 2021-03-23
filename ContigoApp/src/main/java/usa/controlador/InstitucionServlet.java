@@ -66,19 +66,13 @@ public class InstitucionServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        String nom = Utils.readParams(request);
-        System.out.println(nom);
-        System.out.println("jajajaja");
-        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
         InstitucionDao dao = new InstitucionDao();
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray();
         for (Institucion i : dao.listarTodos()) {
             arreglo.put(new JSONObject(gson.toJson(i, Institucion.class)));
         }
-        json.put("tipo", "ok");
-        json.put("mensaje", "Estudiante creado");
-        json.put("istituciones", arreglo);
+        json.put("Instituciones", arreglo);
         System.out.println(json.toString());
         out.print(json.toString());
     }
@@ -99,7 +93,7 @@ public class InstitucionServlet extends HttpServlet {
         Gson gson = new Gson();
         String nom = Utils.readParams(request);
         Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        System.out.println(nom);
+        System.out.println("Nombre:"+ins.getNombre());
         InstitucionDao instuti = new InstitucionDao();
         if (instuti.crear(ins)) {
             json.put("tipo", "ok");
