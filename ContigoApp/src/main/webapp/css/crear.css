@@ -46,6 +46,12 @@ h2{
     padding: 2% 5%;
     width: 80%;
 }
+.calendar{
+
+    margin:0;
+}
+
+
 .btn{
     background-color: #2D4059;
     border: none;
