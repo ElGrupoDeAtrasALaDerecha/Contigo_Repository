@@ -17,17 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.modelo.dao.ConversatoriosDao;
+import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.Conversatorio;
 import usa.utils.Utils;
 
 /**
- * Clase de Conversatorios
  *
- * @author Miguel Angel Rippe y Natalia Montenegro
- * @since 2021-03-13
+ * @author migue
  */
-@WebServlet(name = "ConversatorioServlet", urlPatterns = {"/Conversatorio"})
-public class ConversatorioServlet extends HttpServlet {
+@WebServlet(name = "ClasificacionServlet", urlPatterns = {"/ClasificacionServlet"})
+public class ClasificacionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +45,10 @@ public class ConversatorioServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConversatorioServlet</title>");
+            out.println("<title>Servlet ClasificacionServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ConversatorioServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ClasificacionServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,23 +64,9 @@ public class ConversatorioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        response.setContentType("application/json;charset=UTF-8");
-        System.out.println(request);
-        ConversatoriosDao dao = new ConversatoriosDao();
-        LinkedList<Conversatorio> conversatorios = dao.listarTodos();
-        Gson gson = new Gson();
-        JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray();
-        respuesta.put("tipo", "ok");
-        for (Conversatorio conversatorio : conversatorios) {
-            arreglo.put(new JSONObject(gson.toJson(conversatorio, Conversatorio.class)));
-        }
-        respuesta.put("conversatorios", arreglo);
-        PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -93,43 +78,30 @@ public class ConversatorioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
-        System.out.println(parametros);
         Gson gson = new Gson();
-        Conversatorio conver = (Conversatorio) gson.fromJson(parametros, Conversatorio.class);
-        ConversatoriosDao dao = new ConversatoriosDao(); 
+        Clasificacion clasi = (Clasificacion) gson.fromJson(parametros, Clasificacion.class);
+        ConversatoriosDao dao = new ConversatoriosDao();
         JSONObject respuesta = new JSONObject();
-        int resultado = dao.crear(conver);
-        
-        if (resultado != 0) {
+        JSONArray arreglo = new JSONArray();
+        LinkedList<Clasificacion> clasificaciones = dao.consultar(clasi.getId());
+        if (clasificaciones != null) {
             respuesta.put("tipo", "ok");
-            respuesta.put("mensaje", "El conversatorio fue agendado correctamente");
-            respuesta.put("conversatorio", resultado);
-            String arregloClasificaciones[]=conver.getClasificacion();
-            for (int i = 0; i < arregloClasificaciones.length; i++) {
-                dao.crearClasi(arregloClasificaciones[i],resultado);
+
+            for (Clasificacion i : clasificaciones) {
+                arreglo.put(new JSONObject(gson.toJson(i, Clasificacion.class)));
             }
-    
+            respuesta.put("clasificacion", arreglo);
         } else {
             respuesta.put("tipo", "error");
-            respuesta.put("mensaje", "No se ha podido crear el conversatorio");
+            respuesta.put("mensaje", "No se han podido traer los datos ");
         }
-        
 
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

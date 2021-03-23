@@ -42,7 +42,7 @@ public class EstudianteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Estudiante</title>");            
+            out.println("<title>Servlet Estudiante</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Estudiante at " + request.getContextPath() + "</h1>");
@@ -61,21 +61,26 @@ public class EstudianteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /*
-            Estudiante estudiante = new Estudiante();
-            estudiante.setPrimerNombre("Pablo");
-            estudiante.setPrimerApellido("Escobar");
+        EstudianteDao dao = new EstudianteDao();
+        JSONObject respuesta = new JSONObject();
+        Estudiante estudiante = dao.consultarPorTokenGrado(request.getParameter("id"));
+        
+        if (estudiante != null) {
             Gson gson = new Gson();
-            String mensaje=gson.toJson(estudiante,Estudiante.class);
-            System.out.println(mensaje);
-            out.print(mensaje);*/
-            
-         
-            
+            JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
+     
+            respuesta.put("tipo", "ok");
+            respuesta.put("estudiante", estudianteJson);
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No se ha posido consultar el estudiant");
         }
+       
+        out.print(respuesta.toString());
+        
     }
 
     /**
@@ -87,26 +92,25 @@ public class EstudianteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         Gson gson = new Gson();
         String mensaje = Utils.readParams(request);
         System.out.println(mensaje);
-        Estudiante estudiante= (Estudiante)gson.fromJson(mensaje, Estudiante.class);
-        
-        
+        Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
+
         EstudianteDao dao = new EstudianteDao();
-        if(dao.crear(estudiante)){
-            json.put("tipo","ok");
-            json.put("mensaje","Estudiante creado");
-        }else{
-            json.put("tipo","error");
-            json.put("mensaje","Error al crear estudiante");
+        if (dao.crear(estudiante)) {
+            json.put("tipo", "ok");
+            json.put("mensaje", "Estudiante creado");
+        } else {
+            json.put("tipo", "error");
+            json.put("mensaje", "Error al crear estudiante");
         }
         out.print(json.toString());
-        
+
     }
 
     /**
@@ -118,5 +122,9 @@ public class EstudianteServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String toString(String parametros) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

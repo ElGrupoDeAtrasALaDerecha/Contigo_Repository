@@ -108,6 +108,24 @@ public class EstudianteDao implements IDao<Estudiante> {
         }
         return estudiante;
     }
+    
+     public Estudiante consultarPorTokenGrado(String id) {
+             Estudiante estudiante = null;
+        Connection conn = Conexion.tomarConexion();
+        try {
+            String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            estudiante = new Estudiante();
+            while (rs.next()) {
+                estudiante.setGrado(rs.getString("GRADO_codigo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return estudiante;
+    }
 
     public Estudiante consultarPorCredenciales(String documento, String contraseña) {
         Estudiante estudiante = null;
