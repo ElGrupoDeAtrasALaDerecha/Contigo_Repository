@@ -8,6 +8,7 @@ package usa.controlador;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -93,16 +94,25 @@ public class InstitucionServlet extends HttpServlet {
         Gson gson = new Gson();
         String nom = Utils.readParams(request);
         Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        System.out.println("Nombre:"+ins.getNombre());
+        System.out.println(nom);
         InstitucionDao instuti = new InstitucionDao();
-        if (instuti.crear(ins)) {
-            json.put("tipo", "ok");
-            json.put("mensaje", "Institucion registrada correctamente");
-        }else{
+
+        if (instuti.consultar(ins.getNombre()) != null) {
             json.put("tipo", "error");
-            json.put("mensaje", "Error al registrar institucion");
+            json.put("mensaje", "Ya existe una institucion con este nombre");
+        } else {
+            if (instuti.crear(ins)) {
+                json.put("tipo", "ok");
+                json.put("mensaje", "Institucion registrada correctamente");
+            } else {
+                json.put("tipo", "error");
+                json.put("mensaje", "Error al registrar institucion");
+            }
         }
         out.print(json.toString());
+        /*
+        
+         */
     }
 
     /**
