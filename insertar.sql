@@ -9,7 +9,7 @@ call insertarEstudiante("1000853620",1,"Santiago","","Pérez" ,"González","4","
 delete from Persona;
 call insertarPersonalCalificado("1000853622",1,"Valeria","","Bermúdez" ,"González","1234","2000-07-26","1234","femenino","aja@gmail.com");
 call insertarEstudiante("1000853620",1,"Valeria","","Bermúdez" ,"González","1234","2000-07-26","1234","femenino","aaaaa");
-
+call insertarEstudiante("123456789",1,"María","Camila","Fernández" ,"González","123","2000-07-26","12345","femenino","aaaaa");
 
 
 
