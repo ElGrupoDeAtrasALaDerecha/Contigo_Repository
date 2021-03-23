@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
 import usa.modelo.dto.PersonalCalificado;
 
 /**
+ * Interfaz de la clase de objeto de acceso a datos del personal calificado
  *
- * @author Santiago Pérez
+ * @author Valeria Bermúdez y Santiago Pérez
  */
-interface IPersonalCalificadoDao extends IDao<PersonalCalificado>{
+interface IPersonalCalificadoDao extends IDao<PersonalCalificado> {
+
     PersonalCalificado consultarPorToken(String token);
-    PersonalCalificado consultarPorCredenciales(String correo,String contraseña);
+
+    PersonalCalificado consultarPorCredenciales(String correo, String contraseña);
 }

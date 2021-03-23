@@ -1,3 +1,5 @@
+Eventos en vista de estudiante
+
 Datos estudiante
 
 {
@@ -5,7 +7,12 @@ Datos estudiante
     token: ddghjjkjgf
 },
 
-
+Respuestas de datos estudiante:
+{
+    tipo: codigo sala,
+    numero: 3 ,
+    mensaje : saludo
+}
 
 Conversación:
 
@@ -16,41 +23,34 @@ Conversación:
 
 },
 
+Respuesta de conversacion:
+{
+    tipo: respuesta,
+    mensaje: mensaje
+}
 
+{
+    tipo: mensajeDePersonal,
+    mensaje: mensaje
+}
+
+
+Advertencia estudiante (cuando el personal que atiende se desconecta)
+{
+	tipo: perdidaConexion,
+	mensaje: mensaje
+
+}
+
+==========================================================
+
+Eventos de personal calificado
 Ingreso Personal
 
 {
     tipo : ingreso personal,
     token: ewrwerwrw
 
-}
-
-Mensaje Personal 
-
-{
-
-   tipo : mensaje personal,
-   numero sala: 3,
-   mensaje : mensaje
-}
-
-
-
-
-
-================================================
-Respuestas:
-{
-    tipo: codigo sala,
-    numero: 3 ,
-    mensaje : saludo
-}
-
-
-Respuesta de "mensaje:
-{
-    tipo: respuestaConti,
-    mensaje: mensaje
 }
 
 Respuesta conexion personal :
@@ -63,12 +63,17 @@ Respuesta conexion personal :
 
 ]}
 
-Mensaje Estudiante a Personal
+
+
+
+
+Mensaje Personal (mensaje de un personal a un estudiante)
 
 {
 
-	tipo: mensajeEstudiante,
-	mensaje:mensaje
+   tipo : mensaje personal,
+   numero sala: 3,
+   mensaje : mensaje
 }
 
 
@@ -84,12 +89,6 @@ Nuevo estudiante
 
 }
 
-Advertencia estudiante
-{
-	tipo: perdidaConexion,
-	mensaje: mensaje
-
-}
 
 Estudiante desconectado
 {
@@ -108,6 +107,8 @@ Aviso de que un estudiante está siendo atendido
 }
 
 
+
+===============futuro
 Aviso a un personal calificado que está atendiendo un estudiante
 {
     tipo: conversacion,
