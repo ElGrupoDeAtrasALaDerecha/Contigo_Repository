@@ -15,6 +15,15 @@ public class Clasificacion {
     }
     
     private int id;
+
+    public int getIdConversatorio() {
+        return idConversatorio;
+    }
+
+    public void setIdConversatorio(int idConversatorio) {
+        this.idConversatorio = idConversatorio;
+    }
+    private int idConversatorio;
     
     private String grado;
 

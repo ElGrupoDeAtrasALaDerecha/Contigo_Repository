@@ -74,7 +74,7 @@ public class EstudianteServlet extends HttpServlet {
             out.print(mensaje);*/
             
          
-            
+       
         }
     }
 

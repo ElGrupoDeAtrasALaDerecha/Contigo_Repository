@@ -1,127 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
-   
+
     <link rel="stylesheet" href="css/navfooter.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/crear.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/template.js"></script>
     <title>Contigo</title>
 </head>
+
 <body>
     <h2>Creación de Conversatorios</h2>
     <div id="contenedor">
         <section id="contenedor_cc">
             <div class="contenedor_credencial">
                 <input type="text" class="credencial" id="Texto" placeholder="Título del conversatorio" name="tlt_cnv">
-                <input type="text" class="credencial" id="Descripcion" placeholder="Descripcion del conversatorio" name="des_cnv">
+                <input type="text" class="credencial" id="Descripcion" placeholder="Descripcion del conversatorio"
+                    name="des_cnv">
                 <input type="text" class="credencial" id="Lugar" placeholder="Lugar" name="tlt_cnv">
+                <input type="text" class="credencial" id="linkInfografia" placeholder="Link infografia" name="tlt_cnv">
+                <input type="text" class="credencial" id="linkImagen" placeholder="Link Imagen" name="tlt_cnv">
                 <p>Selecciona los cursos a los cuales va dirigido este conversatorio:</p>
                 <div id="cursos">
-                    <div id="f1">
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Transición</label>
-                        </div>
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Primaria</label>
-                        </div><div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Bachillerato</label>
-                        </div><div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Primero</label>
-                        </div><div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Segundo</label>
-                        </div>
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Tercero</label>
-                        </div><div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Cuarto</label>
-                        </div>
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Docentes</label>
-                        </div>
-                    </div>
-                    <div id="f2">
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Quinto</label>
-                        </div>
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Sexto</label>
-                        </div>
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Septimo</label>
-                        </div>
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Octavo</label>
-                        </div>
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Noveno</label>
-                        </div>
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Decimo</label>
-                        </div>
-                        <div class="form-check form-switch checkbox">
-                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Once</label>
-                        </div>
-                    </div>
-                    <div style="clear: both"></div>
+                    <select id="grados" name="grados" multiple="" class="ui search fluid dropdown">
+                        <option value="">Grados</option>
+                        <option value="1">Trancisión</option>
+                        <option value="2">Primero</option>
+                        <option value="3">Segundo</option>
+                        <option value="4">Tercero</option>
+                        <option value="5">Cuarto</option>
+                        <option value="6">Quinto</option>
+                        <option value="7">Sexto</option>
+                        <option value="8">Séptimo</option>
+                        <option value="9">Octavo</option>
+                        <option value="10">Noveno</option>
+                        <option value="11">Décimo</option>
+                        <option value="12">Once</option>
+                        <option value="13">Docente</option>
+                    </select>
+
                 </div>
             </div>
-           
+
         </section>
         <section id="contenedor_conv">
             <p>Cronograma: Cada bloque representan 10 minutos. Es decir que 2 horas son 12 bloques.</p>
             <div class="contenedor_credencial">
-                <select name="Grados" class="credencial"  id="bloques" required onchange="n_bloques();">
-                    <option value="" disabled selected>Número de bloques</option> 
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <div id="box">
-                    <div id="contenedor_bloques"></div>
-                </div>
+                <input type="text" class="credencial" id="cronograma" placeholder="Cronograma" name="tlt_cnv">
             </div>
         </section>
     </div>
     <div class="contenedor_credencial">
         <input type="button" class="btn" id="btnCrear" value="Crear conversatorio">
     </div>
-    
+
 </body>
+
 </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+<script src="js/funciones.js"></script>
 <script src="js/conver.js"></script>
 <script type="text/javascript">
+    $("ui.dropdown").dropdown();
     function n_bloques() {
         try {
             var box = document.getElementById("box");
@@ -130,7 +82,7 @@
             var aux = document.createElement("DIV")
             aux.id = 'contenedor_bloques';
             box.append(aux);
-        } catch (error) {}
+        } catch (error) { }
         var contenedor_bloques = document.getElementById("contenedor_bloques");
         var bloques = document.getElementById("bloques").value;
         for (let index = 0; index < bloques; index++) {
@@ -144,10 +96,10 @@
             var div_credencial = document.getElementById(div_x);
             var input = document.createElement("INPUT");
             input.type = 'text';
-            input.placeholder = 'Ingresa el tema del bloque ' + (index+1);
+            input.placeholder = 'Ingresa el tema del bloque ' + (index + 1);
             input.className = 'credencial bq';
-            input.name = 'bq_' + (index+1);
+            input.name = 'bq_' + (index + 1);
             div_credencial.appendChild(input);
         }
     }
-</script> 
+</script>
