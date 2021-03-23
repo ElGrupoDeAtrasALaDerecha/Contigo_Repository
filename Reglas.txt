@@ -47,6 +47,14 @@ Advertencia estudiante (cuando el personal que atiende se desconecta)
 Eventos de personal calificado
 Ingreso Personal
 
+<<<<<<< HEAD
+
+
+
+================================================
+Respuestas:
+=======
+>>>>>>> 6fec1661bc1880a1718f2cd8f510f0b3ad28dd11
 {
     tipo : ingreso personal,
     token: ewrwerwrw
@@ -59,7 +67,9 @@ Respuesta conexion personal :
     salas : [
         {numero sala: numerosala,
         estudiante : estudiante,
-	mensajes :mensaje }
+	atendido:boolean,
+	mensajes :mensaje
+ }
 
 ]}
 
@@ -98,6 +108,8 @@ Estudiante desconectado
 
 }
 
+<<<<<<< HEAD
+=======
 
 Aviso de que un estudiante está siendo atendido
 
@@ -115,3 +127,4 @@ Aviso a un personal calificado que está atendiendo un estudiante
     conversacion: [lista de mensajes],
     estudiante: datos del estudiante
 }
+>>>>>>> aa7db82c078a8ab6494e6a57eb9682f71d070eac
