@@ -15,19 +15,21 @@
 
     <!-- Minified CRONOGRAMA CSS -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-   
 
 
-    
-    
+
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css">
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/template.js"></script>
     <title>Contigo</title>
@@ -35,53 +37,87 @@
 
 <body>
     <h2>Creación de Conversatorios</h2>
-    <div id="contenedor">
-        <section id="contenedor_cc">
-            <div class="contenedor_credencial">
-                <input type="text" class="credencial" id="Texto" placeholder="Título del conversatorio" name="tlt_cnv">
-                <input type="text" class="credencial" id="Descripcion" placeholder="Descripcion del conversatorio"
-                    name="des_cnv">
-                <input type="text" class="credencial" id="Lugar" placeholder="Lugar" name="tlt_cnv">
-                <input type="text" class="credencial" id="linkInfografia" placeholder="Link infografia" name="tlt_cnv">
-                <input type="text" class="credencial" id="linkImagen" placeholder="Link Imagen" name="tlt_cnv">
-                <p>Selecciona los cursos a los cuales va dirigido este conversatorio:</p>
-                <div id="cursos">
-                    <select id="grados" name="grados" multiple="" class="ui search fluid dropdown">
-                        <option value="">Grados</option>
-                        <option value="1">Trancisión</option>
-                        <option value="2">Primero</option>
-                        <option value="3">Segundo</option>
-                        <option value="4">Tercero</option>
-                        <option value="5">Cuarto</option>
-                        <option value="6">Quinto</option>
-                        <option value="7">Sexto</option>
-                        <option value="8">Séptimo</option>
-                        <option value="9">Octavo</option>
-                        <option value="10">Noveno</option>
-                        <option value="11">Décimo</option>
-                        <option value="12">Once</option>
-                        <option value="13">Docente</option>
-                    </select>
+    <form class="needs-validation" novalidate>
+        <div id="contenedor">
+            <section id="contenedor_cc">
 
+                <div class="contenedor_credencial">
+                    <input type="text" class="credencial" id="Texto" placeholder="Título del conversatorio"
+                        name="tlt_cnv" required>
+                    <div class="invalid-feedback">
+                        Inserta el titulo
+                    </div>
+
+
+                    <input type="text" class="credencial" id="Descripcion" placeholder="Descripcion del conversatorio"
+                        name="des_cnv" required>
+                    <div class="invalid-feedback">
+                        Inserta la descripcion
+                    </div>
+
+                    <input type="text" class="credencial" id="Lugar" placeholder="Lugar" name="tlt_cnv">
+                    <div class="invalid-feedback">
+                        Inserta el lugar
+                    </div>
+
+                    <input type="text" class="credencial" id="linkInfografia" placeholder="Link infografia" name="tlt_cnv">
+                    <div class="invalid-feedback">
+                        Inserta el link de la infografia
+                    </div>
+    
+                    <input type="text" class="credencial" id="linkImagen" placeholder="Link Imagen" name="tlt_cnv">
+                    <div class="invalid-feedback">
+                        Inserta el link de la imagen
+                    </div>
+
+                    <p>Selecciona los cursos a los cuales va dirigido este conversatorio:</p>
+                    <div id="cursos">
+                        <select id="grados" name="grados" multiple="" class="ui search fluid dropdown">
+                            <option value="">Grados</option>
+                            <option value="1">Trancisión</option>
+                            <option value="2">Primero</option>
+                            <option value="3">Segundo</option>
+                            <option value="4">Tercero</option>
+                            <option value="5">Cuarto</option>
+                            <option value="6">Quinto</option>
+                            <option value="7">Sexto</option>
+                            <option value="8">Séptimo</option>
+                            <option value="9">Octavo</option>
+                            <option value="10">Noveno</option>
+                            <option value="11">Décimo</option>
+                            <option value="12">Once</option>
+                            <option value="13">Docente</option>
+                        </select>
+
+                    </div>
                 </div>
-            </div>
 
-        </section>
-        <section id="contenedor_conv">
-            <div class="input-group date" id="cronograma" data-target-input="nearest">
-                <input type="text" class="credencial -input" placeholder="Cronograma" data-target="#cronograma"/>
-                <div class="input-group-append" data-target="#cronograma" data-toggle="datetimepicker">
-                  <div class="calendar"><i class="fa fa-calendar fa-3x"></i></div>
+            </section>
+
+            <section id="contenedor_conv">
+                <div class="input-group date" id="cronograma2" data-target-input="nearest">
+                    
+                        <input id="cronograma" type="text" class="credencial" placeholder="Cronograma"
+                            data-target="#cronograma2" required>
+                            <div class="invalid-feedback">
+                                Completa los campos de cronograma
+                            </div>
+                            <div class="input-group-append" data-target="#cronograma2" data-toggle="datetimepicker">
+                                <div class="calendar"><i class="fa fa-calendar fa-3x"></i></div>
+                        <div class="invalid-feedback">
+                            Completa los campos de cronograma
+                        </div>
+
+
+                    </div>
                 </div>
-              </div>
-        </section>
-    </div>
+            </section>
+        </div>
+        <div class="contenedor_credencial">
+            <button id="btnCrear" class="btn" type="submit">Crear Conversatorio</button>
+        </div>
+    </form>
 
-    <div class="contenedor_credencial">
-        <input type="button" class="btn" id="btnCrear" value="Crear conversatorio">
-    </div>
-
-   
 </body>
 
 </html>
@@ -94,33 +130,26 @@
 
 
 <script type="text/javascript">
-$("ui.dropdown").dropdown();
-    function n_bloques() {
-        try {
-            var box = document.getElementById("box");
-            var contenedor_bloques = document.getElementById("contenedor_bloques");
-            box.removeChild(contenedor_bloques)
-            var aux = document.createElement("DIV")
-            aux.id = 'contenedor_bloques';
-            box.append(aux);
-        } catch (error) { }
-        var contenedor_bloques = document.getElementById("contenedor_bloques");
-        var bloques = document.getElementById("bloques").value;
-        for (let index = 0; index < bloques; index++) {
-            var div = document.createElement("DIV");
-            div.className = 'contenedor_credencial';
-            div.id = 'div_credencial' + (index);
-            contenedor_bloques.append(div);
-        }
-        for (let index = 0; index < bloques; index++) {
-            var div_x = "div_credencial" + (index);
-            var div_credencial = document.getElementById(div_x);
-            var input = document.createElement("INPUT");
-            input.type = 'text';
-            input.placeholder = 'Ingresa el tema del bloque ' + (index + 1);
-            input.className = 'credencial bq';
-            input.name = 'bq_' + (index + 1);
-            div_credencial.appendChild(input);
-        }
-    }
+    $("ui.dropdown").dropdown();
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        console.log("HOLIIIII")
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
 </script>

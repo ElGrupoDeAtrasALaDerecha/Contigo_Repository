@@ -1,11 +1,12 @@
 var usuario
 var token
 $(document).ready(function () {
-    LlamarGrado();
+
     usuario = parseInt(getCookie("tipoUsuario"));
     token = parseInt(getCookie("token"));
     documento = parseInt(getCookie("documento"));
     $('.ui.dropdown').dropdown();
+    LlamarGrado();
 });
 
 function LlamarGrado() {
@@ -238,16 +239,22 @@ function colocarInfo(array, orador, personal) {
         '<br>' +
         '</h2>' +
         '<p> </p>' +
-        '<h3><span></span> </h3>' +
-        '<a id="btnRegistrarEstu" class="banner-button">Registrarse</a>'
+        '<h3><span></span> </h3>' 
+        //'<a id="btnRegistrarEstu" class="banner-button">Registrarse</a>'
     $("#titulo").append(text);
 
 
 }
 
 $("#btnCrear").on("click", function () {
+if ($("#Texto").val() == "" || $("#Descripcion").val() == "" || $("#cronograma").val()=="" || $("#Lugar").val() == "" || $("#linkImagen").val() == "" ||  $("#linkInfografia").val() == "" || $("#grados").val() == "") {
+    
+} else{
     CrearConverOrador();
+    alert("Conversatorio Creado")
+}
 });
+
 
 
 function CrearConverOrador() {
