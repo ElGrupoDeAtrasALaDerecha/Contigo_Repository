@@ -12,6 +12,7 @@ call insertarPersonalCalificado("1000853622",1,"Valeria","","Bermúdez" ,"Gonzá
 call insertarEstudiante("1000853620",1,"Valeria","","Bermúdez" ,"González","1234","2000-07-26","1234","femenino","aaaaa");
 
 insert into estudiante values (1007718536,"aaaaa");
+insert into estudiante values (1000853624,"11B");
 
 
 INSERT INTO metodo_pago (nombre) VALUES ("Pago Colegio Gimnasio Los Pinares");
@@ -56,3 +57,4 @@ insert into CONVERSATORIO (PERSONAL_PERSONA_documento,titulo,cronograma,imagen,d
 insert into CONVERSATORIO (PERSONAL_PERSONA_documento,titulo,cronograma,imagen,descripcion,lugar,infografia)values ("1000853623","Sexualidad","Este conversatorio tiene una duracion de 2 bloques es decir 20 minutos","https://www.vanguardia.com/binrepository/716x477/0c0/0d0/none/12204/WCEC/web_sexualidad___big_ce_VL414127_MG21906367.jpg","Este conversatorio para lo jovenes","Colegio Liceo Santa Cecilia","https://www.gob.mx/cms/uploads/attachment/file/246184/I_Sexualidad.pdf");
 
 insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (1,3);
+insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (12,3);

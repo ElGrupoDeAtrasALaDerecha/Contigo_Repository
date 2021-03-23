@@ -1,13 +1,14 @@
 var usuario
 var token
 $(document).ready(function () {
-    LlamarClasi();
+    LlamarGrado();
     usuario = parseInt(getCookie("tipoUsuario"));
     token = parseInt(getCookie("token"));
+    documento = parseInt(getCookie("documento"));
     $('.ui.dropdown').dropdown();
 });
 
-function LlamarGrado(){
+function LlamarGrado() {
 
     $.ajax({
         url: "Grado",
@@ -17,10 +18,10 @@ function LlamarGrado(){
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
-            estudiante = result;
-            console.log(result);
+            grado = result.Grados;
+
+            LlamarEstudiante(grado);
             if (result != "error") {
-                console.log(result);
             } else {
                 console.log("error");
             }
@@ -31,9 +32,43 @@ function LlamarGrado(){
     });
 }
 
-function LlamarClasi(){
+
+function LlamarEstudiante(grado) {
+
+    $.ajax({
+        url: "Estudiante?id=" + documento + "",
+        type: "GET",
+        dataType: "json",
+
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            estudiante = result.estudiante;
+            var clasificacion;
+
+            for (var i = 0; i < grado.length; i++) {
+                if (grado[i].codigo == estudiante.grado) {
+                    clasificacion = grado[i].clasificacion_id
+                }
+            }
+    
+            console.log(clasificacion)
+            LlamarClasi(clasificacion)
+            if (result != "error") {
+
+            } else {
+                console.log("error");
+            }
+        }, complete: function (result) {
+
+        }, error: function (result) {
+        }
+    });
+}
+
+function LlamarClasi(clasi) {
     informacion = {
-        id: "1", // Falta por hacer
+        id: clasi,
     };
     $.ajax({
         url: "ClasificacionServlet",
@@ -44,9 +79,7 @@ function LlamarClasi(){
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
-            console.log(result);
             arregloConver = result.clasificacion
-            console.log(arregloConver)
             LlamarConver(arregloConver)
             if (result != "error") {
                 console.log(result);
@@ -60,7 +93,7 @@ function LlamarClasi(){
         }
     });
 
-} 
+}
 
 function LlamarConver(arregloConver) {
 
@@ -73,19 +106,19 @@ function LlamarConver(arregloConver) {
         },
         success: function (result, textStatus, request) {
             conversatorios = result.conversatorios;
-            if(usuario === 1){
-            var converEstudiante=[];
-            console.log(conversatorios)
-            var j=0;
-            for (var i = 0; i < conversatorios.length; i++) {
-                if(conversatorios[i].id === arregloConver[j].idConversatorio){
-                    converEstudiante[j]=conversatorios[i];
-                    j=j+1;
+            if (usuario === 1) {
+                var converEstudiante = [];
+                console.log(conversatorios)
+                for (var i = 0; i < conversatorios.length; i++) {
+                    for (var j = 0; j < arregloConver.length; j++) {
+                        if (conversatorios[i].id === arregloConver[j].idConversatorio) {
+                            converEstudiante[j] = conversatorios[i];
+                        }
+                    }
                 }
-            }
-    
-            listarConver(converEstudiante);
-            }else{
+
+                listarConver(converEstudiante);
+            } else {
                 listarConver(conversatorios);
             }
 
@@ -116,7 +149,7 @@ function listarConver(conversatorio) {
         $("#conver").append(text);
     }
     if (usuario === 2) {
-        text =  '<a id="btnAgregar" class="banner-button">Agregar Conversatorio</a>'
+        text = '<a id="btnAgregar" class="banner-button">Agregar Conversatorio</a>'
         $("#Agregar").append(text);
     }
 
