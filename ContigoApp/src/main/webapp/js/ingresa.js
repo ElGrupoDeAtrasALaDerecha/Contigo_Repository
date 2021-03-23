@@ -11,7 +11,7 @@ $("#ing_est").click(function(e){
 });
 
 /**
- * Función login
+ * Función login de estudiante
  * @param {*} obj 
  */
 function loginEstudiante(obj){

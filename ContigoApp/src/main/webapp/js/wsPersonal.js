@@ -14,14 +14,14 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
+var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
 /**
 * Websocket
 */
 var websocket = new WebSocket(wsUri);
 
 $(document).ready(function(){
-	if(getCookie("tipoUsuario")!==2){
+	if(getCookie("tipoUsuario")!=="2"){
 		alert("No autorizado");
 		window.location.assign("index.html");
 	}

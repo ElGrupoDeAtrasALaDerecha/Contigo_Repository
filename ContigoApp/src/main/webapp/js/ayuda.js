@@ -12,7 +12,6 @@ $(document).ready(function () {
         "left": "95%"
     });
     if (getCookie("tipoUsuario") === "1") {
-
         $("#btnAyuda").click(function () {
             window.location.assign("chat.html");
         })
