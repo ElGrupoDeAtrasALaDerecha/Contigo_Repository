@@ -101,7 +101,7 @@ public class GradoDao implements IDao<Grado> {
         GradoClasf grado = null;
         Connection conn = Conexion.tomarConexion();
         try {
-            String sql = "select CLASIFICACION.grado, GRADO.* from GRADO, CLASIFICACION where CLASIFICACION.id = GRADO.CLASIFICACION_id ;";
+            String sql = "select CLASIFICACION.grado, GRADO.* from GRADO, CLASIFICACION where CLASIFICACION.id = GRADO.CLASIFICACION_id order by GRADO.CLASIFICACION_id asc;";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {

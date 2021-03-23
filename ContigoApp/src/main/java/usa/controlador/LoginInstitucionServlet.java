@@ -16,19 +16,46 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.ClasificacionDao;
 import usa.modelo.dao.GradoDao;
+import usa.modelo.dao.InstitucionDao;
 import usa.modelo.dto.Grado;
 import usa.modelo.dto.GradoClasf;
+import usa.modelo.dto.Institucion;
 import usa.utils.GeneradorCodigos;
 import usa.utils.Utils;
 
 /**
  *
- * @author 
+ * @author andre
  */
-@WebServlet(name = "GradoServlet", urlPatterns = {"/Grado"})
-public class GradoServlet extends HttpServlet {
+@WebServlet(name = "LoginInstitucionServlet", urlPatterns = {"/LoginInstitucion"})
+public class LoginInstitucionServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet LoginInstitucionServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet LoginInstitucionServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -39,26 +66,11 @@ public class GradoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    public ClasificacionDao clasificacion = new ClasificacionDao();
-    
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        GradoDao dao = new GradoDao();
-        LinkedList <Grado> grados = dao.listarTodos();
-        LinkedList<GradoClasf> gradosClasf = dao.listarGradosClasf();
-        Gson gson = new Gson();
-        JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray();
-        respuesta.put("tipo", "ok");
-        for (Grado grado:grados) {
-            arreglo.put(new JSONObject(gson.toJson(grado,Grado.class)));
-        }
-        respuesta.put("Grados",arreglo);
-        respuesta.put("GradosClasificados", gradosClasf);
-        PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        
     }
 
     /**
@@ -72,33 +84,30 @@ public class GradoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Se definen los objetos a trabajar:
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         Gson gson = new Gson();
-        //Se obtienen el grado del front
-        String grado_slct = Utils.readParams(request);
+        InstitucionDao dao = new InstitucionDao();
+        //Se obtienen las credenciales de la institucion del front:
+        String usr_inst = Utils.readParams(request);
         System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
-        System.out.println("doPost. Value del grado seleccionado: " + grado_slct);
-        //Se convierte de json a objeto Grado
-        Grado grado = (Grado) gson.fromJson(grado_slct, Grado.class);
-        String codigo = GeneradorCodigos.getCodigo(GeneradorCodigos.MAYUSCULAS+GeneradorCodigos.NUMEROS,6);
-        grado.setCodigo(codigo);
-        GradoDao dao = new GradoDao();
-        if(dao.crear(grado)){
+        System.out.println("doPost. Credenciales a validar: " + usr_inst);
+        //Se convierte de json a objeto Institucion
+        Institucion institucion = (Institucion) gson.fromJson(usr_inst, Institucion.class);
+        Institucion instBD = dao.loginInstitucion(institucion.getCorreo(), institucion.getContraseña());
+        if(instBD != null){
             json.put("tipo", "ok");
-            json.put("mensaje","Grado creado con el código " + codigo);
-            json.put("codigo", codigo);
+            json.put("mensaje","Ingreso satisfactorio");
+            json.put("ID",  + instBD.getId());
         }else{
             json.put("tipo", "error");
-            json.put("mensaje","Error al crear grado " + grado.getClasificacion_id());
-            String existente = dao.consultar(String.valueOf(grado.getClasificacion_id())).getCodigo();
-            json.put("codigo", existente);
+            json.put("mensaje","Error al ingresar");
         }
         System.out.println(json.toString());
         out.print(json.toString());
-    } 
-//wasaaaaaaa!
+    }
     /**
      * Returns a short description of the servlet.
      *
@@ -106,7 +115,7 @@ public class GradoServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short Description";
+        return "Short description";
     }// </editor-fold>
 
 }

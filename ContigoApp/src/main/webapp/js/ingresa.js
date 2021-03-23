@@ -1,3 +1,42 @@
+// Login Institucion
+$("#ing_inst").click(function(e){
+    e.preventDefault();
+    var email=$("#correo").val();
+    var pass=$("#password_inst").val();
+        var obj={
+            correo: email,
+            contraseña: pass
+        };
+        console.log(obj);
+        loginInstitucion(obj);
+});
+/**
+ * Función login
+ * @param {*} obj 
+*/
+function loginInstitucion(obj){
+    console.log("Inicio de verificación de credenciales")
+    $.ajax({
+        method: 'POST',
+        url: 'LoginInstitucion',
+        dataType: "json",
+        data: JSON.stringify(obj),
+        contentType: 'JSON application/json charset=utf-8',
+        success: function(response) {
+            console.log(response);
+            setCookie("ID_Inst",response.ID,0.3);
+            console.log(response.mensaje)
+            $(location).attr('href','admin_inst.html');
+        },
+        error: function(response){
+            console.log("Error: "+response.mensaje)
+            console.log(JSON.stringify(response))
+        }
+    }); 
+}
+
+
+// Login Estudiante
 $("#ing_est").click(function(e){
     e.preventDefault();
     var doc=$("#documento").val();

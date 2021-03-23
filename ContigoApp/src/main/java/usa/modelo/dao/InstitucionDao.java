@@ -64,6 +64,7 @@ public class InstitucionDao implements IDao<Institucion> {
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();    
             while(result.next()){
+                ins.setId(Integer.parseInt(id));
                 ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
                 //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
                 ins.setNombre(result.getString("nombre"));
@@ -123,5 +124,22 @@ public class InstitucionDao implements IDao<Institucion> {
         }
         return instituciones;
     }
-
+    
+    public Institucion loginInstitucion(String correo, String contraseña){
+        int id = 666;
+        Institucion inst = null;
+        try {
+            String sql = "select id from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
+            Connection conn = Conexion.tomarConexion();
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            while(result.next()){
+                id = result.getInt("id");
+            }
+            inst = consultar(String.valueOf(id));
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return inst;
+    } 
 }
