@@ -130,7 +130,7 @@ public class InstitucionDao implements IDao<Institucion> {
         int id = 666;
         Institucion inst = null;
         try {
-            String sql = "select id from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
+            String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
             Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();

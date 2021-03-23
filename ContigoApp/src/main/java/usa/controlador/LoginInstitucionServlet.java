@@ -64,7 +64,6 @@ public class LoginInstitucionServlet extends HttpServlet {
         System.out.println("doPost. Credenciales a validar: " + usr_inst);
         //Se convierte de json a objeto Institucion
         Institucion institucion = (Institucion) gson.fromJson(usr_inst, Institucion.class);
-        System.out.println(institucion);
         Institucion instBD = dao.loginInstitucion(institucion.getCorreo(), institucion.getContraseña());
         if(instBD != null){
             json.put("tipo", "ok");
