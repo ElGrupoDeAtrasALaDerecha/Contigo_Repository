@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usa.modelo.controlador;
+package usa.controlador;
 
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -95,12 +95,20 @@ public class InstitucionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
         Gson gson = new Gson();
         String nom = Utils.readParams(request);
-        System.out.println(nom);
         Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        String info = gson.toJson(ins, Institucion.class);
-        out.print(info);
+        System.out.println(nom);
+        InstitucionDao instuti = new InstitucionDao();
+        if (instuti.crear(ins)) {
+            json.put("tipo", "ok");
+            json.put("mensaje", "Institucion registrada correctamente");
+        }else{
+            json.put("tipo", "error");
+            json.put("mensaje", "Error al registrar institucion");
+        }
+        out.print(json.toString());
     }
 
     /**

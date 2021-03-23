@@ -13,12 +13,20 @@ import usa.utils.Utils;
 
 /**
  * Clase de acceso a datos del personal calificado
+ *
  * @author Valeria Bermúdez y Santiago Pérez
  * @version 1.0.0
  * @since 2021-03-16
  */
 public class PersonalCalificadoDao implements IPersonalCalificadoDao {
 
+    /**
+     * Método que permite crear personal calificado. Obtiene los datos de un
+     * objeto y los establece en la base de datos
+     *
+     * @param personal que es una instancia personal calificado
+     * @return verdadero si crea y falso si hay errores al insertar el personal
+     */
     @Override
     public boolean crear(PersonalCalificado personal) {
         try {
@@ -33,7 +41,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
             call.setString("_segundoApellido", personal.getSegundoApellido());
             call.setString("_token", Utils.generateNewToken());
             call.setString("_fechaNacimiento", personal.getFechaDeNacimiento());
-            call.setString("_genero",personal.getGenero());
+            call.setString("_genero", personal.getGenero());
             call.setString("_correo", personal.getCorreo());
             call.execute();
             call.close();
@@ -44,16 +52,24 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         return false;
     }
 
+    /**
+     * Método que permite consultar personal calificado por su número de
+     * identificación. Se realiza una consulta en la base de datos por el número
+     * de documento del personal calificado
+     *
+     * @param id que es el número de identificación
+     * @return Un objeto de personal calificado o nulo si no lo encuentra
+     */
     @Override
     public PersonalCalificado consultar(String id) {
         Connection conn = Conexion.tomarConexion();
-        PersonalCalificado personalCalificado =null;
+        PersonalCalificado personalCalificado = null;
         String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
-                + "where p.documento="+id+";";
+                + "where p.documento=" + id + ";";
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
-            while (rs.next()){                
+            while (rs.next()) {
                 personalCalificado = new PersonalCalificado();
                 personalCalificado.setDocumento(rs.getString("documento"));
                 personalCalificado.setPrimerNombre(rs.getString("primerNombre"));
@@ -83,6 +99,13 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Método que permite listar todos los datos de personal calificados en la
+     * base de datos. Se realiza una consulta sin criterios
+     *
+     * @return Una lista con los datos del personal calificado en la base de
+     * datos
+     */
     @Override
     public LinkedList<PersonalCalificado> listarTodos() {
         LinkedList<PersonalCalificado> personales = new LinkedList();;
@@ -91,7 +114,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
-             
+
             while (rs.next()) {
                 PersonalCalificado personalCalificado = new PersonalCalificado();
                 personalCalificado.setDocumento(rs.getString("documento"));
@@ -112,17 +135,21 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         }
         return personales;
     }
-
+    /**
+     * Método que permite consultar en la base de datos por el token
+     * @param token que es un token propio del usuario
+     * @return Un objeto de personal calificado o nulo si no lo encuentra
+     */
     @Override
     public PersonalCalificado consultarPorToken(String token) {
         Connection conn = Conexion.tomarConexion();
-        PersonalCalificado personalCalificado =null;
+        PersonalCalificado personalCalificado = null;
         String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
-                + "where p.token='"+token+"';";
+                + "where p.token='" + token + "';";
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
-            while (rs.next()){                
+            while (rs.next()) {
                 personalCalificado = new PersonalCalificado();
                 personalCalificado.setDocumento(rs.getString("documento"));
                 personalCalificado.setPrimerNombre(rs.getString("primerNombre"));
@@ -140,10 +167,15 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         }
         return personalCalificado;
     }
-
+    /**
+     * Metodo que permite consultar personal calificado por usuario y contraseña
+     * @param correo que es el correo del usuario
+     * @param contraseña que es la contraseña del usuario
+     * @return Un objeto de personal calificado o nulo si no lo encuentra
+     */
     @Override
     public PersonalCalificado consultarPorCredenciales(String correo, String contraseña) {
-         PersonalCalificado personal = null;
+        PersonalCalificado personal = null;
         Connection conn = Conexion.tomarConexion();
         try {
 
@@ -170,5 +202,5 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         }
         return personal;
     }
-    
+
 }

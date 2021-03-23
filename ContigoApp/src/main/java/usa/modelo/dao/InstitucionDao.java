@@ -26,28 +26,61 @@ public class InstitucionDao implements IDao<Institucion> {
     ResultSet result;
     
     @Override
-    public boolean crear(Institucion t) {
-        /*
+    public boolean crear(Institucion ins) {
+        
         try {
-            String sql = "insert into  institucion (Direccion_idDireccion,nombre) values (?,?)";
+            String sql = "insert into  institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web ) "
+                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
             Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
-            //pat.setInt(1, proveedor.getDireccion().getIdDireccion());
-            //pat.setString(2, proveedor.getNombre());
-            boolean insert = pat.execute();
+            pat.setInt(1, ins.getIdMunicipio());
+            pat.setInt(2, ins.getMETODO_PAGO_id());
+            pat.setString(3, ins.getNombre());
+            pat.setString(4, ins.getCorreo());
+            pat.setString(5, ins.getDireccion());
+            pat.setBoolean(6, ins.isTipoInstitucion());
+            pat.setBoolean(7, ins.isCalendario());
+            pat.setString(8, ins.getBarrio());
+            pat.setString(9, ins.getTelefono());
+            pat.setString(10, ins.getContraseña());
+            pat.setString(11, ins.getPagina());
+            pat.execute();
             pat.close();
-            return insert;
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
+        
         return false;
     }
 
 
     @Override
     public Institucion consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Institucion ins = new Institucion();
+        try {
+            String sql = "select * from institucion where id = " + id;
+            Connection conn = Conexion.tomarConexion();
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();    
+            while(result.next()){
+                ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
+                //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
+                ins.setNombre(result.getString("nombre"));
+                ins.setCorreo(result.getString("correo"));
+                ins.setDireccion(result.getString("direccion"));
+                ins.setTipoInstitucion(result.getBoolean("tipoInstitucion"));
+                //boolean calen = result.getBoolean("calendario"); //falta en front
+                ins.setBarrio(result.getString("barrio"));
+                ins.setTelefono(result.getString("telefono"));
+                ins.setContraseña(result.getString("contraseña"));
+                ins.setPagina(result.getString("web")); 
+            }
+            return ins;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ins;
     }
 
     @Override

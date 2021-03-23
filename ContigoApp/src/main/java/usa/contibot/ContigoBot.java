@@ -30,21 +30,27 @@ public class ContigoBot {
 
     private static final LinkedList<Session> PERSONALES = new LinkedList();
     private static final LinkedList<Sala> SALAS = new LinkedList();
-    private final int numero;
 
-    public ContigoBot() {
-        super();
-        numero = Utils.generarNumeroSala();
-    }
-
+    /**
+     * Método onOpen
+     *
+     * @param sesion que es la sesión que se abre
+     */
     @OnOpen
     public void onOpen(Session sesion) {
         System.out.println("Abrió " + sesion.getId());
     }
 
+    /**
+     * Método onMessage. Los mensajes contienen un formato específico que
+     * permite determinar qué hacer a partir de un atributo general en sus
+     * objetos llamado "tipo"
+     *
+     * @param mensaje que es el mensaje que viene del cliente.
+     * @param sesion que es la sesión que envía el mensaje
+     */
     @OnMessage
     public void onMessage(String mensaje, Session sesion) {
-        System.out.println("Número aleatorio: " + numero);
         System.out.println("Mensaje entrante " + mensaje);
         System.out.println("Mensaje de " + sesion.getId());
         JSONObject obj = new JSONObject(mensaje);
@@ -69,8 +75,8 @@ public class ContigoBot {
                     sala.setEstudiante(estudiante);
                     sala.setSesionEstudiante(sesion);
                     sala.setCodigo(Utils.generarNumeroSala());
-                    sala.enviarPrimerMensaje(obj,objRespuesta);
-                    
+                    sala.enviarPrimerMensaje(objRespuesta);
+
                     SALAS.add(sala);
                     System.out.println("Salas actuales: " + SALAS.toString());
 
@@ -98,8 +104,7 @@ public class ContigoBot {
                     PERSONALES.add(sesion);
                     objRespuesta.put("tipo", "salas");
                     objRespuesta.put("salas", listarSalas());
-                    objRespuesta.put("data",new JSONObject(Utils.toJson(personalCalificado)));
-                    
+                    objRespuesta.put("data", new JSONObject(Utils.toJson(personalCalificado)));
 
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
                     break;
@@ -116,12 +121,12 @@ public class ContigoBot {
                     sala = this.buscarSalas(obj.getInt("numeroSala"));
                     sala.setPersonaCalificada(personalCalificado);
                     sala.setSesionPersonal(sesion);
-                    objRespuesta.put("tipo","conversacion");
-                    objRespuesta.put("conversacion",new JSONArray(Utils.toJson(sala.getMensajes())));
-                    objRespuesta.put("numeroSala",sala.getCodigo());
-                    objRespuesta.put("estudiante",new JSONObject(Utils.toJson(sala.getEstudiante())));
+                    objRespuesta.put("tipo", "conversacion");
+                    objRespuesta.put("conversacion", new JSONArray(Utils.toJson(sala.getMensajes())));
+                    objRespuesta.put("numeroSala", sala.getCodigo());
+                    objRespuesta.put("estudiante", new JSONObject(Utils.toJson(sala.getEstudiante())));
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
-                    
+
                     //Aviso a todos los personales que el estudiante de una sala ya está siendo atendido
                     JSONObject avisoAPersonales = new JSONObject();
                     avisoAPersonales.put("tipo", "estudianteAtendido");
@@ -137,9 +142,10 @@ public class ContigoBot {
     }
 
     /**
+     * Método onClose. Indica qué hacer cuando se cierran las conexiones
      *
-     * @param sesion
-     * @throws IOException
+     * @param sesion que es la sesión que se cierra
+     * @throws IOException por posibles errores de entrada y salida de datos
      */
     @OnClose
     public void onClose(Session sesion) throws IOException {
@@ -148,14 +154,11 @@ public class ContigoBot {
             if (PERSONALES.get(i).getId().equals(sesion.getId())) {//Si el personal es el que se desconecta y está con salas
                 PERSONALES.remove(i);
                 for (int j = 0; j < SALAS.size(); j++) {
-                    if (SALAS.get(j).getSesionPersonal() != null) { 
+                    if (SALAS.get(j).getSesionPersonal() != null) {
                         if (sesion.getId().equals(SALAS.get(j).getSesionPersonal().getId())) {
                             SALAS.get(j).setSesionPersonal(null);
                             SALAS.get(j).setPersonaCalificada(null);
-                            JSONObject mensaje = new JSONObject();
-                            mensaje.put("tipo", "desconexionPersonal");
-                            mensaje.put("mensaje", "<b>Conti: </b> mi amigo se desconectó, déjame busco otro para que te ayude en lo que estaban hablando");
-                            SALAS.get(j).enviarAdvertenciaAEstudiante(mensaje);
+                            SALAS.get(j).enviarAdvertenciaAEstudiante();
                             JSONObject respuestaPersonal = new JSONObject();
                             respuestaPersonal.put("tipo", "nuevoEstudiante");
                             respuestaPersonal.put("estudiante", new JSONObject(Utils.toJson(SALAS.get(j).getEstudiante())));
@@ -189,11 +192,23 @@ public class ContigoBot {
         }
     }
 
+    /**
+     * Método onError. Si ocurre una excepción, se dispara este método
+     *
+     * @param sesion que es la sesión que dispara el error.
+     * @param t que es la excepción
+     */
     @OnError
     public void onError(Session sesion, Throwable t) {
         System.out.println(t);
     }
 
+    /**
+     * Método que permite buscaruna sala a partir de su número
+     *
+     * @param numeroSala que es el número de la sala
+     * @return un objeto de la clase sala si lo encuentra, si no, retorna nulo
+     */
     public Sala buscarSalas(int numeroSala) {
         for (int i = 0; i < SALAS.size(); i++) {
             Sala sala = SALAS.get(i);
@@ -204,6 +219,11 @@ public class ContigoBot {
         return null;
     }
 
+    /**
+     * Método que permite listar las salas en formato JSON
+     *
+     * @return una lista de salas en formato JSON en un objeto JSONArray
+     */
     public JSONArray listarSalas() {
         JSONArray array = new JSONArray();
         for (Sala sala : SALAS) {
@@ -217,12 +237,30 @@ public class ContigoBot {
         return array;
     }
 
+    /**
+     * Método que permite notificar a todo el personal calificado conectado en
+     * la sesión un mensaje
+     *
+     * @param object que es un objeto en formato json para notificar a todo el
+     * personal calificado
+     * @throws IOException por posibles errores de entrada y salida de datos
+     */
     public void notificarAlPersonal(JSONObject object) throws IOException {
         for (int i = 0; i < PERSONALES.size(); i++) {
             PERSONALES.get(i).getBasicRemote().sendText(object.toString());
         }
     }
 
+    /**
+     * Método que permite notificar a todo el personal, excepto a un personal
+     * específico
+     *
+     * @param object que es el mensaje en formato json para notificar al
+     * personal
+     * @param sesion que es la sesión del personal al cual no se le notificará
+     * el mensaje
+     * @throws IOException por posibles errores de entrada y salida de datos
+     */
     public void notificarAlPersonalExceptoA(JSONObject object, Session sesion) throws IOException {
         for (int i = 0; i < PERSONALES.size(); i++) {
             if (!PERSONALES.get(i).equals(sesion)) {

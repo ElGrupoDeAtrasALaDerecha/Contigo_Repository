@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package usa.modelo.controlador;
+package usa.controlador;
 
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -28,7 +23,8 @@ import usa.utils.Utils;
 public class LoginPersonalCalificadoServlet extends HttpServlet {
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method. En este caso, se habla del
+     * ingreso de un personal calificado
      *
      * @param request servlet request
      * @param response servlet response

@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
-    <link rel="stylesheet" href="css/crear_cnv.css">
+   
     <link rel="stylesheet" href="css/navfooter.css">
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/crear.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -19,6 +21,8 @@
         <section id="contenedor_cc">
             <div class="contenedor_credencial">
                 <input type="text" class="credencial" id="Texto" placeholder="Título del conversatorio" name="tlt_cnv">
+                <input type="text" class="credencial" id="Descripcion" placeholder="Descripcion del conversatorio" name="des_cnv">
+                <input type="text" class="credencial" id="Lugar" placeholder="Lugar" name="tlt_cnv">
                 <p>Selecciona los cursos a los cuales va dirigido este conversatorio:</p>
                 <div id="cursos">
                     <div id="f1">
@@ -111,10 +115,12 @@
         </section>
     </div>
     <div class="contenedor_credencial">
-        <input type="button" class="btn" id="" value="Crear conversatorio">
+        <input type="button" class="btn" id="btnCrear" value="Crear conversatorio">
     </div>
+    
 </body>
 </html>
+<script src="js/conver.js"></script>
 <script type="text/javascript">
     function n_bloques() {
         try {
