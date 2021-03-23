@@ -72,7 +72,7 @@ function listaDeGrados(serverMsj) {
     table.insertRow(-1).innerHTML = '<td>' + serverMsj.GradosClasificados[index].clasificacion +'</td> <td>' + serverMsj.GradosClasificados[index].codigo +'</td>';    
   }
   cont++
-  listarGrados()
+  
 }
 
 function setCodigo (serverMsj) {

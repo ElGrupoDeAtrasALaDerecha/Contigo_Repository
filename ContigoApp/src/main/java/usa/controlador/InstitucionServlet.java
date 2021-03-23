@@ -69,17 +69,14 @@ public class InstitucionServlet extends HttpServlet {
         Gson gson = new Gson();
         InstitucionDao dao = new InstitucionDao();
         JSONObject json = new JSONObject();
-        JSONArray arreglo = new JSONArray();
-        for (Institucion i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Institucion.class)));
-        }
+        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         json.put("Instituciones", arreglo);
         System.out.println(json.toString());
         out.print(json.toString());
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.a
      *
      * @param request servlet request
      * @param response servlet response
