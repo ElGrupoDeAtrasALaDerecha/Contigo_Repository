@@ -4,9 +4,12 @@
 
 
 
-/*$("#btnPanico").click(function(){
-	window.location.assign("chat2.html");
-});*/
+$(document).ready(function(){
+	if(getCookie("tipoUsuario")!=="1"){
+		alert("No autorizado");
+		window.location.assign("index.html");
+	}
+})
 
 var numeroSala;
 
@@ -18,7 +21,7 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
+var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
 /**
 * Websocket
 */
@@ -39,11 +42,7 @@ websocket.onmessage = function (event) {
 		if (obj.tipo === "codigo sala") {
 			numeroSala = obj.numero;
 			pintarRespuesta(obj.mensaje);
-		} else if (obj.tipo === "respuesta") {
-			pintarRespuesta(obj.mensaje);
-		} else if (obj.tipo === "mensajeDePersonal") {
-			pintarRespuesta(obj.mensaje);
-		} else if (obj.tipo === "perdidaConexion") {
+		} else if (obj.tipo === "respuesta" ||obj.tipo === "mensajeDePersonal"||obj.tipo === "perdidaConexion") {
 			pintarRespuesta(obj.mensaje);
 		}
 	}

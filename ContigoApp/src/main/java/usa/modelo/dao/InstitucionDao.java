@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import usa.modelo.dto.Institucion;
 import java.sql.*;
-import org.json.JSONObject;
+
 /**
  *
  * @author santi
@@ -56,15 +56,15 @@ public class InstitucionDao implements IDao<Institucion> {
 
 
     @Override
-    public Institucion consultar(String id) {
-        Institucion ins = new Institucion();
+    public Institucion consultar(String nom) {
+        Institucion ins = null;
         try {
-            String sql = "select * from institucion where id = " + id;
+            String sql = "select * from institucion where nombre =\""+ nom+"\"";
             Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();    
             while(result.next()){
-                ins.setId(Integer.parseInt(id));
+                ins = new Institucion();
                 ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
                 //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
                 ins.setNombre(result.getString("nombre"));
@@ -77,7 +77,8 @@ public class InstitucionDao implements IDao<Institucion> {
                 ins.setContraseña(result.getString("contraseña"));
                 ins.setPagina(result.getString("web")); 
             }
-            return ins;
+            result.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,17 +127,17 @@ public class InstitucionDao implements IDao<Institucion> {
     }
     
     public Institucion loginInstitucion(String correo, String contraseña){
-        int id = 666;
+        String nombre = "no name";
         Institucion inst = null;
         try {
-            String sql = "select id from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
+            String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
             Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
-                id = result.getInt("id");
+                nombre = result.getString("nombre");
             }
-            inst = consultar(String.valueOf(id));
+            inst = consultar(nombre);
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }

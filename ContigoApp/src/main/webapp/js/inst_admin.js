@@ -5,7 +5,7 @@ $('#crear_g').click(function (e) {
     clasificacion_id: gradoSelt,
     institucion_id: id_inst
   }
-  console.log(obj)
+  // console.log(obj)
   crearGrado(obj)
   listarGrados ()
 })
@@ -21,14 +21,15 @@ function crearGrado (obj) {
     data: JSON.stringify(obj),
     contentType: 'JSON application/json charset=utf-8',
     success: function (response) {
-      console.log(response)
+      // console.log(response)
       setCodigo(response)
     },
     error: function (response) {
-      console.log(JSON.stringify(response))
+      // console.log(JSON.stringify(response))
       setCodigo(response)
     }
   })
+  listarGrados ()
 }
 
 function listarGrados () {
@@ -37,12 +38,12 @@ function listarGrados () {
     method: 'GET',
     dataType: 'json',
     success: function (response) {
-      console.log(response)
+      // console.log(response)
       listaDeGrados(response)
     },
     error: function (response) {
-      console.log("Error en la petición GET")
-      console.log(JSON.stringify(response))
+      // console.log("Error en la petición GET")
+      // console.log(JSON.stringify(response))
     }
   })
 }
@@ -53,8 +54,8 @@ var cont = 0
 var aux = 0
 var rows = 0
 
+//Función para cargar la lista de cursos creados en el listado de grados.
 function listaDeGrados(serverMsj) {
-  console.log("Salu2")
   if(aux == serverMsj.Grados.length){
     rows = serverMsj.Grados.length
   }else{
@@ -72,7 +73,6 @@ function listaDeGrados(serverMsj) {
     table.insertRow(-1).innerHTML = '<td>' + serverMsj.GradosClasificados[index].clasificacion +'</td> <td>' + serverMsj.GradosClasificados[index].codigo +'</td>';    
   }
   cont++
-  listarGrados()
 }
 
 function setCodigo (serverMsj) {

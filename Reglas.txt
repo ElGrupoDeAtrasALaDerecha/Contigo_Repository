@@ -1,3 +1,5 @@
+Eventos en vista de estudiante
+
 Datos estudiante
 
 {
@@ -5,7 +7,12 @@ Datos estudiante
     token: ddghjjkjgf
 },
 
-
+Respuestas de datos estudiante:
+{
+    tipo: codigo sala,
+    numero: 3 ,
+    mensaje : saludo
+}
 
 Conversación:
 
@@ -16,41 +23,42 @@ Conversación:
 
 },
 
+Respuesta de conversacion:
+{
+    tipo: respuesta,
+    mensaje: mensaje
+}
 
+{
+    tipo: mensajeDePersonal,
+    mensaje: mensaje
+}
+
+
+Advertencia estudiante (cuando el personal que atiende se desconecta)
+{
+	tipo: perdidaConexion,
+	mensaje: mensaje
+
+}
+
+==========================================================
+
+Eventos de personal calificado
 Ingreso Personal
 
-{
-    tipo : ingreso personal,
-    token: ewrwerwrw
-
-}
-
-Mensaje Personal 
-
-{
-
-   tipo : mensaje personal,
-   numero sala: 3,
-   mensaje : mensaje
-}
-
-
+<<<<<<< HEAD
 
 
 
 ================================================
 Respuestas:
+=======
+>>>>>>> 6fec1661bc1880a1718f2cd8f510f0b3ad28dd11
 {
-    tipo: codigo sala,
-    numero: 3 ,
-    mensaje : saludo
-}
+    tipo : ingreso personal,
+    token: ewrwerwrw
 
-
-Respuesta de "mensaje:
-{
-    tipo: respuestaConti,
-    mensaje: mensaje
 }
 
 Respuesta conexion personal :
@@ -59,16 +67,23 @@ Respuesta conexion personal :
     salas : [
         {numero sala: numerosala,
         estudiante : estudiante,
-	mensajes :mensaje }
+	atendido:boolean,
+	mensajes :mensaje
+ }
 
 ]}
 
-Mensaje Estudiante a Personal
+
+
+
+
+Mensaje Personal (mensaje de un personal a un estudiante)
 
 {
 
-	tipo: mensajeEstudiante,
-	mensaje:mensaje
+   tipo : mensaje personal,
+   numero sala: 3,
+   mensaje : mensaje
 }
 
 
@@ -84,12 +99,6 @@ Nuevo estudiante
 
 }
 
-Advertencia estudiante
-{
-	tipo: perdidaConexion,
-	mensaje: mensaje
-
-}
 
 Estudiante desconectado
 {
@@ -99,6 +108,8 @@ Estudiante desconectado
 
 }
 
+<<<<<<< HEAD
+=======
 
 Aviso de que un estudiante está siendo atendido
 
@@ -108,9 +119,12 @@ Aviso de que un estudiante está siendo atendido
 }
 
 
+
+===============futuro
 Aviso a un personal calificado que está atendiendo un estudiante
 {
     tipo: conversacion,
     conversacion: [lista de mensajes],
     estudiante: datos del estudiante
 }
+>>>>>>> aa7db82c078a8ab6494e6a57eb9682f71d070eac

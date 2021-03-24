@@ -44,7 +44,7 @@ CREATE TABLE PERSONA (
   segundoNombre VARCHAR(30) NULL,
   primerApellido VARCHAR(30) NOT NULL,
   segundoApellido VARCHAR(30) NULL,
-  token VARCHAR(200) NOT NULL,
+  token VARCHAR(200) NOT NULL unique,
   fechaNacimiento DATE NOT NULL,
   contraseña VARCHAR(200) NOT NULL,
   genero VARCHAR(15) NULL,
@@ -59,6 +59,7 @@ CREATE TABLE PERSONA (
 CREATE TABLE PERSONAL (
   PERSONA_documento VARCHAR(20) NOT NULL,
   correo VARCHAR(80) NOT NULL unique,
+  imagen VARCHAR(240) NOT NULL,
   PRIMARY KEY(PERSONA_documento),
   INDEX PERSONAL_FKIndex1(PERSONA_documento),
   FOREIGN KEY(PERSONA_documento)

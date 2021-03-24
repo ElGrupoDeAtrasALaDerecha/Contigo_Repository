@@ -12,6 +12,7 @@ public class Conversatorio {
     }
 
     private int id;
+    private String clasificacion [] ;
     private String titulo;
     private String cronograma;
     private String orador;
@@ -19,7 +20,16 @@ public class Conversatorio {
     private String lugar;
     private String imagen;
     private String descripcion;
-    
+
+    public String[] getClasificacion() {
+        return clasificacion;
+    }
+
+    public void setClasificacion(String[] clasificacion) {
+        this.clasificacion = clasificacion;
+    }
+
+
     public String getInfografia() {
         return infografia;
     }
@@ -35,7 +45,7 @@ public class Conversatorio {
     public void setLugar(String lugar) {
         this.lugar = lugar;
     }
-    
+
     public String getDescripcion() {
         return descripcion;
     }

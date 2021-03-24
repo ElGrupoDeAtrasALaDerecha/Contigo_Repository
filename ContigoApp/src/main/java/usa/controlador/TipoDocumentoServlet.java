@@ -8,7 +8,6 @@ package usa.controlador;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,16 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.InstitucionDao;
-import usa.modelo.dto.Institucion;
-import usa.utils.Utils;
+import usa.modelo.dao.TipoDocumentoDao;
+import usa.modelo.dto.TipoDocumento;
 
 /**
  *
  * @author santi
  */
-@WebServlet(name = "InstitucionServlet", urlPatterns = {"/Institucion"})
-public class InstitucionServlet extends HttpServlet {
+@WebServlet(name = "TipoDocumentoServlet", urlPatterns = {"/TipoDocumento"})
+public class TipoDocumentoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,20 +32,20 @@ public class InstitucionServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs545
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            /* TODO output your page here. You may use following sample code. df*/
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InstitucionServlet</title>");
+            out.println("<title>Servlet TipoDocumentoServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InstitucionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TipoDocumentoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,49 +65,28 @@ public class InstitucionServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        InstitucionDao dao = new InstitucionDao();
+        TipoDocumentoDao dao = new TipoDocumentoDao();
         JSONObject json = new JSONObject();
-        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-        json.put("Instituciones", arreglo);
-        System.out.println(json.toString());
+        JSONArray arreglo = new JSONArray();
+        for (TipoDocumento i : dao.listarTodos()) {
+            arreglo.put(new JSONObject(gson.toJson(i, TipoDocumento.class)));
+        }
+        json.put("Identificaciones", arreglo);
         out.print(json.toString());
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.a
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs. a
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        JSONObject json = new JSONObject();
-        Gson gson = new Gson();
-        String nom = Utils.readParams(request);
-        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        System.out.println(nom);
-        InstitucionDao instuti = new InstitucionDao();
-
-        if (instuti.consultar(ins.getNombre()) != null) {
-            json.put("tipo", "error");
-            json.put("mensaje", "Ya existe una institucion con este nombre");
-        } else {
-            if (instuti.crear(ins)) {
-                json.put("tipo", "ok");
-                json.put("mensaje", "Institucion registrada correctamente");
-            } else {
-                json.put("tipo", "error");
-                json.put("mensaje", "Error al registrar institucion");
-            }
-        }
-        out.print(json.toString());
-        /*
-        
-         */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**

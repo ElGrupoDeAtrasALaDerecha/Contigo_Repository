@@ -35,7 +35,6 @@ public class EstudianteDao implements IDao<Estudiante> {
             call.setString("_token", Utils.generateNewToken());
             call.setString("_fechaNacimiento", estudiante.getFechaDeNacimiento());
             call.setString("_genero",estudiante.getGenero());
-            //call.setString("correo", estudiante.getCorreo());
             call.setString("_contraseña", estudiante.getContraseña());
             call.setString("_GRADO_codigo", estudiante.getGrado());
             call.execute();
@@ -101,6 +100,24 @@ public class EstudianteDao implements IDao<Estudiante> {
                 estudiante.setSegundoApellido(rs.getString("p.segundoApellido"));
                 estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
                 estudiante.setGenero(rs.getString("p.genero"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return estudiante;
+    }
+    
+     public Estudiante consultarPorTokenGrado(String id) {
+             Estudiante estudiante = null;
+        Connection conn = Conexion.tomarConexion();
+        try {
+            String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            estudiante = new Estudiante();
+            while (rs.next()) {
+                estudiante.setGrado(rs.getString("GRADO_codigo"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
