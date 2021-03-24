@@ -1,6 +1,6 @@
 
-$(document).ready(function(){
-    let txt=`<button id="btnAyuda" class="red inverted circular massive ui icon button"  data-content="¿Necesitas ayuda?">
+$(document).ready(function () {
+    let txt = `<button id="btnAyuda" class="red inverted circular massive ui icon button"  data-content="¿Necesitas ayuda?">
                 <i class="icon heartbeat"></i>
             </button>`
     $("body").append(txt);
@@ -10,8 +10,17 @@ $(document).ready(function(){
         "z-index": "10000",
         "top": "90%",
         "left": "95%"
-      });
-    $("#btnAyuda").click(function(){
-        window.location.assign("chat.html");
-    })
+    });
+    if (getCookie("tipoUsuario") === "1") {
+        $("#btnAyuda").click(function () {
+            window.location.assign("chat.html");
+        })
+    } else if (getCookie("tipoUsuario") === "2") {
+        $("#btnAyuda").prop("data-content", "¡Mira las conversaciones privadas!");
+        $("#btnAyuda").click(function () {
+            window.location.assign("admin_perca.html");
+        })
+    } else {
+        $("#btnAyuda").remove();
+    }
 });

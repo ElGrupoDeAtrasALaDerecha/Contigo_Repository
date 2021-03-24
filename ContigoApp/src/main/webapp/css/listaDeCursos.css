@@ -53,6 +53,7 @@ h1{
     font-weight: lighter;
     color: rgba(255,255,255,1);
     background-color: #2c4059;
+    outline:none;
 }
 #Eliminar{
     border-radius: 12px;
@@ -64,4 +65,5 @@ h1{
     font-weight: lighter;
     color: rgba(255,255,255,1);
     background-color: #ea5455;
+    outline:none;
 }

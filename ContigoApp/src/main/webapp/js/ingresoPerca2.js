@@ -27,10 +27,11 @@ function loginPersonalCalificado(obj){
         success: function(response) {
             console.log(response);
             if(response.tipo==="ok"){
-                setCookie("token",response.personal.token,0.5);
-                alert("Mensaje: "+response.mensaje)
-                $(location).attr('href','admin_perca.html');
+                setCookie("token",response.personal.token,0.3);
                 setCookie("tipoUsuario",2,0.5);
+                alert("Mensaje: "+response.mensaje);
+
+                $(location).attr('href','admin_perca.html');
             }
             else{
                 alert("Error: "+response.mensaje)

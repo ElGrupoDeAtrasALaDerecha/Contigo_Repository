@@ -1,7 +1,9 @@
 $('#crear_g').click(function (e) {
   var gradoSelt = $('#grado_slect option:selected').val()
+  var id_inst = getCookie("ID_Inst")
   var obj = {
-    clasificacion_id: gradoSelt
+    clasificacion_id: gradoSelt,
+    institucion_id: id_inst
   }
   console.log(obj)
   crearGrado(obj)
@@ -39,6 +41,7 @@ function listarGrados () {
       listaDeGrados(response)
     },
     error: function (response) {
+      console.log("Error en la petición GET")
       console.log(JSON.stringify(response))
     }
   })
@@ -49,7 +52,9 @@ var table = document.getElementById('tabla_grados')
 var cont = 0
 var aux = 0
 var rows = 0
+
 function listaDeGrados(serverMsj) {
+  console.log("Salu2")
   if(aux == serverMsj.Grados.length){
     rows = serverMsj.Grados.length
   }else{
@@ -67,6 +72,7 @@ function listaDeGrados(serverMsj) {
     table.insertRow(-1).innerHTML = '<td>' + serverMsj.GradosClasificados[index].clasificacion +'</td> <td>' + serverMsj.GradosClasificados[index].codigo +'</td>';    
   }
   cont++
+  
 }
 
 function setCodigo (serverMsj) {

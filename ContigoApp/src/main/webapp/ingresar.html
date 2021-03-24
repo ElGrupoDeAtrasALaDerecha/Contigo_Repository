@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,25 +14,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Contigo</title>
 </head>
+
 <body>
+    <!-- -->
     <nav id="menu">
         <h1 id="logo"><a id="contigo-1" href="#">Contigo</a></h1>
         <div id="cont_op">
-           <ul>
-               <li><a href="#">Ayuda</a></li>
-               <li><a href="#">Contacto</a></li>
-               <li><a href="#">About Us</a></li>
-           </ul>
-       </div>
+            <ul>
+                <li><a href="#">Ayuda</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </div>
     </nav>
     <section id="contenedor_iI">
         <div id="cont1">
             <h2>Institución</h2>
             <div class="contenedor_credencial">
-                <input type="text" class="credencial" id="Texto" placeholder="Usuario" name="usr_inst">
+                <input type="text" class="credencial" id="correo" placeholder="Correo" name="correo" required>
             </div>
             <div class="contenedor_credencial">
-                <input type="text" class="credencial" id="Texto" placeholder="Contraseña" name="password">
+                <input type="password" class="credencial" id="password_inst" placeholder="Contraseña"
+                    name="password_inst" required>
             </div>
             <div class="contenedor_credencial">
                 <input type="button" class="btn_ing" id="ing_inst" value="Ingresar" name="ingresar">
@@ -39,7 +43,7 @@
             <div class="contenedor_credencial">
                 <a class="registro" href="Registro.html">Registra tu institución</a>
             </div>
-        </div>     
+        </div>
     </section>
     <section id="contenedor_iE">
         <div id="cont2">
@@ -66,7 +70,7 @@
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Ayuda</a></li>
             </ul>
-            <hr >
+            <hr>
         </div>
         <table id="table-footer">
             <tr>
@@ -76,10 +80,10 @@
                             <span id="contigo2"><a href="#">Contigo</a></span>
                         </div>
                         <div id="iconos">
-                            <a  href="#"><img class="facebook" src="Iconos/facebook.png" ></a>
-                            <a  href="#"><img class="instagram" src="Iconos/instagram.png" ></a>
-                            <a  href="#"><img class="linkedin" src="Iconos/linkedin.png" ></a>
-                            <a  href="#"><img class="youtube" src="Iconos/youtube.png" ></a>
+                            <a href="#"><img class="facebook" src="Iconos/facebook.png"></a>
+                            <a href="#"><img class="instagram" src="Iconos/instagram.png"></a>
+                            <a href="#"><img class="linkedin" src="Iconos/linkedin.png"></a>
+                            <a href="#"><img class="youtube" src="Iconos/youtube.png"></a>
                         </div>
                     </div>
                 </td>
@@ -120,7 +124,7 @@
                 </td>
             </tr>
         </table>
-    
+
         <div id="Inferior">
             <div>
                 <span>Copyright © 2021 Contigo. Creado por El Grupo De Atrás A La Derecha</span>
@@ -130,6 +134,5 @@
 </body>
 <script src="js/funciones.js"></script>
 <script src="js/ingresa.js"></script>
+
 </html>
-<!-- Script temporal para ingreso institución -->
-</script>

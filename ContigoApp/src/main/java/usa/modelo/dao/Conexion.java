@@ -17,7 +17,9 @@ public class Conexion {
     String port="3306";
     private final String url = "jdbc:mysql://"+host+":"+port+"/"+bd+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";
     static Connection con = null;
-
+    /**
+     * Constructor privado de la clase conexión
+     */
     private Conexion() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -33,14 +35,19 @@ public class Conexion {
             System.out.println(e.toString() + " Error de conexión 2");
         }
     }
-
+    /**
+     * Método de que permite obtener la conexión con la base de datos
+     * @return la conexión con la base de datos
+     */
     public static Connection tomarConexion() {
         if (con == null) {
             Conexion conexion = new Conexion();
         }
         return con;
     }
-
+    /**
+     * Método que cierra la conexión con la base de datos
+     */
     public static void desconectar() {
         con = null;
         System.out.println("conexion terminada");

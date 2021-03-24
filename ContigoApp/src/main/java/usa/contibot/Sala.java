@@ -10,33 +10,43 @@ import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**
- *
+ * Clase sala
+ * @author Valeria Bermúdez y Santiago Pérez
  */
-public class Sala extends Thread {
+public class Sala {
 
     /**
-     * Constructor
+     * Código de la sala
      */
     private int codigo;
 
     /**
-     *
+     * Datos del estudiante
      */
     private Estudiante estudiante;
 
     /**
-     *
+     * Datos del personal calificado
      */
     private PersonalCalificado personaCalificada;
 
+    /**
+     * Sesiones de estudiante y personal calificado
+     */
     private Session sesionEstudiante, sesionPersonal;
 
-    private LinkedList<Mensaje> mensajes;
-
+    /**
+     * Mensajes de la sesión de chat
+     */
+    private final LinkedList<Mensaje> mensajes;
+    
+    /**
+     * Constructor de la clase sala. Se inicializa la lista de mensajes
+     */
     public Sala() {
         this.mensajes = new LinkedList();
     }
-
+    
     public int getCodigo() {
         return codigo;
     }
@@ -126,8 +136,11 @@ public class Sala extends Thread {
         objRespuesta.put("mensaje", new JSONObject(Utils.toJson(mensaje)));
         sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
     }
-
-    public void enviarAdvertenciaAEstudiante(JSONObject obj) throws IOException {
+    /**
+     * Método que envia una advertencia al estudiante de desconexión del personal calificado en formato json
+     * @throws IOException por posibles errores de entrada y salida de datos
+     */
+    public void enviarAdvertenciaAEstudiante() throws IOException {
         JSONObject mensaje = new JSONObject();
         Mensaje advertencia = new Mensaje();
         advertencia.setEmisor("Conti");
@@ -138,8 +151,12 @@ public class Sala extends Thread {
         mensaje.put("mensaje", new JSONObject(Utils.toJson((advertencia))));
         sesionEstudiante.getBasicRemote().sendText(mensaje.toString());
     }
-
-    public void enviarPrimerMensaje(JSONObject obj, JSONObject objRespuesta) throws IOException {
+    /**
+     * Método que envia el mensaje de saludo al estudiante en formato json
+     * @param objRespuesta que es una instancia de la respuesta al estudiante. 
+     * @throws IOException por posibles errores de entrada y salida de datos
+     */
+    public void enviarPrimerMensaje(JSONObject objRespuesta) throws IOException {
         Mensaje mensaje = new Mensaje();
         mensaje.setEmisor("Conti");
         mensaje.setMensaje("Hola, " + estudiante.getPrimerNombre() + ". Soy Conti y estoy contigo, ¿tienes alguna pregunta?");

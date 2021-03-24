@@ -42,7 +42,7 @@ public class MunicipioServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MunicipioServlet</title>");            
+            out.println("<title>Servlet MunicipioServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet MunicipioServlet at " + request.getContextPath() + "</h1>");
@@ -62,7 +62,7 @@ public class MunicipioServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
         MunicipioDao dao = new MunicipioDao();
@@ -73,7 +73,7 @@ public class MunicipioServlet extends HttpServlet {
         }
         json.put("Municipios", arreglo);
         out.print(json.toString());
-        
+
     }
 
     /**

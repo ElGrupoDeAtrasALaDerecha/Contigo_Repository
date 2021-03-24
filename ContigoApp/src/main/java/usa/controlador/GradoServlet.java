@@ -82,7 +82,6 @@ public class GradoServlet extends HttpServlet {
         System.out.println("doPost. Value del grado seleccionado: " + grado_slct);
         //Se convierte de json a objeto Grado
         Grado grado = (Grado) gson.fromJson(grado_slct, Grado.class);
-        grado.setInstitucion_id(4);
         String codigo = GeneradorCodigos.getCodigo(GeneradorCodigos.MAYUSCULAS+GeneradorCodigos.NUMEROS,6);
         grado.setCodigo(codigo);
         GradoDao dao = new GradoDao();
