@@ -30,7 +30,7 @@ public class InstitucionDao implements IDao<Institucion> {
         
         try {
             String sql = "insert into  institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web ) "
-                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
+                    + "values (?,?,?,?,?,?,?,?,?,sha(?),?)";
             Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             pat.setInt(1, ins.getIdMunicipio());

@@ -1,6 +1,6 @@
-var identificaciones ;
+var identificaciones;
 
-window.onload = function tipos_id(){
+window.onload = function tipos_id() {
     $.ajax({
         url: "TipoDocumento",
         type: "GET",
@@ -28,7 +28,7 @@ window.onload = function tipos_id(){
         }
 
     });
-} 
+}
 
 function registrar_estudiante() {
     tidocu = $("#TipoDocumento").val();
@@ -44,7 +44,7 @@ function registrar_estudiante() {
 
     informacion = {
         documento: numdocu,
-        tipoDocumento: parseInt(tidocu,10),
+        tipoDocumento: parseInt(tidocu, 10),
         primerNombre: pnom,
         segundoNombre: snom,
         primerApellido: pape,
@@ -67,8 +67,14 @@ function registrar_estudiante() {
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
                 console.log(result);
+                $(location).attr('href', 'ingresar.html');
+
             } else {
-                console.log("error");
+                console.log(result);
+                let msm = '<div class="alert alert-danger" role="alert">' + " Error código no valido" + '</div>';
+                $("#alert").append(msm);
+               
+
             }
 
         },
@@ -87,6 +93,7 @@ function registrar_estudiante() {
 
 
 
+
 function Ingresar() {
     TipoDocumento = document.getElementById("TipoDocumento").value;
     TIoCC = document.getElementById("TIoCC").value;
@@ -98,15 +105,20 @@ function Ingresar() {
     FechaNacimiento = document.getElementById("FechaNacimiento").value;
     contra = document.getElementById("contra").value;
     conficontra = document.getElementById("conficontra").value;
-    var expReg= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-    
+    var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+
 
     if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CodigoInstitucional == "" || SegundoApellido == "" || FechaNacimiento == "" || contra == "" || conficontra == "") {
-        alert("Todos los campos son obligatorios.");
+        let msm1 = '<div class="alert alert-danger" role="alert">' + " Todos los campos son obligatorios" + '</div>';
+        $("#alert").append(msm1);
+        
     } else if (contra != conficontra) {
-        alert("No coincide su contraseña con la confirmación");
-    }else{
+        let msm2 = '<div class="alert alert-danger" role="alert">' + " Las contraseñas no coinciden" + '</div>';
+        $("#alert").append(msm2);
+        
+    } else {
         registrar_estudiante();
+
     }
 }
 
