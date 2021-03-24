@@ -24,7 +24,11 @@ public class InstitucionDao implements IDao<Institucion> {
     PreparedStatement pat;
     Statement stmt; 	            
     ResultSet result;
-    
+    /**
+     * 
+     * @param ins
+     * @return 
+     */
     @Override
     public boolean crear(Institucion ins) {
         
@@ -65,6 +69,7 @@ public class InstitucionDao implements IDao<Institucion> {
             result = pat.executeQuery();    
             while(result.next()){
                 ins = new Institucion();
+                ins.setId(result.getInt("id"));
                 ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
                 //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
                 ins.setNombre(result.getString("nombre"));
