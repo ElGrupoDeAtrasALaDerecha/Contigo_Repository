@@ -127,7 +127,7 @@ public class InstitucionDao implements IDao<Institucion> {
     }
     
     public Institucion loginInstitucion(String correo, String contraseña){
-        int id = 666;
+        String nombre = "no name";
         Institucion inst = null;
         try {
             String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
@@ -135,9 +135,9 @@ public class InstitucionDao implements IDao<Institucion> {
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
-                id = result.getInt("id");
+                nombre = result.getString("nombre");
             }
-            inst = consultar(String.valueOf(id));
+            inst = consultar(nombre);
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
