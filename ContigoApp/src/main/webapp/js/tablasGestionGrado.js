@@ -6,10 +6,10 @@ var tablaSituacionesComunes = new Chart(document.getElementById('situacionesComu
         labels: ['Historia 1','Historia 2', 'Historia 3', 'Historia 4'],
         datasets: [{
             label:'Situaciones de decisiones más frecuentadas',
-            backgroundColor: ['rgb(66, 134, 244)',
-            'rgb(255, 160, 122)',
+            backgroundColor: ['rgb(86, 89, 107)',
+            'rgb(57, 136, 136)',
             'rgb(176, 196, 222)',
-            'rgb(255, 182, 193)'],
+            'rgb(230, 230, 250)'],
             data:[320,280,232,195],
         }]
     },
@@ -50,18 +50,16 @@ var tablaInscripcionAconversatorio = new Chart( document.getElementById('convers
             label: 'Grados',
             data: [110, 100, 120, 150],
             backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 206, 86, 0.2)'
+            'rgb(136, 145, 200,0.6)',
+            'rgba(210, 180, 140, 0.6)',
+            'rgba(188, 143, 143, 0.6)',
+            'rgba(153, 102, 255, 0.6)'
             ],
             borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 206, 86, 1)'
+            'rgb(136, 145, 200)',
+            'rgba(210, 180, 140, 1)',
+            'rgba(188, 143, 143, 1)',
+            'rgba(153, 102, 255, 1)'
             ],
             borderWidth: 1
         }]
@@ -99,11 +97,11 @@ var tablaUsoChatPrivado = new Chart(document.getElementById('usoChat').getContex
         datasets: [{
             data: [30, 70],
             backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)'],
+            'rgba(95, 158, 160)',
+            'rgba(165, 42, 42)'],
             borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 159, 64, 1)'],
+            'rgba(95, 158, 160, 1)',
+            'rgba(165, 42, 42, 1)'],
             borderWidth: 1
         }]
     },
@@ -141,3 +139,25 @@ var tablaUsoChatPrivado = new Chart(document.getElementById('usoChat').getContex
 });
 
 
+var chart = new Chart(document.getElementById('cantidadEstudiantes').getContext('2d'), {
+    type: 'line',
+    data: {
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+        datasets: [{
+            label: 'Cantidad de estudiantes usando Contigo en la Institución ',
+            borderColor: '#2d4059',
+
+            backgroundColor: 'rgba(176, 196, 222, 0.35)',
+            data: [200, 240, 410, 391,350]
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'Cantidad de estudiantes usando  Contigo en la Institución'
+        },
+        legend:{
+            display:false
+        }
+    } 
+});
