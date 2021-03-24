@@ -70,7 +70,7 @@ function listaDeGrados(serverMsj) {
     aux = serverMsj.Grados.length
   }
   for (let index = 0; index < serverMsj.Grados.length; index++) {
-    table.insertRow(-1).innerHTML = '<td>' + serverMsj.GradosClasificados[index].clasificacion +'</td> <td>' + serverMsj.GradosClasificados[index].codigo +'</td>';    
+    table.insertRow(-1).innerHTML = '<td><a href="gestionCurso.html">' + serverMsj.GradosClasificados[index].clasificacion +'</a></td> <td>' + serverMsj.GradosClasificados[index].codigo +'</td>';    
   }
   cont++
 }
