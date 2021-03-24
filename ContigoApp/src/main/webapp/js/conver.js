@@ -242,6 +242,8 @@ function colocarInfo(array, orador, personal) {
         //'<a id="btnRegistrarEstu" class="banner-button">Registrarse</a>'
     $("#titulo").append(text);
 
+    document.getElementById("banner2").style.background="url("+array.imagen+") repeat";
+
 
 }
 

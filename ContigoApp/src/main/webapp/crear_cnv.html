@@ -23,11 +23,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-
-
-
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -49,8 +44,8 @@
                     </div>
 
 
-                    <input type="text" class="credencial" id="Descripcion" placeholder="Descripcion del conversatorio"
-                        name="des_cnv" required>
+                    <textarea type="text" class="credencial" id="Descripcion" placeholder="Descripcion del conversatorio"
+                        name="des_cnv" required></textarea>
                     <div class="invalid-feedback">
                         Inserta la descripcion
                     </div>
@@ -70,11 +65,18 @@
                         Inserta el link de la imagen
                     </div>
 
-                    <p>Selecciona los cursos a los cuales va dirigido este conversatorio:</p>
-                    <div id="cursos">
-                        <select id="grados" name="grados" multiple="" class="ui massive search fluid dropdown">
+                    
+                </div>
+
+            </section>
+
+            <section id="contenedor_conv">
+
+                <p>Selecciona los cursos a los cuales va dirigido este conversatorio:</p>
+                    <div id="cursos" class="credencial">
+                        <select id="grados" name="grados" multiple="" class="ui search fluid dropdown">
                             <option value="">Grados</option>
-                            <option value="1">Trancisión</option>
+                            <option value="1">Transición</option>
                             <option value="2">Primero</option>
                             <option value="3">Segundo</option>
                             <option value="4">Tercero</option>
@@ -90,13 +92,9 @@
                         </select>
 
                     </div>
-                </div>
-
-            </section>
-
-            <section id="contenedor_conv">
+                    <br>
                 <div class="input-group date" id="cronograma2" data-target-input="nearest">
-                    
+                        <p>Selecciona el dia y la hora en el cual sera presentado este conversatorio</p>
                         <input id="cronograma" type="text" class="credencial" placeholder="Cronograma"
                             data-target="#cronograma2" required>
                             <div class="invalid-feedback">
