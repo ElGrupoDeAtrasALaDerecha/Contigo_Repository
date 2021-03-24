@@ -1,12 +1,11 @@
 var usuario
 var token
 $(document).ready(function () {
-
+    LlamarGrado();
     usuario = parseInt(getCookie("tipoUsuario"));
     token = parseInt(getCookie("token"));
     documento = parseInt(getCookie("documento"));
     $('.ui.dropdown').dropdown();
-    LlamarGrado();
 });
 
 function LlamarGrado() {
