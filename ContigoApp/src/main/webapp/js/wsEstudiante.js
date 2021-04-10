@@ -21,7 +21,7 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
+var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
 /**
 * Websocket
 */
@@ -39,6 +39,7 @@ websocket.onmessage = function (event) {
 		ping();
 	} else {
 		let obj = JSON.parse(event.data);
+		console.log(obj)
 		if (obj.tipo === "codigo sala") {
 			numeroSala = obj.numero;
 			pintarRespuesta(obj.mensaje);
@@ -179,17 +180,15 @@ $("body").keyup(function (e) {
 
 const x = document.getElementById('escribiendoPersonal');
 	x.style.display ="none"
-function escribiendo() {
-	$("#Enviarmensaje").keypress(function(event){
-		if (event.which !== 13){
-			let mensaje={
-				tipo:"escribiendoEstudiante",
-				numeroSala: numeroSala
-			}
-			enviarMensaje(mensaje)
+$("#Enviarmensaje").keypress(function(event){
+	if (event.which !== 13){
+		let mensaje={
+			tipo:"escribiendoEstudiante",
+			numeroSala: numeroSala
 		}
-	})
-};
+		enviarMensaje(mensaje)
+	}
+})
 
 function pintarEscribiendo(){
 	let timeout

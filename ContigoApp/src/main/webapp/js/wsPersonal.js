@@ -15,7 +15,7 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
+var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
 /**
 * Websocket
 */
@@ -344,7 +344,7 @@ function aparecerChat(nombre) {
 								</div>
 							</div>
 							<div id="mensaje">
-								<input onkeydown="escribiendo();" id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
+								<input id="Enviarmensaje" class="mensajeInput" type="text" placeholder="Escribir mensaje...">
 								<button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
 									<i class="bi bi-arrow-right-circle-fill"></i>
 								</button>
@@ -359,13 +359,15 @@ function aparecerChat(nombre) {
 
 	divEscribiendo = document.getElementById('escribiendoEstudiante');
 	divEscribiendo.style.display = "none"
-	function escribiendo() {
-		let mensaje = {
-			tipo: "escribiendoPersonal",
-			numeroSala: numeroSala
+	$("#Enviarmensaje").keypress(function(event){
+		if (event.which !== 13){
+			let mensaje={
+				tipo:"escribiendoPersonal",
+				numeroSala: salaElegida
+			}
+			enviarMensaje(mensaje)
 		}
-		enviarMensaje(mensaje)
-	};
+	})
 
 	cargarListaDeMensajes();
 
@@ -430,7 +432,7 @@ function cargarListaDeMensajes() {
 }
 
 function pintarEscribiendo(numeroSalaMensaje) {
-	if (numeroSala === parseInt(numeroSalaMensaje, 10)) {
+	if (salaElegida === parseInt(numeroSalaMensaje, 10)) {
 		let timeout
 		divEscribiendo.style.display = "block"
 		clearTimeout(timeout)

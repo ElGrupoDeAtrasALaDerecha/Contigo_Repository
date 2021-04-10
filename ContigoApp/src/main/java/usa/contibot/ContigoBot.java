@@ -19,11 +19,11 @@ import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**
- * Clase Websocket contigo Bot
+ * Clase Websocket contigo Bot.
  *
- * @author Valeria Bermúdez y Santiago Pérez
+ * @author Valeria Bermúdez, Santiago Pérez y Camila Fernández
  * @since 2020-03-09
- * @version 0.0.1
+ * @version 0.0.2
  */
 @ServerEndpoint("/contiBot")
 public class ContigoBot {
