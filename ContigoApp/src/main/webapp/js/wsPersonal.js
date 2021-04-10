@@ -6,6 +6,7 @@ var salasSinAtender = new Array();
 var salasEnAtencion = new Array();
 var salaElegida;
 var dataPersonal;
+var divEscribiendo;
 /**
 * Promesa
 * @param {*} ms 
@@ -20,8 +21,8 @@ var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
 */
 var websocket = new WebSocket(wsUri);
 
-$(document).ready(function(){
-	if(getCookie("tipoUsuario")!=="2"){
+$(document).ready(function () {
+	if (getCookie("tipoUsuario") !== "2") {
 		alert("No autorizado");
 		window.location.assign("index.html");
 	}
@@ -63,7 +64,7 @@ websocket.onmessage = function (event) {
 			agregarNombreChatSinAtender(obj.estudiante.primerNombre + " " + obj.estudiante.primerApellido, obj.numeroSala);
 		} else if (obj.tipo === "desconexionEstudiante") {
 			removerEstudianteDeLista(obj);
-			
+
 		}
 		else if (obj.tipo === "estudianteAtendido") {
 			console.log("Otro personal atendió un estudiante: ", obj)
@@ -71,11 +72,13 @@ websocket.onmessage = function (event) {
 		}
 		else if (obj.tipo === "conversacion") {
 			console.log("Se agregó una conversación ", obj);
-			let sala =buscarSalaEnAtencion(obj.numeroSala);
-			sala.mensajes=obj.conversacion;
-			salaElegida=obj.numeroSala;
-			aparecerChat(obj.estudiante.primerNombre+" "+obj.estudiante.primerApellido);
-			
+			let sala = buscarSalaEnAtencion(obj.numeroSala);
+			sala.mensajes = obj.conversacion;
+			salaElegida = obj.numeroSala;
+			aparecerChat(obj.estudiante.primerNombre + " " + obj.estudiante.primerApellido);
+
+		} else if (obj.tipo === "escribiendoEstudiante") {
+			pintarEscribiendo(obj.numeroSala);
 		}
 
 
@@ -131,7 +134,7 @@ function pintarRespuesta(respuesta) {
 	</div>
 	`
 	$("#mensajes").append(txt);
-	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
+	$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
 }
 
 
@@ -148,7 +151,7 @@ function decirleAEstudiante(mensaje) {
 	enviarMensaje(datos);
 	sala = buscarSalaEnAtencion(datos.numeroSala);
 	sala.mensajes.push({ tipo: 2, emisor: dataPersonal.primerNombre + " " + dataPersonal.primerApellido, mensaje: mensaje });
-	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
+	$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
 }
 
 /**
@@ -238,8 +241,8 @@ function removerEstudianteDeLista(obj) {
 	for (let i = 0; i < salasEnAtencion.length; i++) {
 		if (salasEnAtencion[i].numeroSala === obj.numeroSala) {
 			salasEnAtencion.splice(i, 1);
-			if (parseInt(salaElegida,10) === parseInt(obj.numeroSala,10)) {
-				console.log("Entré al if",obj.mensaje)
+			if (parseInt(salaElegida, 10) === parseInt(obj.numeroSala, 10)) {
+				console.log("Entré al if", obj.mensaje)
 				$("#Enviarmensaje").val(obj.mensaje);
 				$("#Enviarmensaje").prop("readonly", true);
 				$("body").off("keyup");
@@ -330,6 +333,10 @@ function aparecerChat(nombre) {
 						<div id="chatCompleto2">
 							<div id="titulo">
 								<h1>${nombre}</h1>
+								<div id="escribiendoEstudiante" class="escribiendoA">
+                    			<h5> Escribiendo</h5>
+                    			<div id="load"class="loader"></div>
+                				</div>
 							</div>
 							<div id="chat">
 								<div id="mensajes">
@@ -337,7 +344,7 @@ function aparecerChat(nombre) {
 								</div>
 							</div>
 							<div id="mensaje">
-								<input id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
+								<input onkeydown="escribiendo();" id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
 								<button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
 									<i class="bi bi-arrow-right-circle-fill"></i>
 								</button>
@@ -348,6 +355,17 @@ function aparecerChat(nombre) {
 			</div>`
 
 	$("#chat_con_est").append(chat);
+
+
+	divEscribiendo = document.getElementById('escribiendoEstudiante');
+	divEscribiendo.style.display = "none"
+	function escribiendo() {
+		let mensaje = {
+			tipo: "escribiendoPersonal",
+			numeroSala: numeroSala
+		}
+		enviarMensaje(mensaje)
+	};
 
 	cargarListaDeMensajes();
 
@@ -371,14 +389,14 @@ function aparecerChat(nombre) {
 function mensajeDesdePersonalAlEstudiante() {
 	let mns = {
 		emisor: "Tú",
-		mensaje:$("#Enviarmensaje").val()
+		mensaje: $("#Enviarmensaje").val()
 	}
 	decirleAEstudiante(mns.mensaje);
 	pintarMensajeDePersonalAEstudiante(mns)
 }
 
 
-function pintarMensajeDePersonalAEstudiante(mns){
+function pintarMensajeDePersonalAEstudiante(mns) {
 	let mensaje = `
 		<div id="mns_tiempo_usuario" class="mensaje-amigo">
 		<div class="contenido"><b>${mns.emisor}: </b>${mns.mensaje} </div>
@@ -388,7 +406,7 @@ function pintarMensajeDePersonalAEstudiante(mns){
 		</div>`
 	$("#mensajes").append(mensaje);
 	$('input[type="text"]').val('');
-	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
+	$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
 }
 /**
  * Función que carga los mensajes de un chat específico
@@ -402,14 +420,23 @@ function cargarListaDeMensajes() {
 		let mensaje = mensajes[i];
 		if (mensaje.tipo === 1) {
 			pintarRespuesta(mensaje);
-			
+
 		} else {
 			pintarMensajeDePersonalAEstudiante(mensaje);
 		}
-		
+
 
 	}
 }
 
-
-
+function pintarEscribiendo(numeroSalaMensaje) {
+	if (numeroSala === parseInt(numeroSalaMensaje, 10)) {
+		let timeout
+		divEscribiendo.style.display = "block"
+		clearTimeout(timeout)
+		timeout = setTimeout(() => {
+			divEscribiendo.style.display = "none"
+			clearTimeout(timeout)
+		}, 1000)
+	}
+}

@@ -44,9 +44,12 @@ websocket.onmessage = function (event) {
 			pintarRespuesta(obj.mensaje);
 		} else if (obj.tipo === "respuesta" ||obj.tipo === "mensajeDePersonal"||obj.tipo === "perdidaConexion") {
 			pintarRespuesta(obj.mensaje);
+		} else if (obj.tipo === "escribiendoPersonal"){
+			pintarEscribiendo();
 		}
 	}
 }
+
 
 /**
  * Función que envía un mensaje (serializado) al servidor
@@ -174,22 +177,26 @@ $("body").keyup(function (e) {
 });
 
 
-const x = document.getElementById('escribiendoAA');
+const x = document.getElementById('escribiendoPersonal');
 	x.style.display ="none"
 function escribiendo() {
-	
-	let timeout
 	$("#Enviarmensaje").keypress(function(event){
 		if (event.which !== 13){
-			x.style.display ="block"
-			clearTimeout(timeout)
-			timeout = setTimeout(() => {
-				console.log('Has dejado de escribir en el input')
-				x.style.display ="none"
-				clearTimeout(timeout)
-			}, 1000)
+			let mensaje={
+				tipo:"escribiendoEstudiante",
+				numeroSala: numeroSala
+			}
+			enviarMensaje(mensaje)
 		}
 	})
 };
 
-
+function pintarEscribiendo(){
+	let timeout
+	x.style.display ="block"
+	clearTimeout(timeout)
+	timeout = setTimeout(() => {
+		x.style.display ="none"
+		clearTimeout(timeout)
+	}, 1000)	
+}
