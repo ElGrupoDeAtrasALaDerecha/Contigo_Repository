@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usa.modelo.controlador;
+package usa.controlador;
 
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -13,18 +13,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.EstudianteDao;
-import usa.modelo.dto.Estudiante;
-import usa.modelo.dto.Institucion;
-import usa.utils.Utils;
+import usa.modelo.dao.TipoDocumentoDao;
+import usa.modelo.dto.TipoDocumento;
 
 /**
  *
- * @author Santiago Pérez
+ * @author santi
  */
-@WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
-public class EstudianteServlet extends HttpServlet {
+@WebServlet(name = "TipoDocumentoServlet", urlPatterns = {"/TipoDocumento"})
+public class TipoDocumentoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,20 +32,20 @@ public class EstudianteServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs545
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            /* TODO output your page here. You may use following sample code. df*/
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Estudiante</title>");            
+            out.println("<title>Servlet TipoDocumentoServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Estudiante at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TipoDocumentoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,21 +61,18 @@ public class EstudianteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /*
-            Estudiante estudiante = new Estudiante();
-            estudiante.setPrimerNombre("Pablo");
-            estudiante.setPrimerApellido("Escobar");
-            Gson gson = new Gson();
-            String mensaje=gson.toJson(estudiante,Estudiante.class);
-            System.out.println(mensaje);
-            out.print(mensaje);*/
-            
-         
-            
+        PrintWriter out = response.getWriter();
+        Gson gson = new Gson();
+        TipoDocumentoDao dao = new TipoDocumentoDao();
+        JSONObject json = new JSONObject();
+        JSONArray arreglo = new JSONArray();
+        for (TipoDocumento i : dao.listarTodos()) {
+            arreglo.put(new JSONObject(gson.toJson(i, TipoDocumento.class)));
         }
+        json.put("Identificaciones", arreglo);
+        out.print(json.toString());
     }
 
     /**
@@ -85,28 +81,12 @@ public class EstudianteServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs. a
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        String mensaje = Utils.readParams(request);
-        System.out.println(mensaje);
-        response.setContentType("application/json;charset=UTF-8");
-        Gson gson = new Gson();
-        Estudiante estudiante= (Estudiante)gson.fromJson(mensaje, Estudiante.class);
-        EstudianteDao dao = new EstudianteDao();
-        JSONObject json = new JSONObject();
-        if(dao.crear(estudiante)){
-            json.put("tipo","ok");
-            json.put("mensaje","Estudiante creado");
-        }else{
-            json.put("tipo","error");
-            json.put("mensaje","Error al crear estudiante");
-        }
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.print(json.toString());
-        }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**

@@ -11,13 +11,14 @@ create procedure insertarPersonalCalificado (
   _fechaNacimiento DATE,
   _contraseña VARCHAR(200),
   _genero VARCHAR(15),
-  _correo VARCHAR(80)
+  _correo VARCHAR(80),
+  _imagen VARCHAR (240)
 )
 
 begin
 insert into PERSONA(documento,TIPO_DOCUMENTO_id,primerNombre,segundoNombre,primerApellido,segundoApellido ,token ,fechaNacimiento ,contraseña,genero)
 values(_documento,_TIPO_DOCUMENTO_ID,_primerNombre,_segundoNombre,_primerApellido,_segundoApellido ,_token ,_fechaNacimiento ,sha(_contraseña),_genero);
-insert into PERSONAL(PERSONA_documento,correo) values (_documento,_correo);
+insert into PERSONAL(PERSONA_documento,correo,imagen) values (_documento,_correo,_imagen);
 end $$
 
 
@@ -42,3 +43,5 @@ insert into PERSONA(documento,TIPO_DOCUMENTO_id,primerNombre,segundoNombre,prime
 values(_documento,_TIPO_DOCUMENTO_ID,_primerNombre,_segundoNombre,_primerApellido,_segundoApellido ,_token ,_fechaNacimiento ,sha(_contraseña),_genero);
 insert into ESTUDIANTE(PERSONA_documento,GRADO_codigo) values (_documento,_GRADO_codigo);
 end $$
+
+delimiter $$

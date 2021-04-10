@@ -9,3 +9,14 @@ inner join Estudiante as e on e.PERSONA_documento=p.documento;
 
 
 select * from Estudiante;
+
+
+select * from PERSONA;
+select * from CLASIFICACION_has_CONVERSATORIO;
+select * from PERSONAL;
+select * from clasificacion;
+select * FROM ESTUDIANTE;
+select * from institucion;
+select * from grado;
+select * from conversatorio;
+select * from institucion;

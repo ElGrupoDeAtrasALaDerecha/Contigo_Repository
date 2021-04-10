@@ -2,6 +2,5 @@
 /Contigo/build/
 /ContigoApp/target/
 /ContigoApp/bin/
-ContigoApp/.classpath
-ContigoApp/.project
-ContigoApp/.settings/
+/ContigoApp/.settings/
+/ContigoApp/src/main/java/usa/modelo/dao/Conexion.java

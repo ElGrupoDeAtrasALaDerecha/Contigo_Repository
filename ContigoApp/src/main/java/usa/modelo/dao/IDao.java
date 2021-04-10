@@ -3,7 +3,7 @@ package usa.modelo.dao;
 import java.util.LinkedList;
 
 /**
- *
+ *  Interfaz de objetos de acceso a datos
  * @author Santiago Pérez
  */
 interface IDao<T> {

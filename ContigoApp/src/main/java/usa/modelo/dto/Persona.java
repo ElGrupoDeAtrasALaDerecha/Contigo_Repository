@@ -13,7 +13,7 @@ public class Persona {
     }
 
     /**
-     * 
+     * a
      */
     private String documento;
 
@@ -51,7 +51,10 @@ public class Persona {
     
     
     private String token;
-
+    /**
+     * 
+     * @return 
+     */
     public String getGenero() {
         return genero;
     }

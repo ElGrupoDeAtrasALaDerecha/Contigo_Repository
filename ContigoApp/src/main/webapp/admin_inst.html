@@ -4,59 +4,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="css/footer.css">-->
-    <link rel="stylesheet" href="css/admin_inst.css">
-    <!--<link rel="stylesheet" href="css/nav.css">-->
+.    <link rel="stylesheet" href="css/admin_inst.css">
     <link rel="stylesheet" href="css/navfooter.css">
     <link rel="stylesheet" href="css/normalize.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/template.js"></script>
     <title>Contigo</title>
 </head>
 <body>
-    <h2>Administración de Recursos</h2>
+    <h2>Administración de Grados</h2>
     <div id="contenedor">
         <section id="contenedor_cc">
-            <h3>Grados</h3>
+            <p>Selecciona el grado al cual quieres generar un codigo:</p>
             <div class="contenedor_credencial">
-                <select name="Grados" class="credencial"  id="Texto" required>
+                <select name="grado_slect" class="credencial"  id="grado_slect" required>
                     <option value="" disabled selected>Grados</option> 
-                    <option value="0">Trasnsición</option>
-                    <option value="1">Primero</option>
-                    <option value="2">Segundo</option>
-                    <option value="3">Tercero</option>
-                    <option value="4">Cuarto</option>
-                    <option value="5">Quinto</option>
-                    <option value="6">Sexto</option>
-                    <option value="7">Septimo</option>
-                    <option value="8">Octavo</option>
-                    <option value="9">Noveno</option>
-                    <option value="10">Decimo</option>
-                    <option value="11">Once</option>
-                    <option value="12">Docentes</option>
+                    <option value="1">Trasnsición</option>
+                    <option value="2">Primero</option>
+                    <option value="3">Segundo</option>
+                    <option value="4">Tercero</option>
+                    <option value="5">Cuarto</option>
+                    <option value="6">Quinto</option>
+                    <option value="7">Sexto</option>
+                    <option value="8">Septimo</option>
+                    <option value="9">Octavo</option>
+                    <option value="10">Noveno</option>
+                    <option value="11">Decimo</option>
+                    <option value="12">Once</option>
+                    <option value="13">Docentes</option>
                 </select>
             </div>
             <div class="contenedor_credencial">
-                <input type="button" class="btn credencial" value="Crear Grado">
+                <input type="button" class="btn credencial" id="crear_g" value="Crear Grado" >
             </div>
             <div class="contenedor_credencial">
-                <input type="text" class="credencial" value="Código" readonly style="font-style: italic;">
-            </div>
-            <div class="contenedor_credencial">
-                <input type="button" class=" btn credencial" value="Listar Grados">
+                <input type="text"  id="grado_code" class="credencial"  value="Código" readonly style="font-style: italic;">
             </div>
         </section>
-        <section id="contenedor_conv">
-            <h3>Conversatorios</h3>
-            <div class="contenedor_credencial">
-                <input type="button" class="btn credencial" value="Programar">
-            </div><div class="contenedor_credencial">
-                <input type="button" class="btn credencial" value="Cancelar">
-            </div>
+        <section id="contenedor_cv">
+            <p style="padding-left: 0;">Lista de grados creados, con su respectivo código:</p>
+            <table class="table" id="tabla_grados">
+                <thead>
+                  <tr>
+                    <th scope="col">Grado</th>
+                    <th scope="col">Código</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </section>
     </div>
     
 </body>
-<script src="js/template.js"></script>
+<script src="js/inst_admin.js"></script>
+<script src="js/funciones.js"></script>
 </html>

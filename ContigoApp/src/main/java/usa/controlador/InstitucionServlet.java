@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usa.modelo.controlador;
+package usa.controlador;
 
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,15 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.MunicipioDao;
-import usa.modelo.dto.Municipio;
+import usa.modelo.dao.InstitucionDao;
+import usa.modelo.dto.Institucion;
+import usa.utils.Utils;
 
 /**
  *
  * @author santi
  */
-@WebServlet(name = "MunicipioServlet", urlPatterns = {"/Municipio"})
-public class MunicipioServlet extends HttpServlet {
+@WebServlet(name = "InstitucionServlet", urlPatterns = {"/Institucion"})
+public class InstitucionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +44,10 @@ public class MunicipioServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MunicipioServlet</title>");            
+            out.println("<title>Servlet InstitucionServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MunicipioServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet InstitucionServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,23 +64,19 @@ public class MunicipioServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        MunicipioDao dao = new MunicipioDao();
+        InstitucionDao dao = new InstitucionDao();
         JSONObject json = new JSONObject();
-        JSONArray arreglo = new JSONArray();
-        for (Municipio i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Municipio.class)));
-        }
-        json.put("Municipios", arreglo);//
+        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+        json.put("Instituciones", arreglo);
         System.out.println(json.toString());
         out.print(json.toString());
-        
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.a
      *
      * @param request servlet request
      * @param response servlet response
@@ -86,9 +84,32 @@ public class MunicipioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+        Gson gson = new Gson();
+        String nom = Utils.readParams(request);
+        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
+        System.out.println(nom);
+        InstitucionDao instuti = new InstitucionDao();
+
+        if (instuti.consultar(ins.getNombre()) != null) {
+            json.put("tipo", "error");
+            json.put("mensaje", "Ya existe una institucion con este nombre");
+        } else {
+            if (instuti.crear(ins)) {
+                json.put("tipo", "ok");
+                json.put("mensaje", "Institucion registrada correctamente");
+            } else {
+                json.put("tipo", "error");
+                json.put("mensaje", "Error al registrar institucion");
+            }
+        }
+        out.print(json.toString());
+        /*
+        
+         */
     }
 
     /**

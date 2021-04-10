@@ -1,7 +1,7 @@
 package usa.modelo.dto;
 
 /**
- * 
+ *
  */
 public class Estudiante extends Persona {
 
@@ -11,20 +11,37 @@ public class Estudiante extends Persona {
     public Estudiante() {
     }
 
+    private String correo;
+    //a
     /**
-     * 
+     *
      */
-    private Grado grado;
+    private String grado;
 
-    public Grado getGrado() {
+    private String contraseña;
+
+    public String getGrado() {
         return grado;
     }
 
-    public void setGrado(Grado grado) {
+    public void setGrado(String grado) {
         this.grado = grado;
     }
 
+    public String getContraseña() {
+        return contraseña;
+    }
 
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
 }

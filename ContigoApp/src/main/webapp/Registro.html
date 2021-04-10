@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
     <link rel="stylesheet" href="css/Registro.css">
+    <link rel="stylesheet" href="css/cssRegistro.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -26,52 +27,18 @@
                 <td id="Columna-datos">
                     <div id="Espacios" >
                         <select class="select-css Texto" name="Departamento" id="departamento">
-                            <option value="1">Departamento</option>
-                            <option value="2">Amazonas</option>
-                            <option value="3">Antioquia</option>
-                            <option value="4">Arauca</option>
-                            <option value="5">Atlántico</option>
-                            <option value="6">Bogotá</option>
-                            <option value="7">Bolivar</option>
-                            <option value="8">Boyacá</option>
-                            <option value="9">Caldas</option>
-                            <option value="10">Caquetá</option>
-                            <option value="11">Casanare</option>
-                            <option value="12">Cauca</option>
-                            <option value="13">Cesar</option>
-                            <option value="14">Chocó</option>
-                            <option value="15">Córdoba</option>
-                            <option value="16">Cundinamarca</option>
-                            <option value="17">Guainía</option>
-                            <option value="18">Guaviare</option>
-                            <option value="19">Huila</option>
-                            <option value="20">La Guajira</option>
-                            <option value="21">Magdalena</option>
-                            <option value="22">Meta</option>
-                            <option value="23">Nariño</option>
-                            <option value="24">Norte de Santander</option>
-                            <option value="25">Putumayo</option>
-                            <option value="26">Quindío</option>
-                            <option value="27">Risaralda</option>
-                            <option value="28">San Andrés y Providencia</option>
-                            <option value="29">Santander</option>
-                            <option value="30">Sucre</option>
-                            <option value="31">Tolima</option>
-                            <option value="32">Valle del Cauca</option>
-                            <option value="33">Vaupés</option>
-                            <option value="34">Vichada</option>
-
+                            <option  value="">Departamentos</option>
                         </select>
                     </div>
                     <div id="Espacios">
                         <div id="Espacios" >
                             <select class="select-css Texto" name="Municipio" id="municipio">
-                                <option value="1">Municipio</option>
+                                <option value="">Municipio</option>
                             </select>
                         </div>
                     </div>
                     <div id="Espacios">
-                        <input type="text" id="nombre" class="Texto" placeholder="Nombre de la institucion" name="NombreDeLaInstitucion">
+                        <input type="text" id="nombre" class="Texto" placeholder="Nombre de la institucion" name="NombreDeLaInstitucion" onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
                     <div id="Espacios">
                         <select class="select-css Texto" name="Sector" id="sector">
@@ -84,12 +51,12 @@
                         <input type="text" class="Texto" id="direccion" placeholder="Dirección" name="Direccion">
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" id="barrio" placeholder="Barrio" name="Barrio">
+                        <input type="text" class="Texto" id="barrio" placeholder="Barrio" name="Barrio" onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
                 </td>
                 <td id="Columna-datos2">
                     <div id="Espacios3">
-                        <input type="text" class="Texto" id="telefono" placeholder="Telefono" name="Correo">
+                        <input type="number" class="Texto" id="telefono" placeholder="Telefono" name="Telefono">
                     </div>
                     <div id="Espacios3">
                         <input type="text" class="Texto" id="correo" placeholder="Correo" name="Correo">
@@ -97,25 +64,28 @@
                     <div id="Espacios2">
                         <input type="text" class="Texto" id="web" placeholder="Página Web" name="PaginaWeb">
                     </div>
+                    <div id="Espacios">
+                        <select class="select-css Texto" name="Calendario" id="Calendario">
+                            <option>Calendario</option>
+                            <option value="0">A</option>
+                            <option value="1">B</option>
+                        </select>
+                    </div>
                     <div id="Espacios2">
                         <input type="password" class="Texto" id="contra" placeholder="Contraseña" name="Contraseña">
                     </div>
                     <div id="Espacios2">
                         <input type="password" class="Texto" id="conficontra" placeholder="Confirmar contraseña" name="ConfirmarContraseña">
                     </div>
-                    <div id="Espacios2">
-                        <input type="button" id="Button" value="Seleccionar método de pago" name="MetodoPago" onclick="resgistrar_institucion()">
-                    </div>
+                   
+                    
                 </td>
             </tr>
         </table>
-
-
-
-
+        <div id="boton">
+            <input type="button" id="Button2" value="Seleccionar método de pago" name="MetodoPago"  onclick="Ingresar()" >
+        </div>
     </div>
-    
-
     <script src="js/js_componentes/bootstrap.min.js"></script>
     <script src="js/registro.js"></script>
     <script src="js/template.js"></script>

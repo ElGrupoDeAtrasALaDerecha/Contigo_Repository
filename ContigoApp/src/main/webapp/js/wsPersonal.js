@@ -2,12 +2,10 @@
  * Script de bot conti front-end (vista de personal calificado)
  */
 
-
-
-
-var numeroSala;
-var listaSalas;
-
+var salasSinAtender = new Array();
+var salasEnAtencion = new Array();
+var salaElegida;
+var dataPersonal;
 /**
 * Promesa
 * @param {*} ms 
@@ -16,11 +14,18 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
+var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
 /**
 * Websocket
 */
 var websocket = new WebSocket(wsUri);
+
+$(document).ready(function(){
+	if(getCookie("tipoUsuario")!=="2"){
+		alert("No autorizado");
+		window.location.assign("index.html");
+	}
+})
 websocket.onopen = function (event) {
 	console.log("Conectado..."); //... y aparecerá en la pantalla
 	enviarCredenciales();
@@ -33,21 +38,52 @@ websocket.onmessage = function (event) {
 	} else {
 		let obj = JSON.parse(event.data);
 		if (obj.tipo === "salas") {
-			listaSalas=obj.salas;
-			pintarSalas();
+			console.log("Las salas son: ", obj)
+			if (obj.salas !== undefined) {
+				salasSinAtender = obj.salas;
+				dataPersonal = obj.data;
+				pintarSalas();
+			}
+
 		}
 		else if (obj.tipo === "mensajeEstudiante") {
-			pintarRespuesta(obj.mensaje)
+			console.log("entró un mensaje: ", obj);
+			let numeroSala = obj.numeroSala;
+			let sala = buscarSalaEnAtencion(numeroSala);
+			sala.mensajes.push(obj.mensaje);
+			if (numeroSala === parseInt(salaElegida, 10)) {
+				pintarRespuesta(obj.mensaje);
+			}
+
 		}
 		else if (obj.tipo === "nuevoEstudiante") {
-			agregarEstudianteALista(obj);
-		}else if (obj.tipo === "desconexionEstudiante") {
+			console.log("Entró un estudiante: ", obj);
+			delete obj.tipo;
+			salasSinAtender.push(obj);
+			agregarNombreChatSinAtender(obj.estudiante.primerNombre + " " + obj.estudiante.primerApellido, obj.numeroSala);
+		} else if (obj.tipo === "desconexionEstudiante") {
 			removerEstudianteDeLista(obj);
+			
 		}
-		
-		
+		else if (obj.tipo === "estudianteAtendido") {
+			console.log("Otro personal atendió un estudiante: ", obj)
+			removerEstudianteDeChat(obj.numeroSala);
+		}
+		else if (obj.tipo === "conversacion") {
+			console.log("Se agregó una conversación ", obj);
+			let sala =buscarSalaEnAtencion(obj.numeroSala);
+			sala.mensajes=obj.conversacion;
+			salaElegida=obj.numeroSala;
+			aparecerChat(obj.estudiante.primerNombre+" "+obj.estudiante.primerApellido);
+			
+		}
+
+
 	}
 }
+
+
+
 
 /**
  * Función que envía un mensaje (serializado) al servidor
@@ -87,111 +123,293 @@ function enviarCredenciales() {
  */
 
 function pintarRespuesta(respuesta) {
-	let txtConti=`<div id="mns_tiempo_conti" class="mensaje-autor">
+	let txt = `<div id="mns_tiempo_conti" class="mensaje-autor">
 	<i class="bi bi-person"></i>
 	<div class="flecha-izquierda"></div>
-	<div id="" class="contenido">${respuesta}</div>
+	<div id="" class="contenido"><b>${respuesta.emisor}: </b>${respuesta.mensaje}</div>
 	<div id="tiempo-msn-conti" class="fecha">Enviado hace y minutos</div>               
 	</div>
 	`
-	$("#mensajes").append(txtConti);
+	$("#mensajes").append(txt);
+	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
 }
 
 
 /**
- * Mensaje al bot conti
+ * Mensaje dirigido al
  * @param {string} mensaje 
  */
 function decirleAEstudiante(mensaje) {
 	let datos = {
 		tipo: "mensaje personal",
-		numeroSala: numeroSala,
+		numeroSala: salaElegida,
 		mensaje: mensaje
 	}
 	enviarMensaje(datos);
+	sala = buscarSalaEnAtencion(datos.numeroSala);
+	sala.mensajes.push({ tipo: 2, emisor: dataPersonal.primerNombre + " " + dataPersonal.primerApellido, mensaje: mensaje });
+	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
 }
 
-
-function pintarSalas(){
-	console.log(listaSalas);
-	for (let i = 0; i < listaSalas.length; i++) {
-		let sala=listaSalas[i];
+/**
+ * Función que muestra las salas de chats sin atender
+ */
+function pintarSalas() {
+	console.log(salasSinAtender);
+	for (let i = 0; i < salasSinAtender.length; i++) {
+		let sala = salasSinAtender[i];
+		if (!sala.atendido) {
+			agregarNombreChatSinAtender(sala.estudiante.primerNombre + " " + sala.estudiante.primerApellido, sala.numeroSala);
+		}
 	}
 }
 
+
+
 /**
- * Función del Reloj 
- * @returns texto string con la hora
+ * Remueve un estudiante del chat de la lista sin atender
+ * @param {number} numeroSala que es el número de la sala en la que está el estudiante
+ * @returns La sala
  */
- function mueveReloj() {
-	momentoActual = new Date()
-	hora = momentoActual.getHours()
-	minuto = momentoActual.getMinutes()
-	segundo = momentoActual.getSeconds()
-
-	str_segundo = new String(segundo)
-	if (str_segundo.length == 1)
-		segundo = "0" + segundo
-
-	str_minuto = new String(minuto)
-	if (str_minuto.length == 1)
-		minuto = "0" + minuto
-
-	str_hora = new String(hora)
-	if (str_hora.length == 1)
-		hora = "0" + hora
-
-	horaImprimible = hora + " : " + minuto + " : " + segundo
-
-	document.form_reloj.reloj.value = horaImprimible
-
-	setTimeout("mueveReloj()", 1000)
-	return horaImprimible;
+function removerEstudianteDeListaSinAtender(numeroSala) {
+	//
+	for (let i = 0; i < salasSinAtender.length; i++) {
+		let sala = salasSinAtender[i];
+		if (sala.numeroSala === parseInt(numeroSala, 10)) {
+			return salasSinAtender.splice(i, 1)[0];
+		}
+	}
 }
 
 
 /**
+ * Remueve un estudiante del chat de la lista en atención
+ * @param {number} numeroSala que es el número de la sala en la que está el estudiante
+ * @returns La sala removida
+ */
+function removerEstudianteDeListaEnAtencion(numeroSala) {
+	//
+	for (let i = 0; i < salasSinAtender.length; i++) {
+		let sala = salasSinAtender[i];
+		if (sala.numeroSala === numeroSala) {
+			return salasSinAtender.splice(i, 1);
+		}
+	}
+}
+
+
+/**
+ * Función que busca un objeto sala  en la lista de salas sin atender
+ * @param {number} numeroSala que es el número de la sala
+ * @returns el objeto sala
+ */
+function buscarSalaSinAtender(numeroSala) {
+	for (let i = 0; i < salasSinAtender.length; i++) {
+		let sala = salasSinAtender[i];
+		if (sala.numeroSala === numeroSala) {
+			return sala;
+		}
+	}
+	return null;
+}
+
+/**
+ * Función que busca un objeto sala  en la lista de salas sin atender
+ * @param {number} numeroSala que es el número de la sala
+ * @returns el objeto sala correspondiente al número
+ */
+function buscarSalaEnAtencion(numeroSala) {
+	for (let i = 0; i < salasEnAtencion.length; i++) {
+		let sala = salasEnAtencion[i];
+		if (sala.numeroSala === parseInt(numeroSala, 10)) {
+			return sala;
+		}
+	}
+	return null;
+}
+
+
+/**
+ * Se elimia estudiante de alguna de las listas de atención porque se desconectó
+ * @param {*} obj que es la respuesta del servidor 
  * 
- * @param {*} obj 
  */
-function agregarEstudianteALista(obj){
+function removerEstudianteDeLista(obj) {
+	for (let i = 0; i < salasEnAtencion.length; i++) {
+		if (salasEnAtencion[i].numeroSala === obj.numeroSala) {
+			salasEnAtencion.splice(i, 1);
+			if (parseInt(salaElegida,10) === parseInt(obj.numeroSala,10)) {
+				console.log("Entré al if",obj.mensaje)
+				$("#Enviarmensaje").val(obj.mensaje);
+				$("#Enviarmensaje").prop("readonly", true);
+				$("body").off("keyup");
+			}
+			$("#" + obj.numeroSala).remove();
+			return;
+		}
+	}
+	for (let i = 0; i < salasSinAtender.length; i++) {
+		if (salasSinAtender[i].numeroSala === obj.numeroSala) {
+			salasSinAtender.splice(i, 1);
+			$("#" + obj.numeroSala).remove();
+			return;
+		}
 
+	}
+	$("#" + numeroSala).remove();
 }
+
 
 /**
- * 
- * @param {*} obj 
+ * Se agrega un botón con el chat del estudiante en la sala sin atención 
+ * @param {string} nombre Que es el nombre del estudiante
+ * @param {number} id que es el id de la sala
  */
- function removerEstudianteDeLista(obj){
+function agregarNombreChatSinAtender(nombre, id) {
 
-}
-// Eventos de vista
+	//Agrego el botón
+	let texto = `<button id="${id}" class="chat_estudiante_sinA" >
+						<font style="vertical-align: inherit;">
+							<font style="vertical-align: inherit;"></font>
+							<i class="user circle icon"></i>
+							${nombre}
+						</font>
+						</font>
+				</button>`
+	$("#chats_sin_a").append(texto);
 
-
-$(document).ready(function () {
-	$('#btn_enviar_mns').click(function () {
-		$('input[type="text"]').val('');
+	//agrego el evento al botón
+	$("#" + id).click(function () {
+		let mensaje = {
+			tipo: "conexion personal",
+			numeroSala: $(this).prop("id"),
+			token: getCookie("token")
+		}
+		enviarMensaje(mensaje);
+		salaElegida = mensaje.numeroSala;
+		let sala = removerEstudianteDeListaSinAtender(salaElegida);
+		console.log("Sala removida sin atender", sala);
+		$(this).off("click");
+		$(this).remove();
+		salasEnAtencion.push(sala);
+		agregarNombreChatEnAtencion(nombre, id);
+		console.log(sala, mensaje.numeroSala);
 	});
-});
+}
 /**
- * Al dar click, se envía un mensaje a un estudiante
+ * Se agrega un botón con el chat del estudiante en la en atención 
+ * @param {string} nombre Que es el nombre del estudiante
+ * @param {number} id que es el id de la sala
  */
-$("#btn_enviar_mns").click(function () {
-	var mns = $("#Enviarmensaje").val();
-	decirleAEstudiante(mns);
-	let mensaje = `
-	<div id="mns_tiempo_usuario" class="mensaje-amigo">
-	<div class="contenido">${mns} </div>
-    <div class="flecha-derecha"></div>
-    <i class="bi bi-person-fill"></i>
-    <div id="tiempo-msn-usuario" class="fecha">${mueveReloj()}</div>
-	</div>`
-	$("#mensajes").append(mensaje);
-});
+function agregarNombreChatEnAtencion(nombre, id) {
+	let texto = `<button id="${id}" class="chat_estudiante_A" class="ui black basic button">
+					<font style="vertical-align: inherit;">
+						<font style="vertical-align: inherit;"></font>
+							<i class="user circle icon"></i>
+							${nombre}
+						</font>
+					</font>
+				</button>`
+	$("#chats_atendidos").append(texto);
+	$("#" + id).click(function () {
+		salaElegida = id;
+		aparecerChat(nombre);
+	});
+}
 
 
-$("body").keyup(function (e) {
-	if (e.keyCode == 13) {
-		$('#btn_enviar_mns').click();
+/**
+ * Aparece la conversación de un estudiante
+ * @param {string} nombre 
+ */
+function aparecerChat(nombre) {
+	$("#chat_con_est").empty();
+	let chat = ` <div class="ui segment">
+				<font style="vertical-align: inherit;">
+					<font style="vertical-align: inherit;">
+						<div id="chatCompleto2">
+							<div id="titulo">
+								<h1>${nombre}</h1>
+							</div>
+							<div id="chat">
+								<div id="mensajes">
+				
+								</div>
+							</div>
+							<div id="mensaje">
+								<input id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
+								<button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
+									<i class="bi bi-arrow-right-circle-fill"></i>
+								</button>
+							</div>
+						</div>
+					</font>
+				</font>
+			</div>`
+
+	$("#chat_con_est").append(chat);
+
+	cargarListaDeMensajes();
+
+	/**
+	  * Al dar click, se envía un mensaje a un estudiante
+	  */
+	$("#btn_enviar_mns").click(function () {
+		mensajeDesdePersonalAlEstudiante();
+	});
+	$("body").off("keyup");
+	$("body").keyup(function (e) {
+		if (e.keyCode == 13) {
+			$('#btn_enviar_mns').click();
+		}
+	});
+}
+
+/**
+ * Mensaje enviado desde el personal al estudiante
+ */
+function mensajeDesdePersonalAlEstudiante() {
+	let mns = {
+		emisor: "Tú",
+		mensaje:$("#Enviarmensaje").val()
 	}
-});
+	decirleAEstudiante(mns.mensaje);
+	pintarMensajeDePersonalAEstudiante(mns)
+}
+
+
+function pintarMensajeDePersonalAEstudiante(mns){
+	let mensaje = `
+		<div id="mns_tiempo_usuario" class="mensaje-amigo">
+		<div class="contenido"><b>${mns.emisor}: </b>${mns.mensaje} </div>
+		<div class="flecha-derecha"></div>
+		<i class="bi bi-person-fill"></i>
+		<div id="tiempo-msn-usuario" class="fecha"></div>
+		</div>`
+	$("#mensajes").append(mensaje);
+	$('input[type="text"]').val('');
+	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
+}
+/**
+ * Función que carga los mensajes de un chat específico
+ */
+
+function cargarListaDeMensajes() {
+	let sala = buscarSalaEnAtencion(salaElegida);
+	console.log("la sala elegida", sala);
+	let mensajes = sala.mensajes;
+	for (let i = 0; i < mensajes.length; i++) {
+		let mensaje = mensajes[i];
+		if (mensaje.tipo === 1) {
+			pintarRespuesta(mensaje);
+			
+		} else {
+			pintarMensajeDePersonalAEstudiante(mensaje);
+		}
+		
+
+	}
+}
+
+
+

@@ -1,38 +1,52 @@
-package usa.modelo.dto;
+package usa.contibot;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import javax.websocket.Session;
 import org.json.JSONObject;
+import usa.modelo.dto.Estudiante;
+import usa.modelo.dto.Mensaje;
+import usa.modelo.dto.PersonalCalificado;
+import usa.utils.Utils;
 
 /**
- *
+ * Clase sala
+ * @author Valeria Bermúdez y Santiago Pérez
  */
-public class Sala extends Thread {
+public class Sala {
 
     /**
-     * Constructor
+     * Código de la sala
      */
     private int codigo;
 
     /**
-     *
+     * Datos del estudiante
      */
     private Estudiante estudiante;
 
     /**
-     *
+     * Datos del personal calificado
      */
     private PersonalCalificado personaCalificada;
 
+    /**
+     * Sesiones de estudiante y personal calificado
+     */
     private Session sesionEstudiante, sesionPersonal;
 
-    private LinkedList<Mensaje> mensajes;
-
+    /**
+     * Mensajes de la sesión de chat
+     */
+    private final LinkedList<Mensaje> mensajes;
+    
+    /**
+     * Constructor de la clase sala. Se inicializa la lista de mensajes
+     */
     public Sala() {
         this.mensajes = new LinkedList();
     }
-
+    
     public int getCodigo() {
         return codigo;
     }
@@ -76,55 +90,81 @@ public class Sala extends Thread {
     public LinkedList<Mensaje> getMensajes() {
         return mensajes;
     }
-
-    public void setMensajes(LinkedList<Mensaje> mensajes) {
-        this.mensajes = mensajes;
-    }
-
-    public void recibirMensajeEstudiante(JSONObject objRecibido, JSONObject objRespuesta, Session sesion) throws IOException {
-        if (sesion.getId().equals(sesionEstudiante.getId())) {
-            System.out.println("Son iguales :D");
-        }
-
+    /**
+     * Mensaje recibido de estudiante al personal calificado
+     * @param objRecibido que es una instancia de lo recibido
+     * @param objRespuesta que es una instancia de la respuesta
+     * @throws IOException 
+     */
+    public void recibirMensajeEstudiante(JSONObject objRecibido, JSONObject objRespuesta) throws IOException {
         Mensaje mensaje = new Mensaje();
         mensaje.setEmisor(estudiante.getPrimerNombre() + " " + estudiante.getPrimerApellido());
         mensaje.setMensaje(objRecibido.getString("mensaje"));
+        mensaje.setTipo(1);
         mensajes.add(mensaje);
         if (sesionPersonal == null) {
             Mensaje mensaje2 = new Mensaje();
             mensaje2.setEmisor("Conti");
-            mensaje2.setMensaje("Déjame hablo con mis amigos para que vengan a ayudarte, ¿vale?");
+            mensaje2.setMensaje("Déjame hablo con uno de mis amigos para que venga a ayudarte, ¿vale?");
+            mensaje2.setTipo(2);
             mensajes.add(mensaje2);
             objRespuesta.put("tipo", "respuesta");
-            objRespuesta.put("mensaje", mensaje2.getMensaje());
+            objRespuesta.put("mensaje", new JSONObject(Utils.toJson(mensaje2))); 
+            objRespuesta.put("numeroSala",this.codigo);
             sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
         } else {
             objRespuesta.put("tipo", "mensajeEstudiante");
-            objRespuesta.put("mensaje", mensaje);
+            objRespuesta.put("mensaje", new JSONObject(Utils.toJson(mensaje)));
+            objRespuesta.put("numeroSala",this.codigo);
             sesionPersonal.getBasicRemote().sendText(objRespuesta.toString());
         }
     }
 
+    /**
+     * Mensaje recibido de personal al personal estudiante
+     * @param obj que es una instancia de lo recibido
+     * @param objRespuesta que es una instancia de la respuesta
+     * @throws IOException 
+     */
     public void recibirMensajePersonal(JSONObject obj, JSONObject objRespuesta) throws IOException {
         Mensaje mensaje = new Mensaje();
         mensaje.setEmisor(personaCalificada.getPrimerNombre() + " " + personaCalificada.getPrimerApellido());
         mensaje.setMensaje(obj.getString("mensaje"));
+        mensaje.setTipo(2);
         mensajes.add(mensaje);
         objRespuesta.put("tipo", "mensajeDePersonal");
-        objRespuesta.put("mensaje", mensaje);
+        objRespuesta.put("mensaje", new JSONObject(Utils.toJson(mensaje)));
         sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
     }
-
-    public void enviarAdvertenciaAEstudiante(JSONObject obj) throws IOException {
+    /**
+     * Método que envia una advertencia al estudiante de desconexión del personal calificado en formato json
+     * @throws IOException por posibles errores de entrada y salida de datos
+     */
+    public void enviarAdvertenciaAEstudiante() throws IOException {
         JSONObject mensaje = new JSONObject();
         Mensaje advertencia = new Mensaje();
         advertencia.setEmisor("Conti");
         advertencia.setMensaje("Lo siento , el personal se ha desconectado espera busco otro amigo");
+        advertencia.setTipo(2);
         mensajes.add(advertencia);
         mensaje.put("tipo", "perdidaConexion");
-        mensaje.put("mensaje", advertencia.getMensaje());
+        mensaje.put("mensaje", new JSONObject(Utils.toJson((advertencia))));
         sesionEstudiante.getBasicRemote().sendText(mensaje.toString());
-
+    }
+    /**
+     * Método que envia el mensaje de saludo al estudiante en formato json
+     * @param objRespuesta que es una instancia de la respuesta al estudiante. 
+     * @throws IOException por posibles errores de entrada y salida de datos
+     */
+    public void enviarPrimerMensaje(JSONObject objRespuesta) throws IOException {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setEmisor("Conti");
+        mensaje.setMensaje("Hola, " + estudiante.getPrimerNombre() + ". Soy Conti y estoy contigo, ¿tienes alguna pregunta?");
+        objRespuesta.put("tipo", "codigo sala");
+        objRespuesta.put("numero", this.codigo);
+        objRespuesta.put("mensaje", new JSONObject(Utils.toJson(mensaje)));
+        this.sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
+        
     }
 
 }

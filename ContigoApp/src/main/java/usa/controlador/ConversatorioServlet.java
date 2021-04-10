@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package usa.modelo.controlador;
+package usa.controlador;
 
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,16 +16,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.InstitucionDao;
-import usa.modelo.dto.Institucion;
+import usa.modelo.dao.ConversatoriosDao;
+import usa.modelo.dto.Conversatorio;
 import usa.utils.Utils;
 
 /**
+ * Clase de Conversatorios
  *
- * @author santi
+ * @author Miguel Angel Rippe y Natalia Montenegro
+ * @since 2021-03-13
  */
-@WebServlet(name = "InstitucionServlet", urlPatterns = {"/Institucion"})
-public class InstitucionServlet extends HttpServlet {
+@WebServlet(name = "ConversatorioServlet", urlPatterns = {"/Conversatorio"})
+public class ConversatorioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +46,10 @@ public class InstitucionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InstitucionServlet</title>");
+            out.println("<title>Servlet ConversatorioServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InstitucionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConversatorioServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,24 +66,22 @@ public class InstitucionServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        System.out.println(request);
+        ConversatoriosDao dao = new ConversatoriosDao();
+        LinkedList<Conversatorio> conversatorios = dao.listarTodos();
         Gson gson = new Gson();
-        String nom = Utils.readParams(request);
-        System.out.println(nom);
-        System.out.println("jajajaja");
-        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        InstitucionDao dao = new InstitucionDao();
-        JSONObject json = new JSONObject();
+        JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray();
-        for (Institucion i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Institucion.class)));
+        respuesta.put("tipo", "ok");
+        for (Conversatorio conversatorio : conversatorios) {
+            arreglo.put(new JSONObject(gson.toJson(conversatorio, Conversatorio.class)));
         }
-        json.put("tipo", "ok");
-        json.put("mensaje", "Estudiante creado");
-        json.put("istituciones", arreglo);
-        System.out.println(json.toString());
-        out.print(json.toString());
+        respuesta.put("conversatorios", arreglo);
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+
     }
 
     /**
@@ -94,13 +95,41 @@ public class InstitucionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        String parametros = Utils.readParams(request);
+        System.out.println(parametros);
         Gson gson = new Gson();
-        String nom = Utils.readParams(request);
-        System.out.println(nom);
-        Institucion ins = (Institucion) gson.fromJson(nom, Institucion.class); //forma de leer datos cast
-        String info = gson.toJson(ins, Institucion.class);
-        out.print(info);
+        Conversatorio conver = (Conversatorio) gson.fromJson(parametros, Conversatorio.class);
+        ConversatoriosDao dao = new ConversatoriosDao(); 
+        JSONObject respuesta = new JSONObject();
+        int resultado = dao.crear(conver);
+        
+        if (resultado != 0) {
+            respuesta.put("tipo", "ok");
+            respuesta.put("mensaje", "El conversatorio fue agendado correctamente");
+            respuesta.put("conversatorio", resultado);
+            String arregloClasificaciones[]=conver.getClasificacion();
+            for (int i = 0; i < arregloClasificaciones.length; i++) {
+                dao.crearClasi(arregloClasificaciones[i],resultado);
+            }
+    
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No se ha podido crear el conversatorio");
+        }
+        
+
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
