@@ -145,10 +145,11 @@ public class ContigoBot {
                     objRespuesta.put("estudiante", new JSONObject(Utils.toJson(sala.getEstudiante())));
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
                     
-                    //Aviso al estudiante que se conectó el personal calificado
+                    //Aviso al estudiante que se conectó el personal calificado.
                     JSONObject avisoEstudiante=new JSONObject();
-                    avisoEstudiante.put("tipo", "");
-                    
+                    obj.put("mensaje","Hola. Soy "+personalCalificado.getPrimerNombre()+" "+personalCalificado.getPrimerApellido()+""
+                            + " Dame un momento reviso tu pregunta");
+                    sala.recibirMensajePersonal(obj, objRespuesta);
                     
                     //Aviso a todos los personales que el estudiante de una sala ya está siendo atendido
                     JSONObject avisoAPersonales = new JSONObject();
