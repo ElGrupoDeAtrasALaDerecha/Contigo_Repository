@@ -27,8 +27,13 @@ import usa.utils.Utils;
  */
 @ServerEndpoint("/contiBot")
 public class ContigoBot {
-
+    /**
+     * Lista de personal calificado en sesión
+     */
     private static final LinkedList<Session> PERSONALES = new LinkedList();
+    /**
+     * Lista de salas (estudiantes en sesión)
+     */
     private static final LinkedList<Sala> SALAS = new LinkedList();
 
     /**
@@ -65,6 +70,19 @@ public class ContigoBot {
                 case "ping":
                     //Ping - pong
                     sesion.getBasicRemote().sendText("pong");
+                    break;
+                case "escribiendoEstudiante":
+                    numeroSala = obj.getInt("numeroSala");
+                    sala = this.buscarSalas(numeroSala);
+                    personalCalificado=sala.getPersonaCalificada();
+                    if(personalCalificado!=null){
+                        sala.notificarEscribiendoAPersonal(objRespuesta);
+                    }
+                    break;
+                case "escribiendoPersonal":
+                    numeroSala = obj.getInt("numeroSala");
+                    sala = this.buscarSalas(numeroSala);
+                    sala.notificarEscribiendoAEstudiante(objRespuesta);
                     break;
                 case "ingreso estudiante":
                     //Un estudiante se conecta y se crea una sala
@@ -126,13 +144,18 @@ public class ContigoBot {
                     objRespuesta.put("numeroSala", sala.getCodigo());
                     objRespuesta.put("estudiante", new JSONObject(Utils.toJson(sala.getEstudiante())));
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
-
+                    
+                    //Aviso al estudiante que se conectó el personal calificado
+                    JSONObject avisoEstudiante=new JSONObject();
+                    avisoEstudiante.put("tipo", "");
+                    
+                    
                     //Aviso a todos los personales que el estudiante de una sala ya está siendo atendido
                     JSONObject avisoAPersonales = new JSONObject();
                     avisoAPersonales.put("tipo", "estudianteAtendido");
                     avisoAPersonales.put("numeroSala", obj.getInt("numeroSala"));
                     this.notificarAlPersonalExceptoA(avisoAPersonales, sesion);
-
+                    
                     break;
 
             }

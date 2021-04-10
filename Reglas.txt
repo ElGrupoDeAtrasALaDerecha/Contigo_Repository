@@ -128,3 +128,12 @@ Aviso a un personal calificado que está atendiendo un estudiante
     estudiante: datos del estudiante
 }
 >>>>>>> aa7db82c078a8ab6494e6a57eb9682f71d070eac
+
+
+
+recibirEscribiendo
+
+{
+    tipo: escribiendoEstudiante,
+    numeroSala: numeroSala
+}
