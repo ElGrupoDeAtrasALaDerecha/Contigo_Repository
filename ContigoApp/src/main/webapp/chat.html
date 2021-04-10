@@ -11,18 +11,24 @@
     <link rel="stylesheet" href="css/navfooter.css">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
+
 <body>
-    <div id="conti" >
+    <div id="conti">
         <div id="logo">
-            <img id="pin" src="Iconos/CONTI.png" >
+            <img id="pin" src="Iconos/CONTI.png">
         </div>
         <div id="chatCompleto">
             <div id="titulo">
                 <h1>Conti</h1>
+                <div id="escribiendoAA" class="escribiendoA">
+                    <h5> Escribiendo</h5>
+                    <div id="load"class="loader"></div>
+                </div>
             </div>
             <div id="chat">
                 <div id="mensajes">
@@ -30,10 +36,8 @@
                 </div>
             </div>
             <div id="mensaje">
-                <input id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
-                <button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
-                    <i class="bi bi-arrow-right-circle-fill"></i>
-                </button>
+                <input onkeydown="escribiendo();" id="Enviarmensaje" class="mensajeInput" type="text" placeholder="Escribir mensaje...">
+                <span id="btn_enviar_mns" type="button" class="material-icons"> send</span>
             </div>
         </div>
     </div>

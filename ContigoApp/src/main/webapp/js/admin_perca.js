@@ -54,4 +54,8 @@ function aparecerChat(nombre){
 </div>`
 $("#chat_con_est").empty();
 $("#chat_con_est").append(chat);
+$("#chat").mouseover(function(){
+    
+})
 }
+
