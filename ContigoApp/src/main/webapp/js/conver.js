@@ -281,6 +281,14 @@ function CrearConverOrador() {
     });
 }
 
+const imagePreview = document.getElementById('img-preview');
+const imageUploader = document.getElementById('img-uploader');
+
+imageUploader.addEventListener('change', async (e) => {
+  console.log(e)
+  const file = e.target.files[0];
+});
+
 function crearConversatorio(personal) {
     var documento;
     console.log(getCookie("token"));
