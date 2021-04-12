@@ -111,59 +111,58 @@ function Ingresar() {
     contra = document.getElementById("contra").value;
     conficontra = document.getElementById("conficontra").value;
     var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-    if (TipoDocumento == "") {
-        document.getElementsByClassName("Espacios tip")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (TIoCC == "") {
-        document.getElementsByClassName("Espacios num")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (PrimerNombre == "") {
-        document.getElementsByClassName("Espacios pri")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (PrimerApellido == "") {
-        document.getElementsByClassName("Espacios ape")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (Genero == "Genero") {
-        document.getElementsByClassName("Espacios gen")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (CodigoInstitucional == "") {
-        document.getElementsByClassName("Espacios cod")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
     
-    if (FechaNacimiento == "") {
-        document.getElementsByClassName("Espacios fec")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (SegundoApellido == "") {
-        document.getElementsByClassName("Espacios seg")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (correo == "") {
-        document.getElementsByClassName("Espacios cor")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
+    if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CodigoInstitucional == "" || SegundoApellido == "" ||correo == "" ||  FechaNacimiento == "" || contra == "" || conficontra == "") {
+        if (TipoDocumento == "") {
+            document.getElementsByClassName("Espacios tip")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (TIoCC == "") {
+            document.getElementsByClassName("Espacios num")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (PrimerNombre == "") {
+            document.getElementsByClassName("Espacios pri")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (PrimerApellido == "") {
+            document.getElementsByClassName("Espacios ape")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (Genero == "Genero") {
+            document.getElementsByClassName("Espacios gen")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (CodigoInstitucional == "") {
+            document.getElementsByClassName("Espacios cod")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        
+        if (FechaNacimiento == "") {
+            document.getElementsByClassName("Espacios fec")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (SegundoApellido == "") {
+            document.getElementsByClassName("Espacios seg")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (correo == "") {
+            document.getElementsByClassName("Espacios cor")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        
+        if (contra == "") {
+            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }else if(contra.length<=8){
+            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
+            BorrarTexto();
+        }
+        if (conficontra == "") {
+            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
     
-    if (contra == "") {
-        document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }else if(contra.length<=8){
-        document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
-        BorrarTexto();
-    }
-    if (conficontra == "") {
-        document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-
-    if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CodigoInstitucional == "" || SegundoApellido == "" || FechaNacimiento == "" || contra == "" || conficontra == "") {
-        let msm1 = '<div class="alert alert-danger" role="alert">' + " Todos los campos son obligatorios" + '</div>';
-        $("#alert").append(msm1);
         
     } else if (contra != conficontra) {
         let msm2 = '<div class="alert alert-danger" role="alert">' + " Las contraseñas no coinciden" + '</div>';
