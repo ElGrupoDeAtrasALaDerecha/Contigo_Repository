@@ -25,6 +25,8 @@ import usa.utils.Utils;
 @WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
 public class EstudianteServlet extends HttpServlet {
 
+// funciona     
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -67,20 +69,20 @@ public class EstudianteServlet extends HttpServlet {
         EstudianteDao dao = new EstudianteDao();
         JSONObject respuesta = new JSONObject();
         Estudiante estudiante = dao.consultarPorTokenGrado(request.getParameter("id"));
-        
+
         if (estudiante != null) {
             Gson gson = new Gson();
             JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
-     
+
             respuesta.put("tipo", "ok");
             respuesta.put("estudiante", estudianteJson);
         } else {
             respuesta.put("tipo", "error");
             respuesta.put("mensaje", "No se ha posido consultar el estudiant");
         }
-       
+
         out.print(respuesta.toString());
-        
+
     }
 
     /**
@@ -102,12 +104,19 @@ public class EstudianteServlet extends HttpServlet {
         Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
 
         EstudianteDao dao = new EstudianteDao();
-        if (dao.crear(estudiante)) {
-            json.put("tipo", "ok");
-            json.put("mensaje", "Estudiante creado");
-        } else {
+        System.out.println(estudiante.getDocumento());
+        
+        if (dao.consultar(estudiante.getDocumento())!= null) {
             json.put("tipo", "error");
-            json.put("mensaje", "Error al crear estudiante");
+            json.put("mensaje", "Ya existe un estudiante con ese documento");
+        } else {
+            if (dao.crear(estudiante)) {
+                json.put("tipo", "ok");
+                json.put("mensaje", "Estudiante creado");
+            } else {
+                json.put("tipo", "error");
+                json.put("mensaje", "Error al crear estudiante");
+            }
         }
         out.print(json.toString());
 

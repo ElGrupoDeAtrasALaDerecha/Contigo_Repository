@@ -1,5 +1,7 @@
 var identificaciones;
 
+//porfi funciona quiero mimir :(
+
 window.onload = function tipos_id() {
     $.ajax({
         url: "TipoDocumento",
@@ -67,14 +69,12 @@ function registrar_estudiante() {
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
                 console.log(result);
+                toastr.success('Estudiante creado con exito')
                 $(location).attr('href', 'ingresar.html');
 
             } else {
                 console.log(result);
-                let msm = '<div class="alert alert-danger" role="alert">' + " Error código no valido" + '</div>';
-                $("#alert").append(msm);
-               
-
+                toastr.error('Estudiante ya registrado')
             }
 
         },
@@ -106,13 +106,14 @@ function Ingresar() {
     Genero = document.getElementById("Genero").value;
     CodigoInstitucional = document.getElementById("CodigoInstitucional").value;
     SegundoApellido = document.getElementById("SegundoApellido").value;
-    correo=document.getElementById("correo").value;
+    correo = document.getElementById("correo").value;
     FechaNacimiento = document.getElementById("FechaNacimiento").value;
     contra = document.getElementById("contra").value;
     conficontra = document.getElementById("conficontra").value;
     var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-    
-    if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CodigoInstitucional == "" || SegundoApellido == "" ||correo == "" ||  FechaNacimiento == "" || contra == "" || conficontra == "") {
+    var esValido = expReg.test(correo);
+
+    if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CodigoInstitucional == "" || SegundoApellido == "" || correo == "" || FechaNacimiento == "" || contra == "" || conficontra == "") {
         if (TipoDocumento == "") {
             document.getElementsByClassName("Espacios tip")[0].setAttribute("data-error", "Campo obligatorio");
             BorrarTexto();
@@ -137,7 +138,7 @@ function Ingresar() {
             document.getElementsByClassName("Espacios cod")[0].setAttribute("data-error", "Campo obligatorio");
             BorrarTexto();
         }
-        
+
         if (FechaNacimiento == "") {
             document.getElementsByClassName("Espacios fec")[0].setAttribute("data-error", "Campo obligatorio");
             BorrarTexto();
@@ -150,27 +151,27 @@ function Ingresar() {
             document.getElementsByClassName("Espacios cor")[0].setAttribute("data-error", "Campo obligatorio");
             BorrarTexto();
         }
-        
+
         if (contra == "") {
             document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "Campo obligatorio");
             BorrarTexto();
-        }else if(contra.length<=8){
+        } else if (contra.length <= 8) {
             document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
             BorrarTexto();
         }
         if (conficontra == "") {
             document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "Campo obligatorio");
             BorrarTexto();
-        }else if(conficontra.length<=8){
+        } else if (conficontra.length <= 8) {
             document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
             BorrarTexto();
         }
-    
-        
+
+
     } else if (contra != conficontra) {
-        let msm2 = '<div class="alert alert-danger" role="alert">' + " Las contraseñas no coinciden" + '</div>';
-        $("#alert").append(msm2);
-        
+        toastr.warning('Las contraseñas no coinciden')
+    }else if(esValido != true){
+        toastr.error('Correo no valido')
     } else {
         registrar_estudiante();
 
