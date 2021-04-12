@@ -13,3 +13,4 @@ interface IPersonalCalificadoDao extends IDao<PersonalCalificado> {
 
     PersonalCalificado consultarPorCredenciales(String correo, String contraseña);
 }
+/**/

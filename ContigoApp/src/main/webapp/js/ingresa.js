@@ -1,6 +1,9 @@
 // Login Institucion
-$("#ing_inst").click(function (e) {
-    e.preventDefault();
+var ingresoI = document.getElementById("ing_inst");
+
+/* Se agrega el evento al elemento */
+ingresoI.addEventListener("click", ingresoInstitucion);
+function ingresoInstitucion() {
     var email = $("#correo").val();
     var pass = $("#password_inst").val();
     var obj = {
@@ -9,7 +12,8 @@ $("#ing_inst").click(function (e) {
     };
     console.log(obj);
     loginInstitucion(obj);
-});
+}
+
 /**
  * Función login
  * @param {*} obj 
@@ -29,7 +33,7 @@ function loginInstitucion(obj) {
                 setCookie("tipoUsuario", 3, 0.5)
                 console.log(response.mensaje)
                 $(location).attr('href', 'admin_inst.html');
-            }else{
+            } else {
                 alert(response.mensaje);
             }
         },
@@ -82,3 +86,14 @@ function loginEstudiante(obj) {
     });
 }
 
+
+function ingresarEnter() {
+    tecla_enter = event.keyCode;
+
+    if (tecla_enter == 13) {
+        return ingresoInstitucion();
+    }
+}
+
+window.onkeydown = ingresarEnter;
+//

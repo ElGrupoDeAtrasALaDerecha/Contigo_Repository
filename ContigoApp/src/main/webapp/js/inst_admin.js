@@ -81,3 +81,5 @@ function setCodigo (serverMsj) {
     document.getElementById('grado_code').value = serverMsj.codigo
   }
 }
+
+//

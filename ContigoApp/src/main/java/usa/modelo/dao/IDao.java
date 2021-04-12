@@ -13,3 +13,4 @@ interface IDao<T> {
     boolean eliminar(String id);
     LinkedList <T> listarTodos();
 }
+/**/

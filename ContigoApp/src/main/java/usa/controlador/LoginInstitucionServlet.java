@@ -24,7 +24,7 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "LoginInstitucionServlet", urlPatterns = {"/LoginInstitucion"})
 public class LoginInstitucionServlet extends HttpServlet {
-
+/**/
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -49,6 +49,7 @@ public class LoginInstitucionServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    /**/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
