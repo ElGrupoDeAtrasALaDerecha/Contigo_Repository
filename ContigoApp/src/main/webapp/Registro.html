@@ -25,54 +25,54 @@
         <table id="table-datos">
             <tr>
                 <td id="Columna-datos" >
-                    <div class="Espacios" data-error="Campo obligatorio">
+                    <div class="Espacios dep">
                         <select class="select-css Texto" name="Departamento" id="departamento" >
                             <option  value="">Departamento</option>
                         </select>
                     </div>
-                        <div class="Espacios" data-error="Campo obligatorio">
+                        <div class="Espacios mun" >
                             <select class="select-css Texto" name="Municipio" id="municipio" >
                                 <option value="">Municipio</option>
                             </select>
                         </div>
-                    <div class="Espacios" data-error="Campo obligatorio">
+                    <div class="Espacios nom" >
                         <input type="text" id="nombre" class="Texto" placeholder="Nombre de la institucion" name="NombreDeLaInstitucion" onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))" >
                     </div>
-                    <div class="Espacios" data-error="Campo obligatorio">
+                    <div class="Espacios sec" >
                         <select class="select-css Texto" name="Sector" id="sector" >
                             <option>Sector</option>
                             <option value="0">Público</option>
                             <option value="1">Privado</option>
                         </select>
                     </div>
-                    <div class="Espacios" data-error="Campo obligatorio">
+                    <div class="Espacios dir">
                         <input type="text" class="Texto" id="direccion" placeholder="Dirección" name="Direccion" >
                     </div>
-                    <div class="Espacios" data-error="Campo obligatorio">
+                    <div class="Espacios bar" >
                         <input type="text" class="Texto" id="barrio" placeholder="Barrio" name="Barrio" onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))" >
                     </div>
                 </td>
                 <td id="Columna-datos2">
-                    <div class="Espacios" data-error="Campo obligatorio">
-                        <input type="number" class="Texto" id="telefono" placeholder="Telefono" name="Telefono" >
+                    <div class="Espacios Tel" >
+                        <input type="number" class="Texto " id="telefono" placeholder="Telefono" name="Telefono" >
                     </div>
-                    <div class="Espacios" data-error="Campo obligatorio" >
+                    <div class="Espacios cor"  >
                         <input type="text" class="Texto" id="correo" placeholder="Correo" name="Correo" >
                     </div>
-                    <div class="Espacios">
+                    <div class="Espacios web">
                         <input type="text" class="Texto" id="web" placeholder="Página Web" name="PaginaWeb">
                     </div>
-                    <div class="Espacios" data-error="Campo obligatorio">
+                    <div class="Espacios cal" >
                         <select class="select-css Texto" name="Calendario" id="Calendario" >
                             <option>Calendario</option>
                             <option value="0">A</option>
                             <option value="1">B</option>
                         </select>
                     </div>
-                    <div class="Espacios" data-error="Campo obligatorio">
+                    <div class="Espacios con" >
                         <input type="password" class="Texto" id="contra" placeholder="Contraseña" name="Contraseña" >
                     </div>
-                    <div class="Espacios" data-error="Campo obligatorio" >
+                    <div class="Espacios confi"  >
                         <input type="password" class="Texto" id="conficontra" placeholder="Confirmar contraseña" name="ConfirmarContraseña">
                     </div>
                    
@@ -85,6 +85,7 @@
         </div>
     </div>
     <div id="alert"></div>
+    
     <script src="js/js_componentes/bootstrap.min.js"></script>
     <script src="js/registro.js"></script>
     <script src="js/template.js"></script>

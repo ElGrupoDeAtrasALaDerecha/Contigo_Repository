@@ -65,6 +65,7 @@ input[type=number]::-webkit-inner-spin-button {
 .Espacios{
     padding-top: 10px;
     padding-bottom: 10px;
+    
 }
 #Button{
     padding-bottom: 9px;
@@ -110,6 +111,9 @@ input[type=number]::-webkit-inner-spin-button {
     display: block;
     padding-left: 20px;
 }
+.Texto{
+    transition: background 0.2s border 0.2s;
+}
 .select-css {
     appearance: none;
     background-image: url("Imagen/flecha.png");
@@ -117,3 +121,4 @@ input[type=number]::-webkit-inner-spin-button {
     background-position: right .9em top 50%, 0 0;
     background-size: .99em auto, 100%;
   }
+  
