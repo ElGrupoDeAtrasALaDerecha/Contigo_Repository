@@ -88,11 +88,11 @@ function registrar_institucion() {
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
                 console.log(result);
+                toastr.success('Institcución creada con exito')
                 $(location).attr('href', 'ingresar.html');
             } else {
                 console.log(result);
-                let msm = '<div class="alert alert-danger" role="alert">' + " Error esta institución ya esta registrada" + '</div>';
-                $("#alert").append(msm);
+                toastr.error('Institución ya registrada')
             }
 
         },
@@ -183,7 +183,7 @@ function Ingresar() {
     var esValido = expReg.test(correo);
 
 
-    /*if (departamento == "") {
+    if (departamento == "") {
         document.getElementsByClassName("Espacios dep")[0].setAttribute("data-error", "Campo obligatorio");
         BorrarTexto();
     }
@@ -218,7 +218,7 @@ function Ingresar() {
     if (Calendario == "Calendario") {
         document.getElementsByClassName("Espacios cal")[0].setAttribute("data-error", "Campo obligatorio");
         BorrarTexto();
-    }*/
+    }
     if (contra == "") {
         document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "Campo obligatorio");
         BorrarTexto();
@@ -232,16 +232,14 @@ function Ingresar() {
     }
 
     if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || Calendario == "" || contra == "" || conficontra == "") {
-        let msm1 = '<div class="alert alert-danger" role="alert">' + " Todos los campos son obligatorios" + '</div>';
-        $("#alert").append(msm1);
+       
     } else if (contra != conficontra) {
-        let msm2 = '<div class="alert alert-danger" role="alert">' + " Las contraseñas no coinciden" + '</div>';
-        $("#alert").append(msm2);
+        toastr.warning('Las contraseñas no coinciden')
     } else if (esValido != true) {
-        let msm2 = '<div class="alert alert-danger" role="alert">' + " El correo ingresado no es valido" + '</div>';
-        $("#alert").append(msm2);
+       toastr.error('Correo no valido')
     } else {
         registrar_institucion();
+        
     }
 }
 
