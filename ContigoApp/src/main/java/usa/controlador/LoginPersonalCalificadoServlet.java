@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
-import usa.modelo.dao.EstudianteDao;
-import usa.modelo.dao.PersonalCalificadoDao;
-import usa.modelo.dto.Estudiante;
+import usa.factory.FactoryDao;
+import usa.modelo.dao.IDao;
+import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
@@ -38,9 +38,10 @@ public class LoginPersonalCalificadoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         JSONObject parametroJson = new JSONObject(parametros);
-        PersonalCalificadoDao dao = new PersonalCalificadoDao();
+        IDao dao = FactoryDao.obtenerDao("PersonalCalificadoDao");
         JSONObject respuesta = new JSONObject();
-        PersonalCalificado personalcalificado = dao.consultarPorCredenciales(parametroJson.getString("correo"), parametroJson.getString("contraseña"));
+        IPersonalCalificadoDao daoPersonal=(IPersonalCalificadoDao)dao;
+        PersonalCalificado personalcalificado = daoPersonal.consultarPorCredenciales(parametroJson.getString("correo"), parametroJson.getString("contraseña"));
         if (personalcalificado != null) {
             Gson gson = new Gson();
             JSONObject personalJson = new JSONObject(gson.toJson(personalcalificado, PersonalCalificado.class));

@@ -7,7 +7,7 @@ import usa.modelo.dto.PersonalCalificado;
  *
  * @author Valeria Bermúdez y Santiago Pérez
  */
-interface IPersonalCalificadoDao extends IDao<PersonalCalificado> {
+public interface IPersonalCalificadoDao extends IDao<PersonalCalificado> {
 
     PersonalCalificado consultarPorToken(String token);
 
