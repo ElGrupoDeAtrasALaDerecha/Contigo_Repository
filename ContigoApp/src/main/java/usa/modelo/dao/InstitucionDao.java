@@ -24,13 +24,17 @@ public class InstitucionDao implements IDao<Institucion> {
     PreparedStatement pat;
     Statement stmt; 	            
     ResultSet result;
-    
+    /**
+     * 
+     * @param ins
+     * @return 
+     */
     @Override
     public boolean crear(Institucion ins) {
         
         try {
             String sql = "insert into  institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web ) "
-                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
+                    + "values (?,?,?,?,?,?,?,?,?,sha(?),?)";
             Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             pat.setInt(1, ins.getIdMunicipio());
@@ -65,6 +69,7 @@ public class InstitucionDao implements IDao<Institucion> {
             result = pat.executeQuery();    
             while(result.next()){
                 ins = new Institucion();
+                ins.setId(result.getInt("id"));
                 ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
                 //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
                 ins.setNombre(result.getString("nombre"));
@@ -127,7 +132,7 @@ public class InstitucionDao implements IDao<Institucion> {
     }
     
     public Institucion loginInstitucion(String correo, String contraseña){
-        int id = 666;
+        String nombre = "no name";
         Institucion inst = null;
         try {
             String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
@@ -135,9 +140,9 @@ public class InstitucionDao implements IDao<Institucion> {
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
-                id = result.getInt("id");
+                nombre = result.getString("nombre");
             }
-            inst = consultar(String.valueOf(id));
+            inst = consultar(nombre);
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
