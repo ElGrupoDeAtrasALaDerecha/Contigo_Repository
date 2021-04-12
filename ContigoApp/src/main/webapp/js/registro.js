@@ -86,8 +86,11 @@ function registrar_institucion() {
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
                 console.log(result);
+                $(location).attr('href', 'ingresar.html');
             } else {
-                console.log("error");
+                console.log(result);
+                let msm = '<div class="alert alert-danger" role="alert">' + " Error esta institución ya esta registrada" + '</div>';
+                $("#alert").append(msm);
             }
 
         },
@@ -173,11 +176,14 @@ function Ingresar() {
     var esValido = expReg.test(correo);
 
     if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || Calendario == "" || contra == "" || conficontra == "") {
-        alert("Todos los campos son obligatorios.");
+        let msm1 = '<div class="alert alert-danger" role="alert">' + " Todos los campos son obligatorios" + '</div>';
+        $("#alert").append(msm1);
     } else if (contra != conficontra) {
-        alert("No coincide su contraseña con la confirmación");
+        let msm2 = '<div class="alert alert-danger" role="alert">' + " Las contraseñas no coinciden" + '</div>';
+        $("#alert").append(msm2);
     } else if (esValido != true) {
-        alert("El correo es invalido")
+        let msm2 = '<div class="alert alert-danger" role="alert">' + " El correo ingresado no es valido" + '</div>';
+        $("#alert").append(msm2);
     } else {
         registrar_institucion();
     }

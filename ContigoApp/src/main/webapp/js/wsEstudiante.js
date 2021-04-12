@@ -9,6 +9,7 @@ $(document).ready(function(){
 		alert("No autorizado");
 		window.location.assign("index.html");
 	}
+	conectar();
 })
 
 var numeroSala;
@@ -27,29 +28,46 @@ var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
 */
 
 var misMensajes=new Array();
-var websocket = new WebSocket(wsUri);
-websocket.onopen = function (event) {
-	console.log("Conectado..."); //... y aparecerá en la pantalla
-	enviarCredenciales();
-	ping();
-}
+var websocket;
 
-websocket.onmessage = function (event) {
-	if (event.data === "pong") {
+/**
+ * Función que se encarga de conectar al servidor
+ */
+function conectar(){
+	websocket=new WebSocket(wsUri);
+	websocket.onopen = function (event) {
+		console.log("Conectado..."); //... y aparecerá en la pantalla
+		enviarCredenciales();
 		ping();
-	} else {
-		let obj = JSON.parse(event.data);
-		console.log(obj)
-		if (obj.tipo === "codigo sala") {
-			numeroSala = obj.numero;
-			pintarRespuesta(obj.mensaje);
-		} else if (obj.tipo === "respuesta" ||obj.tipo === "mensajeDePersonal"||obj.tipo === "perdidaConexion") {
-			pintarRespuesta(obj.mensaje);
-		} else if (obj.tipo === "escribiendoPersonal"){
-			pintarEscribiendo();
+	}
+	
+	websocket.onmessage = function (event) {
+		if (event.data === "pong") {
+			ping();
+		} else {
+			let obj = JSON.parse(event.data);
+			console.log(obj)
+			if (obj.tipo === "codigo sala") {
+				numeroSala = obj.numero;
+				pintarRespuesta(obj.mensaje);
+			} else if (obj.tipo === "respuesta" ||obj.tipo === "mensajeDePersonal"||obj.tipo === "perdidaConexion") {
+				pintarRespuesta(obj.mensaje);
+			} else if (obj.tipo === "escribiendoPersonal"){
+				pintarEscribiendo();
+			}
 		}
 	}
+	websocket.onerror=function (event){
+		console.error('Socket encountered error: ', err.message, 'Closing socket');
+    	ws.close();
+  	}
+	websocket.onclose=function(event){
+		console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+    	setTimeout(function() {conectar();}, 1000);
+
+	}
 }
+
 
 
 /**

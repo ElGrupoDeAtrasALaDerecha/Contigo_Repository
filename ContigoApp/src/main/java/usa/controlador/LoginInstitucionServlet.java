@@ -69,7 +69,7 @@ public class LoginInstitucionServlet extends HttpServlet {
         if(instBD != null){
             json.put("tipo", "ok");
             json.put("mensaje","Ingreso satisfactorio");
-            json.put("ID",  + instBD.getId());
+            json.put("ID",instBD.getId());
         }else{
             json.put("tipo", "error");
             json.put("mensaje","Error al ingresar");
