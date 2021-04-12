@@ -183,56 +183,59 @@ function Ingresar() {
     var esValido = expReg.test(correo);
 
 
-    if (departamento == "") {
-        document.getElementsByClassName("Espacios dep")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (nombre == "") {
-        document.getElementsByClassName("Espacios nom")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (sector == "Sector") {
-        document.getElementsByClassName("Espacios sec")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (direccion == "") {
-        document.getElementsByClassName("Espacios dir")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (municipio == "") {
-        document.getElementsByClassName("Espacios mun")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (barrio == "") {
-        document.getElementsByClassName("Espacios bar")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (telefono == "") {
-        document.getElementsByClassName("Espacios Tel")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (correo == "") {
-        document.getElementsByClassName("Espacios cor")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (Calendario == "Calendario") {
-        document.getElementsByClassName("Espacios cal")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
-    if (contra == "") {
-        document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }else if(contra.length<=8){
-        document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
-        BorrarTexto();
-    }
-    if (conficontra == "") {
-        document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "Campo obligatorio");
-        BorrarTexto();
-    }
+    
 
     if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || Calendario == "" || contra == "" || conficontra == "") {
-       
+        if (departamento == "") {
+            document.getElementsByClassName("Espacios dep")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (nombre == "") {
+            document.getElementsByClassName("Espacios nom")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (sector == "Sector") {
+            document.getElementsByClassName("Espacios sec")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (direccion == "") {
+            document.getElementsByClassName("Espacios dir")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (municipio == "") {
+            document.getElementsByClassName("Espacios mun")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (barrio == "") {
+            document.getElementsByClassName("Espacios bar")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (telefono == "") {
+            document.getElementsByClassName("Espacios Tel")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (correo == "") {
+            document.getElementsByClassName("Espacios cor")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (Calendario == "Calendario") {
+            document.getElementsByClassName("Espacios cal")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (contra == "") {
+            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }else if(contra.length<=8){
+            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
+            BorrarTexto();
+        }
+        if (conficontra == "") {
+            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }else if(conficontra.length<=8){
+            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
+            BorrarTexto();
+        }
     } else if (contra != conficontra) {
         toastr.warning('Las contraseñas no coinciden')
     } else if (esValido != true) {
