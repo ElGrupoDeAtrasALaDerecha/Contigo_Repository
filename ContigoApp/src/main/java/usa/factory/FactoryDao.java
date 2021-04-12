@@ -1,5 +1,6 @@
 package usa.factory;
 
+import usa.modelo.dao.GradoDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.PersonalCalificadoDao;
 
@@ -13,6 +14,8 @@ public class FactoryDao {
         IDao dao=null;
         if(nombreDao.equals("PersonalCalificadoDao")){
             dao=new PersonalCalificadoDao(); 
+        }else if (nombreDao.equals("GradoDao")){
+            dao=new GradoDao();
         }
         return dao;
     }

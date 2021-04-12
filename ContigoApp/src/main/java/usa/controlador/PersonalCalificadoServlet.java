@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.PersonalCalificadoDao;
+import usa.factory.FactoryDao;
+import usa.modelo.dao.IDao;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
@@ -20,7 +21,7 @@ import usa.utils.Utils;
  */
 @WebServlet(name="PersonalCalificadoServlet", urlPatterns={"/PersonalCalificado"})
 public class PersonalCalificadoServlet extends HttpServlet {
-
+    IDao dao = FactoryDao.obtenerDao("PersonalCalificadoDao");
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -32,14 +33,11 @@ public class PersonalCalificadoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        PersonalCalificadoDao dao = new PersonalCalificadoDao();
         JSONObject respuesta = new JSONObject();
         respuesta.put("tipo", "ok");
         respuesta.put("personales",new JSONArray(Utils.toJson(dao.listarTodos())));
         PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());
-        
-        
+        out.print(respuesta.toString());   
     } 
 
     /** 
@@ -54,7 +52,6 @@ public class PersonalCalificadoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         PersonalCalificado personal = (PersonalCalificado) Utils.fromJson(parametros, PersonalCalificado.class);
-        PersonalCalificadoDao dao = new PersonalCalificadoDao();
         JSONObject respuesta = new JSONObject();
         if (dao.consultar(personal.getDocumento())!=null){
             respuesta.put("tipo","error");
@@ -89,7 +86,6 @@ public class PersonalCalificadoServlet extends HttpServlet {
         String parametros = Utils.readParams(request);
         String documento=request.getParameter("document");
         PersonalCalificado personal = (PersonalCalificado) Utils.fromJson(parametros, PersonalCalificado.class);
-        PersonalCalificadoDao dao = new PersonalCalificadoDao();
         JSONObject respuesta = new JSONObject();
         if (dao.consultar(personal.getDocumento())==null){
             respuesta.put("tipo","error");
