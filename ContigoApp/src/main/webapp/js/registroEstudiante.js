@@ -161,6 +161,9 @@ function Ingresar() {
         if (conficontra == "") {
             document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "Campo obligatorio");
             BorrarTexto();
+        }else if(conficontra.length<=8){
+            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
+            BorrarTexto();
         }
     
         
