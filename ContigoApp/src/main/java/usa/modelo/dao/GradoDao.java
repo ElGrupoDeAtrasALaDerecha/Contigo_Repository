@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
 import java.sql.Connection;
@@ -12,7 +7,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.Grado;
 import usa.modelo.dto.GradoClasf;
 import usa.utils.GeneradorCodigos;
@@ -32,7 +26,7 @@ public class GradoDao implements IDao<Grado> {
                 Connection con = Conexion.tomarConexion();
                 String sql = "insert into GRADO (codigo,CLASIFICACION_id,INSTITUCION_id) values (?,?,?)";
                 pat = con.prepareStatement(sql);
-                pat.setString(1, grado.getCodigo());
+                pat.setString(1, GeneradorCodigos.getCodigo(GeneradorCodigos.MAYUSCULAS+GeneradorCodigos.NUMEROS,6));
                 pat.setInt(2, grado.getClasificacion_id());
                 pat.setInt(3, grado.getInstitucion_id());
                 pat.execute();

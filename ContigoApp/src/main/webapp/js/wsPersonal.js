@@ -375,7 +375,10 @@ function aparecerChat(nombre) {
 	  * Al dar click, se envía un mensaje a un estudiante
 	  */
 	$("#btn_enviar_mns").click(function () {
-		mensajeDesdePersonalAlEstudiante();
+		if($("#Enviarmensaje").val()!==""){
+			mensajeDesdePersonalAlEstudiante();
+		}
+		
 	});
 	$("body").off("keyup");
 	$("body").keyup(function (e) {
