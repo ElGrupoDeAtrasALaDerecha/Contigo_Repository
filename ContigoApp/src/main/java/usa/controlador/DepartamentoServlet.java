@@ -8,6 +8,7 @@ package usa.controlador;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usa.factory.FactoryDao;
 import usa.modelo.dao.DepartamentoDao;
+import usa.modelo.dao.IDao;
 import usa.modelo.dto.Departamento;
+import usa.utils.Utils;
 
 
 /**
@@ -65,13 +69,9 @@ public class DepartamentoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Gson gson = new Gson();
-        DepartamentoDao dao = new DepartamentoDao();
+        IDao dao = FactoryDao.obtenerDao("DepartamentoDao");
         JSONObject json = new JSONObject();
-        JSONArray arreglo = new JSONArray();
-        for (Departamento i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Departamento.class)));
-        }
+        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         json.put("Departamentos", arreglo);//
         out.print(json.toString());
     }
@@ -81,8 +81,7 @@ public class DepartamentoServlet extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException if a servlet-specific error occurs     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

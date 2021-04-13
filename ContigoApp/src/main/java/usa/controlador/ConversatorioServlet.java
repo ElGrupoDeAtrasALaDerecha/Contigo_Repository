@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usa.factory.FactoryDao;
 import usa.modelo.dao.ConversatoriosDao;
+import usa.modelo.dao.IDao;
+import usa.modelo.dao.IDaoConversatorios;
 import usa.modelo.dto.Conversatorio;
 import usa.utils.Utils;
 
@@ -69,7 +72,8 @@ public class ConversatorioServlet extends HttpServlet {
         
         response.setContentType("application/json;charset=UTF-8");
         System.out.println(request);
-        ConversatoriosDao dao = new ConversatoriosDao();
+        IDao dao = FactoryDao.obtenerDao("ConversatoriosDao");
+        IDaoConversatorios daoConver=(IDaoConversatorios)dao;
         LinkedList<Conversatorio> conversatorios = dao.listarTodos();
         Gson gson = new Gson();
         JSONObject respuesta = new JSONObject();
@@ -99,9 +103,10 @@ public class ConversatorioServlet extends HttpServlet {
         System.out.println(parametros);
         Gson gson = new Gson();
         Conversatorio conver = (Conversatorio) gson.fromJson(parametros, Conversatorio.class);
-        ConversatoriosDao dao = new ConversatoriosDao(); 
+        IDao dao = FactoryDao.obtenerDao("ConversatoriosDao");
+        IDaoConversatorios daoConver=(IDaoConversatorios)dao;
         JSONObject respuesta = new JSONObject();
-        int resultado = dao.crear(conver);
+        int resultado = daoConver.crearConver(conver);
         
         if (resultado != 0) {
             respuesta.put("tipo", "ok");
@@ -109,7 +114,7 @@ public class ConversatorioServlet extends HttpServlet {
             respuesta.put("conversatorio", resultado);
             String arregloClasificaciones[]=conver.getClasificacion();
             for (int i = 0; i < arregloClasificaciones.length; i++) {
-                dao.crearClasi(arregloClasificaciones[i],resultado);
+                daoConver.crearClasi(arregloClasificaciones[i],resultado);
             }
     
         } else {

@@ -86,7 +86,6 @@ public class ContigoBot {
                     break;
                 case "ingreso estudiante":
                     //Un estudiante se conecta y se crea una sala
-                    System.out.println("Creando sala");
                     EstudianteDao dao = new EstudianteDao();
                     Estudiante estudiante = dao.consultarPorToken((String) obj.get("token"));
                     sala = new Sala();
@@ -96,7 +95,6 @@ public class ContigoBot {
                     sala.enviarPrimerMensaje(objRespuesta);
 
                     SALAS.add(sala);
-                    System.out.println("Salas actuales: " + SALAS.toString());
 
                     //Se manda información al personal calificado acerca de la nueva sala
                     JSONObject respuestaPersonal = new JSONObject();
@@ -106,7 +104,6 @@ public class ContigoBot {
                     respuestaPersonal.put("mensajes", new JSONArray(Utils.toJson(sala.getMensajes())));
                     respuestaPersonal.put("numeroSala", sala.getCodigo());
                     respuestaPersonal.put("atendido", sala.getPersonaCalificada() != null);
-                    System.out.println(respuestaPersonal);
                     notificarAlPersonal(respuestaPersonal);
                     break;
                 case "mensaje":
@@ -146,7 +143,6 @@ public class ContigoBot {
                     sesion.getBasicRemote().sendText(objRespuesta.toString());
                     
                     //Aviso al estudiante que se conectó el personal calificado.
-                    JSONObject avisoEstudiante=new JSONObject();
                     obj.put("mensaje","Hola. Soy "+personalCalificado.getPrimerNombre()+" "+personalCalificado.getPrimerApellido()+""
                             + " Dame un momento reviso tu pregunta");
                     sala.recibirMensajePersonal(obj, objRespuesta);

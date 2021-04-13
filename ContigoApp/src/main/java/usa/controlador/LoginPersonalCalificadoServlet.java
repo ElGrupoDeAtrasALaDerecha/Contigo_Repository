@@ -1,6 +1,5 @@
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -21,7 +20,7 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "LoginPersonalCalificadoServlet", urlPatterns = {"/LoginPersonalCalificado"})
 public class LoginPersonalCalificadoServlet extends HttpServlet {
-
+    IDao dao = FactoryDao.obtenerDao("PersonalCalificadoDao");
     /**
      * Handles the HTTP <code>POST</code> method. En este caso, se habla del
      * ingreso de un personal calificado
@@ -38,13 +37,11 @@ public class LoginPersonalCalificadoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         JSONObject parametroJson = new JSONObject(parametros);
-        IDao dao = FactoryDao.obtenerDao("PersonalCalificadoDao");
         JSONObject respuesta = new JSONObject();
         IPersonalCalificadoDao daoPersonal=(IPersonalCalificadoDao)dao;
         PersonalCalificado personalcalificado = daoPersonal.consultarPorCredenciales(parametroJson.getString("correo"), parametroJson.getString("contraseña"));
         if (personalcalificado != null) {
-            Gson gson = new Gson();
-            JSONObject personalJson = new JSONObject(gson.toJson(personalcalificado, PersonalCalificado.class));
+            JSONObject personalJson = new JSONObject(Utils.toJson(personalcalificado));
             personalJson.remove("contraseña");
             respuesta.put("tipo", "ok");
             respuesta.put("mensaje", "Bienvenido ");
