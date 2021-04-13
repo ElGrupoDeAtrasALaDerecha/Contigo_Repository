@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usa.factory.FactoryDao;
 import usa.modelo.dao.ConversatoriosDao;
 import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.Conversatorio;
@@ -84,7 +85,7 @@ public class ClasificacionServlet extends HttpServlet {
         String parametros = Utils.readParams(request);
         Gson gson = new Gson();
         Clasificacion clasi = (Clasificacion) gson.fromJson(parametros, Clasificacion.class);
-        ConversatoriosDao dao = new ConversatoriosDao();
+        ConversatoriosDao dao = (ConversatoriosDao) FactoryDao.obtenerDao("ClasificacionDao");
         JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray();
         LinkedList<Clasificacion> clasificaciones = dao.consultar(clasi.getId());

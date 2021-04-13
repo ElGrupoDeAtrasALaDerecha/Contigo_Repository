@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usa.factory.FactoryDao;
 import usa.modelo.dao.MunicipioDao;
 import usa.modelo.dto.Municipio;
 
@@ -61,19 +62,18 @@ public class MunicipioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        MunicipioDao dao = new MunicipioDao();
+        MunicipioDao dao = (MunicipioDao) FactoryDao.obtenerDao("MunicipioDao");
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray();
         for (Municipio i : dao.listarTodos()) {
             arreglo.put(new JSONObject(gson.toJson(i, Municipio.class)));
         }
         json.put("Municipios", arreglo);
-        out.print(json.toString());
-
     }
 
     /**
