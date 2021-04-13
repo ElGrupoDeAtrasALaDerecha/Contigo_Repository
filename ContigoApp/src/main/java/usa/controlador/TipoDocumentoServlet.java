@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usa.factory.FactoryDao;
+import usa.modelo.dao.IDao;
 import usa.modelo.dao.TipoDocumentoDao;
 import usa.modelo.dto.TipoDocumento;
 
@@ -65,10 +67,11 @@ public class TipoDocumentoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        TipoDocumentoDao dao = new TipoDocumentoDao();
+        IDao dao = FactoryDao.obtenerDao("TipoDocumentoDao");
+        JSONObject respuesta = new JSONObject();
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray();
-        for (TipoDocumento i : dao.listarTodos()) {
+        for (Object i : dao.listarTodos()) {
             arreglo.put(new JSONObject(gson.toJson(i, TipoDocumento.class)));
         }
         json.put("Identificaciones", arreglo);

@@ -22,18 +22,19 @@ import usa.modelo.dto.Conversatorio;
  * @author Miguel Angel Rippe y Natalia Montenegro
  * @since 2021-03-13
  */
-public class ConversatoriosDao  {
+public class ConversatoriosDao implements IDaoConversatorios {
 // SQL
 
     private PreparedStatement pat;
 
-  /**
-   * 
-   * @param conver
-   * @return 
-   */
-    public int crear(Conversatorio conver) {
-               try {
+    /**
+     *
+     * @param conver
+     * @return
+     */
+    @Override
+    public int crearConver(Conversatorio conver) {
+        try {
             Connection con = Conexion.tomarConexion();
             String sql = "insert into CONVERSATORIO (PERSONAL_PERSONA_documento,titulo,cronograma,imagen,descripcion,lugar,infografia)values(?,?,?,?,?,?,?);";
             pat = con.prepareStatement(sql);
@@ -49,7 +50,7 @@ public class ConversatoriosDao  {
             String sql2 = "select id from CONVERSATORIO order by id desc limit 1;";
             pat = con.prepareStatement(sql2);
             ResultSet rs = pat.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 int idConver = rs.getInt("id");
                 rs.close();
                 pat.close();
@@ -60,9 +61,10 @@ public class ConversatoriosDao  {
         }
         return 0;
     }
-    
-    public int crearClasi(String conver,int resultado) {
-               try {
+
+    @Override
+    public int crearClasi(String conver, int resultado) {
+        try {
             Connection con = Conexion.tomarConexion();
             String sql = "insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (?,?);";
             pat = con.prepareStatement(sql);
@@ -70,24 +72,19 @@ public class ConversatoriosDao  {
             pat.setString(2, String.valueOf(resultado));
             pat.execute();
             pat.close();
-          return 0;
+            return 0;
 
-    
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return 1;
+        return 1;
     }
-    
-    
-    
 
     /**
      *
      * @param id
      * @return
      */
-
     public LinkedList<Clasificacion> consultar(int id) {
         LinkedList<Clasificacion> clasificaciones = new LinkedList();
         Connection conn = Conexion.tomarConexion();
@@ -95,7 +92,7 @@ public class ConversatoriosDao  {
             String sql = "select * from CLASIFICACION_has_CONVERSATORIO where CLASIFICACION_id =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
-   
+
             while (rs.next()) {
                 Clasificacion clasi = new Clasificacion();
                 clasi.setId(rs.getInt("CLASIFICACION_id"));
@@ -109,17 +106,7 @@ public class ConversatoriosDao  {
         return clasificaciones;
     }
 
-
-    public boolean actualizar(Conversatorio t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
-    public boolean eliminar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
+    @Override
     public LinkedList<Conversatorio> listarTodos() {
         LinkedList<Conversatorio> conversatorios = new LinkedList();
         Connection conn = Conexion.tomarConexion();
@@ -144,5 +131,27 @@ public class ConversatoriosDao  {
 
         }
         return conversatorios;
+    }
+
+    
+
+    @Override
+    public boolean eliminar(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean actualizar(Conversatorio t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Conversatorio consultar(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean crear(Conversatorio t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -1,7 +1,10 @@
 package usa.factory;
 
+import usa.modelo.dao.ConversatoriosDao;
 import usa.modelo.dao.IDao;
-import usa.modelo.dao.PersonalCalificadoDao;
+import usa.modelo.dao.IDaoConversatorios;
+import usa.modelo.dao.TipoDocumentoDao;
+
 
 
 /**
@@ -11,8 +14,11 @@ import usa.modelo.dao.PersonalCalificadoDao;
 public class FactoryDao {
     public static IDao obtenerDao(String nombreDao){
         IDao dao=null;
-        if(nombreDao.equals("PersonalCalificadoDao")){
-            dao=new PersonalCalificadoDao(); 
+        if(nombreDao.equals("ConversatoriosDao")){
+            dao =  new ConversatoriosDao();
+        }
+        if(nombreDao.equals("TipoDocumento")){
+            dao = new TipoDocumentoDao(); 
         }
         return dao;
     }
