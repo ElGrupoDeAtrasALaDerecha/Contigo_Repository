@@ -7,7 +7,7 @@
 $(document).ready(function(){
 	if(getCookie("tipoUsuario")!=="1"){
 		alert("No autorizado");
-		window.location.assign("index.html");
+		/*window.location.assign("index.html");*/
 	}
 	conectar();
 })
