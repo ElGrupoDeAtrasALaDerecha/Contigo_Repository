@@ -3,6 +3,9 @@ package usa.factory;
 import usa.modelo.dao.DepartamentoDao;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.ConversatoriosDao;
+import usa.modelo.dao.IDaoConversatorios;
+import usa.modelo.dao.TipoDocumentoDao;
 
 
 
@@ -19,6 +22,11 @@ public class FactoryDao {
         }
         if(nombreDao.equals("EstudianteDao")){
             dao=new EstudianteDao(); 
+        if(nombreDao.equals("ConversatoriosDao")){
+            dao =  new ConversatoriosDao();
+        }
+        if(nombreDao.equals("TipoDocumento")){
+            dao = new TipoDocumentoDao(); 
         }
         return dao;
     }
