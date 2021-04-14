@@ -85,7 +85,7 @@ h1 {
     font-size: 100%;
     padding: 1%;
     vertical-align: top;
-    width: 20%;
+    width: 95%;
 }
 #chat #mensajes .mensaje-autor .fecha{
     color: #777;
@@ -108,7 +108,7 @@ h1 {
     font-size: 100%;
     padding: 1%;
     vertical-align: top;
-    width: 23%;
+    width: 95%;
 }
 #chat #mensajes .mensaje-amigo img, #chat #mensajes .mensaje-autor img{
     border-radius: 5%;
