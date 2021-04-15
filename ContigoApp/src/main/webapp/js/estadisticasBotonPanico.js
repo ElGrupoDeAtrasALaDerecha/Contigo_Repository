@@ -11,7 +11,7 @@ var pCont = document.getElementById("areaContador");
 
 
 $(document).ready(function () {
-    estudiante = parseInt(getCookie("documento"));
+    estudiante = getCookie("documento");
     console.log(estudiante)
     console.log(fecha)
 });
