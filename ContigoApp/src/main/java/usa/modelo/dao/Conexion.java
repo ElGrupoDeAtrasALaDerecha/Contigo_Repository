@@ -16,7 +16,7 @@ public class Conexion {
     String host="localhost";
     String port="3306";
     private final String url = "jdbc:mysql://"+host+":"+port+"/"+bd+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";
-    static Connection con = null;
+    private static Connection con = null;
     /**
      * Constructor privado de la clase conexión
      */
@@ -24,8 +24,6 @@ public class Conexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url);
-
-            
             if (con != null) {
                 System.out.println("Conexion a base de datos exitosa");
             }

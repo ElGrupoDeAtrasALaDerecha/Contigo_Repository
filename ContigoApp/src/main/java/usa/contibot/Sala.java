@@ -182,21 +182,29 @@ public class Sala {
      * @throws IOException 
      */
     public void notificarEscribiendoAPersonal(JSONObject objRespuesta) throws IOException{
-        System.out.println("Escribiendo a personal");
         objRespuesta.put("tipo","escribiendoEstudiante");
         objRespuesta.put("numeroSala",this.codigo);
         this.sesionPersonal.getBasicRemote().sendText(objRespuesta.toString()); 
     }
     /**
-     * 
-     * @param objRespuesta
+     * Notificación de escritura hacia el estudiante
+     * @param objRespuesta referencia en la memoria de la respuesta
      * @throws IOException 
      */
     public void notificarEscribiendoAEstudiante(JSONObject objRespuesta) throws IOException {
-        System.out.println("Escribiendo a estudiante");
         objRespuesta.put("tipo","escribiendoPersonal");
         objRespuesta.put("numeroSala",this.codigo);
         this.sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
     }
 
+    void cerrarConexionAEstudiante(JSONObject objRespuesta) throws IOException {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setEmisor("Conti");
+        mensaje.setMensaje("Mi amigo terminó la conexión. Espero que te haya ayudado. Si tienes alguna otra pregunta, cuentas conmigo, ¿vale?");
+        mensaje.setTipo(1);
+        objRespuesta.put("tipo", "cerrar conexion");
+        objRespuesta.put("mensaje", new JSONObject(Utils.toJson(mensaje)));
+        this.sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
+
+    }
 }

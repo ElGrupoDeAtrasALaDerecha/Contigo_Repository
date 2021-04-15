@@ -130,3 +130,9 @@ recibirEscribiendo
     tipo: escribiendoEstudiante,
     numeroSala: numeroSala
 }
+
+Cerrar conexión por parte del personal calificado.
+{
+    tipo: cerrarConexion,
+    numeroSala: numeroSala
+}

@@ -62,7 +62,7 @@ h1 {
     padding-right: 5%;
     border-radius: 25px;
     text-decoration: none;
-    width: 90%;
+    width: 88%;
     border: solid;
     border-width: 1px;
     border-color: #9c9999 solid;
@@ -178,4 +178,4 @@ h5 {
     font-family: sans-serif;
     font-size: 80%;
     font-style: oblique;
-  }
+}

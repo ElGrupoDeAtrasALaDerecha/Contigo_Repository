@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.factory.FactoryDao;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
@@ -21,7 +22,8 @@ import usa.utils.Utils;
  */
 @WebServlet(name="PersonalCalificadoServlet", urlPatterns={"/PersonalCalificado"})
 public class PersonalCalificadoServlet extends HttpServlet {
-    IDao dao = FactoryDao.obtenerDao("PersonalCalificadoDao");
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.

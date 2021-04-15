@@ -12,7 +12,12 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usa.factory.AbstractFactory;
+import usa.factory.FactoryDao;
+import usa.factory.Producer;
 import usa.modelo.dao.EstudianteDao;
+import usa.modelo.dao.IDao;
+import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
 import usa.modelo.dto.PersonalCalificado;
@@ -35,7 +40,10 @@ public class ContigoBot {
      * Lista de salas (estudiantes en sesión)
      */
     private static final LinkedList<Sala> SALAS = new LinkedList();
-
+    
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao personalDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
+    IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
     /**
      * Método onOpen
      *
@@ -63,7 +71,8 @@ public class ContigoBot {
         JSONObject objRespuesta = new JSONObject();
         Sala sala = null;
         int numeroSala;
-        PersonalCalificadoDao personalDao = new PersonalCalificadoDao();
+
+        IPersonalCalificadoDao personalDaoConcreto=(IPersonalCalificadoDao)personalDao;
         PersonalCalificado personalCalificado = null;
         try {
             switch (tipo) {
@@ -86,8 +95,8 @@ public class ContigoBot {
                     break;
                 case "ingreso estudiante":
                     //Un estudiante se conecta y se crea una sala
-                    EstudianteDao dao = new EstudianteDao();
-                    Estudiante estudiante = dao.consultarPorToken((String) obj.get("token"));
+                    EstudianteDao daoEstudiante = (EstudianteDao)dao;
+                    Estudiante estudiante = daoEstudiante.consultarPorToken((String) obj.get("token"));
                     sala = new Sala();
                     sala.setEstudiante(estudiante);
                     sala.setSesionEstudiante(sesion);
@@ -114,7 +123,7 @@ public class ContigoBot {
                     break;
                 case "ingreso personal":
                     //Personal calificado se conecta a su menú principal
-                    personalCalificado = personalDao.consultarPorToken((String) obj.get("token"));
+                    personalCalificado = personalDaoConcreto.consultarPorToken((String) obj.get("token"));
                     System.out.println(SALAS.toString());
                     PERSONALES.add(sesion);
                     objRespuesta.put("tipo", "salas");
@@ -132,7 +141,7 @@ public class ContigoBot {
                 case "conexion personal":
 
                     //Se asigna un personal a una sala y se le manda la conversación
-                    personalCalificado = personalDao.consultarPorToken((String) obj.get("token"));
+                    personalCalificado = personalDaoConcreto.consultarPorToken((String) obj.get("token"));
                     sala = this.buscarSalas(obj.getInt("numeroSala"));
                     sala.setPersonaCalificada(personalCalificado);
                     sala.setSesionPersonal(sesion);
@@ -153,6 +162,10 @@ public class ContigoBot {
                     avisoAPersonales.put("numeroSala", obj.getInt("numeroSala"));
                     this.notificarAlPersonalExceptoA(avisoAPersonales, sesion);
                     
+                    break;
+                case "cerrar conexion":
+                    sala=this.buscarSalas(obj.getInt("numeroSala"));
+                    sala.cerrarConexionAEstudiante(objRespuesta);
                     break;
 
             }

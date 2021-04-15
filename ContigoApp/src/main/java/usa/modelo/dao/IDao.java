@@ -5,6 +5,7 @@ import java.util.LinkedList;
 /**
  *  Interfaz de objetos de acceso a datos
  * @author Santiago Pérez
+ * @param <T>
  */
 public interface IDao<T> {
     boolean crear(T t);

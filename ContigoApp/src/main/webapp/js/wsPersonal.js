@@ -24,7 +24,8 @@ var websocket = new WebSocket(wsUri);
 $(document).ready(function () {
 	if (getCookie("tipoUsuario") !== "2") {
 		alert("No autorizado");
-		window.location.assign("index.html");
+		//window.location.assign("index.html");
+		$('#cerrarConexion').popup();
 	}
 })
 websocket.onopen = function (event) {
@@ -53,7 +54,7 @@ websocket.onmessage = function (event) {
 			let sala = buscarSalaEnAtencion(numeroSala);
 			sala.mensajes.push(obj.mensaje);
 			if (numeroSala === parseInt(salaElegida, 10)) {
-				pintarRespuesta(obj.mensaje);
+				pintarRespuesta(obj.mensaje,true);
 			}
 
 		}
@@ -84,6 +85,10 @@ websocket.onmessage = function (event) {
 
 	}
 }
+websocket.onclose = function(event){
+	window.location.assign("admin_perca.html");
+}
+
 
 
 
@@ -123,9 +128,10 @@ function enviarCredenciales() {
 /**
  * Función que muestra en la pantalla la respuesta del servidor
  * @param {string} respuesta 
+ * @param {boolean} down
  */
 
-function pintarRespuesta(respuesta) {
+function pintarRespuesta(respuesta,down) {
 	let txt = `<div id="mns_tiempo_conti" class="mensaje-autor">
 	<i class="bi bi-person"></i>
 	<div class="flecha-izquierda"></div>
@@ -134,7 +140,10 @@ function pintarRespuesta(respuesta) {
 	</div>
 	`
 	$("#mensajes").append(txt);
-	$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
+	if(down){
+		$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
+	}
+	
 }
 
 
@@ -332,11 +341,16 @@ function aparecerChat(nombre) {
 					<font style="vertical-align: inherit;">
 						<div id="chatCompleto2">
 							<div id="titulo">
+								
 								<h1>${nombre}</h1>
 								<div id="escribiendoEstudiante" class="escribiendoA">
-                    			<h5> Escribiendo</h5>
-                    			<div id="load"class="loader"></div>
+                    				<h5> Escribiendo</h5>
+                    				<div id="load"class="loader"></div>
                 				</div>
+								<button id="cerrarConexion" class="ui black mini right floated button"
+                                        data-content="Cerrar conexión">
+                                        <i class="close icon"></i>
+                                </button>
 							</div>
 							<div id="chat">
 								<div id="mensajes">
@@ -386,6 +400,10 @@ function aparecerChat(nombre) {
 			$('#btn_enviar_mns').click();
 		}
 	});
+
+	$("#cerrarConexion").click(function(){
+		cerrarConexionConEstudiante();
+	})
 }
 
 /**
@@ -397,11 +415,15 @@ function mensajeDesdePersonalAlEstudiante() {
 		mensaje: $("#Enviarmensaje").val()
 	}
 	decirleAEstudiante(mns.mensaje);
-	pintarMensajeDePersonalAEstudiante(mns)
+	pintarMensajeDePersonalAEstudiante(mns,true)
 }
 
-
-function pintarMensajeDePersonalAEstudiante(mns) {
+/**
+ * 
+ * @param {string} mns 
+ * @param {Boolean} down 
+ */
+function pintarMensajeDePersonalAEstudiante(mns,down) {
 	let mensaje = `
 		<div id="mns_tiempo_usuario" class="mensaje-amigo">
 		<div class="contenido"><b>${mns.emisor}: </b>${mns.mensaje} </div>
@@ -411,7 +433,10 @@ function pintarMensajeDePersonalAEstudiante(mns) {
 		</div>`
 	$("#mensajes").append(mensaje);
 	$('input[type="text"]').val('');
-	$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
+	if(down){
+		$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
+	}
+	
 }
 /**
  * Función que carga los mensajes de un chat específico
@@ -424,16 +449,19 @@ function cargarListaDeMensajes() {
 	for (let i = 0; i < mensajes.length; i++) {
 		let mensaje = mensajes[i];
 		if (mensaje.tipo === 1) {
-			pintarRespuesta(mensaje);
+			pintarRespuesta(mensaje,false);
 
 		} else {
-			pintarMensajeDePersonalAEstudiante(mensaje);
+			pintarMensajeDePersonalAEstudiante(mensaje,false);
 		}
 
 
 	}
 }
-
+/**
+ * 
+ * @param {*} numeroSalaMensaje 
+ */
 function pintarEscribiendo(numeroSalaMensaje) {
 	if (salaElegida === parseInt(numeroSalaMensaje, 10)) {
 		let timeout
@@ -444,4 +472,15 @@ function pintarEscribiendo(numeroSalaMensaje) {
 			clearTimeout(timeout)
 		}, 1000)
 	}
+}
+
+function cerrarConexionConEstudiante(){
+	let obj= {
+		tipo:"cerrar conexion",
+		numeroSala:salaElegida
+	}
+	enviarMensaje(obj);
+	$("#Enviarmensaje").val("Ha terminado de conversar con este estudiante");
+	$("#Enviarmensaje").prop("readonly", true);
+	$("body").off("keyup");
 }

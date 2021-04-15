@@ -12,6 +12,11 @@ package usa.modelo.dto;
 public class Mensaje {
     private String mensaje;
     private String emisor;
+    /**
+     * Tipo de mensaje
+     * 1: de estudiante a personal calificado
+     * 2: de personal calfiicado a estudiante
+     */
     private int tipo;
 
     public String getMensaje() {

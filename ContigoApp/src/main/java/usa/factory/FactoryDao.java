@@ -14,14 +14,13 @@ import usa.modelo.dao.TipoDocumentoDao;
  * Fábrica de DAO
  * @author ALL TEAM
  */
-public class FactoryDao {
-    public static IDao obtenerDao(String nombreDao){
-        IDao dao=null;
-               
+public class FactoryDao implements AbstractFactory<IDao>{
+    @Override
+    public IDao obtener(String nombreDao){
+        IDao dao=null;    
         if(nombreDao.equals("ClasificacionDao")){
             dao = new ClasificacionDao(); 
         }
-        
         else if(nombreDao.equals("MunicipioDao")){
             dao = new MunicipioDao();
         }
