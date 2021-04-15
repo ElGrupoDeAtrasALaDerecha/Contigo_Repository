@@ -10,7 +10,4 @@ import java.sql.Connection;
     protected static IConexionBD instance;
     public abstract Connection tomarConexion();
     public abstract void desconectar();
-    public static IConexionBD getInstance(){
-        return instance;
-    }
 }
