@@ -101,6 +101,7 @@ public class ConversatorioServlet extends HttpServlet {
         Conversatorio conver = (Conversatorio) gson.fromJson(parametros, Conversatorio.class);
         ConversatoriosDao dao = new ConversatoriosDao(); 
         JSONObject respuesta = new JSONObject();
+        
         int resultado = dao.crear(conver);
         
         if (resultado != 0) {
