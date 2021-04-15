@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
 import java.sql.Connection;
@@ -26,7 +21,7 @@ public class ConversatoriosDao implements IDaoConversatorios {
 // SQL
 
     private PreparedStatement pat;
-
+    
     /**
      *
      * @param conver
@@ -35,9 +30,8 @@ public class ConversatoriosDao implements IDaoConversatorios {
     @Override
     public int crearConver(Conversatorio conver) {
         try {
-            Connection con = Conexion.tomarConexion();
             String sql = "insert into CONVERSATORIO (PERSONAL_PERSONA_documento,titulo,cronograma,imagen,descripcion,lugar,infografia)values(?,?,?,?,?,?,?);";
-            pat = con.prepareStatement(sql);
+            pat = conn.prepareStatement(sql);
             pat.setString(1, conver.getOrador());
             pat.setString(2, conver.getTitulo());
             pat.setString(3, conver.getCronograma());
@@ -48,7 +42,7 @@ public class ConversatoriosDao implements IDaoConversatorios {
             pat.execute();
             pat.close();
             String sql2 = "select id from CONVERSATORIO order by id desc limit 1;";
-            pat = con.prepareStatement(sql2);
+            pat = conn.prepareStatement(sql2);
             ResultSet rs = pat.executeQuery();
             if (rs.next()) {
                 int idConver = rs.getInt("id");
@@ -65,9 +59,8 @@ public class ConversatoriosDao implements IDaoConversatorios {
     @Override
     public int crearClasi(String conver, int resultado) {
         try {
-            Connection con = Conexion.tomarConexion();
             String sql = "insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (?,?);";
-            pat = con.prepareStatement(sql);
+            pat = conn.prepareStatement(sql);
             pat.setString(1, conver);
             pat.setString(2, String.valueOf(resultado));
             pat.execute();
@@ -87,7 +80,6 @@ public class ConversatoriosDao implements IDaoConversatorios {
      */
     public LinkedList<Clasificacion> consultar(int id) {
         LinkedList<Clasificacion> clasificaciones = new LinkedList();
-        Connection conn = Conexion.tomarConexion();
         try {
             String sql = "select * from CLASIFICACION_has_CONVERSATORIO where CLASIFICACION_id =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
@@ -109,7 +101,6 @@ public class ConversatoriosDao implements IDaoConversatorios {
     @Override
     public LinkedList<Conversatorio> listarTodos() {
         LinkedList<Conversatorio> conversatorios = new LinkedList();
-        Connection conn = Conexion.tomarConexion();
         try {
             String sql = "select * from Conversatorio";
             pat = conn.prepareStatement(sql);

@@ -1,10 +1,21 @@
 package usa.factory;
 
+import usa.bd.IConexionBD;
+import usa.modelo.dao.Conexion;
+
 /**
  * 
- * @author Santiago Pérez
+ * @author Valeria Bermúdez, Andrés López Santiago Pérez
  */
-public class ConnectionFactory {
-    
-    
+public class ConnectionFactory implements AbstractFactory<IConexionBD>{
+
+    @Override
+    public IConexionBD obtener(String motor) {
+        IConexionBD conexion=null;
+        if(motor.equals("mysql")){
+            conexion=Conexion.getInstance();
+        }
+        //Aquí irían más condiciones si hubiesen más motores de bases de datos
+        return conexion;
+    }
 }

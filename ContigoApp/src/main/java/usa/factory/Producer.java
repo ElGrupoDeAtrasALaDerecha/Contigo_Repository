@@ -11,6 +11,8 @@ public class Producer {
         AbstractFactory fabrica=null;
         if(param.equals("DAO")){   
             fabrica=new FactoryDao();
+        }else if (param.equals("BD")){
+            fabrica=new ConnectionFactory();
         }
         return fabrica;
     }
