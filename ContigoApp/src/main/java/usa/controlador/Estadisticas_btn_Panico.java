@@ -49,7 +49,7 @@ public class Estadisticas_btn_Panico extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        response.setContentType("application/json;charset=UTF-8");
+        /**response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         Gson gson = new Gson();
@@ -77,7 +77,7 @@ public class Estadisticas_btn_Panico extends HttpServlet {
         }
         System.out.println(json.toString());
         out.print(json.toString());
-        
+        **/
     }
 
 }

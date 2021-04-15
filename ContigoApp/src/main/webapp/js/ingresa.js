@@ -1,5 +1,22 @@
+//Ingreso con tecla enter
+$("body").keyup(function (e) {
+    var email = $("#correo").val();
+    var pass = $("#password_inst").val();
+    var doc = $("#documento").val();
+    var passw = $("#contraseña").val();
+	if (e.keyCode == 13) {
+        if (email != "" & pass != "" ) {
+            $('#ing_inst').click();
+        }
+        else if (doc != "" & passw != "" ) {
+            $('#ing_est').click();
+        }
+	}
+});
+
 // Login Institucion
 $("#ing_inst").click(function (e) {
+    alert("!")
     e.preventDefault();
     var email = $("#correo").val();
     var pass = $("#password_inst").val();
@@ -81,4 +98,3 @@ function loginEstudiante(obj) {
         }
     });
 }
-

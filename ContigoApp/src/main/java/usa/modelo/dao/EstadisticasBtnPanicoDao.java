@@ -26,7 +26,23 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
     
     @Override
     public boolean crear(EstadisticasBtnPanico t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EstudianteDao estudainte = new EstudianteDao();
+         try {
+            String sql = "insert  * from ESTADISTICAS_BTNPANICO";
+            Connection conn = Conexion.tomarConexion();
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            while(result.next()){
+                EstadisticasBtnPanico est = new EstadisticasBtnPanico();
+                est.setClikcs(result.getInt("CANTIDAD_CLICK"));
+                est.setFecha(result.getString("fecha"));
+                est.setEstudiante(estudainte.consultar(result.getString("ESTUDIANTE_PERSONA_documento")));
+            }
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return false;
     }
 
     @Override
