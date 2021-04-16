@@ -252,7 +252,7 @@ if ($("#Texto").val() == "" || $("#Descripcion").val() == "" || $("#cronograma")
     
 } else{
     CrearConverOrador();
-    alert("Conversatorio Creado")
+  
 }
 });
 
@@ -284,9 +284,37 @@ function CrearConverOrador() {
 const imagePreview = document.getElementById('img-preview');
 const imageUploader = document.getElementById('img-uploader');
 
+
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/miguel26697/image/upload';
+const CLOUDINARY_UPLOAD_PRESET = 'wmruximj';
+
 imageUploader.addEventListener('change', async (e) => {
   console.log(e)
   const file = e.target.files[0];
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+  $.ajax({
+    url: CLOUDINARY_URL,
+    type: "POST",
+    data: formData,
+    contentType: 'multipart/form-data',
+    beforeSend: function () {
+    },
+    success: function (result, textStatus, request) {
+        console.log(result);
+        if (result != "error") {
+            console.log(result);
+        } else {
+            console.log("error");
+        }
+    },
+    complete: function (result) {
+    },
+    error: function (result) {
+    }
+});
 });
 
 function crearConversatorio(personal) {
@@ -312,7 +340,7 @@ function crearConversatorio(personal) {
         descripcion: descripcion,
         cronograma: cronograma,
         lugar: lugar,
-        imagen: imagen,
+        imagen: img,
         infografia: infografia,
         clasificacion: clasifica
 
@@ -331,6 +359,7 @@ function crearConversatorio(personal) {
             console.log(result);
             if (result != "error") {
                 console.log(result);
+                alert("Conversatorio Creado")
             } else {
                 console.log("error");
             }
