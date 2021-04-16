@@ -26,18 +26,14 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
     
     @Override
     public boolean crear(EstadisticasBtnPanico t) {
-        EstudianteDao estudainte = new EstudianteDao();
          try {
-            String sql = "insert  * from ESTADISTICAS_BTNPANICO";
-            Connection conn = Conexion.tomarConexion();
-            pat = conn.prepareStatement(sql);
-            result = pat.executeQuery();
-            while(result.next()){
-                EstadisticasBtnPanico est = new EstadisticasBtnPanico();
-                est.setClikcs(result.getInt("CANTIDAD_CLICK"));
-                est.setFecha(result.getString("fecha"));
-                est.setEstudiante(estudainte.consultar(result.getString("ESTUDIANTE_PERSONA_documento")));
-            }
+            Connection con = Conexion.tomarConexion();
+            String sql = "insert into ESTADISTICAS_BTNPANICO (CANTIDAD_CLICK, ESTUDIANTE_PERSONA_documento, FECHA) values (?,?,?)";
+            pat = con.prepareStatement(sql);
+            pat.setInt(1, t.getClikcs());
+            pat.setString(2, t.getEstudiante().getDocumento());
+            pat.setString(3, t.getFecha());
+            pat.execute();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,12 +43,37 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
 
     @Override
     public EstadisticasBtnPanico consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EstudianteDao estudainte = new EstudianteDao();
+        EstadisticasBtnPanico est = null;
+        try {
+            Connection conn = Conexion.tomarConexion(); 
+            String sql = "select * from ESTADISTICAS_BTNPANICO where ESTUDIANTE_PERSONA_documento = '" + id + "';";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            while(result.next()){
+                est = new EstadisticasBtnPanico();
+                est.setClikcs(result.getInt("CANTIDAD_CLICK"));
+                est.setFecha(result.getString("fecha"));
+                est.setEstudiante(estudainte.consultar(result.getString("ESTUDIANTE_PERSONA_documento")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return est;
     }
 
     @Override
-    public boolean actualizar(EstadisticasBtnPanico t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(EstadisticasBtnPanico est) {
+        try {
+            Connection conn = Conexion.tomarConexion(); 
+            String sql = "UPDATE `contigobd`.`ESTADISTICAS_BTNPANICO` SET `CANTIDAD_CLICK` = '" + (est.getClikcs()+1) +  "' WHERE (ESTUDIANTE_PERSONA_documento = '10008');";
+            pat = conn.prepareStatement(sql);
+            pat.executeQuery();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -74,6 +95,7 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
                 est.setClikcs(result.getInt("CANTIDAD_CLICK"));
                 est.setFecha(result.getString("fecha"));
                 est.setEstudiante(estudainte.consultar(result.getString("ESTUDIANTE_PERSONA_documento")));
+                estadisticas.add(est);
             }
             return estadisticas;
         } catch (SQLException ex) {
