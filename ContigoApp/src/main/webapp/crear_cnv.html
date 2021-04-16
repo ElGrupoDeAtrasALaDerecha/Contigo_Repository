@@ -60,11 +60,6 @@
                         Inserta el link de la infografia
                     </div>
                 
-            
-
-               
-              
-                 
                     <input type="text" class="credencial" id="linkImagen" placeholder="Link Imagen" name="tlt_cnv">
                     <div class="invalid-feedback">
                         Inserta el link de la imagen
@@ -98,33 +93,41 @@
 
                     </div>
                     <br>
+
+                    <p>Selecciona el dia y la hora en el cual sera presentado este conversatorio</p>
+                    
                 <div class="input-group date" id="cronograma2" data-target-input="nearest">
-                        <p>Selecciona el dia y la hora en el cual sera presentado este conversatorio</p>
-                        <input id="cronograma" type="text" class="credencial" placeholder="Cronograma"
-                            data-target="#cronograma2" required>
+
+                        <input  type="text" class="credencial" id="cronograma" placeholder="Cronograma" data-target="#cronograma2" required>
                             <div class="invalid-feedback">
                                 Completa los campos de cronograma
                             </div>
+
                             <div class="input-group-append" data-target="#cronograma2" data-toggle="datetimepicker">
-                                <div class="calendar"><i class="fa fa-calendar fa-3x"></i></div>
-                        <div class="invalid-feedback">
-                            Completa los campos de cronograma
-                        </div>
-
-
-                    </div>
+                                <div class="calendar"><i class="fa fa-calendar fa-4x"></i></div>
+                            </div>
                 </div>
-                <div class="card">
+
+                <br>
+               
+
+
+                <p>Subir imagen de portada referente al conversatorio</p>
+                    
+                <div >
                     <img id="img-preview">
-                        <input type="file" id="img-uploader" >
+                        <input type="file" id="img-uploader" class="credencial" >
                         <progress id="img-upload-bar" value="0" max="100" style="width: 100%"></progress>
                 </div>
-
-                <div class="card">
+                <br>
+             <!--
+                <p>Subir imagen de la infografía referente al conversatorio</p>
+                <div>
                     <img id="img-preview">
-                        <input type="file" id="img-uploader">
-                        <progress id="img-upload-bar" value="0" max="100" style="width: 100%"></progress>
+                        <input type="file" id="img-uploader" class="credencial">
+                        <progress id="img-upload-bar" value="0" max="100" style="width: 100%" ></progress>
                 </div>
+                -->
             </section>
         </div>
         <div class="contenedor_credencial">
