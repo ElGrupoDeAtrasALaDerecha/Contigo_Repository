@@ -1,4 +1,4 @@
-var clicks =0;
+var clicks = 0;
 var estudiante
 var fecha
 const tiempoTranscurrido = Date.now();
@@ -11,7 +11,7 @@ var pCont = document.getElementById("areaContador");
 
 
 $(document).ready(function () {
-    estudiante = getCookie("documento");
+    estudiante = parseInt(getCookie("tipoUsuario"));
     console.log(estudiante)
     console.log(fecha)
 });
@@ -21,32 +21,30 @@ boton.onclick = function () {
     pCont.textContent = clicks;
     var obj = {
         clicks: clicks,
-        fecha : fecha,
-        estudiante: estudiante    
-      }
-      console.log(obj)
-      enviarInformacion(obj)
+        fecha: fecha,
+        estudiante: estudiante
+    }
+    console.log(obj)
+    enviarInformacion(obj)
 
 }
 
 
-function enviarInformacion(obj){
+function enviarInformacion(obj) {
     $.ajax({
         method: 'POST',
-        url: 'gestionCurso',
+        url: 'ESTADISTICAS_BTNPANICO',
         data: JSON.stringify(obj),
         dataType: "json",
-        success: function(response) {
+        success: function (response) {
             if (response.tipo === "ok") {
                 console.log(response);
-                // console.log(response.mensaje)
-                $(location).attr('href', 'gestionCurso.html');
-            }else{
+            } else {
                 console.log(response.mensaje);
             }
         },
-        error: function(response){
+        error: function (response) {
             console.log(JSON.stringify(response))
         }
-    }); 
+    });
 }
