@@ -12,6 +12,10 @@ import usa.factory.Producer;
  * @param <T>
  */
 public interface IDao<T> {
+
+    /**
+     *
+     */
     static AbstractFactory fabrica = Producer.getFabrica("BD");
     static IConexionBD conexion=(IConexionBD) fabrica.obtener("mysql");
     static Connection conn = conexion.tomarConexion();
