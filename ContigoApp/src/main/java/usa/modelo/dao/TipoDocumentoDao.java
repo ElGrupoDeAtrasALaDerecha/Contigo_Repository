@@ -13,7 +13,7 @@ import usa.modelo.dto.TipoDocumento;
  * @author santi.
  */
 public class TipoDocumentoDao implements IDao<TipoDocumento> {
-    
+    /**/
      PreparedStatement pat;
      ResultSet result;
 

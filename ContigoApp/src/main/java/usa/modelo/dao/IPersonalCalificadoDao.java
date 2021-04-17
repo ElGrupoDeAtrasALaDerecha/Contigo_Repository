@@ -12,3 +12,4 @@ public interface IPersonalCalificadoDao extends IDao<PersonalCalificado> {
     PersonalCalificado consultarPorToken(String token);
     PersonalCalificado consultarPorCredenciales(String correo, String contraseña);
 }
+/**/
