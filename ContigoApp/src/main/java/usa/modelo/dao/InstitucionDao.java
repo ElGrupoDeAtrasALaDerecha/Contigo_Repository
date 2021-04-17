@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
 import java.sql.Connection;
@@ -24,14 +19,17 @@ public class InstitucionDao implements IDao<Institucion> {
     PreparedStatement pat;
     Statement stmt; 	            
     ResultSet result;
-    
+    /**
+     * 
+     * @param ins
+     * @return 
+     */
     @Override
     public boolean crear(Institucion ins) {
         
         try {
             String sql = "insert into  institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web ) "
-                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
-            Connection conn = Conexion.tomarConexion();
+                    + "values (?,?,?,?,?,?,?,?,?,sha(?),?)";
             pat = conn.prepareStatement(sql);
             pat.setInt(1, ins.getIdMunicipio());
             pat.setInt(2, ins.getMETODO_PAGO_id());
@@ -60,11 +58,11 @@ public class InstitucionDao implements IDao<Institucion> {
         Institucion ins = null;
         try {
             String sql = "select * from institucion where nombre =\""+ nom+"\"";
-            Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();    
             while(result.next()){
                 ins = new Institucion();
+                ins.setId(result.getInt("id"));
                 ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
                 //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
                 ins.setNombre(result.getString("nombre"));
@@ -101,7 +99,7 @@ public class InstitucionDao implements IDao<Institucion> {
         //pat sirve como el cur() de py 
         try {
             String sql = "select * from institucion";
-            Connection conn = Conexion.tomarConexion();
+            Connection conn = conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
@@ -127,17 +125,16 @@ public class InstitucionDao implements IDao<Institucion> {
     }
     
     public Institucion loginInstitucion(String correo, String contraseña){
-        int id = 666;
+        String nombre = "no name";
         Institucion inst = null;
         try {
-            String sql = "select id from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
-            Connection conn = Conexion.tomarConexion();
+            String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
-                id = result.getInt("id");
+                nombre = result.getString("nombre");
             }
-            inst = consultar(String.valueOf(id));
+            inst = consultar(nombre);
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }

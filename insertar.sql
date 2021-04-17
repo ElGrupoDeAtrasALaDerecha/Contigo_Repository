@@ -34,8 +34,8 @@ INSERT INTO institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion
 VALUES (5,1,"Colegio Gimnasio Los Pinares", "colegiogimnasio@gmail.com","Cra. 35 #9 Sur 160",true,false,"Los Balsos II","42686034","1234","https://bit.ly/3thUZop");
 
 #Grados
-insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("aaaaa",1,2);
-insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("11B",2,2);
+insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("aaaaa",1,(select id from institucion where correo="colegiogimnasio@gmail.com"));
+insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("11B",2,(select id from institucion where correo="colegiogimnasio@gmail.com"));
 
 #Estudiante
 call insertarEstudiante("1000853620",1,"Valeria","","Bermúdez" ,"González","3","2000-07-26","12348","femenino","aaaaa");

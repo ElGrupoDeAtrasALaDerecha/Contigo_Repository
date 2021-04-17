@@ -95,14 +95,17 @@ a {
 .banner2 {
 	background-attachment: fixed;
 	background-color: #222831;
-	background-image: url(../img/FondoB.jpg);
-	background-position: top center;
-	background-repeat: no-repeat;
-	background-size: cover;
+	background-image: url();
+	background-repeat:repeat-x,  no-repeat;
+	background-size:cover;
+	min-height: 100%;
+	min-width: 100%;
+	background-position: absolute;
 	color: #222831;
 	cursor: default;
 	text-align: center;
-	width: 100%;
+	width:100% ;
+	height: auto;
 	float: left;
 }
 
