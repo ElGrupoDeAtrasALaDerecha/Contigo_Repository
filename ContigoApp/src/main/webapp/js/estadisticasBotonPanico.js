@@ -12,16 +12,42 @@ var pCont = document.getElementById("areaContador");
 
 
 $(document).ready(function () {
+    traerGrados();
     estudiante = parseInt(getCookie("tipoUsuario"));
     console.log(estudiante)
-    console.log(fecha)
+    console.log(hoy)
 });
 
+function traerGrados() {
+    $.ajax({
+        method: 'GET',
+        url: 'Grado',
+        data: JSON.stringify(obj),
+        dataType: "json",
+        success: function (response) {
+            if (response.tipo === "ok") {
+                console.log(response);
+                grados = result.Grados;
+                cargarSelectGrados(grados);
+            } else {
+                console.log(response.mensaje);
+            }
+        },
+        error: function (response) {
+            console.log(JSON.stringify(response))
+        }
+    });
+}
+
+function cargarSelectGrados(grados) {
+    for(var grado in grados){ 
+        document.getElementById("grados").innerHTML += "<option value='"+grados[i]+"'>"+grados[i]+"</option>";
+     }
+
+}
+
 boton.onclick = function () {
-    clicks++;
-    pCont.textContent = clicks;
     var obj = {
-        clicks: clicks,
         fecha: fecha,
         estudiante: estudiante
     }
@@ -50,7 +76,7 @@ function enviarInformacion(obj) {
     });
 }
 
-$("#btnGerar").click(function() {
+$("#btnGerar").click(function () {
     var obj = {
         estudiante: estudiante
     }
