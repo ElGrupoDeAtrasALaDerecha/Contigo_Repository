@@ -1,12 +1,11 @@
 var usuario
 var token
 $(document).ready(function () {
-
+    LlamarGrado();
     usuario = parseInt(getCookie("tipoUsuario"));
     token = parseInt(getCookie("token"));
     documento = parseInt(getCookie("documento"));
     $('.ui.dropdown').dropdown();
-    LlamarGrado();
 });
 
 function LlamarGrado() {
@@ -242,6 +241,8 @@ function colocarInfo(array, orador, personal) {
         '<h3><span></span> </h3>' 
         //'<a id="btnRegistrarEstu" class="banner-button">Registrarse</a>'
     $("#titulo").append(text);
+
+    document.getElementById("banner2").style.background="url("+array.imagen+") repeat";
 
 
 }

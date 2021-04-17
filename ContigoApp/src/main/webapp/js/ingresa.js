@@ -7,7 +7,7 @@ $("#ing_inst").click(function (e) {
         correo: email,
         contraseña: pass
     };
-    console.log(obj);
+    //console.log(obj);
     loginInstitucion(obj);
 });
 /**
@@ -24,18 +24,18 @@ function loginInstitucion(obj) {
         contentType: 'JSON application/json charset=utf-8',
         success: function (response) {
             if (response.tipo === "ok") {
-                console.log(response);
+                //console.log(response);
                 setCookie("ID_Inst", response.ID, 0.3);
                 setCookie("tipoUsuario", 3, 0.5)
-                console.log(response.mensaje)
+                // console.log(response.mensaje)
                 $(location).attr('href', 'admin_inst.html');
             }else{
-                alert(response.mensaje);
+                console.log(response.mensaje);
             }
         },
         error: function (response) {
             console.log("Error: " + response.mensaje)
-            console.log(JSON.stringify(response))
+            //console.log(JSON.stringify(response))
         }
     });
 }

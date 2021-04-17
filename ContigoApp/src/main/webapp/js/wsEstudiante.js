@@ -9,6 +9,7 @@ $(document).ready(function(){
 		alert("No autorizado");
 		window.location.assign("index.html");
 	}
+	conectar();
 })
 
 var numeroSala;
@@ -21,32 +22,53 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
+var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
 /**
 * Websocket
 */
 
 var misMensajes=new Array();
-var websocket = new WebSocket(wsUri);
-websocket.onopen = function (event) {
-	console.log("Conectado..."); //... y aparecerá en la pantalla
-	enviarCredenciales();
-	ping();
-}
+var websocket;
 
-websocket.onmessage = function (event) {
-	if (event.data === "pong") {
+/**
+ * Función que se encarga de conectar al servidor
+ */
+function conectar(){
+	websocket=new WebSocket(wsUri);
+	websocket.onopen = function (event) {
+		console.log("Conectado..."); //... y aparecerá en la pantalla
+		enviarCredenciales();
 		ping();
-	} else {
-		let obj = JSON.parse(event.data);
-		if (obj.tipo === "codigo sala") {
-			numeroSala = obj.numero;
-			pintarRespuesta(obj.mensaje);
-		} else if (obj.tipo === "respuesta" ||obj.tipo === "mensajeDePersonal"||obj.tipo === "perdidaConexion") {
-			pintarRespuesta(obj.mensaje);
+	}
+	
+	websocket.onmessage = function (event) {
+		if (event.data === "pong") {
+			ping();
+		} else {
+			let obj = JSON.parse(event.data);
+			console.log(obj)
+			if (obj.tipo === "codigo sala") {
+				numeroSala = obj.numero;
+				pintarRespuesta(obj.mensaje);
+			} else if (obj.tipo === "respuesta" ||obj.tipo === "mensajeDePersonal"||obj.tipo === "perdidaConexion") {
+				pintarRespuesta(obj.mensaje);
+			} else if (obj.tipo === "escribiendoPersonal"){
+				pintarEscribiendo();
+			}
 		}
 	}
+	websocket.onerror=function (event){
+		console.error('Socket encountered error: ', err.message, 'Closing socket');
+    	ws.close();
+  	}
+	websocket.onclose=function(event){
+		console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+    	setTimeout(function() {conectar();}, 1000);
+
+	}
 }
+
+
 
 /**
  * Función que envía un mensaje (serializado) al servidor
@@ -172,3 +194,26 @@ $("body").keyup(function (e) {
 		$('#btn_enviar_mns').click();
 	}
 });
+
+
+const x = document.getElementById('escribiendoPersonal');
+	x.style.display ="none"
+$("#Enviarmensaje").keypress(function(event){
+	if (event.which !== 13){
+		let mensaje={
+			tipo:"escribiendoEstudiante",
+			numeroSala: numeroSala
+		}
+		enviarMensaje(mensaje)
+	}
+})
+
+function pintarEscribiendo(){
+	let timeout
+	x.style.display ="block"
+	clearTimeout(timeout)
+	timeout = setTimeout(() => {
+		x.style.display ="none"
+		clearTimeout(timeout)
+	}, 1000)	
+}

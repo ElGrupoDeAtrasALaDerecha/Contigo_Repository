@@ -24,7 +24,11 @@ public class InstitucionDao implements IDao<Institucion> {
     PreparedStatement pat;
     Statement stmt; 	            
     ResultSet result;
-    
+    /**
+     * 
+     * @param ins
+     * @return 
+     */
     @Override
     public boolean crear(Institucion ins) {
         
@@ -65,6 +69,7 @@ public class InstitucionDao implements IDao<Institucion> {
             result = pat.executeQuery();    
             while(result.next()){
                 ins = new Institucion();
+                ins.setId(result.getInt("id"));
                 ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
                 //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
                 ins.setNombre(result.getString("nombre"));
@@ -127,17 +132,17 @@ public class InstitucionDao implements IDao<Institucion> {
     }
     
     public Institucion loginInstitucion(String correo, String contraseña){
-        int id = 666;
+        String nombre = "no name";
         Institucion inst = null;
         try {
-            String sql = "select id from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
+            String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
             Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
-                id = result.getInt("id");
+                nombre = result.getString("nombre");
             }
-            inst = consultar(String.valueOf(id));
+            inst = consultar(nombre);
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -78,7 +78,7 @@ $(document).ready(function () {
                                     <li><a href="Conversatorios.html">Conversatorios</a></li>
                                     <li><a href="decisiones.html">Decisiones</a></li>
                                     <li><a href="#">Ayuda</a></li>
-                                    <li style="float:right;"><div id="salir"><a href="">Salir</a></div></li>
+                                    <li style="float:right;"><div id="salir"><a>Salir</a></div></li>
                                 </div>
                             </ul>
                             </div>`
@@ -93,5 +93,6 @@ $(document).ready(function () {
 function cerrarSesion() {
     delete_cookie("token");
     delete_cookie("tipoUsuario");
+    delete_cookie("documento");
     window.location.assign("index.html");
 }

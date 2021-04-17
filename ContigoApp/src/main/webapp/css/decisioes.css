@@ -16,10 +16,10 @@
 }
 h2{
     color: white;
-    font-family: 'Kaushan Script';
     font-size: 60px;
     padding: 3% 0 3%;
     text-align: center;
+    font-family: 'Open Sans', sans-serif;
 }
 #contenedor{
     /* border: solid rgb(1, 252, 1) 1px; */
@@ -50,7 +50,6 @@ p{
     width: 50%;
 }
 #esc{
-    font-family: 'Kaushan Script';
     font-size: 50px;
     margin: 0 auto;
     list-style: none;
@@ -61,6 +60,22 @@ p{
 }
 #esc li a:hover{
     color: #fde9c9;
+}
+#esc1{
+    font-size: 30px;
+    margin: 0 auto;
+    list-style: none;
+    width: 60%;
+}
+#esc1 li{
+    margin-bottom: 7%;
+}
+#esc1 li a:hover{
+    color: #fde9c9;
+}
+.Oculto{
+    display: none;
+
 }
 
 
