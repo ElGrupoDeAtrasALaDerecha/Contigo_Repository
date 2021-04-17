@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.websocket.CloseReason;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -23,7 +22,7 @@ import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**
- * Clase Websocket contigo Bot.
+ * Clase Websocket contigo Bot
  *
  * @author Valeria Bermúdez, Santiago Pérez y Camila Fernández
  * @since 2020-03-09
@@ -177,12 +176,10 @@ public class ContigoBot {
      * Método onClose.Indica qué hacer cuando se cierran las conexiones 
      *
      * @param sesion que es la sesión que se cierra
-     * @param reason
      * @throws IOException por posibles errores de entrada y salida de datos
      */
     @OnClose
-    public void onClose(Session sesion, CloseReason reason) throws IOException {
-        System.out.println("Código "+reason.getCloseCode().getCode());
+    public void onClose(Session sesion) throws IOException {
         System.out.println("Conexión cerrada " + sesion.getId());
         for (int i = 0; i < PERSONALES.size(); i++) {
             if (PERSONALES.get(i).getId().equals(sesion.getId())) {//Si el personal es el que se desconecta y está con salas

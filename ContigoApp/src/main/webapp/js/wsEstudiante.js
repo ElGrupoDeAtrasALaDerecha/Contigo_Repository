@@ -23,7 +23,7 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
+var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
 /**
 * Websocket
 */
@@ -37,9 +37,10 @@ var websocket;
 function conectar(){
 	websocket=new WebSocket(wsUri);
 	websocket.onopen = function (event) {
+		ping();
 		console.log("Conectado..."); //... y aparecerá en la pantalla
 		enviarCredenciales();
-		ping();
+		
 	}
 	
 	websocket.onmessage = function (event) {
@@ -224,8 +225,8 @@ function pintarEscribiendo(){
 function pintarCierreConexion(mensaje){
 	conexionTerminada=true;
 	pintarRespuesta(mensaje);
+	$("#Enviarmensaje").val("En un momento serás redirigido a la ventana principal");
 	$("#Enviarmensaje").prop("readonly", true);
-	setTimeout(function() {
-	}, 3000);
+	setTimeout(function() {}, 3000);
 	window.location.assign("opciones.html");
 }
