@@ -84,8 +84,8 @@ h1 {
 #chat #mensajes .mensaje-autor{
     margin-bottom: 1%;
     margin-top: 1%;
-    margin-right: 10%;
-    margin-left: 20%;
+    margin-right: 15%;
+    
 }
 
 #chat #mensajes .mensaje-autor .contenido{
@@ -100,7 +100,7 @@ h1 {
     font-style: open sans;
     padding: 1%;
     vertical-align: top;
-    width: 88%;
+    width: 95%;
 }
 #chat #mensajes .mensaje-autor .fecha{
     color: #777;
