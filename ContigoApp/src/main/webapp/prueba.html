@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
+    <link rel="stylesheet" href="css/navfooter.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/prueba.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<body>
+
+    <br>
+    <center>
+        <h2>Gestión de datos</h2>
+    </center>
+
+    <br>
+    <center>
+        <p>A continuación seleccione los datos solicitados y así obtendrá un análisis parcial del uso de la plataforma
+            dado por los estudiantes. </p>
+    </center>
+    <br>
+    <br>
+
+    <div id="ge" class="grafest">
+        <center>
+            <p>¿Qué desea consultar?</p>
+        </center>
+        <select id="consulta" name="cons" class="ui search fluid dropdown" onchange="obtenerSelect();">
+            <option value="">Datos a visualizar</option>
+            <option value="1">Graficas por grados</option>
+            <option value="2">Graficas por estudiante</option>
+        </select>
+    </div>
+
+    <div id="opcGrado">
+        <section id="contenedor_cc">
+            <div id="Grados" class="credencial">
+                <center>
+                    <p>¿Seleccione el grado?</p>
+                </center>
+                <select id="grados" name="grados" class="ui search fluid dropdown" onchange="selects();">
+                    <option value="">Grados</option>
+                    <option value="1">Transición</option>
+                    <option value="2">Primero</option>
+                    <option value="3">Segundo</option>
+                    <option value="4">Tercero</option>
+                    <option value="5">Cuarto</option>
+                    <option value="6">Quinto</option>
+                    <option value="7">Sexto</option>
+                    <option value="8">Séptimo</option>
+                    <option value="9">Octavo</option>
+                    <option value="10">Noveno</option>
+                    <option value="11">Décimo</option>
+                    <option value="12">Once</option>
+                    <option value="13">Global</option>
+                </select>
+            </div>
+
+            <div id="cursos" class="credencial">
+                <center>
+                    <p>Seleccione el tiempo </p>
+                </center>
+
+                <select id="frecuenciaEstadisticas" name="grados" class="ui search fluid dropdown"
+                    onchange="selects();">
+                    <option value="">Intervalos de tiempo</option>
+                    <option value="1">Diario</option>
+                    <option value="2">Semanal</option>
+                    <option value="3">Mensual</option>
+                </select>
+            </div>
+            <div id="ListaEstudiantes" class="credencial">
+                <center>
+                    <p>Seleccione el estudiante </p>
+                </center>
+                <select id="estudiantes" name="estudiantes" class="ui search fluid dropdown">
+                    <option value="">estudiantes</option>
+                    
+                </select>
+            </div>
+        </section>
+    </div>
+    
+    
+
+    <div id="btn">
+        <div class="contenedor_credencial">
+            <button href="gestionCurso.html" id="btnGerar" class="btn" type="submit">Generar Datos</button>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+<script src="js/template.js"></script>
+<script src="js/conver.js"></script>
+<script src="js/funciones.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script src="js/ayuda.js"></script>
+<script src="js/Vestadisticas.js"></script>
+
+</html>
