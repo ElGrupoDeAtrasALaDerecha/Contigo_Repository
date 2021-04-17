@@ -16,6 +16,9 @@
         href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap"
         rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
 <body>
@@ -23,33 +26,33 @@
     <div id="Datos">
         <table id="table-datos">
             <tr>
-                <td id="Columna-datos">
-                    <div id="Espacios">
+                <td id="Columna-datos3">
+                    <div class="Espacios tip" >
                         <select class="select-css Texto" name="TipoDocumento" id="TipoDocumento">
                             <option value="">Tipo de documento</option>
                         </select>
                     </div>
-                    <div id="Espacios">
+                    <div class="Espacios num" >
                         <input type="number" id="TIoCC" class="Texto" placeholder="Numero de documento" name="TIoCC">
                     </div>
-                    <div id="Espacios">
+                    <div class="Espacios pri" >
                         <input type="text"
                             onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))"
                             id="PrimerNombre" class="Texto" placeholder="Primer nombre" name="PrimerNombre">
                     </div>
-                    <div id="Espacios">
+                    <div class="Espacios ape" >
                         <input type="text" id="PrimerApellido" class="Texto" placeholder="Primer apellido"
                             name="PrimerApellido"
                             onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
-                    <div id="Espacios">
+                    <div class="Espacios gen">
                         <select class="select-css Texto" name="Genero" id="Genero">
                             <option>Genero</option>
                             <option value="femenino">Femenino</option>
                             <option value="masculino">Masculino</option>
                         </select>
                     </div>
-                    <div id="Espacios5">
+                    <div class="Espacios cod" >
                         <input type="text" class="Texto" id="CodigoInstitucional" placeholder="Código institucional"
                             name="CodigoInstitucional">
                     </div>
@@ -57,37 +60,40 @@
                 </td>
                 <td id="Columna-datos2">
                     <span class="textFecha" id="textFecha">Fecha de nacimiento</span>
-                    <div id="Espacios4">
+                    <div class="Espacios fec" >
                         <input type="date" class="Texto" id="FechaNacimiento" name="FechaNacimiento" max="2020-03-24">
                     </div>
                     
-                    <div id="Espacios5">
+                    <div class="Espacios">
                         <input type="text" class="Texto" placeholder="Segundo nombre" name="SegundoNombre" id="SegundoNombre"
                             onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
-                    <div id="Espacios5">
+                    <div class="Espacios seg" >
                         <input type="text" class="Texto" id="SegundoApellido" placeholder="Segundo apellido"
                             name="SegundoApellido"
                             onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))">
                     </div>
-
+                    <div class="Espacios cor" >
+                        <input type="text" class="Texto" id="correo" placeholder="Correo" name="Correo" >
+                    </div>
                    
-                    <div id="Espacios5">
+                    <div class="Espacios con" >
                         <input type="password" class="Texto" id="contra" placeholder="Contraseña" name="Contraseña">
                     </div>
-                    <div id="Espacios5">
+                    <div class="Espacios confi" >
                         <input type="password" class="Texto" id="conficontra" placeholder="Confirmar contraseña"
                             name="ConfirmarContraseña">
                     </div>
-                    <div id="Espacios4">
-                        <input type="button" id="Button" value="Crear usuario" name="CrearUsuario" onClick="Ingresar();">
-                    </div>
+                    
                 </td>
             </tr>
 
         </table>
-        
+        <div id="boton">
+            <input type="button" id="Button2" value="Crear usuario" name="CrearUsuario" onClick="Ingresar();">
+        </div>
     </div>
+    
     <div id="alert"></div>
     <script src="js/js_componentes/bootstrap.min.js"></script>
     <script src="js/js_componentes/bootstrap.min.js"></script>

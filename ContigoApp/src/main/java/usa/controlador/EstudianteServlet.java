@@ -43,7 +43,9 @@ public class EstudianteServlet extends HttpServlet {
         EstudianteDao daoestu = (EstudianteDao) dao;
         Estudiante estudiante = daoestu.consultarPorTokenGrado(request.getParameter("id"));
         if (estudiante != null) {
-            JSONObject estudianteJson = new JSONObject(Utils.toJson(estudiante));
+            Gson gson = new Gson();
+            JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
+
             respuesta.put("tipo", "ok");
             respuesta.put("estudiante", estudianteJson);
         } else {
@@ -65,7 +67,7 @@ public class EstudianteServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+      response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         Gson gson = new Gson();
