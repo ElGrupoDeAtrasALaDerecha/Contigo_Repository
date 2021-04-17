@@ -81,11 +81,18 @@ h1 {
     width: 100%;
     overflow-y: scroll 
 }
+
 #chat #mensajes .mensaje-autor{
     margin-bottom: 1%;
     margin-top: 1%;
-    margin-right: 15%;
-    
+    margin-right: 10%;
+}
+#logoPC{
+
+    position: initial;
+}
+#pi{
+    float:left;
 }
 
 #chat #mensajes .mensaje-autor .contenido{
@@ -100,13 +107,14 @@ h1 {
     font-style: open sans;
     padding: 1%;
     vertical-align: top;
-    width: 95%;
+    width: 75%;
 }
+
 #chat #mensajes .mensaje-autor .fecha{
     color: #777;
     font-style: italic;
     font-size: 90%;
-    text-align: left;
+    text-align: right;
     margin-top: 1%;
 }
 
@@ -114,7 +122,9 @@ h1 {
     margin-bottom: 1%;
     margin-top: 1%;
     margin-left: 20%;
-
+}
+#iconP{
+    text-align: right;
 }
 #chat #mensajes .mensaje-amigo .contenido{
     background-color: #273238;
@@ -128,7 +138,7 @@ h1 {
     font-style: open sans; 
     padding: 1%;
     vertical-align: top;
-    width: 95%;
+    width: 80%;
 }
 #chat #mensajes .mensaje-amigo img, #chat #mensajes .mensaje-autor img{
     border-radius: 5%;
