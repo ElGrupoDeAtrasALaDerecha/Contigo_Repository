@@ -5,6 +5,8 @@
  */
 package usa.modelo.dto;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author andre
@@ -13,7 +15,7 @@ public class EstadisticasBtnPanico {
     public EstadisticasBtnPanico () {}
     
     public int clikcs;
-    public String fecha;
+    public LinkedList<String> fechas = new LinkedList<String>();
     public Estudiante estudiante;
 
     public int getClikcs() {
@@ -24,14 +26,14 @@ public class EstadisticasBtnPanico {
         this.clikcs = clikcs;
     }
 
-    public String getFecha() {
-        return fecha;
+    public LinkedList<String> getFechas() {
+        return fechas;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFechas(LinkedList<String> fechas) {
+        this.fechas = fechas;
     }
-
+    
     public Estudiante getEstudiante() {
         return estudiante;
     }
