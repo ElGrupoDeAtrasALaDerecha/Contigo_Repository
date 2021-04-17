@@ -40,9 +40,9 @@ public class ContigoBot {
      */
     private static final LinkedList<Sala> SALAS = new LinkedList();
     
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao personalDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
-    IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
+    private static final AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    private static final IDao personalDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
+    private static final IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
     /**
      * Método onOpen
      *
