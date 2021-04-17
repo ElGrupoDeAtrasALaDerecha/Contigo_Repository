@@ -24,12 +24,8 @@ var websocket = new WebSocket(wsUri);
 $(document).ready(function () {
 	if (getCookie("tipoUsuario") !== "2") {
 		alert("No autorizado");
-		window.location.assign("index.html");
 		$('#cerrarConexion').popup();
 	}
-})
-websocket.onopen = function (event) {
-	console.log("Conectado..."); //... y aparecerá en la pantalla
 	enviarCredenciales();
 	ping();
 }
