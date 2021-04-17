@@ -17,7 +17,7 @@ import usa.modelo.dao.IDao;
 @WebServlet(name = "HistoriaServlet", urlPatterns = {"/Historia"})
 public class HistoriaServlet extends HttpServlet {
     AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao dao = (IDao)factoryDao.obtener("PersonalCalificadoDao");
+    IDao dao = (IDao)factoryDao.obtener("HistoriaDao");
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
