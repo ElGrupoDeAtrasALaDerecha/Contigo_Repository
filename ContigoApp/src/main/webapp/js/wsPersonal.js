@@ -24,7 +24,7 @@ var websocket = new WebSocket(wsUri);
 $(document).ready(function () {
 	if (getCookie("tipoUsuario") !== "2") {
 		alert("No autorizado");
-		window.location.assign("index.html");
+		//window.location.assign("index.html");
 	}
 })
 websocket.onopen = function (event) {
