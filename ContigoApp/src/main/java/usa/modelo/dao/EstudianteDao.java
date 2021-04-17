@@ -22,6 +22,7 @@ import usa.utils.Utils;
 public class EstudianteDao implements IDao<Estudiante> {
 
     private PreparedStatement pat;
+    private ResultSet rs;
 
     @Override
     public boolean crear(Estudiante estudiante) {
@@ -51,17 +52,18 @@ public class EstudianteDao implements IDao<Estudiante> {
     public Estudiante consultar(String id) {
         Estudiante estudiante = null;
         try {
-
-            String sql = "select * from Estudiante where documento =\"" + id + "\"";
+            String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
-            ResultSet rs = pat.executeQuery();
-            estudiante = new Estudiante();
+            rs = pat.executeQuery();
             while (rs.next()) {
-                estudiante.setPrimerApellido("primerNombre");
+                estudiante = new Estudiante();
+                estudiante.setDocumento(rs.getString("PERSONA_documento"));
+                estudiante.setGrado(rs.getString("GRADO_codigo"));
             }
+            rs.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
-
         }
         return estudiante;
     }
