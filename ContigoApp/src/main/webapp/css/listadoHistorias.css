@@ -1,0 +1,35 @@
+
+
+.Container{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    display: flex;
+    Flex-wrap: wrap;
+    Justify-content: Space-around;
+    background-color: #222831;
+}
+.item{
+    height: 230px;
+    width: 35%;
+    margin-bottom: 3%;
+    display: flex;
+    background-image: url("Imagen/team.jpg");
+    background-size: 100% ;
+    Align-items: Flex-end
+}
+.bottom{
+    background-color: rgb(48, 68, 92, .8 );
+    height: 35%;
+}
+.textTitle{
+    font-size: 12px;
+    color:rgba(255,255,255,1);
+    margin-left: 6px;
+    margin-top: 6px;
+}
+.text{
+    margin-left: 6px;
+    margin-top: -10px;
+    font-size: 10px;
+    color:rgba(255,255,255,1);
+}
