@@ -82,9 +82,9 @@ h1 {
     overflow-y: scroll 
 }
 #chat #mensajes .mensaje-autor{
-    margin-bottom: 2%;
+    margin-bottom: 1%;
     margin-top: 1%;
-    margin-right: 1%;
+    margin-right: 15%;
 }
 
 #chat #mensajes .mensaje-autor .contenido{
@@ -96,9 +96,10 @@ h1 {
     color: rgb(0, 0, 0);
     display: inline-block;
     font-size: 100%;
+    font-style: open sans;
     padding: 1%;
     vertical-align: top;
-    width: 95%;
+    width: 88%;
 }
 #chat #mensajes .mensaje-autor .fecha{
     color: #777;
