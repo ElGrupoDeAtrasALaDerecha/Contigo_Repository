@@ -98,7 +98,6 @@ a {
 	background-image: url();
 	background-repeat:repeat-x,  no-repeat;
 	background-size:cover;
-	min-height: 100%;
 	min-width: 100%;
 	background-position: absolute;
 	color: #222831;

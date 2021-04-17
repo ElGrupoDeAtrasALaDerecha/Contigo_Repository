@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import usa.modelo.dto.Clasificacion;
 
 /**
- *
+ *fdsfsdfsdfsd
  * @author andre
  */
 public class ClasificacionDao implements IDao<Clasificacion>{
