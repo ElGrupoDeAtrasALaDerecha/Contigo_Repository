@@ -15,7 +15,7 @@
  /**
  * Dirección con protocolo ws
  */
- var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
+ var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
  /**
  * Websocket
  */
@@ -86,7 +86,7 @@
 	 }
  }
  websocket.onclose = function(event){
-	 window.location.assign("admin_perca.html");
+	 //window.location.assign("admin_perca.html");
  }
  
  
