@@ -21,6 +21,8 @@ public class FactoryDao {
             dao=new DepartamentoDao(); 
         }
         if(nombreDao.equals("EstudianteDao")){
+            
+        }
             dao=new EstudianteDao(); 
         if(nombreDao.equals("ConversatoriosDao")){
             dao =  new ConversatoriosDao();
