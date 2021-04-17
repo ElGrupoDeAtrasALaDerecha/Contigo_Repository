@@ -70,14 +70,9 @@ public class EstudianteServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         IDao dao = FactoryDao.obtenerDao("EstudianteDao");
         JSONObject respuesta = new JSONObject();
-<<<<<<< HEAD
-        Estudiante estudiante = dao.consultarPorTokenGrado(request.getParameter("id"));
-
-=======
         EstudianteDao daoestu = (EstudianteDao)dao;
         Estudiante estudiante = daoestu.consultarPorTokenGrado(request.getParameter("id"));
         
->>>>>>> V2.0
         if (estudiante != null) {
             Gson gson = new Gson();
             JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
@@ -111,19 +106,12 @@ public class EstudianteServlet extends HttpServlet {
         System.out.println(mensaje);
         Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
 
-<<<<<<< HEAD
-        EstudianteDao dao = new EstudianteDao();
-        System.out.println(estudiante.getDocumento());
-        
-        if (dao.consultar(estudiante.getDocumento())!= null) {
-=======
         IDao dao = FactoryDao.obtenerDao("EstudianteDao");
         
         if (dao.crear(estudiante)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Estudiante creado");
         } else {
->>>>>>> V2.0
             json.put("tipo", "error");
             json.put("mensaje", "Ya existe un estudiante con ese documento");
         } else {
