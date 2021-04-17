@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import usa.bd.IConexionBD;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
 import usa.utils.Utils;
 /**
  * Clase de acceso a datos de estudiantes
@@ -24,7 +27,6 @@ public class EstudianteDao implements IDao<Estudiante> {
     public boolean crear(Estudiante estudiante) {
         try {
             String sql = "call insertarEstudiante(?,?,?,?,?,?,?,?,?,?,?)";
-            Connection conn = Conexion.tomarConexion();
             CallableStatement call = conn.prepareCall(sql);
             call.setString("_documento", estudiante.getDocumento());
             call.setInt("_TIPO_DOCUMENTO_ID", estudiante.getTipoDocumento());
@@ -48,7 +50,6 @@ public class EstudianteDao implements IDao<Estudiante> {
     @Override
     public Estudiante consultar(String id) {
         Estudiante estudiante = null;
-        Connection conn = Conexion.tomarConexion();
         try {
 
             String sql = "select * from Estudiante where documento =\"" + id + "\"";
@@ -82,7 +83,6 @@ public class EstudianteDao implements IDao<Estudiante> {
 
     public Estudiante consultarPorToken(String token) {
         Estudiante estudiante = null;
-        Connection conn = Conexion.tomarConexion();
         try {
 
             String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
@@ -110,7 +110,6 @@ public class EstudianteDao implements IDao<Estudiante> {
     
      public Estudiante consultarPorTokenGrado(String id) {
              Estudiante estudiante = null;
-        Connection conn = Conexion.tomarConexion();
         try {
             String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
@@ -128,7 +127,6 @@ public class EstudianteDao implements IDao<Estudiante> {
 
     public Estudiante consultarPorCredenciales(String documento, String contraseña) {
         Estudiante estudiante = null;
-        Connection conn = Conexion.tomarConexion();
         try {
 
             String sql = "select p.* , e.GRADO_codigo from persona as p  \n"

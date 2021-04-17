@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
 import java.util.LinkedList;
@@ -47,7 +42,6 @@ public class MunicipioDao implements IDao<Municipio> {
         LinkedList<Municipio> municipios = new LinkedList<Municipio>();
         try {
             String sql = "select * from MUNICIPIO";
-            Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while (result.next()) {
