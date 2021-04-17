@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.websocket.CloseReason;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -13,12 +14,10 @@ import javax.websocket.server.ServerEndpoint;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
-import usa.factory.FactoryDao;
 import usa.factory.Producer;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IPersonalCalificadoDao;
-import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
@@ -175,13 +174,15 @@ public class ContigoBot {
     }
 
     /**
-     * Método onClose. Indica qué hacer cuando se cierran las conexiones
+     * Método onClose.Indica qué hacer cuando se cierran las conexiones 
      *
      * @param sesion que es la sesión que se cierra
+     * @param reason
      * @throws IOException por posibles errores de entrada y salida de datos
      */
     @OnClose
-    public void onClose(Session sesion) throws IOException {
+    public void onClose(Session sesion, CloseReason reason) throws IOException {
+        System.out.println("Código "+reason.getCloseCode().getCode());
         System.out.println("Conexión cerrada " + sesion.getId());
         for (int i = 0; i < PERSONALES.size(); i++) {
             if (PERSONALES.get(i).getId().equals(sesion.getId())) {//Si el personal es el que se desconecta y está con salas

@@ -24,7 +24,7 @@ var websocket = new WebSocket(wsUri);
 $(document).ready(function () {
 	if (getCookie("tipoUsuario") !== "2") {
 		alert("No autorizado");
-		//window.location.assign("index.html");
+		window.location.assign("index.html");
 		$('#cerrarConexion').popup();
 	}
 })
@@ -86,7 +86,7 @@ websocket.onmessage = function (event) {
 	}
 }
 websocket.onclose = function(event){
-	window.location.assign("admin_perca.html");
+	//window.location.assign("admin_perca.html");
 }
 
 

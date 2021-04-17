@@ -13,6 +13,7 @@ $(document).ready(function(){
 })
 
 var numeroSala;
+var conexionTerminada=false;
 
 /**
 * Promesa
@@ -53,7 +54,9 @@ function conectar(){
 				pintarRespuesta(obj.mensaje);
 			} else if (obj.tipo === "escribiendoPersonal"){
 				pintarEscribiendo();
-			}
+			} else if (obj.tipo==="cerrar conexion"){
+                pintarCierreConexion();    
+            }
 		}
 	}
 	websocket.onerror=function (event){
@@ -61,10 +64,11 @@ function conectar(){
     	ws.close();
   	}
 	websocket.onclose=function(event){
-		alert("Se perdió la conexión con el servidor. En un momento se reestablecerá la conexión");
-		console.log('Socket is closed. Reconnect will be attempted in 1 second.');
-    	setTimeout(function() {conectar();}, 1000);
-
+		if (conexionTerminada){
+			alert("Se perdió la conexión con el servidor. En un momento se reestablecerá la conexión");
+			console.log('Socket is closed. Reconnect will be attempted in 1 second.');
+    		setTimeout(function() {conectar();}, 1000);
+		}		
 	}
 }
 
@@ -215,4 +219,13 @@ function pintarEscribiendo(){
 		x.style.display ="none"
 		clearTimeout(timeout)
 	}, 1000)	
+}
+
+function pintarCierreConexion(mensaje){
+	conexionTerminada=true;
+	pintarRespuesta(mensaje);
+	$("#Enviarmensaje").prop("readonly", true);
+	setTimeout(function() {
+	}, 3000);
+	window.location.assign("opciones.html");
 }
