@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
 import java.sql.Connection;
@@ -35,7 +30,6 @@ public class InstitucionDao implements IDao<Institucion> {
         try {
             String sql = "insert into  institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web ) "
                     + "values (?,?,?,?,?,?,?,?,?,sha(?),?)";
-            Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             pat.setInt(1, ins.getIdMunicipio());
             pat.setInt(2, ins.getMETODO_PAGO_id());
@@ -64,7 +58,6 @@ public class InstitucionDao implements IDao<Institucion> {
         Institucion ins = null;
         try {
             String sql = "select * from institucion where nombre =\""+ nom+"\"";
-            Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();    
             while(result.next()){
@@ -106,7 +99,7 @@ public class InstitucionDao implements IDao<Institucion> {
         //pat sirve como el cur() de py 
         try {
             String sql = "select * from institucion";
-            Connection conn = Conexion.tomarConexion();
+            Connection conn = conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
@@ -136,7 +129,6 @@ public class InstitucionDao implements IDao<Institucion> {
         Institucion inst = null;
         try {
             String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
-            Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){

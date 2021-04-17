@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.controlador;
 
 import com.google.gson.Gson;
@@ -14,7 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
 import usa.modelo.dao.EstudianteDao;
+import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
 
@@ -25,31 +23,8 @@ import usa.utils.Utils;
 @WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
 public class EstudianteServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Estudiante</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Estudiante at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao)factoryDao.obtener("EstudianteDao");
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -64,14 +39,11 @@ public class EstudianteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         response.setContentType("application/json;charset=UTF-8");
-        EstudianteDao dao = new EstudianteDao();
         JSONObject respuesta = new JSONObject();
-        Estudiante estudiante = dao.consultarPorTokenGrado(request.getParameter("id"));
-        
+        EstudianteDao daoestu = (EstudianteDao)dao;
+        Estudiante estudiante = daoestu.consultarPorTokenGrado(request.getParameter("id"));
         if (estudiante != null) {
-            Gson gson = new Gson();
-            JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
-     
+            JSONObject estudianteJson = new JSONObject(Utils.toJson(estudiante));
             respuesta.put("tipo", "ok");
             respuesta.put("estudiante", estudianteJson);
         } else {
@@ -100,8 +72,7 @@ public class EstudianteServlet extends HttpServlet {
         String mensaje = Utils.readParams(request);
         System.out.println(mensaje);
         Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
-
-        EstudianteDao dao = new EstudianteDao();
+        
         if (dao.crear(estudiante)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Estudiante creado");
@@ -122,9 +93,5 @@ public class EstudianteServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private String toString(String parametros) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

@@ -1,6 +1,5 @@
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -9,9 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
-import usa.modelo.dao.EstudianteDao;
-import usa.modelo.dao.PersonalCalificadoDao;
-import usa.modelo.dto.Estudiante;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
+import usa.modelo.dao.IDao;
+import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
@@ -21,7 +21,8 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "LoginPersonalCalificadoServlet", urlPatterns = {"/LoginPersonalCalificado"})
 public class LoginPersonalCalificadoServlet extends HttpServlet {
-
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao)factoryDao.obtener("PersonalCalificadoDao");
     /**
      * Handles the HTTP <code>POST</code> method. En este caso, se habla del
      * ingreso de un personal calificado
@@ -38,12 +39,11 @@ public class LoginPersonalCalificadoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         JSONObject parametroJson = new JSONObject(parametros);
-        PersonalCalificadoDao dao = new PersonalCalificadoDao();
         JSONObject respuesta = new JSONObject();
-        PersonalCalificado personalcalificado = dao.consultarPorCredenciales(parametroJson.getString("correo"), parametroJson.getString("contraseña"));
+        IPersonalCalificadoDao daoPersonal=(IPersonalCalificadoDao)dao;
+        PersonalCalificado personalcalificado = daoPersonal.consultarPorCredenciales(parametroJson.getString("correo"), parametroJson.getString("contraseña"));
         if (personalcalificado != null) {
-            Gson gson = new Gson();
-            JSONObject personalJson = new JSONObject(gson.toJson(personalcalificado, PersonalCalificado.class));
+            JSONObject personalJson = new JSONObject(Utils.toJson(personalcalificado));
             personalJson.remove("contraseña");
             respuesta.put("tipo", "ok");
             respuesta.put("mensaje", "Bienvenido ");

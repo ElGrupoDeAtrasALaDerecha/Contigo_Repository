@@ -16,7 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.ConversatoriosDao;
+import usa.factory.AbstractFactory;
+import usa.factory.FactoryDao;
+import usa.factory.Producer;
+import usa.modelo.dao.IDao;
+import usa.modelo.dao.IDaoConversatorios;
 import usa.modelo.dto.Conversatorio;
 import usa.utils.Utils;
 
@@ -28,32 +32,10 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "ConversatorioServlet", urlPatterns = {"/Conversatorio"})
 public class ConversatorioServlet extends HttpServlet {
+    
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ConversatorioServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ConversatorioServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -69,15 +51,9 @@ public class ConversatorioServlet extends HttpServlet {
         
         response.setContentType("application/json;charset=UTF-8");
         System.out.println(request);
-        ConversatoriosDao dao = new ConversatoriosDao();
-        LinkedList<Conversatorio> conversatorios = dao.listarTodos();
-        Gson gson = new Gson();
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray();
+        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         respuesta.put("tipo", "ok");
-        for (Conversatorio conversatorio : conversatorios) {
-            arreglo.put(new JSONObject(gson.toJson(conversatorio, Conversatorio.class)));
-        }
         respuesta.put("conversatorios", arreglo);
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
@@ -97,20 +73,18 @@ public class ConversatorioServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         System.out.println(parametros);
-        Gson gson = new Gson();
-        Conversatorio conver = (Conversatorio) gson.fromJson(parametros, Conversatorio.class);
-        ConversatoriosDao dao = new ConversatoriosDao(); 
+        Conversatorio conver = (Conversatorio) Utils.fromJson(parametros, Conversatorio.class);
+        IDaoConversatorios daoConver=(IDaoConversatorios)dao;
         JSONObject respuesta = new JSONObject();
-        
-        int resultado = dao.crear(conver);
-        
+        int resultado = daoConver.crearConver(conver);
+       
         if (resultado != 0) {
             respuesta.put("tipo", "ok");
             respuesta.put("mensaje", "El conversatorio fue agendado correctamente");
             respuesta.put("conversatorio", resultado);
             String arregloClasificaciones[]=conver.getClasificacion();
             for (int i = 0; i < arregloClasificaciones.length; i++) {
-                dao.crearClasi(arregloClasificaciones[i],resultado);
+                daoConver.crearClasi(arregloClasificaciones[i],resultado);
             }
     
         } else {

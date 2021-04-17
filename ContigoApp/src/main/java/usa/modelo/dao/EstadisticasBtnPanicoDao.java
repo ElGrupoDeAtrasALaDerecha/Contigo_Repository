@@ -27,13 +27,14 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
     @Override
     public boolean crear(EstadisticasBtnPanico t) {
          try {
-            Connection con = Conexion.tomarConexion();
             String sql = "insert into ESTADISTICAS_BTNPANICO (CANTIDAD_CLICK, ESTUDIANTE_PERSONA_documento, FECHA) values (?,?,?)";
-            pat = con.prepareStatement(sql);
+            pat = conn.prepareStatement(sql);
             pat.setInt(1, t.getClikcs());
             pat.setString(2, t.getEstudiante().getDocumento());
             pat.setString(3, t.getFecha());
             pat.execute();
+            result.close();
+            pat.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,7 +47,6 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
         EstudianteDao estudainte = new EstudianteDao();
         EstadisticasBtnPanico est = null;
         try {
-            Connection conn = Conexion.tomarConexion(); 
             String sql = "select * from ESTADISTICAS_BTNPANICO where ESTUDIANTE_PERSONA_documento = '" + id + "';";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
@@ -56,6 +56,8 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
                 est.setFecha(result.getString("fecha"));
                 est.setEstudiante(estudainte.consultar(result.getString("ESTUDIANTE_PERSONA_documento")));
             }
+            result.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,10 +67,11 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
     @Override
     public boolean actualizar(EstadisticasBtnPanico est) {
         try {
-            Connection conn = Conexion.tomarConexion(); 
             String sql = "UPDATE `contigobd`.`ESTADISTICAS_BTNPANICO` SET `CANTIDAD_CLICK` = '" + (est.getClikcs()+1) +  "' WHERE (ESTUDIANTE_PERSONA_documento = '10008');";
             pat = conn.prepareStatement(sql);
             pat.executeQuery();
+            result.close();
+            pat.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,7 +90,6 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
         EstudianteDao estudainte = new EstudianteDao();
          try {
             String sql = "select * from ESTADISTICAS_BTNPANICO";
-            Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
@@ -97,6 +99,8 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
                 est.setEstudiante(estudainte.consultar(result.getString("ESTUDIANTE_PERSONA_documento")));
                 estadisticas.add(est);
             }
+            result.close();
+            pat.close();
             return estadisticas;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
