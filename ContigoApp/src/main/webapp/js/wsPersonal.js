@@ -6,6 +6,7 @@ var salasSinAtender = new Array();
 var salasEnAtencion = new Array();
 var salaElegida;
 var dataPersonal;
+var divEscribiendo;
 /**
 * Promesa
 * @param {*} ms 
@@ -14,16 +15,17 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://25.111.209.182:8080/ContigoApp/contiBot";
+var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
 /**
 * Websocket
 */
 var websocket = new WebSocket(wsUri);
 
-$(document).ready(function(){
-	if(getCookie("tipoUsuario")!=="2"){
+$(document).ready(function () {
+	if (getCookie("tipoUsuario") !== "2") {
 		alert("No autorizado");
-		window.location.assign("index.html");
+		//window.location.assign("index.html");
+		$('#cerrarConexion').popup();
 	}
 })
 websocket.onopen = function (event) {
@@ -52,7 +54,7 @@ websocket.onmessage = function (event) {
 			let sala = buscarSalaEnAtencion(numeroSala);
 			sala.mensajes.push(obj.mensaje);
 			if (numeroSala === parseInt(salaElegida, 10)) {
-				pintarRespuesta(obj.mensaje);
+				pintarRespuesta(obj.mensaje,true);
 			}
 
 		}
@@ -63,7 +65,7 @@ websocket.onmessage = function (event) {
 			agregarNombreChatSinAtender(obj.estudiante.primerNombre + " " + obj.estudiante.primerApellido, obj.numeroSala);
 		} else if (obj.tipo === "desconexionEstudiante") {
 			removerEstudianteDeLista(obj);
-			
+
 		}
 		else if (obj.tipo === "estudianteAtendido") {
 			console.log("Otro personal atendió un estudiante: ", obj)
@@ -71,16 +73,22 @@ websocket.onmessage = function (event) {
 		}
 		else if (obj.tipo === "conversacion") {
 			console.log("Se agregó una conversación ", obj);
-			let sala =buscarSalaEnAtencion(obj.numeroSala);
-			sala.mensajes=obj.conversacion;
-			salaElegida=obj.numeroSala;
-			aparecerChat(obj.estudiante.primerNombre+" "+obj.estudiante.primerApellido);
-			
+			let sala = buscarSalaEnAtencion(obj.numeroSala);
+			sala.mensajes = obj.conversacion;
+			salaElegida = obj.numeroSala;
+			aparecerChat(obj.estudiante.primerNombre + " " + obj.estudiante.primerApellido);
+
+		} else if (obj.tipo === "escribiendoEstudiante") {
+			pintarEscribiendo(obj.numeroSala);
 		}
 
 
 	}
 }
+websocket.onclose = function(event){
+	window.location.assign("admin_perca.html");
+}
+
 
 
 
@@ -120,9 +128,10 @@ function enviarCredenciales() {
 /**
  * Función que muestra en la pantalla la respuesta del servidor
  * @param {string} respuesta 
+ * @param {boolean} down
  */
 
-function pintarRespuesta(respuesta) {
+function pintarRespuesta(respuesta,down) {
 	let txt = `<div id="mns_tiempo_conti" class="mensaje-autor">
 	<i class="bi bi-person"></i>
 	<div class="flecha-izquierda"></div>
@@ -131,7 +140,10 @@ function pintarRespuesta(respuesta) {
 	</div>
 	`
 	$("#mensajes").append(txt);
-	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
+	if(down){
+		$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
+	}
+	
 }
 
 
@@ -148,7 +160,7 @@ function decirleAEstudiante(mensaje) {
 	enviarMensaje(datos);
 	sala = buscarSalaEnAtencion(datos.numeroSala);
 	sala.mensajes.push({ tipo: 2, emisor: dataPersonal.primerNombre + " " + dataPersonal.primerApellido, mensaje: mensaje });
-	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
+	$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
 }
 
 /**
@@ -238,8 +250,8 @@ function removerEstudianteDeLista(obj) {
 	for (let i = 0; i < salasEnAtencion.length; i++) {
 		if (salasEnAtencion[i].numeroSala === obj.numeroSala) {
 			salasEnAtencion.splice(i, 1);
-			if (parseInt(salaElegida,10) === parseInt(obj.numeroSala,10)) {
-				console.log("Entré al if",obj.mensaje)
+			if (parseInt(salaElegida, 10) === parseInt(obj.numeroSala, 10)) {
+				console.log("Entré al if", obj.mensaje)
 				$("#Enviarmensaje").val(obj.mensaje);
 				$("#Enviarmensaje").prop("readonly", true);
 				$("body").off("keyup");
@@ -329,7 +341,16 @@ function aparecerChat(nombre) {
 					<font style="vertical-align: inherit;">
 						<div id="chatCompleto2">
 							<div id="titulo">
+								
 								<h1>${nombre}</h1>
+								<div id="escribiendoEstudiante" class="escribiendoA">
+                    				<h5> Escribiendo</h5>
+                    				<div id="load"class="loader"></div>
+                				</div>
+								<button id="cerrarConexion" class="ui black mini right floated button"
+                                        data-content="Cerrar conexión">
+                                        <i class="close icon"></i>
+                                </button>
 							</div>
 							<div id="chat">
 								<div id="mensajes">
@@ -337,7 +358,7 @@ function aparecerChat(nombre) {
 								</div>
 							</div>
 							<div id="mensaje">
-								<input id="Enviarmensaje" type="text" placeholder="Escribir mensaje...">
+								<input id="Enviarmensaje" class="mensajeInput" type="text" placeholder="Escribir mensaje...">
 								<button id="btn_enviar_mns" type="button" class="btn btn-outline-dark">
 									<i class="bi bi-arrow-right-circle-fill"></i>
 								</button>
@@ -349,13 +370,29 @@ function aparecerChat(nombre) {
 
 	$("#chat_con_est").append(chat);
 
+
+	divEscribiendo = document.getElementById('escribiendoEstudiante');
+	divEscribiendo.style.display = "none"
+	$("#Enviarmensaje").keypress(function(event){
+		if (event.which !== 13){
+			let mensaje={
+				tipo:"escribiendoPersonal",
+				numeroSala: salaElegida
+			}
+			enviarMensaje(mensaje)
+		}
+	})
+
 	cargarListaDeMensajes();
 
 	/**
 	  * Al dar click, se envía un mensaje a un estudiante
 	  */
 	$("#btn_enviar_mns").click(function () {
-		mensajeDesdePersonalAlEstudiante();
+		if($("#Enviarmensaje").val()!==""){
+			mensajeDesdePersonalAlEstudiante();
+		}
+		
 	});
 	$("body").off("keyup");
 	$("body").keyup(function (e) {
@@ -363,6 +400,10 @@ function aparecerChat(nombre) {
 			$('#btn_enviar_mns').click();
 		}
 	});
+
+	$("#cerrarConexion").click(function(){
+		cerrarConexionConEstudiante();
+	})
 }
 
 /**
@@ -371,14 +412,18 @@ function aparecerChat(nombre) {
 function mensajeDesdePersonalAlEstudiante() {
 	let mns = {
 		emisor: "Tú",
-		mensaje:$("#Enviarmensaje").val()
+		mensaje: $("#Enviarmensaje").val()
 	}
 	decirleAEstudiante(mns.mensaje);
-	pintarMensajeDePersonalAEstudiante(mns)
+	pintarMensajeDePersonalAEstudiante(mns,true)
 }
 
-
-function pintarMensajeDePersonalAEstudiante(mns){
+/**
+ * 
+ * @param {string} mns 
+ * @param {Boolean} down 
+ */
+function pintarMensajeDePersonalAEstudiante(mns,down) {
 	let mensaje = `
 		<div id="mns_tiempo_usuario" class="mensaje-amigo">
 		<div class="contenido"><b>${mns.emisor}: </b>${mns.mensaje} </div>
@@ -388,7 +433,10 @@ function pintarMensajeDePersonalAEstudiante(mns){
 		</div>`
 	$("#mensajes").append(mensaje);
 	$('input[type="text"]').val('');
-	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
+	if(down){
+		$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
+	}
+	
 }
 /**
  * Función que carga los mensajes de un chat específico
@@ -401,15 +449,38 @@ function cargarListaDeMensajes() {
 	for (let i = 0; i < mensajes.length; i++) {
 		let mensaje = mensajes[i];
 		if (mensaje.tipo === 1) {
-			pintarRespuesta(mensaje);
-			
+			pintarRespuesta(mensaje,false);
+
 		} else {
-			pintarMensajeDePersonalAEstudiante(mensaje);
+			pintarMensajeDePersonalAEstudiante(mensaje,false);
 		}
-		
+
 
 	}
 }
+/**
+ * 
+ * @param {*} numeroSalaMensaje 
+ */
+function pintarEscribiendo(numeroSalaMensaje) {
+	if (salaElegida === parseInt(numeroSalaMensaje, 10)) {
+		let timeout
+		divEscribiendo.style.display = "block"
+		clearTimeout(timeout)
+		timeout = setTimeout(() => {
+			divEscribiendo.style.display = "none"
+			clearTimeout(timeout)
+		}, 1000)
+	}
+}
 
-
-
+function cerrarConexionConEstudiante(){
+	let obj= {
+		tipo:"cerrar conexion",
+		numeroSala:salaElegida
+	}
+	enviarMensaje(obj);
+	$("#Enviarmensaje").val("Ha terminado de conversar con este estudiante");
+	$("#Enviarmensaje").prop("readonly", true);
+	$("body").off("keyup");
+}
