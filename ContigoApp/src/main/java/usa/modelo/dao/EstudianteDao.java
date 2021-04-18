@@ -17,7 +17,8 @@ import usa.utils.Utils;
  * @since 2021-03-13
  */
 public class EstudianteDao implements IDao<Estudiante> {
-/**/
+
+    /**/
     private PreparedStatement pat;
     private ResultSet rs;
 
@@ -49,7 +50,7 @@ public class EstudianteDao implements IDao<Estudiante> {
     public Estudiante consultar(String id) {
         Estudiante estudiante = null;
         try {
-            String sql =  "select p.* , e.GRADO_codigo from persona as p  \n"
+            String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
                     + "inner join estudiante as e on e.PERSONA_documento =p.documento\n where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             rs = pat.executeQuery();
@@ -84,7 +85,7 @@ public class EstudianteDao implements IDao<Estudiante> {
 
     @Override
     public LinkedList<Estudiante> listarTodos() {
-        LinkedList<Estudiante> estudiantes= new LinkedList();
+        LinkedList<Estudiante> estudiantes = new LinkedList();
         try {
             String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
                     + "inner join estudiante as e on e.PERSONA_documento =p.documento\n";
@@ -105,7 +106,7 @@ public class EstudianteDao implements IDao<Estudiante> {
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return estudiantes;
     }
 
@@ -135,9 +136,9 @@ public class EstudianteDao implements IDao<Estudiante> {
         }
         return estudiante;
     }
-    
-     public Estudiante consultarPorTokenGrado(String id) {
-             Estudiante estudiante = null;
+
+    public Estudiante consultarPorTokenGrado(String id) {
+        Estudiante estudiante = null;
         try {
             String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
@@ -177,6 +178,25 @@ public class EstudianteDao implements IDao<Estudiante> {
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
 
+        }
+        return estudiante;
+    }
+
+    public Estudiante consultarID(String id) {
+        Estudiante estudiante = null;
+        try {
+            String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
+            pat = conn.prepareStatement(sql);
+            rs = pat.executeQuery();
+            while (rs.next()) {
+                estudiante = new Estudiante();
+                estudiante.setDocumento(rs.getString("PERSONA_documento"));
+                estudiante.setGrado(rs.getString("GRADO_codigo"));
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return estudiante;
     }

@@ -152,8 +152,12 @@ function consultarMunicipiosPorDepartamento(departamento_ID) {
 
 function llenarMunicipios(municipiosAPintar) {
     $('#municipio').empty();
+    let m = '<option value="">Municipio</option>';
     let txt = '';
     for (let i = 0; i < municipiosAPintar.length; i++) {
+        if(i==0){
+            $('#municipio').append(m);
+        }
         txt = '<option value ="' + municipiosAPintar[i].id + '">' + municipiosAPintar[i].nombre +
             '</option>';
         $('#municipio').append(txt);

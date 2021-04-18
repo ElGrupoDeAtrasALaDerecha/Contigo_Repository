@@ -1,6 +1,5 @@
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,9 +12,7 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
-import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.Historia;
-import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**

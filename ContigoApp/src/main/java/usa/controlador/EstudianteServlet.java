@@ -75,8 +75,9 @@ public class EstudianteServlet extends HttpServlet {
         String mensaje = Utils.readParams(request);
         System.out.println(mensaje);
         Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
+        EstudianteDao daoestu = (EstudianteDao) dao;
 
-        if (dao.consultar(estudiante.getDocumento())!= null) {
+        if (daoestu.consultarID(estudiante.getDocumento())!= null) {
             json.put("tipo", "error");
             json.put("mensaje", "Error el estudiante ya esta registrado");
         } else {
