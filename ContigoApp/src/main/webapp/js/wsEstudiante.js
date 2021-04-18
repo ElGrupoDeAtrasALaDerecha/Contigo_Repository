@@ -213,7 +213,3 @@ function pintarEscribiendo(){
 		clearTimeout(timeout)
 	}, 1000)	
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> V2.0

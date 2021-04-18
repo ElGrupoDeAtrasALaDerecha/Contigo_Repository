@@ -40,17 +40,21 @@ public class TipoDocumentoDao implements IDao<TipoDocumento> {
     @Override
     public LinkedList<TipoDocumento> listarTodos() {
         LinkedList<TipoDocumento> documentos = new LinkedList<TipoDocumento>();//jajaja encuentrame
+        System.out.println("---> 2");
         try {
             String sql = "select * from TIPO_DOCUMENTO";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
+            System.out.println("---> 2.3");
             while(result.next()){
+                System.out.println("---> 2.5");
                 TipoDocumento doc = new TipoDocumento();
                 doc.setId(result.getInt("id"));
                 doc.setTipo(result.getString("tipo"));
          
                 documentos.add(doc);
             }
+            System.out.println("---> 3");
             return documentos;
         } catch (SQLException ex) {
             Logger.getLogger(TipoDocumentoDao.class.getName()).log(Level.SEVERE, null, ex);

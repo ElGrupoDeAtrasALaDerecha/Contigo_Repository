@@ -33,7 +33,7 @@ public class FactoryDao implements AbstractFactory<IDao>{
         else if(nombreDao.equals("ConversatoriosDao")){
             dao =  new ConversatoriosDao();
         }
-        else if(nombreDao.equals("TipoDocumento")){
+        else if(nombreDao.equals("TipoDocumentoDao")){
             dao = new TipoDocumentoDao(); 
         } 
         else if(nombreDao.equals("PersonalCalificadoDao")){

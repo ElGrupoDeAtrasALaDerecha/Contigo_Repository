@@ -19,6 +19,7 @@ import usa.factory.AbstractFactory;
 import usa.factory.FactoryDao;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.TipoDocumentoDao;
 import usa.modelo.dto.TipoDocumento;
 import usa.utils.Utils;
 
@@ -28,8 +29,12 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "TipoDocumentoServlet", urlPatterns = {"/TipoDocumento"})
 public class TipoDocumentoServlet extends HttpServlet {
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("TipoDocumentoDao");
+        
+        
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -37,14 +42,14 @@ public class TipoDocumentoServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * t
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        AbstractFactory factoryDao = Producer.getFabrica("DAO");
-        IDao dao = (IDao) factoryDao.obtener("TipoDocumentoDao");
         JSONObject json = new JSONObject();
+        System.out.println("-----> 1");  
         JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         json.put("Identificaciones", arreglo);
         out.print(json.toString());
