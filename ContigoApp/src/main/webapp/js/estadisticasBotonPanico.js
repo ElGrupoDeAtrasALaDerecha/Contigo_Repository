@@ -1,23 +1,26 @@
 var estudiante
 let estadisticas
 
-fecha = hoy.toLocaleDateString();
-
 var boton = document.getElementById("generarEstadisticas");
 
 $(document).ready(function () {
     traerGrados();
-    estudiante = parseInt(getCookie("tipoUsuario"));
+    estudiante = getCookie("token");
     console.log(estudiante)
-    console.log(hoy)
+    var obj = {
+        estudiante: estudiante
+    }
+    console.log(obj)
+    enviarInformacion(obj)
+
 });
 
 function traerGrados() {
     $.ajax({
         method: 'GET',
         url: 'Grado',
-        data: JSON.stringify(obj),
-        dataType: "json",
+        data: "json",
+        contentType: "JSON application/json charset=utf-8",
         success: function (response) {
             if (response.tipo === "ok") {
                 console.log(response);
@@ -34,21 +37,11 @@ function traerGrados() {
 }
 
 function cargarSelectGrados(grados) {
-    for(var grado in grados){ 
-        document.getElementById("grados").innerHTML += "<option value='"+grados[i]+"'>"+grados[i]+"</option>";
-     }
-
-}
-
-boton.onclick = function () {
-    var obj = {
-        estudiante: estudiante
+    for (var grado in grados) {
+        document.getElementById("grados").innerHTML += "<option value='" + grados[i] + "'>" + grados[i] + "</option>";
     }
-    console.log(obj)
-    enviarInformacion(obj)
 
 }
-
 
 function enviarInformacion(obj) {
     $.ajax({
