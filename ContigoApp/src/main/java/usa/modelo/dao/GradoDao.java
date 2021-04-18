@@ -13,7 +13,7 @@ import usa.utils.GeneradorCodigos;
 
 /**
  *
- * @author andre
+ * @author Andrés C. López R.
  */
 public class GradoDao implements IGradoDao {
 

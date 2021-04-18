@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.EstadisticasBtnPanicoDao;
+import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.EstadisticasBtnPanico;
 import usa.modelo.dto.Estudiante;
@@ -47,6 +48,7 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
 
     AbstractFactory factoryDao=Producer.getFabrica("DAO");
     IDao dao = (IDao)factoryDao.obtener("EstadisticasBtnPanicoDao");
+    EstadisticasBtnPanicoDao estdao = (EstadisticasBtnPanicoDao) dao;
     
     @Override
     //Consultar
@@ -56,7 +58,6 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         
         //Instacia de EstadisticasBtnPanicoDao
-        EstadisticasBtnPanicoDao estdao = (EstadisticasBtnPanicoDao) dao;
         LinkedList<EstadisticasBtnPanico> estadisticas = estdao.listarTodos();
         
         //Instacias para el envio de los datosn en formato JSON
@@ -84,18 +85,16 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         processRequest(request, response);
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        JSONObject json = new JSONObject();
+        JSONObject json = new JSONObject(Utils.readParams(request));
         response.setContentType("application/json;charset=UTF-8");
-        Gson gson = new Gson();
-        
+                
         //Impersion de los datos 
-        String mensaje = Utils.readParams(request);
         System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
-        System.out.println(mensaje);
+        System.out.println(json.getString("estudiante"));
         IDao estudiante = (IDao)factoryDao.obtener("EstudianteDao");
         EstadisticasBtnPanico estadistica = new EstadisticasBtnPanico();
-        EstadisticasBtnPanicoDao estdao = (EstadisticasBtnPanicoDao) dao;
-        estadistica.setEstudiante((Estudiante) estudiante.consultar(mensaje));
+        EstudianteDao std = (EstudianteDao) estudiante;
+        estadistica.setEstudiante(std.consultarPorToken(json.getString("estudiante")));
         if (estdao.crear(estadistica)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Estadística creada");

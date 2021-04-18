@@ -30,7 +30,6 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
             pat = conn.prepareStatement(sql);
             pat.setString(1, t.getEstudiante().getDocumento());
             pat.execute();
-            result.close();
             pat.close();
             return true;
         } catch (SQLException ex) {

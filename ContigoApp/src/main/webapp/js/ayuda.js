@@ -36,7 +36,7 @@ function enviarInformacion(obj) {
     console.log(obj)
     $.ajax({
         method: 'POST',
-        url: 'Estadisticas_btn_Panico',
+        url: 'EstadisticasBtnPanico',
         data: JSON.stringify(obj),
         dataType: "json",
         success: function (response) {

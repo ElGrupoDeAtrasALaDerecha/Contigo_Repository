@@ -49,7 +49,6 @@ public class TipoDocumentoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        System.out.println("-----> 1");  
         JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         json.put("Identificaciones", arreglo);
         out.print(json.toString());
