@@ -2,11 +2,39 @@ var usuario
 var token
 var documento
 $(document).ready(function () {
-    LlamarGrado();
+
     usuario = parseInt(getCookie("tipoUsuario"));
     token = parseInt(getCookie("token"));
     documento = parseInt(getCookie("documento"));
     $('.ui.dropdown').dropdown();
+    console.log(usuario)
+    if (usuario === 1) {
+        LlamarGrado();
+    } else {
+        $.ajax({
+            url: "Conversatorio",
+            type: "GET",
+            dataType: "json",
+            contentType: "JSON application/json charset=utf-8",
+            beforeSend: function () {
+            },
+            success: function (result, textStatus, request) {
+                console.log(result)
+                conversatorios = result.conversatorios;
+                listarConver(conversatorios);
+                if (result != "error") {
+                    console.log(result);
+                } else {
+                    console.log("error");
+                }
+            }, complete: function (result) {
+               
+            }, error: function (result) {
+                console.log(result)
+            }
+        });
+    }
+
 });
 
 function LlamarGrado() {
@@ -26,8 +54,9 @@ function LlamarGrado() {
                 console.log("error");
             }
         }, complete: function (result) {
-
+           
         }, error: function (result) {
+            console.log(result)
         }
     });
 }
@@ -59,9 +88,9 @@ function LlamarEstudiante(grado) {
                 console.log("error");
             }
         }, complete: function (result) {
-
+           
         }, error: function (result) {
-            console.log("Hola",result)
+            console.log(result)
         }
     });
 }
@@ -88,15 +117,17 @@ function LlamarClasi(clasi) {
             }
         },
         complete: function (result) {
+          
         },
         error: function (result) {
+            console.log(result);
         }
     });
 
 }
 var converEstudiante = [];
 function LlamarConver(arregloConver) {
-console.log(arregloConver)
+    console.log(arregloConver)
     $.ajax({
         url: "Conversatorio",
         type: "GET",
@@ -107,31 +138,20 @@ console.log(arregloConver)
         success: function (result, textStatus, request) {
             console.log(result)
             conversatorios = result.conversatorios;
-            if (usuario === "1") {
-                console.log(conversatorios)
-                for (var i = 0; i < conversatorios.length; i++) {
-                    for (var j = 0; j < arregloConver.length; j++) {
-                        if (conversatorios[i].id === arregloConver[j].idConversatorio) {
-                            converEstudiante[j] = conversatorios[i];
-                        }
+            console.log(conversatorios)
+            for (var i = 0; i < conversatorios.length; i++) {
+                for (var j = 0; j < arregloConver.length; j++) {
+                    if (conversatorios[i].id === arregloConver[j].idConversatorio) {
+                        converEstudiante[j] = conversatorios[i];
                     }
                 }
-
-                listarConver(converEstudiante);
-            } else {
-                listarConver(conversatorios);
             }
+            listarConver(converEstudiante);
 
-
-
-            if (result != "error") {
-                console.log(result);
-            } else {
-                console.log("error");
-            }
         }, complete: function (result) {
-
+        
         }, error: function (result) {
+            console.log(result)
         }
     });
 }
@@ -238,23 +258,23 @@ function colocarInfo(array, orador, personal) {
         '<br>' +
         '</h2>' +
         '<p> </p>' +
-        '<h3><span></span> </h3>' 
-        //'<a id="btnRegistrarEstu" class="banner-button">Registrarse</a>'
+        '<h3><span></span> </h3>'
+    //'<a id="btnRegistrarEstu" class="banner-button">Registrarse</a>'
     $("#titulo").append(text);
 
-    document.getElementById("banner2").style.background="url("+array.imagen+") repeat";
+    document.getElementById("banner2").style.background = "url(" + array.imagen + ") repeat";
 
 
 }
 
 $("#btnCrear").on("click", function (e) {
     e.preventDefault();
-if ($("#Texto").val() == "" || $("#Descripcion").val() == "" || $("#cronograma").val()=="" || $("#Lugar").val() == "" || $("#linkImagen").val() == "" ||  $("#linkInfografia").val() == "" || $("#grados").val() == "") {
-    
-} else{
-    CrearConverOrador();
-  
-}
+    if ($("#Texto").val() == "" || $("#Descripcion").val() == "" || $("#cronograma").val() == "" || $("#Lugar").val() == "" || $("#linkImagen").val() == "" || $("#linkInfografia").val() == "" || $("#grados").val() == "") {
+
+    } else {
+        CrearConverOrador();
+
+    }
 });
 
 
@@ -293,35 +313,35 @@ var ima
 var inforgra
 
 imageUploader.addEventListener('change', (e) => {
-  console.log(e)
-  e.preventDefault();
-  const file = e.target.files[0];
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    console.log(e)
+    e.preventDefault();
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
-  $.ajax({
-    url: CLOUDINARY_URL,
-    type: "POST",
-    data: formData,
-    processData: false,  
-    contentType: false,
-    beforeSend: function () {
-    },
-    success: function (result, textStatus, request) {
-        informacion = result
-        img = informacion.url;
-        if (result != "error") {
-            console.log(result);
-        } else {
-            console.log("error");
+    $.ajax({
+        url: CLOUDINARY_URL,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            informacion = result
+            img = informacion.url;
+            if (result != "error") {
+                console.log(result);
+            } else {
+                console.log("error");
+            }
+        },
+        complete: function (result) {
+        },
+        error: function (result) {
         }
-    },
-    complete: function (result) {
-    },
-    error: function (result) {
-    }
-});
+    });
 });
 
 imageUploader2.addEventListener('change', (e) => {
@@ -331,30 +351,30 @@ imageUploader2.addEventListener('change', (e) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-  
+
     $.ajax({
-      url: CLOUDINARY_URL,
-      type: "POST",
-      data: formData,
-      processData: false,  
-      contentType: false,
-      beforeSend: function () {
-      },
-      success: function (result, textStatus, request) {
-          informacion = result
-          infogra = informacion.url;
-          if (result != "error") {
-              console.log(result);
-          } else {
-              console.log("error");
-          }
-      },
-      complete: function (result) {
-      },
-      error: function (result) {
-      }
-  });
-  });
+        url: CLOUDINARY_URL,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            informacion = result
+            infogra = informacion.url;
+            if (result != "error") {
+                console.log(result);
+            } else {
+                console.log("error");
+            }
+        },
+        complete: function (result) {
+        },
+        error: function (result) {
+        }
+    });
+});
 
 function crearConversatorio(personal) {
     var documento;
