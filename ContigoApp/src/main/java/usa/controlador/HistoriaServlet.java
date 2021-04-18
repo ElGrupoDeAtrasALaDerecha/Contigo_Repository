@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
@@ -40,7 +41,16 @@ public class HistoriaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
 
+=======
+        response.setContentType("application/json;charset=UTF-8");
+        JSONObject respuesta = new JSONObject();
+        respuesta.put("tipo", "ok");
+        respuesta.put("historias",new JSONArray(Utils.toJson(dao.listarTodos())));
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+>>>>>>> ff89a93258d9eb796f744696a94da5b5c05a8f2f
     }
 
     /**

@@ -8,10 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
-import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
@@ -55,6 +55,10 @@ public class EstudianteServlet extends HttpServlet {
 
         out.print(respuesta.toString());
 
+        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+        respuesta.put("tipo", "ok");
+        respuesta.put("estudiante",arreglo);
+        out.print(respuesta.toString());
     }
 
     /**

@@ -17,7 +17,7 @@ import usa.utils.Utils;
  * @since 2021-03-13
  */
 public class EstudianteDao implements IDao<Estudiante> {
-
+/**/
     private PreparedStatement pat;
     private ResultSet rs;
 
@@ -77,7 +77,29 @@ public class EstudianteDao implements IDao<Estudiante> {
 
     @Override
     public LinkedList<Estudiante> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList<Estudiante> estudiantes= new LinkedList();
+        try {
+            String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
+                    + "inner join estudiante as e on e.PERSONA_documento =p.documento\n";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                Estudiante estudiante = new Estudiante();
+                estudiante.setPrimerApellido("p.primerNombre");
+                estudiante.setDocumento(rs.getString("p.documento"));
+                estudiante.setPrimerNombre(rs.getString("p.primerNombre"));
+                estudiante.setSegundoNombre(rs.getString("p.segundoNombre"));
+                estudiante.setPrimerApellido(rs.getString("p.primerApellido"));
+                estudiante.setSegundoApellido(rs.getString("p.segundoApellido"));
+                estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
+                estudiante.setGenero(rs.getString("p.genero"));
+                estudiantes.add(estudiante);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return estudiantes;
     }
 
     public Estudiante consultarPorToken(String token) {
