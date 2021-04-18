@@ -17,9 +17,8 @@ $(document).ready(function () {
             var obj = {
                 estudiante: estudiante
             }
-            console.log(estudiante)
             enviarInformacion(obj)
-            //window.location.assign("chat.html");
+            window.location.assign("chat.html");
         })
     } else if (getCookie("tipoUsuario") === "2") {
         $("#btnAyuda").prop("data-content", "¡Mira las conversaciones privadas!");
