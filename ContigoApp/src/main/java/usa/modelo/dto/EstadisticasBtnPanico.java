@@ -16,7 +16,7 @@ public class EstadisticasBtnPanico {
     
     public int clikcs;
     public LinkedList<String> fechas = new LinkedList<String>();
-    public Estudiante estudiante;
+    public String estudiante;
 
     public int getClikcs() {
         return clikcs;
@@ -34,11 +34,11 @@ public class EstadisticasBtnPanico {
         this.fechas = fechas;
     }
     
-    public Estudiante getEstudiante() {
+    public String getEstudiante() {
         return estudiante;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
+    public void setEstudiante(String estudiante) {
         this.estudiante = estudiante;
     }
     

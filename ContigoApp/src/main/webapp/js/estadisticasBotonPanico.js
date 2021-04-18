@@ -55,3 +55,16 @@ function consultarInformacion(obj) {
         }
     });
 }
+
+
+("").click(function (e) {
+    e.preventDefault();
+    var email = $("#correo").val();
+    var pass = $("#password_inst").val();
+    var obj = {
+        correo: email,
+        contraseña: pass
+    };
+    //console.log(obj);
+    loginInstitucion(obj);
+});

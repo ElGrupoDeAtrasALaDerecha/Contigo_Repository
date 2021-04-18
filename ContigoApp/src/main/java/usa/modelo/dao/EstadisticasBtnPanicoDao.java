@@ -28,7 +28,7 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
          try {
             String sql = "insert into ESTADISTICAS_BTNPANICO (ESTUDIANTE_PERSONA_documento, FECHA) values (?,now())";
             pat = conn.prepareStatement(sql);
-            pat.setString(1, t.getEstudiante().getDocumento());
+            pat.setString(1, t.getEstudiante());
             pat.execute();
             pat.close();
             return true;
@@ -41,7 +41,6 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
     //Consulta del número de clics por estudiante
     @Override
     public EstadisticasBtnPanico consultar(String id) {
-        EstudianteDao estudiante = new EstudianteDao();
         EstadisticasBtnPanico est = null;
         try {
             String sql = "select count(*) as N_Clicks from ESTADISTICAS_BTNPANICO where ESTUDIANTE_PERSONA_documento = '" + id +"';";
@@ -50,7 +49,7 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
             est = new EstadisticasBtnPanico();
             while(result.next()){
                 est.setClikcs(result.getInt("N_Clicks"));
-                est.setEstudiante(estudiante.consultarPorToken(result.getString(id)));
+                est.setEstudiante(id);
             }
             sql = "select fecha from ESTADISTICAS_BTNPANICO where ESTUDIANTE_PERSONA_documento = '" + id + "';" ;
             pat = conn.prepareStatement(sql);

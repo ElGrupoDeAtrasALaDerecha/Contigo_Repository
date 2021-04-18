@@ -72,7 +72,7 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         }
         
         //Envio de los datos al clente en formato JSON 
-        respuesta.put("Estadísticas ",arreglo);
+        respuesta.put("Estadisticas ",arreglo);
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }
@@ -91,10 +91,8 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         //Impersion de los datos 
         System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
         System.out.println(json.getString("estudiante"));
-        IDao estudiante = (IDao)factoryDao.obtener("EstudianteDao");
         EstadisticasBtnPanico estadistica = new EstadisticasBtnPanico();
-        EstudianteDao std = (EstudianteDao) estudiante;
-        estadistica.setEstudiante(std.consultarPorToken(json.getString("estudiante")));
+        estadistica.setEstudiante(json.getString("estudiante"));
         if (estdao.crear(estadistica)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Estadística creada");
