@@ -13,6 +13,12 @@ $(document).ready(function () {
     });
     if (getCookie("tipoUsuario") === "1") {
         $("#btnAyuda").click(function () {
+            estudiante = parseInt(getCookie("tipoUsuario"));
+            var obj = {
+                estudiante: estudiante
+            }
+            console.log(obj)
+            enviarInformacion(obj)
             window.location.assign("chat.html");
         })
     } else if (getCookie("tipoUsuario") === "2") {
@@ -24,3 +30,24 @@ $(document).ready(function () {
         $("#btnAyuda").remove();
     }
 });
+
+
+
+function enviarInformacion(obj) {
+    $.ajax({
+        method: 'POST',
+        url: 'Estadisticas_btn_Panico',
+        data: JSON.stringify(obj),
+        dataType: "json",
+        success: function (response) {
+            if (response.tipo === "ok") {
+                console.log(response);
+            } else {
+                console.log(response.mensaje);
+            }
+        },
+        error: function (response) {
+            console.log(JSON.stringify(response))
+        }
+    });
+}
