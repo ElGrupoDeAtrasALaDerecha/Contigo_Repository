@@ -69,17 +69,7 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
 
     @Override
     public boolean actualizar(EstadisticasBtnPanico est) {
-        try {
-            String sql = "UPDATE `contigobd`.`ESTADISTICAS_BTNPANICO` SET `CANTIDAD_CLICK` = '" + (est.getClikcs()+1) +  "' WHERE (ESTUDIANTE_PERSONA_documento = '10008');";
-            pat = conn.prepareStatement(sql);
-            pat.executeQuery();
-            result.close();
-            pat.close();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -95,7 +85,7 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
-                estadisticas.add(consultar(result.getNString("ESTUDIANTE_PERSONA_documento")));
+                estadisticas.add(consultar(result.getString("ESTUDIANTE_PERSONA_documento")));
             }
             result.close();
             pat.close();

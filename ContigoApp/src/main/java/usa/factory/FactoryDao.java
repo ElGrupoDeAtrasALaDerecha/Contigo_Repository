@@ -42,6 +42,9 @@ public class FactoryDao implements AbstractFactory<IDao>{
         else if (nombreDao.equals("GradoDao")){
             dao=new GradoDao();
         }
+        else if (nombreDao.equals("EstadisticasBtnPanicoDao")){
+            dao=new GradoDao();
+        }
         return dao;
     }
     
