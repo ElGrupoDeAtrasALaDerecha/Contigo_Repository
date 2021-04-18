@@ -46,15 +46,18 @@ imageUploader.addEventListener('change', (e) => {
     });
 });
 
+
+$("#crearHistoria").click(function(){
+    crearHistoria();
+})
 function crearHistoria() {
 
     nombre = $("#Nombre").val();
     descripcion = $("#Descripcion").val();
-  
-  
+
     informacion = {
-        PERSONAL_PERSONA_documento: documento,
-        titulo: titulo,
+        documentoCreador: "1000853623",
+        titulo: nombre,
         descripcion: descripcion,
         urlImagen: img,
     };
@@ -66,6 +69,10 @@ function crearHistoria() {
         type: "POST",
         dataType: "json",
         data: JSON.stringify(informacion),
+        headers:{
+            token:getCookie("token")
+        },
+        
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {
         },

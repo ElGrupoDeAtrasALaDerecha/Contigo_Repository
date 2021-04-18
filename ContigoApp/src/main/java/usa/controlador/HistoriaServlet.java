@@ -68,8 +68,8 @@ public class HistoriaServlet extends HttpServlet {
         String token = request.getHeader("token");
         System.out.println(mensaje);
         Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
-        PersonalCalificado p = ((IPersonalCalificadoDao) personalCalificadoDao).consultarPorToken(token);
-        historia.setDocumentoCreador(p.getDocumento());
+  
+      
         if (dao.crear(historia)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Historia creada");

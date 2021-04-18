@@ -27,7 +27,7 @@ public class HistoriaDao implements IHistoriasDao{
             pat.setString(1, his.getDocumentoCreador());
             pat.setString(2, his.getTitulo());
             pat.setString(3, his.getDescripcion());
-            pat.setString(3, his.getUrlImagen());
+            pat.setString(4, his.getUrlImagen());
             pat.execute();
             pat.close();
             return true;

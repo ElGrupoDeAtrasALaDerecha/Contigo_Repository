@@ -49,13 +49,20 @@ public class EstudianteDao implements IDao<Estudiante> {
     public Estudiante consultar(String id) {
         Estudiante estudiante = null;
         try {
-            String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
+            String sql =  "select p.* , e.GRADO_codigo from persona as p  \n"
+                    + "inner join estudiante as e on e.PERSONA_documento =p.documento\n where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             rs = pat.executeQuery();
             while (rs.next()) {
                 estudiante = new Estudiante();
-                estudiante.setDocumento(rs.getString("PERSONA_documento"));
-                estudiante.setGrado(rs.getString("GRADO_codigo"));
+                estudiante.setPrimerApellido("p.primerNombre");
+                estudiante.setDocumento(rs.getString("p.documento"));
+                estudiante.setPrimerNombre(rs.getString("p.primerNombre"));
+                estudiante.setSegundoNombre(rs.getString("p.segundoNombre"));
+                estudiante.setPrimerApellido(rs.getString("p.primerApellido"));
+                estudiante.setSegundoApellido(rs.getString("p.segundoApellido"));
+                estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
+                estudiante.setGenero(rs.getString("p.genero"));
             }
             rs.close();
             pat.close();

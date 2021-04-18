@@ -94,7 +94,7 @@ function LlamarClasi(clasi) {
     });
 
 }
-
+var converEstudiante = [];
 function LlamarConver(arregloConver) {
 console.log(arregloConver)
     $.ajax({
@@ -105,9 +105,9 @@ console.log(arregloConver)
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
+            console.log(result)
             conversatorios = result.conversatorios;
-            if (usuario === 1) {
-                var converEstudiante = [];
+            if (usuario === "1") {
                 console.log(conversatorios)
                 for (var i = 0; i < conversatorios.length; i++) {
                     for (var j = 0; j < arregloConver.length; j++) {
@@ -283,8 +283,8 @@ function CrearConverOrador() {
 }
 
 
-//const imageUploader = document.getElementById('img-uploader');
-/*const imageUploader2 = document.getElementById('img-uploader2');
+const imageUploader = document.getElementById('img-uploader');
+const imageUploader2 = document.getElementById('img-uploader2');
 
 
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/miguel26697/image/upload';
@@ -411,5 +411,4 @@ function crearConversatorio(personal) {
 
 
 }
-*/
 

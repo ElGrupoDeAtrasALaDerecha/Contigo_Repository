@@ -43,6 +43,7 @@ public class EstudianteServlet extends HttpServlet {
         JSONObject respuesta = new JSONObject();
         EstudianteDao daoestu = (EstudianteDao) dao;
         Estudiante estudiante = daoestu.consultar(request.getParameter("id"));
+        System.out.println(request.getParameter("id"));
         if (estudiante != null) {
             Gson gson = new Gson();
             JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
@@ -55,10 +56,6 @@ public class EstudianteServlet extends HttpServlet {
 
         out.print(respuesta.toString());
 
-        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-        respuesta.put("tipo", "ok");
-        respuesta.put("estudiante",arreglo);
-        out.print(respuesta.toString());
     }
 
     /**
