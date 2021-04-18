@@ -64,6 +64,7 @@ public class EstudianteDao implements IDao<Estudiante> {
                 estudiante.setSegundoApellido(rs.getString("p.segundoApellido"));
                 estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
                 estudiante.setGenero(rs.getString("p.genero"));
+                estudiante.setGrado(rs.getString("GRADO_codigo"));
             }
             rs.close();
             pat.close();
