@@ -1,5 +1,6 @@
 var usuario
 var token
+var documento
 $(document).ready(function () {
     LlamarGrado();
     usuario = parseInt(getCookie("tipoUsuario"));
@@ -19,7 +20,6 @@ function LlamarGrado() {
         },
         success: function (result, textStatus, request) {
             grado = result.Grados;
-
             LlamarEstudiante(grado);
             if (result != "error") {
             } else {
@@ -39,19 +39,18 @@ function LlamarEstudiante(grado) {
         url: "Estudiante?id=" + documento + "",
         type: "GET",
         dataType: "json",
-
+        contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
             estudiante = result.estudiante;
+            console.log(result)
             var clasificacion;
-
             for (var i = 0; i < grado.length; i++) {
                 if (grado[i].codigo == estudiante.grado) {
                     clasificacion = grado[i].clasificacion_id
                 }
             }
-    
             console.log(clasificacion)
             LlamarClasi(clasificacion)
             if (result != "error") {
@@ -62,6 +61,7 @@ function LlamarEstudiante(grado) {
         }, complete: function (result) {
 
         }, error: function (result) {
+            console.log("Hola",result)
         }
     });
 }
@@ -96,7 +96,7 @@ function LlamarClasi(clasi) {
 }
 
 function LlamarConver(arregloConver) {
-
+console.log(arregloConver)
     $.ajax({
         url: "Conversatorio",
         type: "GET",
@@ -283,8 +283,8 @@ function CrearConverOrador() {
 }
 
 
-const imageUploader = document.getElementById('img-uploader');
-const imageUploader2 = document.getElementById('img-uploader2');
+//const imageUploader = document.getElementById('img-uploader');
+/*const imageUploader2 = document.getElementById('img-uploader2');
 
 
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/miguel26697/image/upload';
@@ -411,4 +411,5 @@ function crearConversatorio(personal) {
 
 
 }
+*/
 

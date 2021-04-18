@@ -42,16 +42,15 @@ public class EstudianteServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
         EstudianteDao daoestu = (EstudianteDao) dao;
-        Estudiante estudiante = daoestu.consultarPorTokenGrado(request.getParameter("id"));
+        Estudiante estudiante = daoestu.consultar(request.getParameter("id"));
         if (estudiante != null) {
             Gson gson = new Gson();
             JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
-
             respuesta.put("tipo", "ok");
             respuesta.put("estudiante", estudianteJson);
         } else {
             respuesta.put("tipo", "error");
-            respuesta.put("mensaje", "No se ha posido consultar el estudiant");
+            respuesta.put("mensaje", "No se ha posido consultar el estudiante");
         }
 
         out.print(respuesta.toString());
