@@ -56,3 +56,9 @@ insert into CONVERSATORIO (PERSONAL_PERSONA_documento,titulo,cronograma,imagen,d
 
 insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (1,1);
 insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (2,1);
+
+insert into HISTORIA (PERSONAL_PERSONA_documento,titulo,descripcion,urlImagen) 
+values ("1000853623","Juanita y sus amigos", "Juanita que es una niña valiente y muy inteligente llega a un nuevo colegio y se da
+                            cuenta que es
+                            diferente a sus compañeras, por esto se vuelve insegura y tímida lo que hace que le cueste hacer
+                            amigos, ¿Te acercarías a hablar con juanita?","img/school.jpg");

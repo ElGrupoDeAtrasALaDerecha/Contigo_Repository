@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
+import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
@@ -40,10 +41,21 @@ public class EstudianteServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-        respuesta.put("tipo", "ok");
-        respuesta.put("estudiante",arreglo);
+        EstudianteDao daoestu = (EstudianteDao) dao;
+        Estudiante estudiante = daoestu.consultar(request.getParameter("id"));
+        System.out.println(request.getParameter("id"));
+        if (estudiante != null) {
+            Gson gson = new Gson();
+            JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
+            respuesta.put("tipo", "ok");
+            respuesta.put("estudiante", estudianteJson);
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No se ha posido consultar el estudiante");
+        }
+
         out.print(respuesta.toString());
+
     }
 
     /**
@@ -56,20 +68,26 @@ public class EstudianteServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+      response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         Gson gson = new Gson();
         String mensaje = Utils.readParams(request);
         System.out.println(mensaje);
         Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
+        EstudianteDao daoestu = (EstudianteDao) dao;
 
-        if (dao.crear(estudiante)) {
-            json.put("tipo", "ok");
-            json.put("mensaje", "Estudiante creado");
-        } else {
+        if (daoestu.consultarID(estudiante.getDocumento())!= null) {
             json.put("tipo", "error");
-            json.put("mensaje", "Error al crear estudiante");
+            json.put("mensaje", "Error el estudiante ya esta registrado");
+        } else {
+            if (dao.crear(estudiante)) {
+                json.put("tipo", "ok");
+                json.put("mensaje", "Estudiante creado");
+            } else {
+                json.put("tipo", "error");
+                json.put("mensaje", "Error al crear estudiante");
+            }
         }
         out.print(json.toString());
 

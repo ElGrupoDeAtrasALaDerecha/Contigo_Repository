@@ -1,26 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contigo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/jquery.orgchart.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
     <link rel="stylesheet" href="css/Registro.css">
-    <link rel="stylesheet" href="css/cssRegistro.css">
+    <link rel="stylesheet" href="css/crearHistoria.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap"
         rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
+
 <body>
     <h1>Crear historia</h1>
+    <div class="FullContainer">
+        <div class="Container1">
+            <div id="Espacios" class="item">
+                <input type="text"
+                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))"
+                    id="Nombre" class="Texto" placeholder="Nombre de la historia" name="Nombre">
+            </div>
+            <div id="Espacios">
+                <input type="text"
+                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))"
+                    id="Descripcion" class="Texto" placeholder="Descripción" name="Descripcion">
+            </div>
+    
+            <div id="Espacios">
+                <p>Subir imagen de la historia</p>
+                <input type="file" id="img-uploader" min="0" max="5" class="Texto" placeholder="Numero de opciones"
+                    name="opcionesInicio">
+            </div>
 
+        </div>
+        <div class="Container2">
+            <form id="form1" runat="server">
+                <div>
+                    <ul id="CaballerosZodiaco" style="display:none">
+                        <li>HOLI
+                            <ul>
+                                <li>H
+                                    <ul>
+                                        <li>L </li>
+
+                                    </ul>
+                                </li>
+
+                                <li>O
+                                    <ul>
+                                        <li> A</li>
+                                    </ul>
+                                </li>
+                                <li>L
+                                    <ul>
+                                        <li> U</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="Organigrama-resultante">
+
+                    </div>
+                </div>
+            </form>
+        </div>
+      
+    </div>
+    <div id="boton">
+        <input type="button" class="Button"  id="crearHistoria" value="Crear historia" >
+    </div>
+    <br>
+    <script src="js/jquery.orgchart.js"></script>
+    <script>
+        $('#Organigrama-resultante').orgchart({
+            'data': $('#CaballerosZodiaco')
+        });
+    </script>
     <script src="js/js_componentes/bootstrap.min.js"></script>
+    <script src="js/historias.js"></script>
+    <script src="js/funciones.js"></script>
     <script src="js/template.js"></script>
 </body>
+
 </html>

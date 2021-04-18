@@ -15,7 +15,7 @@ import usa.utils.GeneradorCodigos;
  *
  * @author andre
  */
-public class GradoDao implements IDao<Grado> {
+public class GradoDao implements IGradoDao {
 
     private PreparedStatement pat;
     @Override
