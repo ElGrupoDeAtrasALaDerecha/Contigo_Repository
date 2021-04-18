@@ -44,6 +44,10 @@ function registrar_estudiante() {
     sape = $("#SegundoApellido").val();
     con = $("#contra").val()
 
+    if (tidocu == "") {
+        toastr.warning('Por favor escoja un tipo de documento')
+    }
+
     informacion = {
         documento: numdocu,
         tipoDocumento: parseInt(tidocu, 10),
@@ -73,8 +77,13 @@ function registrar_estudiante() {
                 $(location).attr('href', 'ingresar.html');
 
             } else {
-                console.log(result);
-                toastr.error('Estudiante ya registrado')
+                if (result.mensaje === "Error el estudiante ya esta registrado") {
+                    console.log(result);
+                    toastr.error('Error ya existe un estudiante registrado con este documento')    
+                } else {
+                    console.log(result);
+                    toastr.error('Código institucional erroneo')
+                }
             }
 
         },
