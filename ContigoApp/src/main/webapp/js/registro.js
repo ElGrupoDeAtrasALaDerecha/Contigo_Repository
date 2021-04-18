@@ -115,8 +115,8 @@ function munici() {
         dataType: "json",
         success: function (result, textStatus, request) {
             if (result != "error") {
-                console.log(result);
                 municipios = result.Municipios;
+                console.log(result);
 
             } else {
                 console.log("error");
