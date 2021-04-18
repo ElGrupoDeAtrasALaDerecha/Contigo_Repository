@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
 import usa.modelo.dao.EstadisticasBtnPanicoDao;
+import usa.modelo.dao.IDao;
 import usa.modelo.dto.EstadisticasBtnPanico;
 import usa.utils.Utils;
 
@@ -24,7 +27,7 @@ import usa.utils.Utils;
  *
  * @author andre
  */
-@WebServlet(name = "Estadisticas_btn_Panico", urlPatterns = {"/Estadisticas_btn_Panico"})
+@WebServlet(name = "Estadisticas_btn_Panico", urlPatterns = {"/EstadisticasBtnPanico"})
 public class EstadisticasBtnPanicoServlet extends HttpServlet {
 
     /**
@@ -41,22 +44,32 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     }
 
-  
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao)factoryDao.obtener("EstadisticasBtnPanicoDao");
+    
     @Override
     //Consultar
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
         response.setContentType("application/json;charset=UTF-8");
-        EstadisticasBtnPanicoDao dao = new EstadisticasBtnPanicoDao();
-        LinkedList<EstadisticasBtnPanico> estadisticas = dao.listarTodos();
+        
+        //Instacia de EstadisticasBtnPanicoDao
+        EstadisticasBtnPanicoDao estdao = (EstadisticasBtnPanicoDao) dao;
+        LinkedList<EstadisticasBtnPanico> estadisticas = estdao.listarTodos();
+        
+        //Instacias para el envio de los datosn en formato JSON
         Gson gson = new Gson();
         JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray();
+        
+        //Cada objeto de la clase EstadisticasBtnPanicoDao se agrega al arreglo JSON
         respuesta.put("tipo", "ok");
         for (EstadisticasBtnPanico estadistica:estadisticas) {
             arreglo.put(new JSONObject(gson.toJson(estadistica,EstadisticasBtnPanico.class)));
         }
+        
+        //Envio de los datos al clente en formato JSON 
         respuesta.put("Estadísticas ",arreglo);
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
@@ -73,12 +86,14 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         response.setContentType("application/json;charset=UTF-8");
         Gson gson = new Gson();
+        
+        //Impersion de los datos 
         String mensaje = Utils.readParams(request);
         System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
         System.out.println(mensaje);
         EstadisticasBtnPanico estadistica = (EstadisticasBtnPanico) gson.fromJson(mensaje, EstadisticasBtnPanico.class);
-        EstadisticasBtnPanicoDao dao = new EstadisticasBtnPanicoDao();
-        if (dao.crear(estadistica)) {
+        EstadisticasBtnPanicoDao estdao = (EstadisticasBtnPanicoDao) dao;
+        if (estdao.crear(estadistica)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Estadística creada");
         } else {
@@ -88,29 +103,5 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         out.print(json.toString());
         
     }
-    
-    @Override
-    //Actualizar
-    protected void doPut(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        JSONObject json = new JSONObject();
-        response.setContentType("application/json;charset=UTF-8");
-        Gson gson = new Gson();
-        String mensaje = Utils.readParams(request);
-        System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
-        System.out.println(mensaje);
-        EstadisticasBtnPanico estadistica = (EstadisticasBtnPanico) gson.fromJson(mensaje, EstadisticasBtnPanico.class);
-        EstadisticasBtnPanicoDao dao = new EstadisticasBtnPanicoDao();
-        if (dao.actualizar(estadistica)) {
-            json.put("tipo", "ok");
-            json.put("mensaje", "Estadística creada");
-        } else {
-            json.put("tipo", "error");
-            json.put("mensaje", "Error al crear estadística");
-        }
-        out.print(json.toString());
-    }
+   
 }
