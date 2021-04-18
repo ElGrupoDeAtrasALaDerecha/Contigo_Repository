@@ -13,11 +13,10 @@ $(document).ready(function () {
     });
     if (getCookie("tipoUsuario") === "1") {
         $("#btnAyuda").click(function () {
-            estudiante = parseInt(getCookie("tipoUsuario"));
+            estudiante = getCookie("token");
             var obj = {
                 estudiante: estudiante
             }
-            console.log(obj)
             enviarInformacion(obj)
             window.location.assign("chat.html");
         })
@@ -34,6 +33,7 @@ $(document).ready(function () {
 
 
 function enviarInformacion(obj) {
+    console.log(obj)
     $.ajax({
         method: 'POST',
         url: 'Estadisticas_btn_Panico',
