@@ -31,7 +31,7 @@ insert into CLASIFICACION (grado) values("Docentes");
 
 
 INSERT INTO institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web) 
-VALUES (5,1,"Colegio Gimnasio Los Pinares", "colegiogimnasio@gmail.com","Cra. 35 #9 Sur 160",true,false,"Los Balsos II","42686034","1234","https://bit.ly/3thUZop");
+VALUES (5,1,"Colegio Gimnasio Los Pinares", "colegiogimnasio@gmail.com","Cra. 35 #9 Sur 160",true,false,"Los Balsos II","42686034",sha("1234"),"https://bit.ly/3thUZop");
 
 #Grados
 insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("aaaaa",1,(select id from institucion where correo="colegiogimnasio@gmail.com"));
