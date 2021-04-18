@@ -57,8 +57,6 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
             while(result.next()){
                 est.fechas.add(result.getString("fecha"));
             }
-            result.close();
-            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,17 +75,17 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
 
     @Override
     public LinkedList<EstadisticasBtnPanico> listarTodos() {
-        LinkedList<EstadisticasBtnPanico> estadisticas = new LinkedList<EstadisticasBtnPanico>();
+        LinkedList<EstadisticasBtnPanico> estadisticas = new LinkedList<>();
         try {
-            String sql = "select DISTINCT (ESTADISTICAS_BTNPANICO.ESTUDIANTE_PERSONA_documento) from ESTADISTICAS_BTNPANICO;";
+            String sql = "select DISTINCT (ESTUDIANTE_PERSONA_documento) from ESTADISTICAS_BTNPANICO;";
             pat = conn.prepareStatement(sql);
-            result = pat.executeQuery();
-            while(result.next()){
-                estadisticas.add(consultar(result.getString("ESTUDIANTE_PERSONA_documento")));
+            try (ResultSet result_x = pat.executeQuery()) {
+                while(result_x.next()){
+                    estadisticas.add(consultar(result_x.getString("ESTUDIANTE_PERSONA_documento")));
+                }
             }
             result.close();
-            pat.close();
-            return estadisticas;
+            pat.cancel();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }

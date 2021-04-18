@@ -50,7 +50,7 @@ function consultarInformacion(obj) {
         success: function (response) {
             if (response.tipo === "ok") {
                 console.log(response);
-                estadisticas = result.Estadisticas;
+                estadisticas = response.Estadisticas;
             } else {
                 console.log(response.mensaje);
             }
@@ -60,16 +60,3 @@ function consultarInformacion(obj) {
         }
     });
 }
-
-
-("").click(function (e) {
-    e.preventDefault();
-    var email = $("#correo").val();
-    var pass = $("#password_inst").val();
-    var obj = {
-        correo: email,
-        contraseña: pass
-    };
-    //console.log(obj);
-    loginInstitucion(obj);
-});
