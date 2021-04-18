@@ -1,16 +1,35 @@
-
-
+.banner{
+    width: 100%;
+    height: 480px;
+    color:rgba(255,255,255,1);
+    background-image: url("Imagen/school.jpg");
+    background-size: 100% ;
+}
+.opacity{
+    background-color: rgb(40, 44, 52,.8);
+    width: 100%;
+    height: 480px;
+    display: flex;
+  	align-items: center;
+  	justify-content: center;
+     
+}
+h1{
+    font-family: 'Kaushan Script', cursive;
+    font-size: 80px;
+}
 .Container{
     padding-top: 5%;
     padding-bottom: 5%;
     display: flex;
-    Flex-wrap: wrap;
+    flex-wrap: wrap;
     Justify-content: Space-around;
     background-color: #222831;
+    Display: inline-flex;
 }
 .item{
-    height: 230px;
-    width: 35%;
+    height: 250px;
+    width: 500px;
     margin-bottom: 3%;
     display: flex;
     background-image: url("Imagen/team.jpg");
@@ -22,14 +41,13 @@
     height: 35%;
 }
 .textTitle{
-    font-size: 12px;
+    font-size: 14px;
     color:rgba(255,255,255,1);
     margin-left: 6px;
     margin-top: 6px;
 }
 .text{
     margin-left: 6px;
-    margin-top: -10px;
     font-size: 10px;
     color:rgba(255,255,255,1);
 }

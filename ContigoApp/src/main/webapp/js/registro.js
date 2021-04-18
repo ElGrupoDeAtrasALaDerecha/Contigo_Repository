@@ -5,6 +5,8 @@ var ca = null;
 var sec = null;
 var idpago = 1;
 
+
+
 window.onload = function depas() {
     $.ajax({
         url: "Departamento",
@@ -62,7 +64,7 @@ function registrar_institucion() {
 
 
     informacion = {
-        idMunicipio: parseInt(municipio,10),
+        idMunicipio: parseInt(municipio, 10),
         nombre: nom,
         tipoInstitucion: sec,
         direccion: direccion,
@@ -81,16 +83,16 @@ function registrar_institucion() {
         dataType: "json",
         data: JSON.stringify(informacion),
         contentType: "JSON application/json charset=utf-8",
-        beforeSend: function () {  
+        beforeSend: function () {
         },
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
                 console.log(result);
+                toastr.success('Institcución creada con exito')
                 $(location).attr('href', 'ingresar.html');
             } else {
                 console.log(result);
-                let msm = '<div class="alert alert-danger" role="alert">' + " Error esta institución ya esta registrada" + '</div>';
-                $("#alert").append(msm);
+                toastr.error('Institución ya registrada')
             }
 
         },
@@ -113,8 +115,8 @@ function munici() {
         dataType: "json",
         success: function (result, textStatus, request) {
             if (result != "error") {
-                console.log(result);
                 municipios = result.Municipios;
+                console.log(result);
 
             } else {
                 console.log("error");
@@ -158,6 +160,11 @@ function llenarMunicipios(municipiosAPintar) {
     };
 
 }
+function BorrarTexto() {
+    document.querySelectorAll('.Espacios[data-error] .Texto').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+}
 
 function Ingresar() {
     departamento = document.getElementById("departamento").value;
@@ -175,16 +182,67 @@ function Ingresar() {
     var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     var esValido = expReg.test(correo);
 
+
+    
+
     if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || Calendario == "" || contra == "" || conficontra == "") {
-        let msm1 = '<div class="alert alert-danger" role="alert">' + " Todos los campos son obligatorios" + '</div>';
-        $("#alert").append(msm1);
+        if (departamento == "") {
+            document.getElementsByClassName("Espacios dep")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (nombre == "") {
+            document.getElementsByClassName("Espacios nom")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (sector == "Sector") {
+            document.getElementsByClassName("Espacios sec")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (direccion == "") {
+            document.getElementsByClassName("Espacios dir")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (municipio == "") {
+            document.getElementsByClassName("Espacios mun")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (barrio == "") {
+            document.getElementsByClassName("Espacios bar")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (telefono == "") {
+            document.getElementsByClassName("Espacios Tel")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (correo == "") {
+            document.getElementsByClassName("Espacios cor")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (Calendario == "Calendario") {
+            document.getElementsByClassName("Espacios cal")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }
+        if (contra == "") {
+            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }else if(contra.length<=8){
+            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
+            BorrarTexto();
+        }
+        if (conficontra == "") {
+            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "Campo obligatorio");
+            BorrarTexto();
+        }else if(conficontra.length<=8){
+            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
+            BorrarTexto();
+        }
     } else if (contra != conficontra) {
-        let msm2 = '<div class="alert alert-danger" role="alert">' + " Las contraseñas no coinciden" + '</div>';
-        $("#alert").append(msm2);
+        toastr.warning('Las contraseñas no coinciden')
     } else if (esValido != true) {
-        let msm2 = '<div class="alert alert-danger" role="alert">' + " El correo ingresado no es valido" + '</div>';
-        $("#alert").append(msm2);
+       toastr.error('Correo no valido')
     } else {
         registrar_institucion();
+        
     }
 }
+

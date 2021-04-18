@@ -15,9 +15,10 @@ import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
+/**/
 /**
  *
- * @author usuario
+ * @author Valeria Bermúdez & Santiago Pérez
  */
 @WebServlet(name = "LoginPersonalCalificadoServlet", urlPatterns = {"/LoginPersonalCalificado"})
 public class LoginPersonalCalificadoServlet extends HttpServlet {
@@ -50,7 +51,7 @@ public class LoginPersonalCalificadoServlet extends HttpServlet {
             respuesta.put("personal", personalJson);
         } else {
             respuesta.put("tipo", "error");
-            respuesta.put("mensaje", "correo o contraseña incorrecta ");
+            respuesta.put("mensaje", "Correo o Contraseña incorrecta ");
         }
         out.print(respuesta.toString());
     }

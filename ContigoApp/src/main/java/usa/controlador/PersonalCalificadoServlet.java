@@ -24,7 +24,6 @@ import usa.utils.Utils;
 public class PersonalCalificadoServlet extends HttpServlet {
     AbstractFactory factoryDao=Producer.getFabrica("DAO");
     IDao dao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request

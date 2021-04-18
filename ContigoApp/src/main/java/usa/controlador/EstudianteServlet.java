@@ -8,10 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
-import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
@@ -23,8 +23,8 @@ import usa.utils.Utils;
 @WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
 public class EstudianteServlet extends HttpServlet {
 
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao dao = (IDao)factoryDao.obtener("EstudianteDao");
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -40,19 +40,25 @@ public class EstudianteServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
-        EstudianteDao daoestu = (EstudianteDao)dao;
+        EstudianteDao daoestu = (EstudianteDao) dao;
         Estudiante estudiante = daoestu.consultarPorTokenGrado(request.getParameter("id"));
         if (estudiante != null) {
-            JSONObject estudianteJson = new JSONObject(Utils.toJson(estudiante));
+            Gson gson = new Gson();
+            JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
+
             respuesta.put("tipo", "ok");
             respuesta.put("estudiante", estudianteJson);
         } else {
             respuesta.put("tipo", "error");
             respuesta.put("mensaje", "No se ha posido consultar el estudiant");
         }
-       
+
         out.print(respuesta.toString());
-        
+
+        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+        respuesta.put("tipo", "ok");
+        respuesta.put("estudiante",arreglo);
+        out.print(respuesta.toString());
     }
 
     /**
@@ -65,20 +71,25 @@ public class EstudianteServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+      response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         Gson gson = new Gson();
         String mensaje = Utils.readParams(request);
         System.out.println(mensaje);
         Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
-        
-        if (dao.crear(estudiante)) {
-            json.put("tipo", "ok");
-            json.put("mensaje", "Estudiante creado");
-        } else {
+
+        if (dao.consultar(estudiante.getDocumento())!= null) {
             json.put("tipo", "error");
-            json.put("mensaje", "Error al crear estudiante");
+            json.put("mensaje", "Error el estudiante ya esta registrado");
+        } else {
+            if (dao.crear(estudiante)) {
+                json.put("tipo", "ok");
+                json.put("mensaje", "Estudiante creado");
+            } else {
+                json.put("tipo", "error");
+                json.put("mensaje", "Error al crear estudiante");
+            }
         }
         out.print(json.toString());
 

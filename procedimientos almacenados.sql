@@ -43,5 +43,3 @@ insert into PERSONA(documento,TIPO_DOCUMENTO_id,primerNombre,segundoNombre,prime
 values(_documento,_TIPO_DOCUMENTO_ID,_primerNombre,_segundoNombre,_primerApellido,_segundoApellido ,_token ,_fechaNacimiento ,sha(_contraseña),_genero);
 insert into ESTUDIANTE(PERSONA_documento,GRADO_codigo) values (_documento,_GRADO_codigo);
 end $$
-
-delimiter $$

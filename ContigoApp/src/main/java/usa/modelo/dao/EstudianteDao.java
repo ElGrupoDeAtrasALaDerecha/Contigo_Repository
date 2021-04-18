@@ -2,17 +2,14 @@ package usa.modelo.dao;
 
 import java.sql.CallableStatement;
 import usa.modelo.dto.Estudiante;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import usa.bd.IConexionBD;
-import usa.factory.AbstractFactory;
-import usa.factory.Producer;
 import usa.utils.Utils;
+
 /**
  * Clase de acceso a datos de estudiantes
  *
@@ -20,8 +17,9 @@ import usa.utils.Utils;
  * @since 2021-03-13
  */
 public class EstudianteDao implements IDao<Estudiante> {
-
+/**/
     private PreparedStatement pat;
+    private ResultSet rs;
 
     @Override
     public boolean crear(Estudiante estudiante) {
@@ -36,7 +34,7 @@ public class EstudianteDao implements IDao<Estudiante> {
             call.setString("_segundoApellido", estudiante.getSegundoApellido());
             call.setString("_token", Utils.generateNewToken());
             call.setString("_fechaNacimiento", estudiante.getFechaDeNacimiento());
-            call.setString("_genero",estudiante.getGenero());
+            call.setString("_genero", estudiante.getGenero());
             call.setString("_contraseña", estudiante.getContraseña());
             call.setString("_GRADO_codigo", estudiante.getGrado());
             call.execute();
@@ -51,17 +49,18 @@ public class EstudianteDao implements IDao<Estudiante> {
     public Estudiante consultar(String id) {
         Estudiante estudiante = null;
         try {
-
-            String sql = "select * from Estudiante where documento =\"" + id + "\"";
+            String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
-            ResultSet rs = pat.executeQuery();
-            estudiante = new Estudiante();
+            rs = pat.executeQuery();
             while (rs.next()) {
-                estudiante.setPrimerApellido("primerNombre");
+                estudiante = new Estudiante();
+                estudiante.setDocumento(rs.getString("PERSONA_documento"));
+                estudiante.setGrado(rs.getString("GRADO_codigo"));
             }
+            rs.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
-
         }
         return estudiante;
     }
@@ -78,7 +77,29 @@ public class EstudianteDao implements IDao<Estudiante> {
 
     @Override
     public LinkedList<Estudiante> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList<Estudiante> estudiantes= new LinkedList();
+        try {
+            String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
+                    + "inner join estudiante as e on e.PERSONA_documento =p.documento\n";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                Estudiante estudiante = new Estudiante();
+                estudiante.setPrimerApellido("p.primerNombre");
+                estudiante.setDocumento(rs.getString("p.documento"));
+                estudiante.setPrimerNombre(rs.getString("p.primerNombre"));
+                estudiante.setSegundoNombre(rs.getString("p.segundoNombre"));
+                estudiante.setPrimerApellido(rs.getString("p.primerApellido"));
+                estudiante.setSegundoApellido(rs.getString("p.segundoApellido"));
+                estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
+                estudiante.setGenero(rs.getString("p.genero"));
+                estudiantes.add(estudiante);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return estudiantes;
     }
 
     public Estudiante consultarPorToken(String token) {
@@ -87,7 +108,7 @@ public class EstudianteDao implements IDao<Estudiante> {
 
             String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
                     + "inner join estudiante as e on e.PERSONA_documento =p.documento\n"
-                    + "where p.token = '" + token +"';";
+                    + "where p.token = '" + token + "';";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {

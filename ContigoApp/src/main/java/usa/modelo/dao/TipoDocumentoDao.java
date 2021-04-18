@@ -13,7 +13,7 @@ import usa.modelo.dto.TipoDocumento;
  * @author santi.
  */
 public class TipoDocumentoDao implements IDao<TipoDocumento> {
-    
+    /**/
      PreparedStatement pat;
      ResultSet result;
 
@@ -39,7 +39,7 @@ public class TipoDocumentoDao implements IDao<TipoDocumento> {
 
     @Override
     public LinkedList<TipoDocumento> listarTodos() {
-        LinkedList<TipoDocumento> documentos = new LinkedList<TipoDocumento>();//jajaja encuentrame
+        LinkedList<TipoDocumento> documentos = new LinkedList<TipoDocumento>();//jajaja encuentrame12
         try {
             String sql = "select * from TIPO_DOCUMENTO";
             pat = conn.prepareStatement(sql);
@@ -48,7 +48,6 @@ public class TipoDocumentoDao implements IDao<TipoDocumento> {
                 TipoDocumento doc = new TipoDocumento();
                 doc.setId(result.getInt("id"));
                 doc.setTipo(result.getString("tipo"));
-         
                 documentos.add(doc);
             }
             return documentos;

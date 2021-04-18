@@ -25,6 +25,9 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "MunicipioServlet", urlPatterns = {"/Municipio"})
 public class MunicipioServlet extends HttpServlet {
+    
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("MunicipioDao");
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -36,15 +39,13 @@ public class MunicipioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        AbstractFactory factoryDao=Producer.getFabrica("DAO");
-        IDao dao = (IDao) factoryDao.obtener("MunicipioDao");
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         json.put("Municipios", arreglo);
+        out.print(json.toString());
     }
 
     /**
