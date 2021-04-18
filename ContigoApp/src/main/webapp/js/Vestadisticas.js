@@ -15,5 +15,6 @@ function obtenerSelect() {
 }
 
 $("#btnGerar").on("click", function () {
-    window.location.assign("gestionCurso.html")
+    //window.location.assign("gestionCurso.html")
+
 });

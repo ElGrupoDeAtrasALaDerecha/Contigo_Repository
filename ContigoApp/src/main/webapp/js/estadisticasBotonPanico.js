@@ -36,6 +36,11 @@ function cargarSelectGrados(grados) {
 
 }
 
+$("#btnGerar").on("click", function () {
+    //window.location.assign("gestionCurso.html")
+    consultarInformacion();
+});
+
 function consultarInformacion(obj) {
     $.ajax({
         method: 'GET',
@@ -45,7 +50,7 @@ function consultarInformacion(obj) {
         success: function (response) {
             if (response.tipo === "ok") {
                 console.log(response);
-                estadisticas = result.Estadísticas;
+                estadisticas = result.Estadisticas;
             } else {
                 console.log(response.mensaje);
             }
