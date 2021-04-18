@@ -1,6 +1,11 @@
 package usa.modelo.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import usa.modelo.dto.Historia;
 
 /**
@@ -31,28 +36,24 @@ public class HistoriaDao implements IHistoriasDao{
 
     @Override
     public LinkedList<Historia> listarTodos() {
-        LinkedList<Historia> historia= new LinkedList();
+        LinkedList<Historia> historias= new LinkedList();
         try {
             String sql = "select * from HISTORIA;";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
-                Estudiante estudiante = new Estudiante();
-                estudiante.setPrimerApellido("p.primerNombre");
-                estudiante.setDocumento(rs.getString("p.documento"));
-                estudiante.setPrimerNombre(rs.getString("p.primerNombre"));
-                estudiante.setSegundoNombre(rs.getString("p.segundoNombre"));
-                estudiante.setPrimerApellido(rs.getString("p.primerApellido"));
-                estudiante.setSegundoApellido(rs.getString("p.segundoApellido"));
-                estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
-                estudiante.setGenero(rs.getString("p.genero"));
-                estudiantes.add(estudiante);
-            }
+                Historia historia = new Historia();
+                historia.setTitulo(rs.getString("titulo"));
+                historia.setId(rs.getInt("idHistoria"));
+                historia.setDocumentoCreador(rs.getString("PERSONAL_PERSONA_documento"));
+                historia.setDescripcion(rs.getString("descripcion"));
+                historia.setUrlImagen(rs.getString("urlImagen"));
+                historias.add(historia);
+            }   
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return estudiantes;
+        return historias;
     }
     
 }
