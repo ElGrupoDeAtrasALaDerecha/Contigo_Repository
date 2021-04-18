@@ -247,12 +247,13 @@ function colocarInfo(array, orador, personal) {
 
 }
 
-$("#btnCrear").on("click", function () {
+$("#btnCrear").on("click", function (e) {
+    e.preventDefault();
 if ($("#Texto").val() == "" || $("#Descripcion").val() == "" || $("#cronograma").val()=="" || $("#Lugar").val() == "" || $("#linkImagen").val() == "" ||  $("#linkInfografia").val() == "" || $("#grados").val() == "") {
     
 } else{
     CrearConverOrador();
-    alert("Conversatorio Creado")
+  
 }
 });
 
@@ -281,6 +282,80 @@ function CrearConverOrador() {
     });
 }
 
+
+const imageUploader = document.getElementById('img-uploader');
+const imageUploader2 = document.getElementById('img-uploader2');
+
+
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/miguel26697/image/upload';
+const CLOUDINARY_UPLOAD_PRESET = 'wmruximj';
+var ima
+var inforgra
+
+imageUploader.addEventListener('change', (e) => {
+  console.log(e)
+  e.preventDefault();
+  const file = e.target.files[0];
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+  $.ajax({
+    url: CLOUDINARY_URL,
+    type: "POST",
+    data: formData,
+    processData: false,  
+    contentType: false,
+    beforeSend: function () {
+    },
+    success: function (result, textStatus, request) {
+        informacion = result
+        img = informacion.url;
+        if (result != "error") {
+            console.log(result);
+        } else {
+            console.log("error");
+        }
+    },
+    complete: function (result) {
+    },
+    error: function (result) {
+    }
+});
+});
+
+imageUploader2.addEventListener('change', (e) => {
+    console.log(e)
+    e.preventDefault();
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  
+    $.ajax({
+      url: CLOUDINARY_URL,
+      type: "POST",
+      data: formData,
+      processData: false,  
+      contentType: false,
+      beforeSend: function () {
+      },
+      success: function (result, textStatus, request) {
+          informacion = result
+          infogra = informacion.url;
+          if (result != "error") {
+              console.log(result);
+          } else {
+              console.log("error");
+          }
+      },
+      complete: function (result) {
+      },
+      error: function (result) {
+      }
+  });
+  });
+
 function crearConversatorio(personal) {
     var documento;
     console.log(getCookie("token"));
@@ -294,7 +369,6 @@ function crearConversatorio(personal) {
     descripcion = $("#Descripcion").val();
     cronograma = $("#cronograma").val();
     lugar = $("#Lugar").val();
-    imagen = $("#linkImagen").val();
     infografia = $("#linkInfografia").val();
     clasifica = $("#grados").val();
 
@@ -304,8 +378,8 @@ function crearConversatorio(personal) {
         descripcion: descripcion,
         cronograma: cronograma,
         lugar: lugar,
-        imagen: imagen,
-        infografia: infografia,
+        imagen: img,
+        infografia: infogra,
         clasificacion: clasifica
 
     };
@@ -321,6 +395,8 @@ function crearConversatorio(personal) {
         },
         success: function (result, textStatus, request) {
             console.log(result);
+            alert("Conversatorio Creado")
+            window.location.assign("Conversatorios.html");
             if (result != "error") {
                 console.log(result);
             } else {
