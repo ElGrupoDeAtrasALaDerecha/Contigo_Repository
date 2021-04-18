@@ -40,3 +40,20 @@ h1{
     font-weight: lighter;
     outline:none;
 }
+.Button{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 25px;
+    width: 150px;
+    border: none;
+    background-color: #2d4059;
+    color: rgba(255,255,255,1);
+    text-align: left;
+    outline:none;
+}
+
+#boton{
+    text-align: center;
+}
