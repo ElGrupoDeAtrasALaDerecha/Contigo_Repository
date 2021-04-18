@@ -21,6 +21,7 @@ import usa.factory.Producer;
 import usa.modelo.dao.EstadisticasBtnPanicoDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.EstadisticasBtnPanico;
+import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
 
 /**
@@ -91,8 +92,10 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         String mensaje = Utils.readParams(request);
         System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
         System.out.println(mensaje);
-        EstadisticasBtnPanico estadistica = (EstadisticasBtnPanico) gson.fromJson(mensaje, EstadisticasBtnPanico.class);
+        IDao estudiante = (IDao)factoryDao.obtener("EstudianteDao");
+        EstadisticasBtnPanico estadistica = new EstadisticasBtnPanico();
         EstadisticasBtnPanicoDao estdao = (EstadisticasBtnPanicoDao) dao;
+        estadistica.setEstudiante((Estudiante) estudiante.consultar(mensaje));
         if (estdao.crear(estadistica)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Estadística creada");
