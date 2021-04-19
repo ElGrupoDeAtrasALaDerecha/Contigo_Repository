@@ -1,19 +1,18 @@
 var n = 0;
-$("#opciones").click(function () {
+
+
+function mas() {
     n = n + 1;
     console.log('N', n)
     if (n < 4) {
-
         let txt = '<div>' +
             '<input type="text" placeholder="ingrese la opción ' + n + '" id="' + n + '"></input>' +
             '</div>';
         $('#extra').append(txt);
     }
-});
+}
 
-
-$("#menos").click(function () {
-
+function quitaropc() {
     console.log('Nr', n)
     if (n >= 3) {
         n = 3;
@@ -22,5 +21,10 @@ $("#menos").click(function () {
         $('#' + n + '').remove();
         n = n - 1;
     }
-});
+}
+
+
+
+
+
 
