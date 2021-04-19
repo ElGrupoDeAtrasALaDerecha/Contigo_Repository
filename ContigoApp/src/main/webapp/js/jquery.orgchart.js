@@ -1269,7 +1269,7 @@
         $nodeDiv.append(opts.nodeTemplate(data));
       } else {
         $nodeDiv.append('<div class="title">'+ 
-        '<input type="button" id="btn-abrir-popup" class="btn-abrir-popup" value="'+data[opts.nodeTitle]+'">'
+        '<input onclick="crear()" type="button" id="btn-abrir-popup" class="btn-abrir-popup" value="'+data[opts.nodeTitle]+'">'
         +'</div>')   
       }
       //
