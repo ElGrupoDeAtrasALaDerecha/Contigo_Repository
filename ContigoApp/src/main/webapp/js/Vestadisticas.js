@@ -110,27 +110,32 @@ $("#btnGerar").on("click", function () {
 });
 
 // ============================ Alternativa ============================
-$('#btnGerar').click(function (e) {
+$('#btnGenerar').click(function (e) {
     var gradoSelt = $('#grados').val()
-    // var id_inst = getCookie("ID_Inst")
+     // var id_inst = getCookie("ID_Inst")
     var obj = {
-      grado: gradoSelt,
-    //   institucion_id: id_inst
+      grado: gradoSelt
     }
     // console.log(obj)
-    listarEstudiantes ()
+    listarEstudiantes (obj)
   })
-function listarEstudiantes() {
+function listarEstudiantes(obj) {  
     $.ajax({
         url: 'EstudiantePorGradoServlet',
-        method: 'GET',
-        dataType: 'json',
+        method: 'POST',
+        dataType: "json",
+        data: JSON.stringify(obj),
         success: function (response) {
-          console.log(response)
+            if (response.tipo === "ok") {
+                console.log(response);
+            } else {
+                console.log(response.mensaje);
+            }
         },
         error: function (response) {
-          console.log("Error en la petición GET")
-          
+            console.log(JSON.stringify(response))
+            console.log((response))
+
         }
       })
 }

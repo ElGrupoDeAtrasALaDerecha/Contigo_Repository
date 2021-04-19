@@ -59,7 +59,7 @@ public class ClasificacionServlet extends HttpServlet {
         String parametros = Utils.readParams(request);
         Gson gson = new Gson();
         Clasificacion clasi = (Clasificacion) gson.fromJson(parametros, Clasificacion.class);
-        ConversatoriosDao dao = (ConversatoriosDao) factoryDao.obtener("ClasificacionDao");
+        ConversatoriosDao dao = (ConversatoriosDao) factoryDao.obtener("ConversatoriosDao");
         JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray();
         LinkedList<Clasificacion> clasificaciones = dao.consultar(clasi.getId());

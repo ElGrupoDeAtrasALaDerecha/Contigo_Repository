@@ -21,6 +21,7 @@ import usa.factory.Producer;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
+import usa.utils.Utils;
 
 /**
  *
@@ -29,8 +30,6 @@ import usa.modelo.dto.Estudiante;
 @WebServlet(name = "EstudiantePorGradoServlet", urlPatterns = {"/EstudiantePorGradoServlet"})
 public class EstudiantePorGradoServlet extends HttpServlet {
 
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,7 +47,7 @@ public class EstudiantePorGradoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EstudiantePorGradoServlet</title>");            
+            out.println("<title>Servlet EstudiantePorGradoServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet EstudiantePorGradoServlet at " + request.getContextPath() + "</h1>");
@@ -66,33 +65,14 @@ public class EstudiantePorGradoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao dao = (IDao)factoryDao.obtener("EstudianteDao");
-    EstudianteDao daoestu = (EstudianteDao)dao;
-    
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
+    EstudianteDao daoestu = (EstudianteDao) dao;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         PrintWriter out = response.getWriter();
-        response.setContentType("application/json;charset=UTF-8");
-        JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray();
-        Gson gson =new Gson();
-        LinkedList<Estudiante>  estudiantes = daoestu.listarGradosEstudiante(request.getParameter("grado"));
-        if (estudiantes != null) {        
-            respuesta.put("tipo", "ok");
-            for (Estudiante i: estudiantes ) {
-                arreglo.put(new JSONObject(gson.toJson(i,Estudiante.class)));
-            }
-            respuesta.put("estudiantes", arreglo);
-        } else {
-            respuesta.put("tipo", "error");
-            respuesta.put("mensaje", "No se ha posido consultar el estudiant");
-        }
-       
-        out.print(respuesta.toString());
-        
+
     }
 
     /**
@@ -107,6 +87,30 @@ public class EstudiantePorGradoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        response.setContentType("application/json;charset=UTF-8");
+        JSONObject json = new JSONObject(Utils.readParams(request));
+        PrintWriter out = response.getWriter();
+        JSONObject respuesta = new JSONObject();
+        JSONArray arreglo = new JSONArray();
+        Gson gson = new Gson();
+
+        System.out.println("-----> " + json.getString("grado"));
+
+        LinkedList<Estudiante> estudiantes = daoestu.listarGradosEstudiante(json.getString("grado"));
+                
+        if (estudiantes != null) {
+            respuesta.put("tipo", "ok");
+            for (Estudiante i : estudiantes) {
+                arreglo.put(new JSONObject(gson.toJson(i, Estudiante.class)));
+            }
+            //respuesta.put("estudiantes", arreglo);
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No se ha posido consultar el estudiant");
+        }
+        
+        //respuesta.put("tipo", "ok");
+        out.print(respuesta.toString());
     }
 
     /**

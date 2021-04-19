@@ -148,7 +148,7 @@ public class EstudianteDao implements IDaoEstudiante {
 
     @Override
     public LinkedList<Estudiante> listarGradosEstudiante(String id) {
-        LinkedList<Estudiante> estudiantes = new LinkedList();;
+        LinkedList<Estudiante> estudiantes = new LinkedList<>();
         String sql = "select persona.documento, persona.primerNombre, persona.segundoNombre, persona.primerApellido, persona.segundoApellido, clasificacion.grado \n" +
         "from Estudiante, Grado, clasificacion, persona \n" +
         "where Estudiante.GRADO_codigo = grado.codigo and clasificacion.id = "+ id+"  and clasificacion.id = grado.CLASIFICACION_id and estudiante.PERSONA_documento= persona.documento;";
