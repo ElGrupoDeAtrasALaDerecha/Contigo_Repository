@@ -4,14 +4,15 @@ import java.util.LinkedList;
 import usa.modelo.dto.Situacion;
 
 /**
- *
+ * Clase de objetos de acceso a datos de las situaciones
  * @author Miguel Rippe, Santiago Cáceres, Laura Blanco y Santiago Pérez
  */
 public class SituacionDao implements ISituacionDao{
 
     @Override
-    public boolean crear(Situacion t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean crear(Situacion situacion) {
+        
+        return false;
     }
 
     @Override
