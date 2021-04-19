@@ -1,6 +1,5 @@
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -62,12 +61,11 @@ public class InstitucionServlet extends HttpServlet {
         String nom = Utils.readParams(request);
         Institucion ins = (Institucion) Utils.fromJson(nom, Institucion.class); //forma de leer datos cast
         System.out.println(nom);
-        InstitucionDao instuti = new InstitucionDao();
-        if (instuti.consultar(ins.getNombre()) != null) {
+        if (dao.consultar(ins.getNombre()) != null) {
             json.put("tipo", "error");
             json.put("mensaje", "Ya existe una institucion con este nombre");
         } else {
-            if (instuti.crear(ins)) {
+            if (dao.crear(ins)) {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Institucion registrada correctamente");
             } else {
