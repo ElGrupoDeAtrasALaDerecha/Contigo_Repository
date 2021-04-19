@@ -25,6 +25,13 @@ function quitaropc() {
 
 
 
+function obtenerNombre(nom){
+    return nom;
+}
+console.log('funciona mira :)',nom)
+
+
+
 
 
 

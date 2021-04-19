@@ -48,9 +48,10 @@ imageUploader.addEventListener('change', (e) => {
     });
 });
 
-
+var nom = $('#Nombre').val();
 $("#crearHistoria").click(function(){
     crearHistoria();
+    obtenerNombre(nom);
 })
 function crearHistoria() {
 

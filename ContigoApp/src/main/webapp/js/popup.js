@@ -13,9 +13,10 @@ btnCerrarPopup = document.getElementById('btn-cerrar-popup');
     
 });*/
 
-var valor = $('.btn-abrir-popup').val();
+
 
 function prueba (){
+    var valor = obtenerNombre();
     return valor;
 }
 console.log(prueba())
