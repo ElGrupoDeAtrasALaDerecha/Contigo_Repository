@@ -49,6 +49,7 @@ function traerEstudiantes(){
                     if (response.tipo === "ok") {
                         arregloEstudiantes = response.estudiantes;
                         llenarSelect();
+                        listaEstudiantes.style.display = "block"
                         
                     }else{
                         console.log(response.mensaje);
