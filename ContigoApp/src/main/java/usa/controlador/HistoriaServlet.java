@@ -26,7 +26,6 @@ public class HistoriaServlet extends HttpServlet {
     IDao dao = (IDao) factoryDao.obtener("HistoriaDao");
     IDao personalCalificadoDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -64,12 +63,11 @@ public class HistoriaServlet extends HttpServlet {
         String mensaje = Utils.readParams(request);
         String token = request.getHeader("token");
         System.out.println(mensaje);
-        Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
-  
-      
+        Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);     
         if (dao.crear(historia)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Historia creada");
+            json.put("id", historia.getId());
         } else {
             json.put("tipo", "error");
             json.put("mensaje", "Error al crear la historia");
