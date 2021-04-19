@@ -10,9 +10,6 @@ function ingresoInstitucion() {
         correo: email,
         contraseña: pass
     };
-    if (municipio == "") {
-        toastr.warning('Por favor escoja un municipio')
-    }
     //console.log(obj);
     loginInstitucion(obj);
 }
@@ -38,10 +35,12 @@ function loginInstitucion(obj) {
                 $(location).attr('href', 'admin_inst.html');
             }else{
                 console.log(response.mensaje);
+                toastr.warning('El correo o la contraseña son incorrectos')
             }
         },
         error: function (response) {
             console.log("Error: " + response.mensaje)
+            toastr.warning('El correo o la contraseña son incorrectos')
             //console.log(JSON.stringify(response))
         }
     });
@@ -49,7 +48,10 @@ function loginInstitucion(obj) {
 
 
 // Login Estudiante
-$("#ing_est").click(function (e) {
+var ingresoE= document.getElementById("ing_est");
+
+ingresoI.addEventListener("click", ingresoEstudiante);
+function ingresoEstudiante(params) {
     e.preventDefault();
     var doc = $("#documento").val();
     var pass = $("#contraseña").val();
@@ -59,7 +61,7 @@ $("#ing_est").click(function (e) {
     };
     console.log(obj);
     loginEstudiante(obj);
-});
+}
 
 /**
  * Función login de estudiante
@@ -81,10 +83,12 @@ function loginEstudiante(obj) {
                 $(location).attr('href', 'opciones.html');
             } else {
                 alert("Error: " + response.mensaje)
+                toastr.warning('El documento de identidad o la contraseña son incorrectos')
             }
         },
         error: function (response) {
             console.log(JSON.stringify(response))
+            toastr.warning('El documento de identidad o la contraseña son incorrectos')
         }
     });
 }
@@ -92,7 +96,6 @@ function loginEstudiante(obj) {
 
 function ingresarEnter() {
     tecla_enter = event.keyCode;
-
     if (tecla_enter == 13) {
         return ingresoInstitucion();
     }
