@@ -6,6 +6,10 @@ h1{
     padding-bottom: 40px;
     text-align: center;
 }
+#Espacios1{
+    margin-top: -10px;
+    padding-top: -10px;
+}
 .FullContainer{
     Display: inline-flex;
     justify-content: space-around;
@@ -14,12 +18,16 @@ h1{
     Flex-wrap: wrap;
 }
 .Container1{
-    display: flex;
+    Display: inline-flex;
+    width: 100%;
+    margin-bottom: 10px;
+    Flex-wrap: wrap;
     Flex-direction: column;
     Justify-content: Center;
     padding-bottom: 40px;
     justify-content: space-between;
     height: 260px;
+    align-items: center;
 }
 .Container2{
     padding-bottom: 40px;
@@ -52,6 +60,13 @@ h1{
     color: rgba(255,255,255,1);
     text-align: left;
     outline:none;
+}
+p{
+    padding-left:20px ;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 12px;
 }
 
 #boton{
