@@ -8,6 +8,7 @@ import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.GradoDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.ConversatoriosDao;
+import usa.modelo.dao.EstadisticasBtnPanicoDao;
 import usa.modelo.dao.TipoDocumentoDao;
 
 /**
@@ -33,7 +34,7 @@ public class FactoryDao implements AbstractFactory<IDao>{
         else if(nombreDao.equals("ConversatoriosDao")){
             dao =  new ConversatoriosDao();
         }
-        else if(nombreDao.equals("TipoDocumento")){
+        else if(nombreDao.equals("TipoDocumentoDao")){
             dao = new TipoDocumentoDao(); 
         } 
         else if(nombreDao.equals("PersonalCalificadoDao")){
@@ -41,6 +42,9 @@ public class FactoryDao implements AbstractFactory<IDao>{
         }
         else if (nombreDao.equals("GradoDao")){
             dao=new GradoDao();
+        }
+        else if (nombreDao.equals("EstadisticasBtnPanicoDao")){
+            dao=new EstadisticasBtnPanicoDao();
         }
         return dao;
     }

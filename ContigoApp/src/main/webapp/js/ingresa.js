@@ -16,7 +16,6 @@ $("body").keyup(function (e) {
 
 // Login Institucion
 $("#ing_inst").click(function (e) {
-    alert("!")
     e.preventDefault();
     var email = $("#correo").val();
     var pass = $("#password_inst").val();

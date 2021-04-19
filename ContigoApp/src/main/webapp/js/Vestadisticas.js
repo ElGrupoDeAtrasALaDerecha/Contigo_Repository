@@ -26,7 +26,7 @@ function selects(){
     var tiempo= document.getElementById("frecuenciaEstadisticas").value;
     if (grados !== "" && tiempo !== "") {
         btnDatos.style.display = "block"
-        listaEstudiantes.style.display = "block"
+        
         
     } else {
         btnDatos.style.display = "none"
@@ -36,6 +36,7 @@ function selects(){
 function traerEstudiantes(){
     if(opcVisualizar === "2"){
         if(grados !==""){
+            listaEstudiantes.style.display = "block"
             $.ajax({
                 method: 'GET',
                 url: 'EstudiantePorGradoServlet?grado='+grados,

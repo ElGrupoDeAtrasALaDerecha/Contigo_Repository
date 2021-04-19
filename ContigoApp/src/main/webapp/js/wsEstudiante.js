@@ -7,11 +7,7 @@
 $(document).ready(function(){
 	if(getCookie("tipoUsuario")!=="1"){
 		alert("No autorizado");
-<<<<<<< HEAD
-		/*window.location.assign("index.html");*/
-=======
 		//window.location.assign("index.html");
->>>>>>> V2.0
 	}
 	conectar();
 })
@@ -50,10 +46,6 @@ function conectar(){
 			ping();
 		} else {
 			let obj = JSON.parse(event.data);
-<<<<<<< HEAD
-			console.log(obj)
-=======
->>>>>>> V2.0
 			if (obj.tipo === "codigo sala") {
 				numeroSala = obj.numero;
 				pintarRespuesta(obj.mensaje);
@@ -69,12 +61,8 @@ function conectar(){
     	ws.close();
   	}
 	websocket.onclose=function(event){
-<<<<<<< HEAD
-		console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
-=======
 		alert("Se perdió la conexión con el servidor. En un momento se reestablecerá la conexión");
 		console.log('Socket is closed. Reconnect will be attempted in 1 second.');
->>>>>>> V2.0
     	setTimeout(function() {conectar();}, 1000);
 
 	}
@@ -225,7 +213,3 @@ function pintarEscribiendo(){
 		clearTimeout(timeout)
 	}, 1000)	
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> V2.0

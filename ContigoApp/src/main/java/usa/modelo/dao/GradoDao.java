@@ -1,6 +1,5 @@
 package usa.modelo.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +12,9 @@ import usa.utils.GeneradorCodigos;
 
 /**
  *
- * @author andre
+ * @author Andrés C. López R.
  */
-public class GradoDao implements IDao<Grado> {
+public class GradoDao implements IGradoDao {
 
     private PreparedStatement pat;
     @Override

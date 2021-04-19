@@ -28,9 +28,8 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
          try {
             String sql = "insert into ESTADISTICAS_BTNPANICO (ESTUDIANTE_PERSONA_documento, FECHA) values (?,now())";
             pat = conn.prepareStatement(sql);
-            pat.setString(1, t.getEstudiante().getDocumento());
+            pat.setString(1, t.getEstudiante());
             pat.execute();
-            result.close();
             pat.close();
             return true;
         } catch (SQLException ex) {
@@ -42,7 +41,6 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
     //Consulta del número de clics por estudiante
     @Override
     public EstadisticasBtnPanico consultar(String id) {
-        EstudianteDao estudainte = new EstudianteDao();
         EstadisticasBtnPanico est = null;
         try {
             String sql = "select count(*) as N_Clicks from ESTADISTICAS_BTNPANICO where ESTUDIANTE_PERSONA_documento = '" + id +"';";
@@ -51,7 +49,7 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
             est = new EstadisticasBtnPanico();
             while(result.next()){
                 est.setClikcs(result.getInt("N_Clicks"));
-                est.setEstudiante(estudainte.consultar(result.getString(id)));
+                est.setEstudiante(id);
             }
             sql = "select fecha from ESTADISTICAS_BTNPANICO where ESTUDIANTE_PERSONA_documento = '" + id + "';" ;
             pat = conn.prepareStatement(sql);
@@ -59,8 +57,6 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
             while(result.next()){
                 est.fechas.add(result.getString("fecha"));
             }
-            result.close();
-            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,17 +65,7 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
 
     @Override
     public boolean actualizar(EstadisticasBtnPanico est) {
-        try {
-            String sql = "UPDATE `contigobd`.`ESTADISTICAS_BTNPANICO` SET `CANTIDAD_CLICK` = '" + (est.getClikcs()+1) +  "' WHERE (ESTUDIANTE_PERSONA_documento = '10008');";
-            pat = conn.prepareStatement(sql);
-            pat.executeQuery();
-            result.close();
-            pat.close();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -89,17 +75,17 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
 
     @Override
     public LinkedList<EstadisticasBtnPanico> listarTodos() {
-        LinkedList<EstadisticasBtnPanico> estadisticas = new LinkedList<EstadisticasBtnPanico>();
+        LinkedList<EstadisticasBtnPanico> estadisticas = new LinkedList<>();
         try {
-            String sql = "select DISTINCT (ESTADISTICAS_BTNPANICO.ESTUDIANTE_PERSONA_documento) from ESTADISTICAS_BTNPANICO;";
+            String sql = "select DISTINCT (ESTUDIANTE_PERSONA_documento) from ESTADISTICAS_BTNPANICO;";
             pat = conn.prepareStatement(sql);
-            result = pat.executeQuery();
-            while(result.next()){
-                estadisticas.add(consultar(result.getNString("ESTUDIANTE_PERSONA_documento")));
+            try (ResultSet result_x = pat.executeQuery()) {
+                while(result_x.next()){
+                    estadisticas.add(consultar(result_x.getString("ESTUDIANTE_PERSONA_documento")));
+                }
             }
-            result.close();
-            pat.close();
-            return estadisticas;
+            result.close(); 
+            pat.cancel();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
