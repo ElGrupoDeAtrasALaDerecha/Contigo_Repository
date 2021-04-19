@@ -72,7 +72,7 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         }
         
         //Envio de los datos al clente en formato JSON 
-        respuesta.put("Estadisticas ",arreglo);
+        respuesta.put("Estadisticas",arreglo);
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }

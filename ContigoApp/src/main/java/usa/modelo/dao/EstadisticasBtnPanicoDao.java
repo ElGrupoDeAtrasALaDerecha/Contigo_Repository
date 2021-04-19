@@ -84,7 +84,7 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico>{
                     estadisticas.add(consultar(result_x.getString("ESTUDIANTE_PERSONA_documento")));
                 }
             }
-            result.close();
+            result.close(); 
             pat.cancel();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
