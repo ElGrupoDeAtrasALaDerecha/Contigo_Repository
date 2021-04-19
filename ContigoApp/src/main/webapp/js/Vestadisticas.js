@@ -67,36 +67,36 @@ function cargarSelectGrados(grados) {
     }
 }*/
 
-function traerEstudiantes(){
-    if(opcVisualizar === "2"){
-        if(grados !==""){
-            listaEstudiantes.style.display = "block"
-            $.ajax({
-                method: 'GET',
-                url: 'EstudiantePorGradoServlet?grado='+grados,
-                dataType: "json",
-                contentType: 'JSON application/json charset=utf-8',
-                headers:{
-                    token:getCookie("token")
-                }, 
-                success: function (response) {
-                    if (response.tipo === "ok") {
-                        arregloEstudiantes = response.estudiantes;
-                        llenarSelect();
-                        listaEstudiantes.style.display = "block"
-                        console.log(si);
-                    }else{
-                        console.log(response.mensaje);
-                    }
-                },
-                error: function (response) {
-                    console.log("Error: " + response.mensaje)
+// function traerEstudiantes(){
+//     if(opcVisualizar === "2"){
+//         if(grados !==""){
+//             listaEstudiantes.style.display = "block"
+//             $.ajax({
+//                 method: 'GET',
+//                 url: 'EstudiantePorGradoServlet',
+//                 dataType: "json",
+//                 contentType: 'JSON application/json charset=utf-8',
+//                 headers:{
+//                     token:getCookie("token")
+//                 }, 
+//                 success: function (response) {
+//                     if (response.tipo === "ok") {
+//                         arregloEstudiantes = response.estudiantes;
+//                         llenarSelect();
+//                         listaEstudiantes.style.display = "block"
+//                         console.log(si);
+//                     }else{
+//                         console.log(response.mensaje);
+//                     }
+//                 },
+//                 error: function (response) {
+//                     console.log("Error: " + response.mensaje)
                     
-                }
-            });
-        }
-    }
-}
+//                 }
+//             });
+//         }
+//     }
+// }
 
 
 function llenarSelect(arregloEstudiantes){
@@ -108,3 +108,29 @@ function llenarSelect(arregloEstudiantes){
 $("#btnGerar").on("click", function () {
     window.location.assign("gestionCurso.html")
 });
+
+// ============================ Alternativa ============================
+$('#btnGerar').click(function (e) {
+    var gradoSelt = $('#grados').val()
+    // var id_inst = getCookie("ID_Inst")
+    var obj = {
+      grado: gradoSelt,
+    //   institucion_id: id_inst
+    }
+    // console.log(obj)
+    listarEstudiantes ()
+  })
+function listarEstudiantes() {
+    $.ajax({
+        url: 'EstudiantePorGradoServlet',
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+          console.log(response)
+        },
+        error: function (response) {
+          console.log("Error en la petición GET")
+          
+        }
+      })
+}

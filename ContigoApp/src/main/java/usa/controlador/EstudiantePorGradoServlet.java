@@ -29,8 +29,8 @@ import usa.modelo.dto.Estudiante;
 @WebServlet(name = "EstudiantePorGradoServlet", urlPatterns = {"/EstudiantePorGradoServlet"})
 public class EstudiantePorGradoServlet extends HttpServlet {
 
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao dao = (IDao)factoryDao.obtener("EstudianteDao");
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -66,18 +66,21 @@ public class EstudiantePorGradoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao)factoryDao.obtener("EstudianteDao");
+    EstudianteDao daoestu = (EstudianteDao)dao;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          PrintWriter out = response.getWriter();
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
-        EstudianteDao daoestu = (EstudianteDao)dao;
         JSONArray arreglo = new JSONArray();
         Gson gson =new Gson();
         LinkedList<Estudiante>  estudiantes = daoestu.listarGradosEstudiante(request.getParameter("grado"));
-        if (estudiantes != null) {
-            
+        if (estudiantes != null) {        
             respuesta.put("tipo", "ok");
             for (Estudiante i: estudiantes ) {
                 arreglo.put(new JSONObject(gson.toJson(i,Estudiante.class)));
