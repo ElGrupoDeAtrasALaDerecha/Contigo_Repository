@@ -9,6 +9,7 @@ import java.util.LinkedList;
 public class Situacion {
     private int id;
     private int idHistoria;
+    private int predecesor;
     private String titulo;
     private String texto;
     private String textoOpcion;
@@ -60,6 +61,14 @@ public class Situacion {
 
     public void setIdHistoria(int idHistoria) {
         this.idHistoria = idHistoria;
+    }
+
+    public int getPredecesor() {
+        return predecesor;
+    }
+
+    public void setPredecesor(int predecesor) {
+        this.predecesor = predecesor;
     }
     
 }
