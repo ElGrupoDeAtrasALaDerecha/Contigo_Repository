@@ -25,10 +25,11 @@ function quitaropc() {
 
 
 
-function obtenerNombre(nom){
+function obtenerNombre(){
+    var nom = $('#Nombre').val();
     return nom;
 }
-console.log('funciona mira :)',nom)
+
 
 
 
