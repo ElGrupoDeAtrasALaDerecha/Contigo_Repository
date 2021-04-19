@@ -13,11 +13,11 @@ import usa.modelo.dto.Historia;
  *
  * @author Miguel Rippe, Santiago Cáceres, Laura Blanco y Santiago Pérez
  */
-public class HistoriaDao implements IHistoriasDao{
+public class HistoriaDao implements IHistoriasDao {
 
     PreparedStatement pat;
     ResultSet result;
-    
+
     @Override
     public boolean crear(Historia his) {
         try {
@@ -29,6 +29,13 @@ public class HistoriaDao implements IHistoriasDao{
             pat.setString(3, his.getDescripcion());
             pat.setString(4, his.getUrlImagen());
             pat.execute();
+            pat.close();
+            sql = "select idHistoria from HISTORIA order by idHistorya desc limit 1;";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                his.setId(rs.getInt("idHistoria"));
+            }
             pat.close();
             return true;
         } catch (SQLException ex) {
@@ -54,7 +61,7 @@ public class HistoriaDao implements IHistoriasDao{
 
     @Override
     public LinkedList<Historia> listarTodos() {
-        LinkedList<Historia> historias= new LinkedList();
+        LinkedList<Historia> historias = new LinkedList();
         try {
             String sql = "select * from HISTORIA;";
             PreparedStatement pat = conn.prepareStatement(sql);
@@ -67,11 +74,11 @@ public class HistoriaDao implements IHistoriasDao{
                 historia.setDescripcion(rs.getString("descripcion"));
                 historia.setUrlImagen(rs.getString("urlImagen"));
                 historias.add(historia);
-            }   
+            }
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return historias;
     }
-    
+
 }
