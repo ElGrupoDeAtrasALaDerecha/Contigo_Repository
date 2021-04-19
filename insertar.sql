@@ -62,3 +62,5 @@ values ("1000853623","Juanita y sus amigos", "Juanita que es una niña valiente 
                             cuenta que es
                             diferente a sus compañeras, por esto se vuelve insegura y tímida lo que hace que le cueste hacer
                             amigos, ¿Te acercarías a hablar con juanita?","img/school.jpg");
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(null,1,"Amigo de Juanita","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Juanita.");
