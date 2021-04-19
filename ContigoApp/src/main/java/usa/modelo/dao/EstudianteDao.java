@@ -19,7 +19,7 @@ import usa.utils.Utils;
  * @author Valeria Bermúdez, Laura Blanco, Santiago Cáceres y Santiago Pérez
  * @since 2021-03-13
  */
-public class EstudianteDao implements IDao<Estudiante> {
+public class EstudianteDao implements IDaoEstudiante {
 
     private PreparedStatement pat;
 
@@ -76,10 +76,7 @@ public class EstudianteDao implements IDao<Estudiante> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public LinkedList<Estudiante> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     public Estudiante consultarPorToken(String token) {
         Estudiante estudiante = null;
@@ -151,6 +148,39 @@ public class EstudianteDao implements IDao<Estudiante> {
 
         }
         return estudiante;
+    }
+
+    @Override
+    public LinkedList<Estudiante> listarGradosEstudiante(String id) {
+        LinkedList<Estudiante> estudiantes = new LinkedList();;
+        String sql = "select persona.documento, persona.primerNombre, persona.segundoNombre, persona.primerApellido, persona.segundoApellido, clasificacion.grado \n" +
+        "from Estudiante, Grado, clasificacion, persona \n" +
+        "where Estudiante.GRADO_codigo = grado.codigo and clasificacion.id = "+ id+"  and clasificacion.id = grado.CLASIFICACION_id and estudiante.PERSONA_documento= persona.documento;";
+        try {
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+
+            while (rs.next()) {
+                Estudiante estudi = new Estudiante();
+                estudi.setDocumento(rs.getString("documento"));
+                estudi.setPrimerNombre(rs.getString("primerNombre"));
+                estudi.setSegundoNombre(rs.getString("segundoNombre"));
+                estudi.setPrimerApellido(rs.getString("primerApellido"));
+                estudi.setSegundoApellido(rs.getString("segundoApellido"));
+                estudi.setSegundoApellido(rs.getString("grado"));
+                estudiantes.add(estudi);
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return estudiantes; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public LinkedList<Estudiante> listarTodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
