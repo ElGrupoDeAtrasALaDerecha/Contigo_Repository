@@ -23,65 +23,92 @@
 </head>
 
 <body>
-    <h1>Crear historia</h1>
-    <div class="FullContainer">
-        <div class="Container1">
-            <div id="Espacios" class="item">
-                <input type="text"
-                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))"
-                    id="Nombre" class="Texto" placeholder="Nombre de la historia" name="Nombre">
-            </div>
-            <div id="Espacios">
-                <input type="text"
-                    onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))"
-                    id="Descripcion" class="Texto" placeholder="Descripción" name="Descripcion">
-            </div>
-    
-            <div id="Espacios">
-                <p>Subir imagen de la historia</p>
-                <input type="file" id="img-uploader" min="0" max="5" class="Texto" placeholder="Numero de opciones"
-                    name="opcionesInicio">
-            </div>
+    <div class="full">
+        <div>
+            <h1>Crear historia</h1>
+            <div class="FullContainer">
+                <div class="Container1">
+                    <div id="Espacios" class="item">
+                        <input type="text"
+                            onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))"
+                            id="Nombre" class="Texto" placeholder="Nombre de la historia" name="Nombre">
+                    </div>
+                    <div id="Espacios">
+                        <input type="text"
+                            onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode == 32)|| (event.charCode == 209)|| (event.charCode == 241))"
+                            id="Descripcion" class="Texto" placeholder="Descripción" name="Descripcion">
+                    </div>
 
-        </div>
-        <div class="Container2">
-            <form id="form1" runat="server">
-                <div>
-                    <ul id="CaballerosZodiaco" style="display:none">
-                        <li>HOLI
-                            <ul>
-                                <li>H
-                                    <ul>
-                                        <li>L </li>
+                    <div id="Espacios">
+                        <p>Subir imagen de la historia</p>
+                        <input type="file" id="img-uploader" min="0" max="5" class="Texto"
+                            placeholder="Numero de opciones" name="opcionesInicio">
+                    </div>
 
-                                    </ul>
-                                </li>
+                </div>
+                <div class="Container2">
+                    <form id="form1" runat="server">
+                        <div>
+                            <ul id="CaballerosZodiaco" style="display:none">
+                                <li>HOLI
+                                    <ul>
+                                        <li>H
+                                            <ul>
+                                                <li>L </li>
 
-                                <li>O
-                                    <ul>
-                                        <li> A</li>
-                                    </ul>
-                                </li>
-                                <li>L
-                                    <ul>
-                                        <li> U</li>
+                                            </ul>
+                                        </li>
+
+                                        <li>O
+                                            <ul>
+                                                <li> A</li>
+                                            </ul>
+                                        </li>
+                                        <li>L
+                                            <ul>
+                                                <li> U</li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
-                    </ul>
-                    <div id="Organigrama-resultante">
+                            <div id="Organigrama-resultante">
 
-                    </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+
+            </div>
+            <div id="boton">
+                <input type="button" class="Button" id="crearHistoria" value="Crear historia">
+            </div>
+            <button class="btn-abrir-popup" id="btn-abrir-popup">Siguiente historia</button>
+            <br>
         </div>
-      
+        <div class="overlay" id="overlay">
+            <div class="popup" id="popup">
+                <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </a>
+                <h3>Opción 1</h3>
+                <h4>Formulario</h4>
+                <form action="">
+                    <div class="contenedor-inputs">
+                        <input type="text" placeholder="Texto siguiente">
+                        <p>Numero de opciones</p>
+                        <input id="opciones" type="number" min="1" max="3" placeholder="Numero de opciones">
+                        <div id="extra"></div>
+                    </div>
+                    <input type="submit" class="btn-submit" value="Crear">
+                </form>
+            </div>
+
+        </div>
+
     </div>
-    <div id="boton">
-        <input type="button" class="Button"  id="crearHistoria" value="Crear historia" >
-    </div>
-    <br>
+
+
     <script src="js/jquery.orgchart.js"></script>
     <script>
         $('#Organigrama-resultante').orgchart({
@@ -89,7 +116,8 @@
         });
     </script>
     <script src="js/js_componentes/bootstrap.min.js"></script>
-    <script src="js/historias.js"></script>
+    <script src="js/popup.js"></script>
+    <!--<script src="js/historias.js"></script>-->
     <script src="js/funciones.js"></script>
     <script src="js/template.js"></script>
 </body>
