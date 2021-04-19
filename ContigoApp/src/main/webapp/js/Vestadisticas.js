@@ -30,7 +30,7 @@ function selects(){
     var tiempo= document.getElementById("frecuenciaEstadisticas").value;
     if (grados !== "" && tiempo !== "") {
         btnDatos.style.display = "block"
-        listaEstudiantes.style.display = "block"
+        //listaEstudiantes.style.display = "block"
     } else {
         btnDatos.style.display = "none"
     }
@@ -40,7 +40,7 @@ function selects(){
 $(document).ready(function () {
     traerEstudiantes();
 });
-/*
+
 function traerGrados() {
     $.ajax({
         method: 'GET',
@@ -65,7 +65,7 @@ function cargarSelectGrados(grados) {
     for (var grado in grados) {
         document.getElementById("grados").innerHTML += "<option value='" + grados[grado] + "'>" + grados[grado] + "</option>";
     }
-}*/
+}
 
 // function traerEstudiantes(){
 //     if(opcVisualizar === "2"){
