@@ -81,6 +81,31 @@ public class SituacionServlet extends HttpServlet {
         out.print(respuesta.toString());
     }
 
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        String parametros = Utils.readParams(request);
+        Situacion situacion = (Situacion) Utils.fromJson(parametros, Situacion.class);
+        JSONObject respuesta = new JSONObject();
+        if(dao.consultar(String.valueOf(situacion.getId()))!=null){
+            if(dao.actualizar(situacion)){
+                respuesta.put("tipo","ok");
+                respuesta.put("mensaje", "Situación actualizada");
+            }else{
+                respuesta.put("tipo","error");
+                respuesta.put("mensaje", "Error interno al crear situación");
+            }
+        }else{
+            respuesta.put("tipo","error");
+            respuesta.put("mensaje", "No existe una situación con ese id");
+        }
+              
+        
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+    
+    }
+    
     /**
      * Returns a short description of the servlet.
      *
