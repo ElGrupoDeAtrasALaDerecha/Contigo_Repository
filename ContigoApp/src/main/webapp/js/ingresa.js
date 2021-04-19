@@ -35,12 +35,20 @@ function loginInstitucion(obj) {
                 $(location).attr('href', 'admin_inst.html');
             }else{
                 console.log(response.mensaje);
+<<<<<<< HEAD
                 toastr.warning('El correo o la contraseña son incorrectos')
             }
         },
         error: function (response) {
             console.log("Error: " + response.mensaje)
             toastr.warning('El correo o la contraseña son incorrectos')
+=======
+                toastr.error("Error: " + response.mensaje);
+            }
+        },
+        error: function (response) {
+            toastr.log("Error: error interno")
+>>>>>>> 16f481f23d6ca584b7dc9912c745a413b14d73f4
             //console.log(JSON.stringify(response))
         }
     });
