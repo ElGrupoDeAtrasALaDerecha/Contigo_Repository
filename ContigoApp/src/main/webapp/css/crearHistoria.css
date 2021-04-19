@@ -6,6 +6,10 @@ h1{
     padding-bottom: 40px;
     text-align: center;
 }
+#Espacios1{
+    margin-top: -10px;
+    padding-top: -10px;
+}
 .FullContainer{
     Display: inline-flex;
     justify-content: space-around;
@@ -14,12 +18,16 @@ h1{
     Flex-wrap: wrap;
 }
 .Container1{
-    display: flex;
+    Display: inline-flex;
+    width: 100%;
+    margin-bottom: 10px;
+    Flex-wrap: wrap;
     Flex-direction: column;
     Justify-content: Center;
     padding-bottom: 40px;
     justify-content: space-between;
     height: 260px;
+    align-items: center;
 }
 .Container2{
     padding-bottom: 40px;
@@ -53,11 +61,43 @@ h1{
     text-align: left;
     outline:none;
 }
-
-#boton{
-    text-align: center;
+.label1{
+    padding-left:20px ;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 12px;
 }
-
+.numeroOpc{
+    display: flex;
+    justify-content: space-around;
+    width:300px ;
+    margin-bottom: 15px;
+}
+.Aumentar{
+    background-color: rgba(255,255,255,1);
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px #2d4059 solid;
+}
+.Disminuir{
+    background-color: rgba(255,255,255,1);
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px #2d4059 solid;
+}
+#extra{
+    width: 100%;
+}
+.contenedor-inputs{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    Flex-direction: column;
+}
 
 .overlay{
     background: rgba(0,0,0,.3);
