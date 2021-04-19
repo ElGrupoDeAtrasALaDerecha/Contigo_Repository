@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
     usuario = parseInt(getCookie("tipoUsuario"));
     token = parseInt(getCookie("token"));
