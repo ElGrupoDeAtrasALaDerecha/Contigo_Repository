@@ -68,8 +68,36 @@ h1{
     padding-top: 0;
     font-size: 12px;
 }
-
-
+.numeroOpc{
+    display: flex;
+    justify-content: space-around;
+    width:300px ;
+    margin-bottom: 15px;
+}
+.Aumentar{
+    background-color: rgba(255,255,255,1);
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px #2d4059 solid;
+}
+.Disminuir{
+    background-color: rgba(255,255,255,1);
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px #2d4059 solid;
+}
+#extra{
+    width: 100%;
+}
+.contenedor-inputs{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    Flex-direction: column;
+}
 
 .overlay{
     background: rgba(0,0,0,.3);
