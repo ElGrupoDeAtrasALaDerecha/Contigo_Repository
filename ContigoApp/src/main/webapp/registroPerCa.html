@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/css_components/bootstrap.min.css">
     <link rel="stylesheet" href="css/Registro.css">
+    <link rel="stylesheet" href="css/cssRegistro.css">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -24,30 +26,34 @@
             <tr>
                 <td id="Columna-datos">
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="C.C" name="C.C">
+                        <input type="text" id="documento" class="Texto" placeholder="C.C" name="C.C">
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Primer nombre" name="PrimerNombre">
+                        <input type="text" id="primerNombre" class="Texto" placeholder="Primer nombre" name="PrimerNombre">
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Primer apellido" name="PrimerApellido">
+                        <input type="text" id="primerApellido"class="Texto" placeholder="Primer apellido" name="PrimerApellido">
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Correo electrónico" name="CorreoElectronico">
+                        <input type="text" id="correo" class="Texto" placeholder="Correo electrónico" name="CorreoElectronico">
                     </div>
                 </td>
                 <td id="Columna-datos2">
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Fecha de nacimiento: dd/MM/AAAA" name="FechaNacimiento">                        
+                        <input type="text" id="fecha" class="Texto" placeholder="Fecha de nacimiento: dd/MM/AAAA" name="FechaNacimiento">                        
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Segundo nombre" name="SegundoNombre">
+                        <input type="text" id="segundoNombre" class="Texto" placeholder="Segundo nombre" name="SegundoNombre">
                     </div>
                     <div id="Espacios">
-                        <input type="text" class="Texto" placeholder="Segundo apellido" name="SegundoApellido">
+                        <input type="text" id="segundoApellido" class="Texto" placeholder="Segundo apellido" name="SegundoApellido">
                     </div>
                     <div id="Espacios">
-                        <input type="password" class="Texto" placeholder="Contraseña" name="password">
+                        <input type="password" id="contraseña" class="Texto" placeholder="Contraseña" name="password">
+                    </div>
+                    <div id="Espacios">
+                        <p>Subir imagen de perfil</p>
+                        <input type="file" id="img-uploader" min="0" max="5" class="Texto" >
                     </div>
                     
                 </td>
@@ -60,6 +66,7 @@
     </div>
     
     <script src="js/js_componentes/jquery.min.js"></script>
+    <script src="js/registroPerca.js"></script>
     <script src="js/js_componentes/bootstrap.min.js"></script>
     <script src="js/template.js"></script>
 </body>

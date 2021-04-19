@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.Conversatorio;
+import usa.modelo.dto.EstudianteConversatorio;
 
 /**
  *
@@ -21,7 +22,7 @@ public class ConversatoriosDao implements IDaoConversatorios {
 // SQL
 
     private PreparedStatement pat;
-    
+
     /**
      *
      * @param conver
@@ -124,7 +125,23 @@ public class ConversatoriosDao implements IDaoConversatorios {
         return conversatorios;
     }
 
-    
+
+    @Override
+    public boolean registrarEstuConver(EstudianteConversatorio estuconver) {
+        try {
+            String sql = "insert into ESTUDIANTE_has_CONVERSATORIO (CONVERSATORIO_id,ESTUDIANTE_PERSONA_documento) values (?,?);";
+            pat = conn.prepareStatement(sql);
+            pat.setInt(1, estuconver.getIdConversatorio());
+            pat.setString(2, estuconver.getIdEstudiante());
+            pat.execute();
+            pat.close();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     @Override
     public boolean eliminar(String id) {
@@ -145,4 +162,5 @@ public class ConversatoriosDao implements IDaoConversatorios {
     public boolean crear(Conversatorio t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }
