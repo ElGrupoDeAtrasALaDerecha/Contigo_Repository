@@ -35,10 +35,11 @@ function loginInstitucion(obj) {
                 $(location).attr('href', 'admin_inst.html');
             }else{
                 console.log(response.mensaje);
+                toastr.error("Error: " + response.mensaje);
             }
         },
         error: function (response) {
-            console.log("Error: " + response.mensaje)
+            toastr.log("Error: error interno")
             //console.log(JSON.stringify(response))
         }
     });
