@@ -30,6 +30,7 @@
       'exportButtonName': 'Export',
       'exportFilename': 'OrgChart',
       'exportFileextension': 'png',
+      'parentNodeSymbol': 'oci-leader',
       'draggable': false,
       'direction': 't2b',
       'pan': false,
@@ -54,7 +55,9 @@
         'data': { 'options': this.options },
         'class': 'orgchart' + (this.options.chartClass !== '' ? ' ' + this.options.chartClass : '') + (this.options.direction !== 't2b' ? ' ' + this.options.direction : ''),
         'click': function(event) {
-        
+          if (!$(event.target).closest('.node').length) {
+            $chart.find('.node.focused').removeClass('focused');
+          }
         }
       });
       if (typeof MutationObserver !== 'undefined') {
@@ -781,7 +784,8 @@
     },
     //
     nodeClickHandler: function (event) {
-  
+      this.$chart.find('.focused').removeClass('focused');
+      $(event.delegateTarget).addClass('focused');
     },
     // load new nodes by ajax
     loadNodes: function (rel, url, $edge) {
@@ -1074,7 +1078,7 @@
           .after('<ul class="nodes"></ul>')
           .siblings('.nodes').append($dragged.find('.horizontalEdge').remove().end().closest('.hierarchy'));
         if ($dropZone.children('.title').length) {
-          $dropZone.children('.title').prepend('<i class="oci '+  this.$chart.data('options').parentNodeSymbol + ' symbol"></i>');
+          
         }
       } else {
         var horizontalEdges = '<i class="edge horizontalEdge rightEdge oci"></i><i class="edge horizontalEdge leftEdge oci"></i>';
@@ -1270,7 +1274,7 @@
       } else {
         $nodeDiv.append('<div class="title">'+ 
         '<input onclick="crear()" type="button" id="btn-abrir-popup" class="btn-abrir-popup" value="'+data[opts.nodeTitle]+'">'
-        +'</div>')   
+        +'</div>') 
       }
       //
       var nodeData = $.extend({}, data);
@@ -1279,13 +1283,13 @@
       // append 4 direction arrows or expand/collapse buttons
       var flags = data.relationship || '';
       if (opts.verticalLevel && level >= opts.verticalLevel) {
-        
+        if ((level + 1) > opts.verticalLevel && Number(flags.substr(2,1))) {
+        }
       } else {
         
-        /*if(Number(flags.substr(2,1))) {
+        if(Number(flags.substr(2,1))) {
           $nodeDiv.append('<i class="edge verticalEdge bottomEdge oci"></i>')
-            .children('.title').prepend('<i class="oci '+ opts.parentNodeSymbol + ' symbol"></i>');
-        }*/
+        }
       }
 
       $nodeDiv.on('mouseenter mouseleave', this.nodeEnterLeaveHandler.bind(this));
@@ -1369,7 +1373,9 @@
     // exposed method
     addChildren: function ($node, data) {
       this.buildChildNode($node.closest('.hierarchy'), data);
-      
+      if (!$node.find('.symbol').length) {
+        $node.children('.title').prepend('<i class="oci '+ this.options.parentNodeSymbol + ' symbol"></i>');
+      }
       if ($node.closest('.nodes.vertical').length) {
         if (!$node.children('.toggleBtn').length) {
           $node.append('<i class="toggleBtn oci"></i>');
