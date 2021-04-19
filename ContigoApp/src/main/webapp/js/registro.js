@@ -62,6 +62,10 @@ function registrar_institucion() {
         sec = true;
     }
 
+    if (municipio == "") {
+        toastr.warning('Por favor escoja un municipio')
+    }
+
 
     informacion = {
         idMunicipio: parseInt(municipio, 10),
@@ -91,8 +95,14 @@ function registrar_institucion() {
                 toastr.success('Institcución creada con exito')
                 $(location).attr('href', 'ingresar.html');
             } else {
-                console.log(result);
-                toastr.error('Institución ya registrada')
+                if (result.mensaje === "Ya existe una institucion con este nombre") {
+                    console.log(result);
+                    toastr.error('Institución ya registrada')    
+                } else {
+                    console.log(result);
+                    toastr.error('Error al registrar la institución')
+                }
+                
             }
 
         },
