@@ -10,6 +10,9 @@ function ingresoInstitucion() {
         correo: email,
         contraseña: pass
     };
+    if (municipio == "") {
+        toastr.warning('Por favor escoja un municipio')
+    }
     //console.log(obj);
     loginInstitucion(obj);
 }
