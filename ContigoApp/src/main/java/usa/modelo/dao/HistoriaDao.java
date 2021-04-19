@@ -30,7 +30,7 @@ public class HistoriaDao implements IHistoriasDao {
             pat.setString(4, his.getUrlImagen());
             pat.execute();
             pat.close();
-            sql = "select idHistoria from HISTORIA order by idHistorya desc limit 1;";
+            sql = "select idHistoria from HISTORIA order by idHistoria desc limit 1;";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
