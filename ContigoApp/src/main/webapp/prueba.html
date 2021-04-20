@@ -47,34 +47,19 @@
 
     <div id="opcGrado">
         <section id="contenedor_cc">
-            <div id="Grados" class="credencial">
+            <div id="cursos" class="credencial">
                 <center>
-                    <p>¿Seleccione el grado?</p>
+                    <p>Seleccione el grado</p>
                 </center>
-                <select id="grados" name="grados" class="ui search fluid dropdown" onchange="cargarSelectGrados(grados);">
-                    <option value="">Grados</option>
-                    <option value="">Grados</option>
-                    <option value="1">Transición</option>
-                    <option value="2">Primero</option>
-                    <option value="3">Segundo</option>
-                    <option value="4">Tercero</option>
-                    <option value="5">Cuarto</option>
-                    <option value="6">Quinto</option>
-                    <option value="7">Sexto</option>
-                    <option value="8">Séptimo</option>
-                    <option value="9">Octavo</option>
-                    <option value="10">Noveno</option>
-                    <option value="11">Décimo</option>
-                    <option value="12">Once</option>
-                    <option value="13">Global</option>
+                <select id="grados" name="grados" class="ui search fluid dropdown">
+                <option value="">Grados</option>
                 </select>
             </div>
 
-            <div id="cursos" class="credencial">
+            <div id="tiempo" class="credencial">
                 <center>
                     <p>Seleccione el tiempo </p>
                 </center>
-
                 <select id="frecuenciaEstadisticas" name="grados" class="ui search fluid dropdown"
                     onchange="selects();">
                     <option value="">Intervalos de tiempo</option>
@@ -83,28 +68,22 @@
                     <option value="3">Mensual</option>
                 </select>
             </div>
-            <div id="ListaEstudiantes" class="credencial">
-                <center>
-                    <p>Seleccione el estudiante </p>
-                </center>
-                <select id="estudiantes" name="estudiantes" class="ui search fluid dropdown">
-                    <option value="">estudiantes</option>
-                    
-                </select>
-            </div>
-        </section>
     </div>
-    
-    
+    <div id="ListaEstudiantes" class="credencial">
+        <center>
+            <p>Seleccione el estudiante </p>
+        </center>
+        <select id="estudiantes" name="estudiantes" class="ui search fluid dropdown">
+            <option value="">estudiantes</option>
+
+        </select>
+    </div>
 
     <div id="btn">
         <div class="contenedor_credencial">
             <button href="gestionCurso.html" id="btnGerar" class="btn" type="submit">Generar Dattos</button>
         </div>
     </div>
-    </div>
-    <button href="gestionCurso.html" id="btnGenerar" class="btn" type="submit">Generar Datos</button>
-
 </body>
 
 <script src="js/template.js"></script>
