@@ -185,7 +185,7 @@ function cargarSelectGrados(grados) {
 // });
 */
 // ============================ Alternativa ============================
-$('#btnGenerar').click(function (e) {
+$('#btnGerar').click(function (e) {
     var gradoSelt = $('#grados').val()
      // var id_inst = getCookie("ID_Inst")
     var obj = {
