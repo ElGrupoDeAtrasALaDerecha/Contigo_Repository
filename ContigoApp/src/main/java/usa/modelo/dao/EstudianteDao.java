@@ -2,16 +2,12 @@ package usa.modelo.dao;
 
 import java.sql.CallableStatement;
 import usa.modelo.dto.Estudiante;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import usa.bd.IConexionBD;
-import usa.factory.AbstractFactory;
-import usa.factory.Producer;
 import usa.utils.Utils;
 /**
  * Clase de acceso a datos de estudiantes
@@ -19,7 +15,7 @@ import usa.utils.Utils;
  * @author Valeria Bermúdez, Laura Blanco, Santiago Cáceres y Santiago Pérez
  * @since 2021-03-13
  */
-public class EstudianteDao implements IDao<Estudiante> {
+public class EstudianteDao implements IDaoEstudiante {
 
     private PreparedStatement pat;
 
@@ -76,10 +72,7 @@ public class EstudianteDao implements IDao<Estudiante> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public LinkedList<Estudiante> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     public Estudiante consultarPorToken(String token) {
         Estudiante estudiante = null;
@@ -151,6 +144,42 @@ public class EstudianteDao implements IDao<Estudiante> {
 
         }
         return estudiante;
+    }
+
+    @Override
+    public LinkedList<Estudiante> listarGradosEstudiante(String id) {
+        LinkedList<Estudiante> estudiantes = new LinkedList<>();
+        String sql = "select p.documento, p.primerNombre, p.segundoNombre, p.primerApellido, p.segundoApellido, c.grado \n" +
+        "from persona as p \n" +
+        "inner join Estudiante as e on e.PERSONA_documento= p.documento\n" +
+        "inner join Grado as g  on e.Grado_codigo=g.codigo\n" +
+        "inner join clasificacion as c on c.id=g.CLASIFICACION_id\n" +
+        "where c.id = "+id+";";
+        try {
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+
+            while (rs.next()) {
+                Estudiante estudi = new Estudiante();
+                estudi.setDocumento(rs.getString("documento"));
+                estudi.setPrimerNombre(rs.getString("primerNombre"));
+                estudi.setSegundoNombre(rs.getString("segundoNombre"));
+                estudi.setPrimerApellido(rs.getString("primerApellido"));
+                estudi.setSegundoApellido(rs.getString("segundoApellido"));
+                estudi.setGrado(rs.getString("grado"));
+                estudiantes.add(estudi);
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return estudiantes; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public LinkedList<Estudiante> listarTodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

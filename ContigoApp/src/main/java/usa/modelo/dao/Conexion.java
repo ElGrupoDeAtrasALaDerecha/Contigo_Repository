@@ -10,7 +10,7 @@ import usa.bd.IConexionBD;
  * @author Santiago Pérez
  */
 public class Conexion extends IConexionBD{
-//a
+/**/
     String bd = "contigoBD";
     String user= "root";
     String password="220800";

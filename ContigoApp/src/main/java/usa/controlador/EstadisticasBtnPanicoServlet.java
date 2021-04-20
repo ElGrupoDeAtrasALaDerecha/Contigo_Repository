@@ -22,7 +22,6 @@ import usa.modelo.dao.EstadisticasBtnPanicoDao;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.EstadisticasBtnPanico;
-import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
 
 /**
@@ -86,7 +85,6 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject(Utils.readParams(request));
-        response.setContentType("application/json;charset=UTF-8");
                 
         //Impersion de los datos 
         System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");

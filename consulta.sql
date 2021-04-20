@@ -63,3 +63,25 @@ limit 5
 
 
 
+/*cantidad de estudiantes que presionaron el btn*/
+/*total de estudiantes de un grado*/
+
+select q1.totalE as "total", q2.totalEP as "si", q1.totalE-q2.totalEP as "no" from 
+(select count(*) as totalE from estudiante
+where GRADO_codigo="aaaaa") as q1, 
+(select count(p.documento) as totalEP from Persona as p
+inner join Estudiante as e on e.PERSONA_documento=p.documento
+inner join GRADO as g on g.codigo=e.GRADO_codigo
+where g.codigo="aaaaa" and p.documento in (select distinct ESTUDIANTE_PERSONA_documento from estadisticas_btnpanico)
+) as q2;
+
+
+select count(*) as totalE from estudiante
+where GRADO_codigo="aaaaa";
+ 
+select count(p.documento) as totalEP from Persona as p
+inner join Estudiante as e on e.PERSONA_documento=p.documento
+inner join GRADO as g on g.codigo=e.GRADO_codigo
+where g.codigo="aaaaa" and p.documento in (select distinct ESTUDIANTE_PERSONA_documento from estadisticas_btnpanico);
+
+select *from estadisticas_btnpanico;

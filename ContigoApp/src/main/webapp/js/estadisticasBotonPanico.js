@@ -53,6 +53,7 @@ function consultarInformacion(obj) {
                 estadisticas = response.Estadisticas;
                 // console.log(estadisticas)
                 grafica1(estadisticas)
+                filtrarClicksporDia(estadisticas)
             } else {
                 console.log(response.mensaje);
             }
@@ -114,5 +115,84 @@ function parametrosGrafica (x, y) {
                 display:false
             }
         } 
+    });
+}
+
+
+function filtrarClicksporDia(estadisticas) {
+    var clicksdiarios = 0;
+    var dias = [
+        'domingo',
+        'lunes',
+        'martes',
+        'miércoles',
+        'jueves',
+        'viernes',
+        'sábado',
+    ];
+    var frec = [0, 0, 0, 0, 0, 0, 0];
+    for (let index = 0; index < estadisticas.length; index++) {
+        for (let i = 0; i < estadisticas[index].fechas.length; i++) {
+            var fecha = estadisticas[index].fechas[i];
+            ms = Date.parse(estadisticas[index].fechas[index]);
+            fecha2 = new Date(ms).getDay();
+            console.log(fecha2);
+            const nombreDia = dias[fecha2];
+            console.log("Nombre de día de la semana: ", nombreDia);
+            for (let j = 0; j < dias.length; j++) {
+                if (fecha2 == (j).toString()) {
+                    var n = frec[j];
+                    n++;
+                    console.log(n)
+                    frec[j] = n
+                    console.log(frec[j])
+
+                }
+            }
+        }
+    }
+    var tablaInscripcionAconversatorio = new Chart( document.getElementById('conversatoriosComunes').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: dias,
+            datasets: [{
+                label: 'Días',
+                data: frec,
+                backgroundColor: [
+                'rgb(136, 145, 200,0.6)',
+                'rgba(210, 180, 140, 0.6)',
+                'rgba(188, 143, 143, 0.6)',
+                'rgba(153, 102, 255, 0.6)'
+                ],
+                borderColor: [
+                'rgb(136, 145, 200)',
+                'rgba(210, 180, 140, 1)',
+                'rgba(188, 143, 143, 1)',
+                'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Número de estudiantes por grado que han asistido a conversatorios'
+            },
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 25,
+                    top: 0,
+                    bottom: 0
+                }
+            }
+        }
     });
 }
