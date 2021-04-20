@@ -1,36 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package usa.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
+import usa.modelo.dao.IDao;
+import usa.modelo.dao.IDaoConversatorios;
+import usa.utils.Utils;
 
 /**
  *
- * @author natis
+ * @author 
  */
 @WebServlet(name = "EstadisticasServlet", urlPatterns = {"/Estadisticas"})
 public class EstadisticasServlet extends HttpServlet {
 
-  
-    @Override
+   AbstractFactory factoryDao=Producer.getFabrica("DAO");
+   IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
+    
+   @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             response.setContentType("application/json;charset=UTF-8");
+            JSONObject json = new JSONObject();
             String parametro = request.getParameter("tipoConsulta");
             if(parametro.equals("ConversatorioPorGrado")){
                 String grado = request.getParameter("grado");
-            
-            }
-            
+                IDaoConversatorios daoConversatorio= (IDaoConversatorios)dao;
+                LinkedList<JSONArray> arreglos = daoConversatorio.consultarPorGrado(grado);
+                json.put("titulos",arreglos.get(0));
+                json.put("inscritos",arreglos.get(1));
+                PrintWriter out = response.getWriter();
+                out.print(json.toString());
+             }
+                 
     }
 
    
