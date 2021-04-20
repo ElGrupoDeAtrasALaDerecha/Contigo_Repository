@@ -18,7 +18,7 @@ function crear() {
         '<div class="popup active" id="popup">' +
         '<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup" onclick="eliminar()"> ' +
         '<i class="fa fa-times" aria-hidden="true"></i>' + '</a>' +
-        '<h3>'+/*historia.titulo*/"Holi"+'</h3>' +
+        '<h3>'+historia.titulo+'</h3>' +
         '<h4>Formulario</h4>' +
         '<form action="">' +
         '<div class="contenedor-inputs">' +
