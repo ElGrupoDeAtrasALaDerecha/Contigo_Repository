@@ -1,4 +1,7 @@
-
+$("#img-uploader").change(function(){
+    filename=this.files[0].filename
+    console.log(filename);
+})
 
 $(document).ready(function () {
     usuario = parseInt(getCookie("tipoUsuario"));

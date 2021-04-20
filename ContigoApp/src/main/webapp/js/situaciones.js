@@ -25,7 +25,7 @@ function quitaropc() {
 
 
 
-function obtenerNombre(){
+function obtenerNombre() {
     var nom = $('#Nombre').val();
     return nom;
 }
