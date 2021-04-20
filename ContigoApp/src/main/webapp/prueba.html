@@ -2,6 +2,7 @@
 <html>
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
@@ -15,6 +16,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap"
         rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css">
+
+
 </head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -47,25 +53,26 @@
 
     <div id="opcGrado">
         <section id="contenedor_cc">
-            <div id="Grados" class="credencial">
+            <div id="cursos" class="credencial">
                 <center>
-                    <p>¿Seleccione el grado?</p>
+                    <p>Seleccione el grado</p>
                 </center>
-                <select id="grados" name="grados" class="ui search fluid dropdown" onchange="selects();">
+
+                <select id="grados" name="grados" class="ui search fluid dropdown" onchange="aparecerSelectEst();">
                     <option value="">Grados</option>
-                    <option value="1">Transición</option>
+                    <option value="1">Trasnsición</option>
                     <option value="2">Primero</option>
                     <option value="3">Segundo</option>
                     <option value="4">Tercero</option>
                     <option value="5">Cuarto</option>
                     <option value="6">Quinto</option>
                     <option value="7">Sexto</option>
-                    <option value="8">Séptimo</option>
+                    <option value="8">Septimo</option>
                     <option value="9">Octavo</option>
                     <option value="10">Noveno</option>
-                    <option value="11">Décimo</option>
+                    <option value="11">Decimo</option>
                     <option value="12">Once</option>
-                    <option value="13">Global</option>
+                    <option value="13">Docentes</option>
                 </select>
             </div>
 
@@ -82,26 +89,68 @@
                     <option value="3">Mensual</option>
                 </select>
             </div>
-            <div id="ListaEstudiantes" class="credencial">
-                <center>
-                    <p>Seleccione el estudiante </p>
-                </center>
-                <select id="estudiantes" name="estudiantes" class="ui search fluid dropdown">
-                    <option value="">estudiantes</option>
-                    
-                </select>
-            </div>
         </section>
     </div>
-    
-    
+
+    <section id="contenedor_cc">
+        <div id="ListaEstudiantes" class="credencial">
+            <center>
+                <p>Seleccione el estudiante </p>
+            </center>
+            <select id="estudiantes" name="estudiantes" class="ui search fluid dropdown">
+                <option value="">estudiantes</option>
+
+            </select>
+        </div>
+    </section>
+
 
     <div id="btn">
         <div class="contenedor_credencial">
             <button href="gestionCurso.html" id="btnGerar" class="btn" type="submit">Generar Datos</button>
         </div>
     </div>
+
+    <div id="Graficas" class="ui grid">
+        <div class="ui row">
+            <div class="ui five wide column">
+
+            </div>
+            <div class="ui centered eight wide column">
+                <h1>Análisis de datos</h1>
+            </div>
+            <div class="ui four wide column">
+
+            </div>
+        </div>
+        <div class="ui row">
+            <div class="ui one wide column">
+
+            </div>
+
+            <div class="ui fourteen wide column">
+                <div class="ui stackable two column grid">
+                    <div class="column">
+                        <canvas id="situacionesComunes" class="tamaño"></canvas>
+                    </div>
+                    <div class="column">
+                        <canvas id="conversatoriosComunes" class="tamaño"></canvas>
+                    </div>
+                    <div class="column">
+                        <h5>Gráfica del uso del boton por</h5>
+                        <canvas id="usoChat" class="tamaño"></canvas>
+                    </div>
+                    <div class="column">
+                        <canvas id="cantidadEstudiantes" class="tamaño"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="ui one wide column">
+
+            </div>
+        </div>
     </div>
+
 
 </body>
 
@@ -111,6 +160,8 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 <script src="js/ayuda.js"></script>
+<!--<script src="js/estadisticasBotonPanico.js"></script>-->
+<script src="js/ins_admin.js"></script>
 <script src="js/Vestadisticas.js"></script>
 
 </html>
