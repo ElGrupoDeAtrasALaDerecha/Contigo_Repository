@@ -41,12 +41,46 @@ public class SituacionDao implements ISituacionDao{
 
     @Override
     public Situacion consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Situacion situacion = null ;
+        try {
+            String sql = "select * from situacion where id =\""+id+"\"";
+            pat = conn.prepareStatement(sql);
+            ResultSet result = pat.executeQuery();
+            while(result.next()){
+                situacion = new Situacion();
+                situacion.setId(result.getInt("id"));
+                situacion.setPredecesor(result.getInt("SITUACION_id"));
+                situacion.setIdHistoria(result.getInt("HISTORIA_idHistoria"));
+                situacion.setTexto(result.getString("texto"));
+                situacion.setTextoOpcion(result.getString("opcion"));
+              
+                return situacion;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return situacion;
     }
 
     @Override
-    public boolean actualizar(Situacion t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(Situacion situacion) {
+       try {
+     
+            String sql = "UPDATE situacion SET SITUACION_id=?, HISTORIA_idHistoria=?, titulo=?, texto=?, opcion=? WHERE id=?";
+            pat = conn.prepareStatement(sql);
+            pat.setInt(1, situacion.getIdHistoria());
+            pat.setString(2, situacion.getTitulo());
+            pat.setString(3, situacion.getTexto());
+            pat.setString(4, situacion.getTextoOpcion());
+            pat.setInt(5, situacion.getId());
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
