@@ -12,7 +12,7 @@ import usa.bd.IConexionBD;
 public class Conexion extends IConexionBD{
     String bd = "contigoBD";
     String user= "root";
-    String password="1234";
+    String password="029624";
     String host="localhost";
     String port="3306";
     private final String url = "jdbc:mysql://"+host+":"+port+"/"+bd+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";

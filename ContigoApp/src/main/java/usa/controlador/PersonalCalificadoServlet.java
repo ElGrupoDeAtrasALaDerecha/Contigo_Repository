@@ -64,7 +64,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
                 //Aquí se envía la verificación
             }else{
                 respuesta.put("tipo","error");
-                respuesta.put("mensaje","Ya existe un usuario con ese nombre documento");
+                respuesta.put("mensaje","Ya existe un usuario con el número de documento ingresado");
             }
         }
         PrintWriter out = response.getWriter();

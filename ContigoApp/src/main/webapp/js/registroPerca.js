@@ -50,7 +50,7 @@ function crearPerca() {
     segundoNombre = $("#segundoNombre").val();
     segundoApellido = $("#segundoApellido").val();
     contraseña = $("#contraseña").val();
-   
+    genero = "femenino" 
 
 
     informacion = {
@@ -63,7 +63,8 @@ function crearPerca() {
         segundoNombre:segundoNombre,
         segundoApellido:segundoApellido,
         contraseña:contraseña,
-        imagen:img
+        imagen:imgm,
+        genero: genero
 
     };
 
@@ -82,6 +83,7 @@ function crearPerca() {
             if (result != "error") {
                 console.log(result);
             } else {
+                toastr.warning(result.error)
                 console.log("error");
             }
         },
