@@ -1,6 +1,7 @@
 var opcGrado = document.getElementById('opcGrado');
 var divge = document.getElementById('ge');
-var btnDatos = document.getElementById('btn');
+var btnGrados = document.getElementById('btnGrados');
+var btnEstudiantes = document.getElementById('btnEstudiantes');
 var graficas = document.getElementById('Graficas');
 var listaEstudiantes = document.getElementById('ListaEstudiantes');
 
@@ -11,8 +12,9 @@ var listaEstudiantes = document.getElementById('ListaEstudiantes');;
 var arregloEstudiantes;
 
 opcGrado.style.display = "none"
-btnDatos.style.display = "none"
-graficas.style.display = "none"
+btnGrados.style.display = "none"
+btnEstudiantes.style.display = "none"
+//graficas.style.display = "none"
 listaEstudiantes.style.display = "none"
 
 $('.ui.dropdown')
@@ -46,9 +48,9 @@ function selects() {
     grados = document.getElementById("txtGrado").value;
     var tiempo = document.getElementById("frecuenciaEstadisticas").value;
     if (grados !== "" && tiempo !== "") {
-        btnDatos.style.display = "block"
+        btnGrados.style.display = "block"
     } else {
-        btnDatos.style.display = "none"
+        btnGrados.style.display = "none"
     }
 }
 
@@ -58,11 +60,17 @@ function aparecerSelectEst() {
     if (opcVisualizar === "2") {
         if (grados !== "") {
             listaEstudiantes.style.display = "block"
+            btnEstudiantes.style.display = "block"
         }
     }
 }
 
-$("#btnGerar").on("click", function () {
+$("#btnGerarE").on("click", function () {
+    //window.location.assign("gestionCurso.html")
+    graficas.style.display = "block"
+});
+
+$("#btnGerarG").on("click", function () {
     //window.location.assign("gestionCurso.html")
     graficas.style.display = "block"
     GraficaTorta();
@@ -70,7 +78,7 @@ $("#btnGerar").on("click", function () {
 
 
 
-function GraficaTorta() {
+function GraficaTorta(data) {
     var oilCanvas = document.getElementById("usoChat");
     Chart.defaults.global.defaultFontFamily = "Lato";
     Chart.defaults.global.defaultFontSize = 18;
@@ -81,7 +89,7 @@ function GraficaTorta() {
         ],
         datasets: [
             {
-                data: [300, 60],
+                data: data,
                 backgroundColor: [
                     "#684CB6",
                     "#C5BCDD"
