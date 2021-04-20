@@ -7,7 +7,7 @@ var listaEstudiantes = document.getElementById('ListaEstudiantes');
 var opcVisualizar;//Select de opcion a visualizar tipo de graficas a analizar 
 var grados;
 var estudiante
-var listaEstudiantes= document.getElementById('ListaEstudiantes');;
+var listaEstudiantes = document.getElementById('ListaEstudiantes');;
 var arregloEstudiantes;
 
 opcGrado.style.display = "none"
@@ -15,10 +15,19 @@ btnDatos.style.display = "none"
 graficas.style.display = "none"
 listaEstudiantes.style.display = "none"
 
+$('.ui.dropdown')
+    .dropdown()
+    ;
+
+$(document).ready(function () {
+    listarGrados();
+});
+
+
 function obtenerSelect() {
-    
-     opcVisualiza = document.getElementById("consulta").value;
-    if (opcVisualiza === "1" || opcVisualiza ==="2") {
+
+    opcVisualiza = document.getElementById("consulta").value;
+    if (opcVisualiza === "1" || opcVisualiza === "2") {
         opcGrado.style.display = "block"
         divge.style.display = "none"
 
@@ -28,9 +37,13 @@ function obtenerSelect() {
     }
 }
 
+$(".ui.dropdown").click(function () {
+    selects();
+    aparecerSelectEst();
+});
 
-function selects(){
-    grados = document.getElementById("grados").value;
+function selects() {
+    grados = document.getElementById("txtGrado").value;
     var tiempo = document.getElementById("frecuenciaEstadisticas").value;
     if (grados !== "" && tiempo !== "") {
         btnDatos.style.display = "block"
@@ -40,9 +53,9 @@ function selects(){
 }
 
 function aparecerSelectEst() {
-    opcVisualiza = document.getElementById("consulta").value;
-    grados = document.getElementById("grados").value;
-    if (opcVisualiza === "2") {
+    opcVisualizar = document.getElementById("consulta").value;
+    grados = document.getElementById("txtGrado").value;
+    if (opcVisualizar === "2") {
         if (grados !== "") {
             listaEstudiantes.style.display = "block"
         }
@@ -53,7 +66,6 @@ $("#btnGerar").on("click", function () {
     //window.location.assign("gestionCurso.html")
     graficas.style.display = "block"
     GraficaTorta();
-    listarGrados();
 });
 
 
@@ -84,11 +96,11 @@ function GraficaTorta() {
 
 function listarGrados() {
     $.ajax({
-        url: 'Grado',
+        url: 'ClasificacionServlet',
         method: 'GET',
         dataType: 'json',
         success: function (response) {
-            arregloGrados = response.GradosClasificados;
+            arregloGrados = response.clasificaciones;
             console.log(response)
             llenarSelectGrados(arregloGrados);
         },
@@ -98,103 +110,25 @@ function listarGrados() {
         }
     })
 }
-/*
-function llenarSelectGrados(a){
-    for(var i=0;i<a.length;i++){
-        let txt=`<option value="${a[i]}"></option>`
-        $("#").append(txt);
-    }
-}*/
 
-/*
-function traerEstudiantes(){
-    if(opcVisualizar === "2"){
-        if(grados !==""){
-            listaEstudiantes.style.display = "block"
-            $.ajax({
-                method: 'GET',
-                url: 'EstudiantePorGradoServlet?grado='+grados,
-                dataType: "json",
-                contentType: 'JSON application/json charset=utf-8',
-                headers:{
-                    token:getCookie("token")
-                },
-                success: function (response) {
-                    if (response.tipo === "ok") {
-                        arregloEstudiantes = response.estudiantes;
-                        llenarSelect();
-
-                    }else{
-                        console.log(response.mensaje);
-                    }
-                },
-                error: function (response) {
-                    console.log("Error: " + response.mensaje)
-
-                }
-            });
-        }
-    });
-}
-function cargarSelectGrados(grados) {
-    for (var grado in grados) {
-        document.getElementById("grados").innerHTML += "<option value='" + grados[grado] + "'>" + grados[grado] + "</option>";
+function llenarSelectGrados(a) {
+    for (var i = 0; i < a.length; i++) {
+        let txt = `<div class="item" data-value="${a[i].id}">${a[i].grado}</div>`
+        $("#grados").append(txt);
     }
 }
 
-// // function traerEstudiantes(){
-// //     if(opcVisualizar === "2"){
-// //         if(grados !==""){
-// //             listaEstudiantes.style.display = "block"
-// //             $.ajax({
-// //                 method: 'GET',
-// //                 url: 'EstudiantePorGradoServlet',
-// //                 dataType: "json",
-// //                 contentType: 'JSON application/json charset=utf-8',
-// //                 headers:{
-// //                     token:getCookie("token")
-// //                 }, 
-// //                 success: function (response) {
-// //                     if (response.tipo === "ok") {
-// //                         arregloEstudiantes = response.estudiantes;
-// //                         llenarSelect();
-// //                         listaEstudiantes.style.display = "block"
-// //                         console.log(si);
-// //                     }else{
-// //                         console.log(response.mensaje);
-// //                     }
-// //                 },
-// //                 error: function (response) {
-// //                     console.log("Error: " + response.mensaje)
-                    
-// //                 }
-// //             });
-// //         }
-// //     }
-// // }
-
-
-// function llenarSelect(arregloEstudiantes){
-//     for(var i=0;i<arregloEstudiantes.length;i++){
-//         let txt=`<option value="${arregloEstudiantes[i].documento}">${arregloEstudiantes[i].primerNombre} ${arregloEstudiantes[i].segundoNombre} ${arregloEstudiantes[i].primerApellido} ${arregloEstudiantes[i].segundoApellido}</option>`
-//         $("#estudiantes").append(txt);
-//     }
-// }
-// $("#btnGerar").on("click", function () {
-//     window.location.assign("gestionCurso.html")
-// });
-*/
 // ============================ Alternativa ============================
-$('#btnGerar').click(function (e) {
-    var gradoSelt = $('#grados').val()
-     // var id_inst = getCookie("ID_Inst")
+$('#selectGrados').click(function (e) {
+    var gradoSelt = $('#txtGrado').val()
+    // var id_inst = getCookie("ID_Inst")
     var obj = {
-      grado: gradoSelt
+        grado: gradoSelt
     }
-    listarEstudiantes (obj)
+    listarEstudiantes(obj)
 })
-    
-function listarEstudiantes(obj) {  
+
+function listarEstudiantes(obj) {
     $.ajax({
         url: 'EstudiantePorGradoServlet',
         method: 'POST',
@@ -204,6 +138,7 @@ function listarEstudiantes(obj) {
         success: function (response) {
             if (response.tipo === "ok") {
                 console.log(response);
+                llenarSelectEstudiantes(response.estudiantes);
             } else {
                 console.log(response.mensaje);
             }
@@ -212,5 +147,11 @@ function listarEstudiantes(obj) {
             console.log(JSON.stringify(response))
             console.log((response))
         }
-      })
+    })
+}
+function llenarSelectEstudiantes(arregloEstudiantes) {
+    for (var i = 0; i < arregloEstudiantes.length; i++) {
+        let txt = `<div class="item" data-value="${arregloEstudiantes[i].documento}">${arregloEstudiantes[i].primerNombre} ${arregloEstudiantes[i].segundoNombre} ${arregloEstudiantes[i].primerApellido} ${arregloEstudiantes[i].segundoApellido}</div>`
+        $("#estudiantes").append(txt);
+    }
 }
