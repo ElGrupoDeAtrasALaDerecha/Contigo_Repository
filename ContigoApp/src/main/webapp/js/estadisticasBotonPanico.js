@@ -1,6 +1,7 @@
 var estudiante
-let estadisticas
-
+var estadisticas
+var grados
+var gradosInstitucion = []
 var boton = document.getElementById("generarEstadisticas");
 
 $(document).ready(function () {
@@ -39,6 +40,14 @@ function cargarSelectGrados(grados) {
 $("#btnGerar").on("click", function () {
     //window.location.assign("gestionCurso.html")
     consultarInformacion();
+    $("#grados").on("click", function () {
+        gradoseleccionado = $('#grados option:selected').val()
+        console.log(gradoseleccionado)
+        obj = {
+            grado: gradoseleccionado
+        }
+        consultarEstudianteGrado(obj);
+    });
 });
 
 function consultarInformacion(obj) {
@@ -65,36 +74,36 @@ function consultarInformacion(obj) {
 }
 
 // Grafica mensual de la cantidad de veces que los estudiantes han dado click al botón de pánico
-function grafica1 (estadisticas) {
-    var meses = ['EN.', 'FEB.', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL','AGT', 'SEP', 'OCT', 'NOV', 'DIC']
+function grafica1(estadisticas) {
+    var meses = ['EN.', 'FEB.', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGT', 'SEP', 'OCT', 'NOV', 'DIC']
     var frecuencia = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // frecuenciauencia por mes
     for (let index = 0; index < estadisticas.length; index++) {
         for (let i = 0; i < estadisticas[index].fechas.length; i++) {
             var fecha = estadisticas[index].fechas[i]
             for (let j = 0; j < meses.length; j++) {
                 var n = frecuencia[j]
-                if (fecha.charAt(6) == (j+1).toString()){
+                if (fecha.charAt(6) == (j + 1).toString()) {
                     n++
                     frecuencia[j] = n
-                } else if((fecha.charAt(5)+fecha.charAt(6)) == (j+1).toString()){
+                } else if ((fecha.charAt(5) + fecha.charAt(6)) == (j + 1).toString()) {
                     n++
                     frecuencia[j] = n
-                } 
-            }               
+                }
+            }
         }
     }
-    parametrosGrafica(meses,frecuencia)
+    parametrosGrafica(meses, frecuencia)
     // console.log(frecuencia)
 }
 
 // Grafica semanal de la cantidad de veces que los estudiantes han dado click al botón de pánico
 
 function grafica2(estadisticas) {
-    var semanas = ['En', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    var semanas = ['En', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
     var frecuencia = [0, 0, 0, 0] // frecuenciauencia por semana
 }
 
-function parametrosGrafica (x, y) {  
+function parametrosGrafica(x, y) {
     var chart = new Chart(document.getElementById('cantidadEstudiantes').getContext('2d'), {
         type: 'line',
         data: {
@@ -111,10 +120,10 @@ function parametrosGrafica (x, y) {
                 display: true,
                 text: 'Cantidad de estudiantes usando  Contigo en la Institución'
             },
-            legend:{
-                display:false
+            legend: {
+                display: false
             }
-        } 
+        }
     });
 }
 
@@ -134,24 +143,19 @@ function filtrarClicksporDia(estadisticas) {
     for (let index = 0; index < estadisticas.length; index++) {
         for (let i = 0; i < estadisticas[index].fechas.length; i++) {
             var fecha = estadisticas[index].fechas[i];
-            ms = Date.parse(estadisticas[index].fechas[index]);
+            ms = Date.parse(estadisticas[index].fechas[i]);
             fecha2 = new Date(ms).getDay();
-            console.log(fecha2);
             const nombreDia = dias[fecha2];
-            console.log("Nombre de día de la semana: ", nombreDia);
             for (let j = 0; j < dias.length; j++) {
                 if (fecha2 == (j).toString()) {
                     var n = frec[j];
                     n++;
-                    console.log(n)
                     frec[j] = n
-                    console.log(frec[j])
-
                 }
             }
         }
     }
-    var tablaInscripcionAconversatorio = new Chart( document.getElementById('conversatoriosComunes').getContext('2d'), {
+    var tablaInscripcionAconversatorio = new Chart(document.getElementById('conversatoriosComunes').getContext('2d'), {
         type: 'bar',
         data: {
             labels: dias,
@@ -159,16 +163,16 @@ function filtrarClicksporDia(estadisticas) {
                 label: 'Días',
                 data: frec,
                 backgroundColor: [
-                'rgb(136, 145, 200,0.6)',
-                'rgba(210, 180, 140, 0.6)',
-                'rgba(188, 143, 143, 0.6)',
-                'rgba(153, 102, 255, 0.6)'
+                    'rgb(136, 145, 200,0.6)',
+                    'rgba(210, 180, 140, 0.6)',
+                    'rgba(188, 143, 143, 0.6)',
+                    'rgba(153, 102, 255, 0.6)'
                 ],
                 borderColor: [
-                'rgb(136, 145, 200)',
-                'rgba(210, 180, 140, 1)',
-                'rgba(188, 143, 143, 1)',
-                'rgba(153, 102, 255, 1)'
+                    'rgb(136, 145, 200)',
+                    'rgba(210, 180, 140, 1)',
+                    'rgba(188, 143, 143, 1)',
+                    'rgba(153, 102, 255, 1)'
                 ],
                 borderWidth: 1
             }]
@@ -196,3 +200,45 @@ function filtrarClicksporDia(estadisticas) {
         }
     });
 }
+
+function consultarEstudianteGrado(obj) {
+    $.ajax({
+        method: 'POST',
+        url: 'EstudiantePorGradoServlet',
+        data: JSON.stringify(obj),
+        dataType: "json",
+        success: function (response) {
+            if (response.tipo === "ok") {
+                console.log(response);
+                estudiantesGrado = response.estudiantes;
+                graficaBotonPanicoClicksGrado(estudiantesGrado);
+            } else {
+                console.log(response.mensaje);
+            }
+        },
+    });
+}
+
+function crearArregloFrecuenciaGradosInstitucion(grados) {
+    gradosInstitucion
+    for (let i = 0; i < grados[index]; i++) {
+        gradosInstitucion[i]=0;
+    }
+}
+
+function graficaBotonPanicoClicksGrado(estudiantesGrado) {
+    var clicksGrado = 0;
+    crearArregloFrecuenciaGradosInstitucion(grados);
+    for (let index = 0; index < estadisticas.length; index++) {
+        for (let i = 0; i < estadisticas[index].fechas.length; i++) {
+            if (estadisticas[index].estudiante[i] == estudiantesGrado[index].documento) {
+                clicksGrado = frec[j];
+                clicksGrado++;
+                frec[j] = clicksGrado
+            }
+
+        }
+    }
+}
+
+
