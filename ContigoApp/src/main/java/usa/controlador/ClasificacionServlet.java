@@ -41,7 +41,12 @@ public class ClasificacionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+        json.put("clasificaciones", arreglo);//
+        out.print(json.toString());
     }
 
     /**

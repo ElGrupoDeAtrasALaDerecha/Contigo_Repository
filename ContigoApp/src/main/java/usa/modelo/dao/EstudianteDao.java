@@ -150,9 +150,12 @@ public class EstudianteDao implements IDaoEstudiante {
     @Override
     public LinkedList<Estudiante> listarGradosEstudiante(String id) {
         LinkedList<Estudiante> estudiantes = new LinkedList<>();
-        String sql = "select persona.documento, persona.primerNombre, persona.segundoNombre, persona.primerApellido, persona.segundoApellido, clasificacion.grado \n" +
-        "from Estudiante, Grado, clasificacion, persona \n" +
-        "where Estudiante.GRADO_codigo = grado.codigo and clasificacion.id = "+ id+"  and clasificacion.id = grado.CLASIFICACION_id and estudiante.PERSONA_documento= persona.documento;";
+        String sql = "select p.documento, p.primerNombre, p.segundoNombre, p.primerApellido, p.segundoApellido, c.grado \n" +
+        "from persona as p \n" +
+        "inner join Estudiante as e on e.PERSONA_documento= p.documento\n" +
+        "inner join Grado as g  on e.Grado_codigo=g.codigo\n" +
+        "inner join clasificacion as c on c.id=g.CLASIFICACION_id\n" +
+        "where c.id = "+id+";";
         try {
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
@@ -164,7 +167,7 @@ public class EstudianteDao implements IDaoEstudiante {
                 estudi.setSegundoNombre(rs.getString("segundoNombre"));
                 estudi.setPrimerApellido(rs.getString("primerApellido"));
                 estudi.setSegundoApellido(rs.getString("segundoApellido"));
-                estudi.setSegundoApellido(rs.getString("grado"));
+                estudi.setGrado(rs.getString("grado"));
                 estudiantes.add(estudi);
             }
             rs.close();
