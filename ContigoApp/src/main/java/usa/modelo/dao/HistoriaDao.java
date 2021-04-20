@@ -46,7 +46,25 @@ public class HistoriaDao implements IHistoriasDao {
 
     @Override
     public Historia consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Historia his = null ;
+        try {
+            String sql = "select * from HISTORIA where idHistoria =\""+id+"\"";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            while(result.next()){
+                his = new Historia();
+                his.setId(result.getInt("idHistoria"));
+                his.setDocumentoCreador(result.getString("PERSONAL_PERSONA_documento"));
+                his.setTitulo(result.getString("titulo"));
+                his.setDescripcion(result.getString("descripcion"));
+                his.setUrlImagen(result.getString("urlImagen"));
+                return his;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return his;
     }
 
     @Override

@@ -51,7 +51,6 @@ imageUploader.addEventListener('change', (e) => {
 
 $("#crearHistoria").click(function(){
     crearHistoria();
-    obtenerNombre();
 })
 function crearHistoria() {
 
@@ -83,6 +82,7 @@ function crearHistoria() {
             console.log(result);
             if (result != "error") {
                 console.log(result);
+                setCookie('idHistoria',result.idHistoria, 0.1)
             } else {
                 console.log("error");
             }

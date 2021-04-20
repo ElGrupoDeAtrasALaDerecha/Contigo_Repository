@@ -12,19 +12,13 @@ btnCerrarPopup = document.getElementById('btn-cerrar-popup');
 });*/
 
 
-
-function prueba (){
-    var valor = obtenerNombre();
-    return valor;
-}
-console.log(prueba())
 function crear() {
-    var nom = $('#Nombre').val();
+    
     let txt = '<div class="overlay active" id="overlay">' +
         '<div class="popup active" id="popup">' +
         '<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup" onclick="eliminar()"> ' +
         '<i class="fa fa-times" aria-hidden="true"></i>' + '</a>' +
-        '<h3>'+nom+'</h3>' +
+        '<h3>'+historia.titulo+'</h3>' +
         '<h4>Formulario</h4>' +
         '<form action="">' +
         '<div class="contenedor-inputs">' +
@@ -45,4 +39,32 @@ function crear() {
 
 function eliminar(){
     $('#overlay').remove();
+}
+
+var historia ;
+window.onload = function obtenerhisotia(){
+    var text ;
+    $.ajax({
+        url: "Historia?id="+getCookie("idHistoria"),
+        type: "GET",
+        dataType: "json",
+        success: function (result, textStatus, request) {
+            if (result != "error") {
+                console.log(result);
+                historia = result.historia;
+                console.log(getCookie("idHistoria"))
+            } else {
+                console.log("error");
+            }
+
+        },
+        complete: function (result) {
+
+
+        },
+        error: function (result) {
+
+        }
+
+    });
 }
