@@ -22,49 +22,49 @@
 <body>
     <h1>Registro de Personal Califcado</h1>
     <div id="Datos">
+        <form action="">
         <table id="table-datos">
             <tr>
                 <td id="Columna-datos">
                     <div id="Espacios">
-                        <input type="text" id="documento" class="Texto" placeholder="C.C" name="C.C">
+                        <input type="text" id="documento" class="Texto" placeholder="C.C" name="C.C" required>
                     </div>
                     <div id="Espacios">
-                        <input type="text" id="primerNombre" class="Texto" placeholder="Primer nombre" name="PrimerNombre">
+                        <input type="text" id="primerNombre" class="Texto" placeholder="Primer nombre" name="PrimerNombre" required>
                     </div>
                     <div id="Espacios">
-                        <input type="text" id="primerApellido"class="Texto" placeholder="Primer apellido" name="PrimerApellido">
+                        <input type="text" id="primerApellido"class="Texto" placeholder="Primer apellido" name="PrimerApellido" required>
                     </div>
                     <div id="Espacios">
-                        <input type="text" id="correo" class="Texto" placeholder="Correo electrónico" name="CorreoElectronico">
+                        <input type="email" id="correo" class="Texto" placeholder="Correo electrónico" name="CorreoElectronico" required>
                     </div>
                 </td>
                 <td id="Columna-datos2">
                     <div id="Espacios">
-                        <input type="text" id="fecha" class="Texto" placeholder="Fecha de nacimiento: dd/MM/AAAA" name="FechaNacimiento">                        
+                        <input type="date" id="fecha" class="Texto" placeholder="Fecha de nacimiento: dd/MM/AAAA" name="FechaNacimiento" required>                        
                     </div>
                     <div id="Espacios">
-                        <input type="text" id="segundoNombre" class="Texto" placeholder="Segundo nombre" name="SegundoNombre">
+                        <input type="text" id="segundoNombre" class="Texto" placeholder="Segundo nombre" name="SegundoNombre" required>
                     </div>
                     <div id="Espacios">
-                        <input type="text" id="segundoApellido" class="Texto" placeholder="Segundo apellido" name="SegundoApellido">
+                        <input type="text" id="segundoApellido" class="Texto" placeholder="Segundo apellido" name="SegundoApellido" required>
                     </div>
                     <div id="Espacios">
-                        <input type="password" id="contraseña" class="Texto" placeholder="Contraseña" name="password">
+                        <input type="password" id="contraseña" class="Texto" placeholder="Contraseña" name="password" required>
                     </div>
                     <div id="Espacios">
                         <p>Subir imagen de perfil</p>
                         <input type="file" id="img-uploader" min="0" max="5" class="Texto" >
-                    </div>
-                    
+                    </div>               
                 </td>
-            </tr>
-            
+            </tr>           
         </table>
         <div id="boton">
-            <input type="button" id="Button2" value="Crear usuario" name="CrearUsuario">
+            <input type="submit" id="Button2" value="Crear usuario" name="CrearUsuario">
         </div>
+    </form>
     </div>
-    
+  
     <script src="js/js_componentes/jquery.min.js"></script>
     <script src="js/registroPerca.js"></script>
     <script src="js/js_componentes/bootstrap.min.js"></script>

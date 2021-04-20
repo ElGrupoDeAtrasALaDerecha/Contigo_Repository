@@ -1,7 +1,6 @@
 
 const imageUploader = document.getElementById('img-uploader');
 
-
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/miguel26697/image/upload';
 const CLOUDINARY_UPLOAD_PRESET = 'wmruximj';
 var img
