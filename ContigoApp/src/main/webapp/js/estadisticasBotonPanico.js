@@ -121,7 +121,7 @@ function parametrosGrafica (x, y) {
 
 function filtrarClicksporDia(estadisticas) {
     var clicksdiarios = 0;
-    const dias = [
+    var dias = [
         'domingo',
         'lunes',
         'martes',
@@ -136,13 +136,17 @@ function filtrarClicksporDia(estadisticas) {
             var fecha = estadisticas[index].fechas[i];
             ms = Date.parse(estadisticas[index].fechas[index]);
             fecha2 = new Date(ms).getDay();
+            console.log(fecha2);
             const nombreDia = dias[fecha2];
             console.log("Nombre de día de la semana: ", nombreDia);
             for (let j = 0; j < dias.length; j++) {
-                if (fecha.charAt(9) == (j + 1).toString()) {
+                if (fecha2 == (j).toString()) {
                     var n = frec[j];
                     n++;
+                    console.log(n)
                     frec[j] = n
+                    console.log(frec[j])
+
                 }
             }
         }
