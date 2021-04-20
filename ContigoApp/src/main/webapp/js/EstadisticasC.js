@@ -44,8 +44,7 @@ $(".ui.dropdown").click(function () {
 
 function selects() {
     grados = document.getElementById("txtGrado").value;
-    var tiempo = document.getElementById("frecuenciaEstadisticas").value;
-    if (grados !== "" && tiempo !== "") {
+    if (grados !== "") {
         btnDatos.style.display = "block"
     } else {
         btnDatos.style.display = "none"
@@ -54,25 +53,25 @@ function selects() {
 
 function aparecerSelectEst() {
     opcVisualizar = document.getElementById("consulta").value;
-    grados = document.getElementById("txtGrado").value;
     if (opcVisualizar === "2") {
-        if (grados !== "") {
-            listaEstudiantes.style.display = "block"
-        }
+        btnDatos.style.display = "block"
+    } else {
+        btnDatos.style.display = "none"
     }
 }
+
 
 $("#btnGerar").on("click", function () {
     //window.location.assign("gestionCurso.html")
     graficas.style.display = "block"
-    GraficaTorta();
+    GraficaTop5();
 });
 
 
 // Funciones creación de gráficas 
 // Gráfica uso del chat 
-function GraficaTorta() {
-    var oilCanvas = document.getElementById("usoChat");
+function GraficaTop5(data) {
+    var oilCanvas = document.getElementById("TOP5");
     Chart.defaults.global.defaultFontFamily = "Lato";
     Chart.defaults.global.defaultFontSize = 18;
     var oilData = {
@@ -89,13 +88,11 @@ function GraficaTorta() {
                 ]
             }]
     };
-    var pieChart = new Chart(oilCanvas, {
-        type: 'pie',
+    var bar = new Chart(oilCanvas, {
+        type: 'bar',
         data: oilData
     });
 }
-
-
 
 
 
@@ -124,39 +121,3 @@ function llenarSelectGrados(a) {
 }
 
 // ============================ Alternativa ============================
-$('#selectGrados').click(function (e) {
-    var gradoSelt = $('#txtGrado').val()
-    // var id_inst = getCookie("ID_Inst")
-    var obj = {
-        grado: gradoSelt
-    }
-    listarEstudiantes(obj)
-})
-
-function listarEstudiantes(obj) {
-    $.ajax({
-        url: 'EstudiantePorGradoServlet',
-        method: 'POST',
-        dataType: "json",
-        data: JSON.stringify(obj),
-        contentType: "JSON application/json charset=utf-8",
-        success: function (response) {
-            if (response.tipo === "ok") {
-                console.log(response);
-                llenarSelectEstudiantes(response.estudiantes);
-            } else {
-                console.log(response.mensaje);
-            }
-        },
-        error: function (response) {
-            console.log(JSON.stringify(response))
-            console.log((response))
-        }
-    })
-}
-function llenarSelectEstudiantes(arregloEstudiantes) {
-    for (var i = 0; i < arregloEstudiantes.length; i++) {
-        let txt = `<div class="item" data-value="${arregloEstudiantes[i].documento}">${arregloEstudiantes[i].primerNombre} ${arregloEstudiantes[i].segundoNombre} ${arregloEstudiantes[i].primerApellido} ${arregloEstudiantes[i].segundoApellido}</div>`
-        $("#estudiantes").append(txt);
-    }
-}

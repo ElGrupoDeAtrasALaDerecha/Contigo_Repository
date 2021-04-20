@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.Conversatorio;
 
@@ -145,4 +146,68 @@ public class ConversatoriosDao implements IDaoConversatorios {
     public boolean crear(Conversatorio t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public  LinkedList <JSONArray> consultarPorGrado(String grado) { 
+         LinkedList <JSONArray> datos = null;
+        try {
+            String sql = "select C.titulo, count(EC.ESTUDIANTE_PERSONA_documento) as Inscritos from  ESTUDIANTE_has_CONVERSATORIO as EC\n" +
+                         "inner join estudiante as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n" +
+                         "inner join grado as G on E.GRADO_codigo = G.codigo\n" +
+                         "right join conversatorio as C on EC.CONVERSATORIO_id = C.id \n" +
+                         "where G.codigo = "+grado+" \n" +
+                         "group by C.id\n" +
+                         "order by Inscritos desc\n" +
+                         "limit 5";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            datos = new  LinkedList();
+            datos.add(new JSONArray());
+            datos.add(new JSONArray());
+            int i=0;
+            while (rs.next()) {
+               datos.get(0).put(rs.getString("titulo"));
+               datos.get(1).put(rs.getString("Inscritos"));
+               i ++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+       return datos ;
+    }
+
+    @Override
+    public  LinkedList <JSONArray> consultarPorInstitucion(String institucion) {
+         LinkedList <JSONArray> datos = null;
+        try {
+            String sql = "select C.titulo, count(EC.ESTUDIANTE_PERSONA_documento) as Inscritos from  ESTUDIANTE_has_CONVERSATORIO as EC\n" +
+                            "right join conversatorio as C on EC.CONVERSATORIO_id = C.id \n" +
+                            "inner join estudiante as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n" +
+                            "inner join grado as G on E.GRADO_codigo = G.codigo\n" +
+                            "inner join institucion as I on G.INSTITUCION_id = I.id\n" +
+                            "where I.id = "+institucion+" \n"+
+                            "group by C.id\n" +
+                            "order by Inscritos desc\n" +
+                            "limit 5";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            datos = new  LinkedList();
+            datos.add(new JSONArray());
+            datos.add(new JSONArray());
+            int i=0;
+            while (rs.next()) {
+               datos.get(0).put(rs.getString("titulo"));
+               datos.get(1).put(rs.getString("Inscritos"));
+               i ++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+       return datos ;
+    
+    
+    }
+    
 }
