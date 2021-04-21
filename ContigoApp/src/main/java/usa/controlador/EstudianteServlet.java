@@ -50,9 +50,9 @@ public class EstudianteServlet extends HttpServlet {
             respuesta.put("tipo", "error");
             respuesta.put("mensaje", "No se ha posido consultar el estudiant");
         }
-       
+
         out.print(respuesta.toString());
-        
+
     }
 
     /**
@@ -65,7 +65,7 @@ public class EstudianteServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+      response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         Gson gson = new Gson();
