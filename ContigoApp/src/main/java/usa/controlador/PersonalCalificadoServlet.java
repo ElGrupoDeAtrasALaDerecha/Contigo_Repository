@@ -56,7 +56,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
         JSONObject respuesta = new JSONObject();
         if (dao.consultar(personal.getDocumento())!=null){
             respuesta.put("tipo","error");
-            respuesta.put("mensaje","Ya existe un usuario con el número de documento ingresado");
+            respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");
         }else{
             if(dao.crear(personal)){
                 respuesta.put("tipo","ok");
@@ -64,13 +64,13 @@ public class PersonalCalificadoServlet extends HttpServlet {
                 //Aquí se envía la verificación
             }else{
                 respuesta.put("tipo","error");
-                respuesta.put("mensaje","Ya existe un usuario con el número de documento ingresado");
+                respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");
             }
         }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }
-
+//
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          

@@ -37,11 +37,12 @@ imageUploader.addEventListener('change', (e) => {
     });
 });
 
-$("#Button2").click(function(){
-crearPerca();
+//Registro de PERCA
+$("#Button2").click(function(e){
+    e.preventDefault();
+    crearPerca();
 })
 function crearPerca() {
-
     documento = $("#documento").val();
     primerNombre = $("#primerNombre").val();
     primerApellido = $("#primerApellido").val();
@@ -52,45 +53,48 @@ function crearPerca() {
     contraseña = $("#contraseña").val();
     genero = "femenino" 
 
-
-    informacion = {
-        documento: documento,
-        tipoDocumento:"1",
-        primerNombre: primerNombre,
-        primerApellido:primerApellido,
-        correo: correo,
-        fechaDeNacimiento:fechaDeNacimiento,
-        segundoNombre:segundoNombre,
-        segundoApellido:segundoApellido,
-        contraseña:contraseña,
-        imagen:imgm,
-        genero: genero
-
-    };
-
-
-    console.log(informacion);
-    $.ajax({
-        url: "PersonalCalificado",
-        type: "POST",
-        dataType: "json",
-        data: JSON.stringify(informacion), 
-        contentType: "JSON application/json charset=utf-8",
-        beforeSend: function () {
-        },
-        success: function (result, textStatus, request) {
-            console.log(result);
-            if (result != "error") {
-                console.log(result);
-            } else {
-                toastr.warning(result.error)
-                console.log("error");
+    if (document === "" || primerNombre === ""|| primerApellido === ""|| correo === "" || fechaDeNacimiento === ""|| segundoNombre === "" || segundoApellido === "" || contraseña === "" || genero === "") {
+        toastr.warning("Verifica que todos los datos estén compeltos")
+    } else {
+        informacion = {
+            documento: documento,
+            tipoDocumento:"1",
+            primerNombre: primerNombre,
+            primerApellido:primerApellido,
+            correo: correo,
+            fechaDeNacimiento:fechaDeNacimiento,
+            segundoNombre:segundoNombre,
+            segundoApellido:segundoApellido,
+            contraseña:contraseña,
+            imagen:img,
+            genero: genero
+        };
+    
+    
+        console.log(informacion);
+        $.ajax({
+            url: "PersonalCalificado",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(informacion), 
+            contentType: "JSON application/json charset=utf-8",
+            beforeSend: function () {
+            },
+            success: function (result, textStatus, request) {
+                if (result.tipo === "ok") {
+                    console.log(result);
+                    setCookie("tipoUsuario", 2, 0.5);
+                    $(location).attr('href', 'admin_perca.html');
+                } else {
+                    console.log(result);
+                    toastr.warning(result.mensaje)
+                }
+            },
+            complete: function (result) {
+            },
+            error: function (result) {
             }
-        },
-        complete: function (result) {
-        },
-        error: function (result) {
-        }
-    });
+        });
 
+    }   
 }

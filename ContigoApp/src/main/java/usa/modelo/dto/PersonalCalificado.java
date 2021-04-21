@@ -9,7 +9,6 @@ public class PersonalCalificado extends Persona {
 
     
     private String correo;
-    private String contraseña;
     private String imagen;
 
     public String getImagen() {
@@ -18,14 +17,6 @@ public class PersonalCalificado extends Persona {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
     }
     /**
      * Default constructor
