@@ -75,4 +75,7 @@
     width: 40%;
     height: 60%;
 }
-
+h1{
+    /* border: solid green 1px; */
+    text-align: center;
+}
