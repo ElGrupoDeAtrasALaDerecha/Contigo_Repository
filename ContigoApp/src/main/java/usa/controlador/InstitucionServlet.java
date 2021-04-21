@@ -12,8 +12,9 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
-import usa.modelo.dao.InstitucionDao;
 import usa.modelo.dto.Institucion;
+import usa.strategy.Contexto;
+import usa.strategy.MailConfirmacionInstitucion;
 import usa.utils.Utils;
 
 /**
@@ -68,6 +69,8 @@ public class InstitucionServlet extends HttpServlet {
             if (dao.crear(ins)) {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Institucion registrada correctamente");
+                Contexto contexto = new Contexto(new MailConfirmacionInstitucion(ins.getCorreo()));
+                contexto.enviarCorreo();
             } else {
                 json.put("tipo", "error");
                 json.put("mensaje", "Error al registrar institucion");

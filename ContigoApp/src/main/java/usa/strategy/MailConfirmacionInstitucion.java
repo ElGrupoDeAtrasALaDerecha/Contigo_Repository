@@ -10,17 +10,16 @@ import usa.utils.Correo;
  *
  * @author Santiago Pérez
  */
-public class MailConfirmacionInstitucion implements IStrategy{
-    private final String destino; 
+public class MailConfirmacionInstitucion extends Email implements IStrategy{
 
-    public MailConfirmacionInstitucion(String destino) {
-        this.destino = destino;
+    public MailConfirmacionInstitucion(String DESTINO) {
+        super(DESTINO,"Verifique su cuenta","mailTemplates/mailRecuperacionPersonal.html");
     }
     
     @Override
     public void enviarCorreo() {
         try {
-            Correo.enviarCorreo(destino, "Verifique su cuenta", "¡Cuenta verificada!");
+            Correo.enviarCorreo(DESTINO,ASUNTO ,leerArchivo());
         } catch (IOException | MessagingException ex) {
             Logger.getLogger(MailConfirmacionInstitucion.class.getName()).log(Level.SEVERE, null, ex);
         }
