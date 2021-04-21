@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package usa.controlador;
 
 import com.google.gson.Gson;
@@ -10,25 +15,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
-import usa.modelo.dao.ConversatoriosDao;
+import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
-import usa.modelo.dto.Clasificacion;
+import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
-
+/**/
 /**
  *
- * @author migue
+ * @author Maria Camila Fernandez ,Andres López
  */
-@WebServlet(name = "ClasificacionServlet", urlPatterns = {"/ClasificacionServlet"})
-public class ClasificacionServlet extends HttpServlet {
+@WebServlet(name = "EstudiantePorGradoServlet", urlPatterns = {"/EstudiantePorGradoServlet"})
+public class EstudiantePorGradoServlet extends HttpServlet {
 
-    //a
-    
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao dao = (IDao)factoryDao.obtener("ClasificacionDao");
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -38,15 +49,14 @@ public class ClasificacionServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
+    EstudianteDao daoestu = (EstudianteDao) dao;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        JSONObject json = new JSONObject();
-        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-        json.put("clasificaciones", arreglo);//
-        out.print(json.toString());
+
     }
 
     /**
@@ -61,26 +71,31 @@ public class ClasificacionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        String parametros = Utils.readParams(request);
-        Gson gson = new Gson();
-        Clasificacion clasi = (Clasificacion) gson.fromJson(parametros, Clasificacion.class);
-        ConversatoriosDao dao = (ConversatoriosDao) factoryDao.obtener("ConversatoriosDao");
+        JSONObject json = new JSONObject(Utils.readParams(request));
+        PrintWriter out = response.getWriter();
         JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray();
-        LinkedList<Clasificacion> clasificaciones = dao.consultar(clasi.getId());
-        if (clasificaciones != null) {
-            respuesta.put("tipo", "ok");
+        Gson gson = new Gson();
 
-            for (Clasificacion i : clasificaciones) {
-                arreglo.put(new JSONObject(gson.toJson(i, Clasificacion.class)));
+        LinkedList<Estudiante> estudiantes = daoestu.listarGradosEstudiante(json.getString("grado"));
+        if (estudiantes != null) {
+            respuesta.put("tipo", "ok");
+            for (Estudiante i : estudiantes) {
+                System.out.println("---> " + i.getPrimerApellido());
+                arreglo.put(new JSONObject(gson.toJson(i, Estudiante.class)));
             }
-            respuesta.put("clasificacion", arreglo);
-        } else {
+            respuesta.put("estudiantes", arreglo);
+        } /**
+         * String grado = request.getParameter("grado"); if(grado != null){
+         * respuesta.put("estudiantes", new
+         * JSONObject(Utils.toJson(daoestu.listarGradosEstudiante(grado)))); }*
+         */
+        else {
             respuesta.put("tipo", "error");
-            respuesta.put("mensaje", "No se han podido traer los datos ");
+            respuesta.put("mensaje", "No se ha posido consultar el estudiant");
         }
 
-        PrintWriter out = response.getWriter();
+        //respuesta.put("tipo", "ok");
         out.print(respuesta.toString());
     }
 

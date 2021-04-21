@@ -76,12 +76,8 @@ public class ConversatorioServlet extends HttpServlet {
         Conversatorio conver = (Conversatorio) Utils.fromJson(parametros, Conversatorio.class);
         IDaoConversatorios daoConver=(IDaoConversatorios)dao;
         JSONObject respuesta = new JSONObject();
-
-   
-
         int resultado = daoConver.crearConver(conver);
-
-        
+       
         if (resultado != 0) {
             respuesta.put("tipo", "ok");
             respuesta.put("mensaje", "El conversatorio fue agendado correctamente");

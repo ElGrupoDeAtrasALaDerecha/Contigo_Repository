@@ -16,7 +16,7 @@ import usa.modelo.dao.IDao;
 import usa.modelo.dao.IGradoDao;
 import usa.modelo.dto.Grado;
 import usa.utils.Utils;
-
+/**/
 /**
  *
  * @author 
@@ -24,7 +24,7 @@ import usa.utils.Utils;
 @WebServlet(name = "GradoServlet", urlPatterns = {"/Grado"})
 public class GradoServlet extends HttpServlet {
     
-    
+    /**/
     
     AbstractFactory factoryDao=Producer.getFabrica("DAO");
     IDao dao = (IDao)factoryDao.obtener("GradoDao");
@@ -37,6 +37,7 @@ public class GradoServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,6 +59,7 @@ public class GradoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

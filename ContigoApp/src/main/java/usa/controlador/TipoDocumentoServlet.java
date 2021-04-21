@@ -18,8 +18,10 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.TipoDocumentoDao;
+import usa.modelo.dto.TipoDocumento;
 import usa.utils.Utils;
-
+/**/
 /**
  *
  * @author santi
@@ -38,6 +40,7 @@ public class TipoDocumentoServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * t
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -91,3 +91,9 @@ h2{
 .bq{
     border: solid 2.5px #2D4059;
 }
+#docEstudiante{
+    border: solid 1px #deddee;
+    outline: none;
+    padding: 10px;
+    width: 100%;
+}

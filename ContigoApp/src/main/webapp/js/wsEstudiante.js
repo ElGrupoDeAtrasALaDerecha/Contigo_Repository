@@ -172,9 +172,6 @@ function mueveReloj() {
 
 
 // Eventos de vista
-
-
-
 $("#btn_enviar_mns").click(function () {
 	var mns = $("#Enviarmensaje").val();
 	if (mns !== "") {
