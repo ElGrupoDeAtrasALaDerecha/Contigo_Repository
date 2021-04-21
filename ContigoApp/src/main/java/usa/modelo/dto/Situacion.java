@@ -8,13 +8,26 @@ import java.util.LinkedList;
  */
 public class Situacion {
     private int id;
+    private int idHistoria;
+    private int predecesor;
     private String titulo;
     private String texto;
     private String textoOpcion;
     private LinkedList<Situacion> opciones;
-
+ 
+    public void agregarOpcion(Situacion st){
+        if(opciones == null){
+            opciones = new LinkedList();  
+        }
+        opciones.add(st);
+    }
+    
     public int getId() {
         return id;
+    }
+
+    public Situacion() {
+        opciones = new LinkedList();
     }
 
     public void setId(int id) {
@@ -51,6 +64,22 @@ public class Situacion {
 
     public void setOpciones(LinkedList<Situacion> opciones) {
         this.opciones = opciones;
+    }
+
+    public int getIdHistoria() {
+        return idHistoria;
+    }
+
+    public void setIdHistoria(int idHistoria) {
+        this.idHistoria = idHistoria;
+    }
+
+    public int getPredecesor() {
+        return predecesor;
+    }
+
+    public void setPredecesor(int predecesor) {
+        this.predecesor = predecesor;
     }
     
 }

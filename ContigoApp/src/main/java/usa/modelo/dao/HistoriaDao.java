@@ -13,11 +13,11 @@ import usa.modelo.dto.Historia;
  *
  * @author Miguel Rippe, Santiago Cáceres, Laura Blanco y Santiago Pérez
  */
-public class HistoriaDao implements IHistoriasDao{
+public class HistoriaDao implements IHistoriasDao {
 
     PreparedStatement pat;
     ResultSet result;
-    
+
     @Override
     public boolean crear(Historia his) {
         try {
@@ -30,6 +30,13 @@ public class HistoriaDao implements IHistoriasDao{
             pat.setString(4, his.getUrlImagen());
             pat.execute();
             pat.close();
+            sql = "select idHistoria from HISTORIA order by idHistoria desc limit 1;";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                his.setId(rs.getInt("idHistoria"));
+            }
+            pat.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -39,7 +46,25 @@ public class HistoriaDao implements IHistoriasDao{
 
     @Override
     public Historia consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Historia his = null ;
+        try {
+            String sql = "select * from HISTORIA where idHistoria =\""+id+"\"";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            while(result.next()){
+                his = new Historia();
+                his.setId(result.getInt("idHistoria"));
+                his.setDocumentoCreador(result.getString("PERSONAL_PERSONA_documento"));
+                his.setTitulo(result.getString("titulo"));
+                his.setDescripcion(result.getString("descripcion"));
+                his.setUrlImagen(result.getString("urlImagen"));
+                return his;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return his;
     }
 
     @Override
@@ -54,7 +79,7 @@ public class HistoriaDao implements IHistoriasDao{
 
     @Override
     public LinkedList<Historia> listarTodos() {
-        LinkedList<Historia> historias= new LinkedList();
+        LinkedList<Historia> historias = new LinkedList();
         try {
             String sql = "select * from HISTORIA;";
             PreparedStatement pat = conn.prepareStatement(sql);
@@ -67,11 +92,11 @@ public class HistoriaDao implements IHistoriasDao{
                 historia.setDescripcion(rs.getString("descripcion"));
                 historia.setUrlImagen(rs.getString("urlImagen"));
                 historias.add(historia);
-            }   
+            }
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return historias;
     }
-    
+
 }

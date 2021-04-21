@@ -1,6 +1,5 @@
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,9 +12,7 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
-import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.Historia;
-import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**
@@ -29,7 +26,6 @@ public class HistoriaServlet extends HttpServlet {
     IDao dao = (IDao) factoryDao.obtener("HistoriaDao");
     IDao personalCalificadoDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -44,8 +40,15 @@ public class HistoriaServlet extends HttpServlet {
 
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
-        respuesta.put("tipo", "ok");
-        respuesta.put("historias",new JSONArray(Utils.toJson(dao.listarTodos())));
+        String id = request.getParameter("id");
+        if (id != null) {
+            Historia historia = (Historia) dao.consultar(id);
+            respuesta.put("historia",new JSONObject(Utils.toJson(historia)));
+        } else {
+            respuesta.put("tipo", "ok");
+            respuesta.put("historias", new JSONArray(Utils.toJson(dao.listarTodos())));
+        }
+
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
 
@@ -68,11 +71,10 @@ public class HistoriaServlet extends HttpServlet {
         String token = request.getHeader("token");
         System.out.println(mensaje);
         Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
-  
-      
         if (dao.crear(historia)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Historia creada");
+            json.put("idHistoria", historia.getId());
         } else {
             json.put("tipo", "error");
             json.put("mensaje", "Error al crear la historia");

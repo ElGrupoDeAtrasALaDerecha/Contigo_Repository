@@ -42,7 +42,11 @@ function registrar_estudiante() {
     codins = $("#CodigoInstitucional").val();
     snom = $("#SegundoNombre").val();
     sape = $("#SegundoApellido").val();
-    con = $("#contra").val()
+    con = $("#contra").val();
+    correo= $("#correo").val();
+    if (tidocu == "") {
+        toastr.warning('Por favor escoja un tipo de documento')
+    }
 
     informacion = {
         documento: numdocu,
@@ -54,7 +58,8 @@ function registrar_estudiante() {
         fechaDeNacimiento: fena,
         contraseña: con,
         genero: gen,
-        grado: codins
+        grado: codins,
+        correo: correo
     };
 
     $.ajax({
@@ -73,8 +78,13 @@ function registrar_estudiante() {
                 $(location).attr('href', 'ingresar.html');
 
             } else {
-                console.log(result);
-                toastr.error('Estudiante ya registrado')
+                if (result.mensaje === "Error el estudiante ya esta registrado") {
+                    console.log(result);
+                    toastr.error('Error ya existe un estudiante registrado con este documento')    
+                } else {
+                    console.log(result);
+                    toastr.error('Código institucional erroneo')
+                }
             }
 
         },

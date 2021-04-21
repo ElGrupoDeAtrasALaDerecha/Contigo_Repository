@@ -48,7 +48,7 @@ public class EstudianteDao implements IDaoEstudiante {
     public Estudiante consultar(String id) {
         Estudiante estudiante = null;
         try {
-            String sql =  "select p.* , e.GRADO_codigo from persona as p  \n"
+            String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
                     + "inner join estudiante as e on e.PERSONA_documento =p.documento\n where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             rs = pat.executeQuery();
@@ -84,7 +84,7 @@ public class EstudianteDao implements IDaoEstudiante {
 
     @Override
     public LinkedList<Estudiante> listarTodos() {
-        LinkedList<Estudiante> estudiantes= new LinkedList();
+        LinkedList<Estudiante> estudiantes = new LinkedList();
         try {
             String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
                     + "inner join estudiante as e on e.PERSONA_documento =p.documento\n";
@@ -105,7 +105,7 @@ public class EstudianteDao implements IDaoEstudiante {
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return estudiantes;
     }
 
@@ -135,9 +135,9 @@ public class EstudianteDao implements IDaoEstudiante {
         }
         return estudiante;
     }
-    
-     public Estudiante consultarPorTokenGrado(String id) {
-             Estudiante estudiante = null;
+
+    public Estudiante consultarPorTokenGrado(String id) {
+        Estudiante estudiante = null;
         try {
             String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);

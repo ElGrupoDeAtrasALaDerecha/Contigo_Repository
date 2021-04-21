@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.controlador;
 
 import com.google.gson.Gson;
@@ -14,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
+import usa.modelo.dao.IDao;
 import usa.modelo.dao.InstitucionDao;
 import usa.modelo.dto.Institucion;
 import usa.utils.Utils;
@@ -24,9 +22,8 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "LoginInstitucionServlet", urlPatterns = {"/LoginInstitucion"})
 public class LoginInstitucionServlet extends HttpServlet {
-/**/
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao)factoryDao.obtener("InstitucionDao");
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -42,14 +39,13 @@ public class LoginInstitucionServlet extends HttpServlet {
     }
 
     /**
+     * 
      * Handles the HTTP <code>POST</code> method.a
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
+     * @param response
+     * @param request
      * @throws IOException if an I/O error occurs
+     * @throws javax.servlet.ServletException
      */
-    /**/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -57,24 +53,20 @@ public class LoginInstitucionServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        Gson gson = new Gson();
-        InstitucionDao dao = new InstitucionDao();
+        InstitucionDao daoInstitucion =(InstitucionDao) dao;
         //Se obtienen las credenciales de la institucion del front:
         String usr_inst = Utils.readParams(request);
-        System.out.println("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°");
-        System.out.println("doPost. Credenciales a validar: " + usr_inst);
         //Se convierte de json a objeto Institucion
-        Institucion institucion = (Institucion) gson.fromJson(usr_inst, Institucion.class);
-        Institucion instBD = dao.loginInstitucion(institucion.getCorreo(), institucion.getContraseña());
+        Institucion institucion = (Institucion) Utils.fromJson(usr_inst, Institucion.class);
+        Institucion instBD = daoInstitucion.loginInstitucion(institucion.getCorreo(), institucion.getContraseña());
         if(instBD != null){
             json.put("tipo", "ok");
             json.put("mensaje","Ingreso satisfactorio");
             json.put("ID",instBD.getId());
         }else{
             json.put("tipo", "error");
-            json.put("mensaje","Error al ingresar");
+            json.put("mensaje","Correo o contraseña incorrecta");
         }
-        System.out.println(json.toString());
         out.print(json.toString());
     }
     /**

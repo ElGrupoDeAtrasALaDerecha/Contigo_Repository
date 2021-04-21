@@ -56,7 +56,7 @@ function conectar(){
 			} else if (obj.tipo === "escribiendoPersonal"){
 				pintarEscribiendo();
 			} else if (obj.tipo==="cerrar conexion"){
-                pintarCierreConexion();    
+                pintarCierreConexion(obj.mensaje);    
             }
 		}
 	}
@@ -224,6 +224,5 @@ function pintarCierreConexion(mensaje){
 	pintarRespuesta(mensaje);
 	$("#Enviarmensaje").val("En un momento serás redirigido a la ventana principal");
 	$("#Enviarmensaje").prop("readonly", true);
-	setTimeout(function() {}, 3000);
-	window.location.assign("opciones.html");
+	setTimeout(function(){window.location.assign("opciones.html")}, 8000);
 }

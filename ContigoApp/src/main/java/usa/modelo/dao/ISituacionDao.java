@@ -1,6 +1,7 @@
 package usa.modelo.dao;
 
 import java.util.LinkedList;
+import usa.modelo.dto.Arbol;
 import usa.modelo.dto.Situacion;
 
 /**
@@ -8,5 +9,11 @@ import usa.modelo.dto.Situacion;
  * @author Miguel Rippe, Santiago Cáceres, Laura Blanco y Santiago Pérez
  */
 public interface ISituacionDao extends IDao<Situacion>{
-    public LinkedList<Situacion> consultarPorHistoria(int idHistoria);
+
+    /**
+     *
+     * @param idHistoria
+     * @return
+     */
+    public Arbol consultarPorHistoria(int idHistoria);
 }

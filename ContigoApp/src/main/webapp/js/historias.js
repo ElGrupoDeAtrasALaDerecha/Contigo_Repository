@@ -1,3 +1,8 @@
+$("#img-uploader").change(function(){
+    filename=this.files[0].filename
+    console.log(filename);
+})
+
 $(document).ready(function () {
     usuario = parseInt(getCookie("tipoUsuario"));
     token = parseInt(getCookie("token"));
@@ -80,6 +85,7 @@ function crearHistoria() {
             console.log(result);
             if (result != "error") {
                 console.log(result);
+                setCookie('idHistoria',result.idHistoria, 0.1)
             } else {
                 console.log("error");
             }
