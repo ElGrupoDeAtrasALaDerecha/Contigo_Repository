@@ -106,6 +106,8 @@ function GraficaTorta(data) {
 
 
 
+
+
 function listarGrados() {
     $.ajax({
         url: 'ClasificacionServlet',
