@@ -80,48 +80,5 @@ window.onload = function obtenerhisotia() {
 var situaciones
 function crearRamita() {
    
-    $.ajax({
-        url: "Situacion?id=" + getCookie("idHistoria"),
-        type: "GET",
-        dataType: "json",
-        success: function (result, textStatus, request) {
-            if (result != "error") {
-                console.log(result);
-                situaciones = result.situaciones.primerNodo;
-                console.log(getCookie("idHistoria"))
-            
-            } else {
-                console.log("error");
-            }
-
-        },
-        complete: function (result) {
-
-
-        },
-        error: function (result) {
-
-        }
-
-    });
-
-    (function(){
-		// Carga de datos para el organigrama
-		organigrama.data = data2;
-		// creación del organigrama, se le manda el id del contenedor
-		organigrama.create('organigrama');
-		// Agregamos los eventos para los botones
-		organigrama.eventAdd(EventoAdd);
-		organigrama.eventEdit(EventoEdit);
-
-		function EventoAdd(id){
-			alert(id)
-		}
-
-		function EventoEdit(id){
-			alert(id)
-		}
-		
-	})();
 }
 
