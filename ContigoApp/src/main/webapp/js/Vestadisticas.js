@@ -4,7 +4,7 @@ var btnGrados = document.getElementById('btnGrados');
 var btnEstudiantes = document.getElementById('btnEstudiantes');
 var graficas = document.getElementById('Graficas');
 var listaEstudiantes = document.getElementById('ListaEstudiantes');
-
+//prueba fallaaaaaaaaaaaaaaaaaa
 var opcVisualizar;//Select de opcion a visualizar tipo de graficas a analizar 
 var grados;
 var estudiante
