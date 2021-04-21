@@ -73,6 +73,8 @@ $("#btnGerarE").on("click", function () {
 $("#btnGerarG").on("click", function () {
     //window.location.assign("gestionCurso.html")
     graficas.style.display = "block"
+    solicitarDatosTOPgrado();
+    
     let codigoGrado =document.getElementById('txtGrado');
     $.ajax({
         url: 'Estadisticas?tipoConsulta=BtnPorGrado&grado='+ codigoGrado.value,
@@ -91,7 +93,26 @@ $("#btnGerarG").on("click", function () {
     
 });
 
+function solicitarDatosTOPgrado(){
+    let codigoGrado =document.getElementById('txtGrado');
+    $.ajax({
+        url: 'Estadisticas?tipoConsulta=ConversatorioPorGrado&grado='+ codigoGrado.value,
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            arregloGrados = response.clasificaciones;
+            console.log(response)
+            graficaTopGrados(response.datos);
+        },
+        error: function (response) {
+            // console.log("Error en la petición GET")
+            // console.log(JSON.stringify(response))
+        }
+    })
+}
 
+
+//Gráficas
 
 function GraficaTorta(data) {
     var oilCanvas = document.getElementById("usoChat");
@@ -117,15 +138,18 @@ function GraficaTorta(data) {
     });
 }
 
-function graficaTopGrados(){
-    var densityCanvas = document.getElementById("densityChart");
+
+
+
+function graficaTopGrados(datos){
+    var densityCanvas = document.getElementById("GraficasTOPgrados");
 
     Chart.defaults.global.defaultFontFamily = "Lato";
     Chart.defaults.global.defaultFontSize = 18;
     
     var densityData = {
-      label: 'Density of Planets (kg/m3)',
-      data: [5427, 5243, 5514, 3933, 1326, 687, 1271, 1638],
+      label: 'CONVERSATORIOS MÁS VISTOS POR GRADOS TOP 5',
+      data: [datos[1]],
       backgroundColor: [
         'rgba(0, 99, 132, 0.6)',
         'rgba(30, 99, 132, 0.6)',
@@ -168,15 +192,12 @@ function graficaTopGrados(){
     var barChart = new Chart(densityCanvas, {
       type: 'horizontalBar',
       data: {
-        labels: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"],
+        labels: [datos[0]],
         datasets: [densityData],
       },
       options: chartOptions
     });
 }
-
-
-
 
 
 
