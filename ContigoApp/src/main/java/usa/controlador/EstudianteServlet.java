@@ -15,6 +15,9 @@ import usa.factory.Producer;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
+import usa.strategy.Contexto;
+import usa.strategy.MailConfirmacionEstudiante;
+import usa.strategy.MailConfirmacionPersonal;
 import usa.utils.Utils;
 
 /**
@@ -84,6 +87,9 @@ public class EstudianteServlet extends HttpServlet {
             if (dao.crear(estudiante)) {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Estudiante creado");
+                System.out.println(estudiante.getCorreo());
+                Contexto contexto = new Contexto(new MailConfirmacionEstudiante(estudiante.getCorreo()));
+                contexto.enviarCorreo();
             } else {
                 json.put("tipo", "error");
                 json.put("mensaje", "Error al crear estudiante");
