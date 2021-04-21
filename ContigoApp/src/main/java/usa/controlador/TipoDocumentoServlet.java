@@ -16,10 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
-import usa.factory.FactoryDao;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
-import usa.modelo.dto.TipoDocumento;
 import usa.utils.Utils;
 
 /**
@@ -28,6 +26,9 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "TipoDocumentoServlet", urlPatterns = {"/TipoDocumento"})
 public class TipoDocumentoServlet extends HttpServlet {
+    
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+        IDao dao = (IDao) factoryDao.obtener("TipoDocumentoDao");
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -42,8 +43,6 @@ public class TipoDocumentoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        AbstractFactory factoryDao = Producer.getFabrica("DAO");
-        IDao dao = (IDao) factoryDao.obtener("TipoDocumentoDao");
         JSONObject json = new JSONObject();
         JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         json.put("Identificaciones", arreglo);

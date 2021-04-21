@@ -13,18 +13,16 @@ import javax.websocket.server.ServerEndpoint;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
-import usa.factory.FactoryDao;
 import usa.factory.Producer;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IPersonalCalificadoDao;
-import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**
- * Clase Websocket contigo Bot.
+ * Clase Websocket contigo Bot
  *
  * @author Valeria Bermúdez, Santiago Pérez y Camila Fernández
  * @since 2020-03-09
@@ -41,9 +39,9 @@ public class ContigoBot {
      */
     private static final LinkedList<Sala> SALAS = new LinkedList();
     
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao personalDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
-    IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
+    private static final AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    private static final IDao personalDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
+    private static final IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
     /**
      * Método onOpen
      *
@@ -175,7 +173,7 @@ public class ContigoBot {
     }
 
     /**
-     * Método onClose. Indica qué hacer cuando se cierran las conexiones
+     * Método onClose.Indica qué hacer cuando se cierran las conexiones 
      *
      * @param sesion que es la sesión que se cierra
      * @throws IOException por posibles errores de entrada y salida de datos

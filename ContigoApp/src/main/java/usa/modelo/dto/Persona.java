@@ -49,6 +49,7 @@ public class Persona {
     
     private String genero;
     
+    private String contraseña;
     
     private String token;
     /**
@@ -63,7 +64,13 @@ public class Persona {
         this.genero = genero;
     }
 
-    
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
     
     public String getDocumento() {
         return documento;

@@ -6,14 +6,13 @@ import java.sql.SQLException;
 import usa.bd.IConexionBD;
 
 /**
- * Clase de conexión con la base de datos
+ * Clase de conexión con la base de datos. 
  * @author Santiago Pérez
  */
 public class Conexion extends IConexionBD{
-//a
     String bd = "contigoBD";
     String user= "root";
-    String password="123456";
+    String password="029624";
     String host="localhost";
     String port="3306";
     private final String url = "jdbc:mysql://"+host+":"+port+"/"+bd+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";

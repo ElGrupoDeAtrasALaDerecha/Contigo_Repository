@@ -15,7 +15,7 @@ import java.sql.*;
  * @author santi
  */
 public class InstitucionDao implements IDao<Institucion> {
-
+/**/
     PreparedStatement pat;
     Statement stmt; 	            
     ResultSet result;
@@ -128,7 +128,7 @@ public class InstitucionDao implements IDao<Institucion> {
         String nombre = "no name";
         Institucion inst = null;
         try {
-            String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = \"" + contraseña + "\";";
+            String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = sha(\"" + contraseña + "\");";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){

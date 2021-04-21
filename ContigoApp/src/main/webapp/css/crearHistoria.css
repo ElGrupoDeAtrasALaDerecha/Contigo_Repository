@@ -1,0 +1,59 @@
+h1{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+.FullContainer{
+    Display: inline-flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 10px;
+    Flex-wrap: wrap;
+}
+.Container1{
+    display: flex;
+    Flex-direction: column;
+    Justify-content: Center;
+    padding-bottom: 40px;
+    justify-content: space-between;
+    height: 260px;
+}
+.Container2{
+    padding-bottom: 40px;
+}
+.Texto{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 25px;
+    text-decoration: none;
+    width: 450px;
+    border: solid;
+    border-width: 1px;
+    border-color: #9c9999 solid;
+    color: #9c9999;
+    overflow: hidden;
+    font-weight: lighter;
+    outline:none;
+}
+.Button{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 25px;
+    width: 150px;
+    border: none;
+    background-color: #2d4059;
+    color: rgba(255,255,255,1);
+    text-align: left;
+    outline:none;
+}
+
+#boton{
+    text-align: center;
+}
