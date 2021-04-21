@@ -74,7 +74,7 @@ $("#btnGerarG").on("click", function () {
     //window.location.assign("gestionCurso.html")
     graficas.style.display = "block"
     solicitarDatosTOPgrado();
-    
+
     let codigoGrado =document.getElementById('txtGrado');
     $.ajax({
         url: 'Estadisticas?tipoConsulta=BtnPorGrado&grado='+ codigoGrado.value,
@@ -89,8 +89,7 @@ $("#btnGerarG").on("click", function () {
             // console.log("Error en la petición GET")
             // console.log(JSON.stringify(response))
         }
-    })
-    
+    }) 
 });
 
 function solicitarDatosTOPgrado(){
