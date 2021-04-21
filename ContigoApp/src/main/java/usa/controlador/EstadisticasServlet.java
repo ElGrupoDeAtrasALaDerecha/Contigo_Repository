@@ -16,6 +16,7 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoConversatorios;
+import usa.modelo.dao.IGradoDao;
 import usa.utils.Utils;
 
 /**
@@ -26,7 +27,6 @@ import usa.utils.Utils;
 public class EstadisticasServlet extends HttpServlet {
 
    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-   IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
     
    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,6 +35,7 @@ public class EstadisticasServlet extends HttpServlet {
             JSONObject json = new JSONObject();
             String parametro = request.getParameter("tipoConsulta");
             if(parametro.equals("ConversatorioPorGrado")){
+                IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
                 String grado = request.getParameter("grado");
                 IDaoConversatorios daoConversatorio= (IDaoConversatorios)dao;
                 LinkedList<JSONArray> arreglos = daoConversatorio.consultarPorGrado(grado);
@@ -42,8 +43,15 @@ public class EstadisticasServlet extends HttpServlet {
                 json.put("inscritos",arreglos.get(1));
                 PrintWriter out = response.getWriter();
                 out.print(json.toString());
-             }
-                 
+             }else if(parametro.equals("BtnPorGrado")){
+                 IDao dao = (IDao)factoryDao.obtener("GradoDao");
+                String grado = request.getParameter("grado");
+                IGradoDao gradoDao= (IGradoDao)dao;
+                JSONArray arregloEP = gradoDao.consultarBtnPorGrado(grado);
+                json.put("datos",arregloEP);
+                PrintWriter out = response.getWriter();
+                out.print(json.toString());
+             }               
     }
 
    
