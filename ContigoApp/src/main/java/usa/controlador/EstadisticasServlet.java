@@ -34,21 +34,25 @@ public class EstadisticasServlet extends HttpServlet {
             response.setContentType("application/json;charset=UTF-8");
             JSONObject json = new JSONObject();
             String parametro = request.getParameter("tipoConsulta");
-            if(parametro.equals("ConversatorioPorGrado")){
+            if(parametro.equals("PorGrado")){
                 IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
                 String grado = request.getParameter("grado");
                 IDaoConversatorios daoConversatorio= (IDaoConversatorios)dao;
                 LinkedList<JSONArray> arreglos = daoConversatorio.consultarPorGrado(grado);
-                json.put("titulos",arreglos.get(0));
-                json.put("inscritos",arreglos.get(1));
+                JSONObject conversatorios = new JSONObject();
+                conversatorios.put("titulos",arreglos.get(0));
+                conversatorios.put("inscritos",arreglos.get(1));
+                dao = (IDao)factoryDao.obtener("GradoDao");
+                IGradoDao gradoDao= (IGradoDao)dao;
+                JSONObject boton = new JSONObject();
+                JSONArray arregloEP = gradoDao.consultarBtnPorGrado(grado);
+                boton.put("datos",arregloEP);
+                json.put("conversatorios", conversatorios);
+                json.put("boton", boton);
                 PrintWriter out = response.getWriter();
                 out.print(json.toString());
-             }else if(parametro.equals("BtnPorGrado")){
-                 IDao dao = (IDao)factoryDao.obtener("GradoDao");
-                String grado = request.getParameter("grado");
-                IGradoDao gradoDao= (IGradoDao)dao;
-                JSONArray arregloEP = gradoDao.consultarBtnPorGrado(grado);
-                json.put("datos",arregloEP);
+             }else if(parametro.equals("PorEstudiante")){
+                 
                 PrintWriter out = response.getWriter();
                 out.print(json.toString());
              }               

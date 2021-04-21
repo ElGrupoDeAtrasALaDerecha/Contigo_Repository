@@ -63,14 +63,16 @@ public class ClasificacionDao implements IDao<Clasificacion> {
         LinkedList<Clasificacion> lista = new LinkedList();
         String sql = "";
         try {
-            sql = "select * from CLASIFICACION ";
+            sql = "select clasificacion.id,  clasificacion.grado, grado.codigo from clasificacion, grado where grado.CLASIFICACION_id = clasificacion.id; ";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while (result.next()) {
                 Clasificacion clasf = new Clasificacion();
                 clasf.setId(result.getInt("id"));
                 clasf.setGrado(result.getString("grado"));
+                clasf.setCodigo(result.getString("codigo"));
                 lista.add(clasf);
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);

@@ -155,7 +155,7 @@ public class ConversatoriosDao implements IDaoConversatorios {
                          "inner join estudiante as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n" +
                          "inner join grado as G on E.GRADO_codigo = G.codigo\n" +
                          "right join conversatorio as C on EC.CONVERSATORIO_id = C.id \n" +
-                         "where G.codigo = "+grado+" \n" +
+                         "where G.codigo = \'"+grado+"\' \n" +
                          "group by C.id\n" +
                          "order by Inscritos desc\n" +
                          "limit 5";

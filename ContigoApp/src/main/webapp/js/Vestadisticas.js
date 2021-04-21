@@ -10,11 +10,12 @@ var grados;
 var estudiante
 var listaEstudiantes = document.getElementById('ListaEstudiantes');;
 var arregloEstudiantes;
+var codigoGrado = [];
 
 opcGrado.style.display = "none"
 btnGrados.style.display = "none"
 btnEstudiantes.style.display = "none"
-//graficas.style.display = "none"
+graficas.style.display = "none"
 listaEstudiantes.style.display = "none"
 
 $('.ui.dropdown')
@@ -73,25 +74,31 @@ $("#btnGerarE").on("click", function () {
 $("#btnGerarG").on("click", function () {
     //window.location.assign("gestionCurso.html")
     graficas.style.display = "block"
+    solicitarDatosGrafica();
+    
+});
+function solicitarDatosGrafica(){
     let codigoGrado =document.getElementById('txtGrado');
     $.ajax({
-        url: 'Estadisticas?tipoConsulta=BtnPorGrado&grado='+ codigoGrado.value,
+        url: 'Estadisticas?tipoConsulta=PorGrado&grado='+ codigoGrado.value,
         method: 'GET',
         dataType: 'json',
         success: function (response) {
             arregloGrados = response.clasificaciones;
             console.log(response)
-            GraficaTorta(response.datos);
+            GraficaTorta(response.boton.datos);
+            graficaTopGrados(response.conversatorios)
         },
         error: function (response) {
             // console.log("Error en la petición GET")
             // console.log(JSON.stringify(response))
         }
-    })
-    
-});
+    }) 
+}
 
 
+
+//Gráficas
 
 function GraficaTorta(data) {
     var oilCanvas = document.getElementById("usoChat");
@@ -120,6 +127,65 @@ function GraficaTorta(data) {
 
 
 
+function graficaTopGrados(datos){
+    alert("entre")
+    var densityCanvas = document.getElementById("GraficasTOPgrados");
+
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+    
+    var densityData = {
+      label: 'Conversatorios más vistos',
+      data: [datos.inscritos],
+      backgroundColor: [
+        'rgba(0, 99, 132, 0.6)',
+        'rgba(30, 99, 132, 0.6)',
+        'rgba(60, 99, 132, 0.6)',
+        'rgba(90, 99, 132, 0.6)',
+        'rgba(120, 99, 132, 0.6)',
+        'rgba(150, 99, 132, 0.6)',
+        'rgba(180, 99, 132, 0.6)',
+        'rgba(210, 99, 132, 0.6)',
+        'rgba(240, 99, 132, 0.6)'
+      ],
+      borderColor: [
+        'rgba(0, 99, 132, 1)',
+        'rgba(30, 99, 132, 1)',
+        'rgba(60, 99, 132, 1)',
+        'rgba(90, 99, 132, 1)',
+        'rgba(120, 99, 132, 1)',
+        'rgba(150, 99, 132, 1)',
+        'rgba(180, 99, 132, 1)',
+        'rgba(210, 99, 132, 1)',
+        'rgba(240, 99, 132, 1)'
+      ],
+      borderWidth: 2,
+      hoverBorderWidth: 0
+    };
+    
+    var chartOptions = {
+      scales: {
+        yAxes: [{
+          barPercentage: 0.5
+        }]
+      },
+      elements: {
+        rectangle: {
+          borderSkipped: 'left',
+        }
+      }
+    };
+    
+    var barChart = new Chart(densityCanvas, {
+      type: 'horizontalBar',
+      data: {
+        labels: [datos.titulos],
+        datasets: [densityData],
+      },
+      options: chartOptions
+    });
+}
+
 
 
 function listarGrados() {
@@ -130,6 +196,9 @@ function listarGrados() {
         success: function (response) {
             arregloGrados = response.clasificaciones;
             console.log(response)
+            for (let index = 0; index < response.clasificaciones.length; index++) {
+                codigoGrado[index]= response.clasificaciones.codigo;                
+            }
             llenarSelectGrados(arregloGrados);
         },
         error: function (response) {
@@ -140,8 +209,9 @@ function listarGrados() {
 }
 
 function llenarSelectGrados(a) {
+    
     for (var i = 0; i < a.length; i++) {
-        let txt = `<div class="item" data-value="${a[i].id}">${a[i].grado}</div>`
+        let txt = `<div class="item" data-value="${a[i].codigo}">${a[i].grado}</div>`
         $("#grados").append(txt);
     }
 }
