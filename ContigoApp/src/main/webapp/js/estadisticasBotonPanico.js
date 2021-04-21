@@ -16,12 +16,12 @@ function traerClasificacionGrados() {
         data: "json",
         contentType: "JSON application/json charset=utf-8",
         success: function (response) {
-            console.log(response);
+            // console.log(response);
             grados = response.clasificaciones;
             cargarSelectGrados(grados);
         },
         error: function (response) {
-            console.log(JSON.stringify(response))
+            // console.log(JSON.stringify(response))
         }
     });
 }
@@ -38,6 +38,7 @@ $("#btnGerar").on("click", function () {
 
 });
 
+// copy start
 function consultarInformacion(obj) {
     $.ajax({
         method: 'GET',
@@ -46,7 +47,7 @@ function consultarInformacion(obj) {
         dataType: "json",
         success: function (response) {
             if (response.tipo === "ok") {
-                console.log(response);
+                // console.log(response);
                 estadisticas = response.Estadisticas;
                 // console.log(estadisticas)
                 grafica1(estadisticas)
@@ -83,13 +84,6 @@ function grafica1(estadisticas) {
     }
     parametrosGrafica(meses, frecuencia)
     // console.log(frecuencia)
-}
-
-// Grafica semanal de la cantidad de veces que los estudiantes han dado click al botón de pánico
-
-function grafica2(estadisticas) {
-    var semanas = ['En', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-    var frecuencia = [0, 0, 0, 0] // frecuenciauencia por semana
 }
 
 function parametrosGrafica(x, y) {

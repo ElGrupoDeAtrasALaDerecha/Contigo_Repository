@@ -155,7 +155,7 @@ public class EstudianteDao implements IDaoEstudiante {
         "inner join Estudiante as e on e.PERSONA_documento= p.documento\n" +
         "inner join Grado as g  on e.Grado_codigo=g.codigo\n" +
         "inner join clasificacion as c on c.id=g.CLASIFICACION_id\n" +
-        "where c.id = "+id+";";
+        "where c.id = '"+id+"';";
         try {
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();

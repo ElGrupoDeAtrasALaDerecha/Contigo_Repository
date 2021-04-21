@@ -86,11 +86,11 @@ p{
 }
 
 #tabla_grados a{
-    color: #212529;
+    color: #212529 !important;
 }
 
 #tabla_grados a:hover{
-    color: #112fb6;
+    color: #112fb6 !important;
 }
 
 
