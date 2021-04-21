@@ -211,10 +211,4 @@ public class EstudianteDao implements IDaoEstudiante {
         }
         return estudiantes; //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public LinkedList<Estudiante> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
