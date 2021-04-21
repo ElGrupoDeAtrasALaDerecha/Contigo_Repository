@@ -19,6 +19,7 @@ $.ajax({
     
                 function EventoAdd(id) {
                     alert(id)
+                    crear();
                 }
     
                 function EventoEdit(id) {
