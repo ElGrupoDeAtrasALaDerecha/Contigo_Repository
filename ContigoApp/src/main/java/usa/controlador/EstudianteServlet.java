@@ -79,7 +79,7 @@ public class EstudianteServlet extends HttpServlet {
         Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
         EstudianteDao daoestu = (EstudianteDao) dao;
 
-        if (daoestu.consultarID(estudiante.getDocumento())!= null) {
+        if (daoestu.consultar(estudiante.getDocumento())!= null) {
             json.put("tipo", "error");
             json.put("mensaje", "Error el estudiante ya esta registrado");
         } else {

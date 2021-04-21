@@ -1,7 +1,7 @@
 package usa.factory;
 
 import usa.bd.IConexionBD;
-import usa.modelo.dao.Conexion;
+import usa.bd.Conexion;
 
 /**
  * 

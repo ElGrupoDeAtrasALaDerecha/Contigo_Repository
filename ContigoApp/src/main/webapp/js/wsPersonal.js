@@ -15,7 +15,7 @@
  /**
  * Dirección con protocolo ws
  */
- var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
+ var wsUri = "ws://25.111.209.182:8080/ContigoApp/contiBot";
  /**
  * Websocket
  */
