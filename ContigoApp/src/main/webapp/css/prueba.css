@@ -1,6 +1,6 @@
 
 .grafest{
-    border: solid 2px gray ;
+    border: solid 2px rgb(255, 255, 255) ;
     border-radius: 34px;
     color: rgb(0, 0, 0);
     font-family: 'Open Sans', sans-serif;
@@ -14,9 +14,12 @@
     margin-left: 35%;
     position: relative;
 }
+#cursos{
+    text-align: center;
+}
 
 .credencial{
-    border: solid 2px gray ;
+    border: solid 2px rgb(255, 255, 255) ;
     border-radius: 34px;
     color: rgb(0, 0, 0);
     font-family: 'Open Sans', sans-serif;
@@ -25,6 +28,17 @@
     margin: 1.5%;
     padding: 2% 5%;
     width: 35%;
+}
+#selectGrados, #selectConsulta, #selectTiempo{
+    border: solid 2px gray ;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 1.5%;
+    padding: 2% 5%;
+    width: 90%;
 }
 
 #contenedor_cc{
@@ -61,3 +75,4 @@
     width: 40%;
     height: 60%;
 }
+

@@ -29,11 +29,11 @@ $(document).ready(function () {
 
 function obtenerSelect() {
 
-    opcVisualiza = document.getElementById("consulta").value;
+    opcVisualiza = document.getElementById("txtConsulta").value;
     if (opcVisualiza === "1" || opcVisualiza === "2") {
         opcGrado.style.display = "block"
         divge.style.display = "none"
-
+        
 
     } else if (opcVisualiza === "") {
         opcGrado.style.display = "none"
@@ -47,8 +47,8 @@ $(".ui.dropdown").click(function () {
 
 function selects() {
     grados = document.getElementById("txtGrado").value;
-    var tiempo = document.getElementById("frecuenciaEstadisticas").value;
-    if (grados !== "" && tiempo !== "") {
+    //var tiempo = document.getElementById("txtTiempo").value;
+    if (grados !== "" ) {
         btnGrados.style.display = "block"
     } else {
         btnGrados.style.display = "none"
@@ -56,7 +56,7 @@ function selects() {
 }
 
 function aparecerSelectEst() {
-    opcVisualizar = document.getElementById("consulta").value;
+    opcVisualizar = document.getElementById("txtConsulta").value;
     grados = document.getElementById("txtGrado").value;
     if (opcVisualizar === "2") {
         if (grados !== "") {
@@ -130,7 +130,6 @@ function GraficaTorta(data) {
 
 
 function graficaTopGrados(datos){
-    alert("entre")
     var densityCanvas = document.getElementById("GraficasTOPgrados");
 
     Chart.defaults.global.defaultFontFamily = "Lato";
@@ -219,7 +218,7 @@ function llenarSelectGrados(a) {
 }
 
 // ============================ Alternativa ============================
-$('#selectGrados').click(function (e) {
+/*$('#selectGrados').click(function (e) {
     var gradoSelt = $('#txtGrado').val()
     // var id_inst = getCookie("ID_Inst")
     var obj = {
@@ -254,7 +253,7 @@ function llenarSelectEstudiantes(arregloEstudiantes) {
         let txt = `<div class="item" data-value="${arregloEstudiantes[i].documento}">${arregloEstudiantes[i].primerNombre} ${arregloEstudiantes[i].segundoNombre} ${arregloEstudiantes[i].primerApellido} ${arregloEstudiantes[i].segundoApellido}</div>`
         $("#estudiantes").append(txt);
     }
-}
+}*/
 
 // ===============================================
 
