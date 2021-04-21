@@ -31,9 +31,7 @@
                 <form id="form1" runat="server">
                     <div>
                         <ul id="Diagrama" style="display:none">
-                            <li id="Holi">HOLI
-                                
-                            </li>
+                          
                         </ul>
                         <div id="Organigrama-resultante">
 
@@ -52,9 +50,11 @@
 
     <script src="js/jquery.orgchart.js"></script>
     <script>
-        $('#Organigrama-resultante').orgchart({
+
+       var p = $('#Organigrama-resultante').orgchart({
             'data': $('#Diagrama')
         });
+        
     </script>
     <script src="js/js_componentes/bootstrap.min.js"></script>
     <script src="js/situaciones.js"></script>
