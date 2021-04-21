@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import usa.modelo.dto.Grado;
 import usa.modelo.dto.GradoClasf;
 import usa.utils.GeneradorCodigos;
@@ -106,5 +107,32 @@ public class GradoDao implements IGradoDao {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return grados;
+    }
+
+    @Override
+    public JSONArray consultarBtnPorGrado(String grado) {
+        JSONArray arregloBtnE=new JSONArray();
+        try {
+            String sql = "select q1.totalE as \"total\", q2.totalEP as \"si\", q1.totalE-q2.totalEP as \"no\" from \n" +
+            "(select count(*) as totalE from estudiante\n" +
+            "where GRADO_codigo=\'"+grado+"\') as q1, \n" +
+            "(select count(p.documento) as totalEP from Persona as p\n" +
+            "inner join Estudiante as e on e.PERSONA_documento=p.documento\n" +
+            "inner join GRADO as g on g.codigo=e.GRADO_codigo\n" +
+            "where g.codigo=\'"+grado+"\' and p.documento in (select distinct ESTUDIANTE_PERSONA_documento from estadisticas_btnpanico)\n" +
+            ") as q2;";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                arregloBtnE.put(rs.getInt("total"));
+                arregloBtnE.put(rs.getInt("si"));
+                arregloBtnE.put(rs.getInt("no"));
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arregloBtnE;
     }
 }
