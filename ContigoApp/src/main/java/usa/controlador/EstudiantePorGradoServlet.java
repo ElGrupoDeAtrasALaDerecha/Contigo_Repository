@@ -23,10 +23,10 @@ import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
-
+/**/
 /**
  *
- * @author marif
+ * @author Maria Camila Fernandez ,Andres López
  */
 @WebServlet(name = "EstudiantePorGradoServlet", urlPatterns = {"/EstudiantePorGradoServlet"})
 public class EstudiantePorGradoServlet extends HttpServlet {
@@ -77,8 +77,6 @@ public class EstudiantePorGradoServlet extends HttpServlet {
         JSONArray arreglo = new JSONArray();
         Gson gson = new Gson();
 
-        System.out.println("-----> " + json.getString("grado"));
-
         LinkedList<Estudiante> estudiantes = daoestu.listarGradosEstudiante(json.getString("grado"));
         if (estudiantes != null) {
             respuesta.put("tipo", "ok");
@@ -87,8 +85,7 @@ public class EstudiantePorGradoServlet extends HttpServlet {
                 arreglo.put(new JSONObject(gson.toJson(i, Estudiante.class)));
             }
             respuesta.put("estudiantes", arreglo);
-        } 
-        /**
+        } /**
          * String grado = request.getParameter("grado"); if(grado != null){
          * respuesta.put("estudiantes", new
          * JSONObject(Utils.toJson(daoestu.listarGradosEstudiante(grado)))); }*
