@@ -1,4 +1,3 @@
-
 package usa.controlador;
 
 import java.io.IOException;
@@ -14,54 +13,63 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
+import usa.modelo.dao.EstadisticasBtnPanicoDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoConversatorios;
 import usa.modelo.dao.IGradoDao;
+import usa.modelo.dto.EstadisticasBtnPanico;
 import usa.utils.Utils;
-
+/**/
 /**
  *
- * @author 
+ * @author
  */
 @WebServlet(name = "EstadisticasServlet", urlPatterns = {"/Estadisticas"})
 public class EstadisticasServlet extends HttpServlet {
 
-   AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    
-   @Override
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            response.setContentType("application/json;charset=UTF-8");
-            JSONObject json = new JSONObject();
-            String parametro = request.getParameter("tipoConsulta");
-            if(parametro.equals("ConversatorioPorGrado")){
-                IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
-                String grado = request.getParameter("grado");
-                IDaoConversatorios daoConversatorio= (IDaoConversatorios)dao;
-                LinkedList<JSONArray> arreglos = daoConversatorio.consultarPorGrado(grado);
-                json.put("titulos",arreglos.get(0));
-                json.put("inscritos",arreglos.get(1));
-                PrintWriter out = response.getWriter();
-                out.print(json.toString());
-             }else if(parametro.equals("BtnPorGrado")){
-                 IDao dao = (IDao)factoryDao.obtener("GradoDao");
-                String grado = request.getParameter("grado");
-                IGradoDao gradoDao= (IGradoDao)dao;
-                JSONArray arregloEP = gradoDao.consultarBtnPorGrado(grado);
-                json.put("datos",arregloEP);
-                PrintWriter out = response.getWriter();
-                out.print(json.toString());
-             }               
+        response.setContentType("application/json;charset=UTF-8");
+        JSONObject json = new JSONObject();
+        String parametro = request.getParameter("tipoConsulta");
+        if (parametro.equals("ConversatorioPorGrado")) {
+            IDao dao = (IDao) factoryDao.obtener("ConversatoriosDao");
+            String grado = request.getParameter("grado");
+            IDaoConversatorios daoConversatorio = (IDaoConversatorios) dao;
+            LinkedList<JSONArray> arreglos = daoConversatorio.consultarPorGrado(grado);
+            json.put("titulos", arreglos.get(0));
+            json.put("inscritos", arreglos.get(1));
+            PrintWriter out = response.getWriter();
+            out.print(json.toString());
+        } else if (parametro.equals("BtnPorGrado")) {
+            IDao dao = (IDao) factoryDao.obtener("GradoDao");
+            String grado = request.getParameter("grado");
+            IGradoDao gradoDao = (IGradoDao) dao;
+            JSONArray arregloEP = gradoDao.consultarBtnPorGrado(grado);
+            json.put("datos", arregloEP);
+            PrintWriter out = response.getWriter();
+            out.print(json.toString());
+        } else if (parametro.equals("ClicksPorGrado")) {
+            IDao dao = (IDao) factoryDao.obtener("EstadisticasBtnPanicoDao");
+            EstadisticasBtnPanicoDao estdao = (EstadisticasBtnPanicoDao) dao;
+            LinkedList<JSONArray> estadisticas = estdao.listarClicksPorGrado();
+            json.put("grado", estadisticas.get(0));
+            json.put("Clicks", estadisticas.get(1));
+            PrintWriter out = response.getWriter();
+            out.print(json.toString());
+
+        }
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
     }
 
-   
     @Override
     public String getServletInfo() {
         return "Short description";

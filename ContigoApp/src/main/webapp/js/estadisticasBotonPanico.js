@@ -1,28 +1,24 @@
 var estudiante
 var estadisticas
 var grados
-var gradosInstitucion = []
+var frecuenciasClicksGrado = []
 var boton = document.getElementById("generarEstadisticas");
 
 $(document).ready(function () {
-    traerGrados();
+    traerClasificacionGrados();
     estudiante = getCookie("token");
 });
 
-function traerGrados() {
+function traerClasificacionGrados() {
     $.ajax({
         method: 'GET',
-        url: 'Grado',
+        url: 'ClasificacionServlet',
         data: "json",
         contentType: "JSON application/json charset=utf-8",
         success: function (response) {
-            if (response.tipo === "ok") {
-                console.log(response);
-                grados = response.Grados;
-                cargarSelectGrados(grados);
-            } else {
-                console.log(response.mensaje);
-            }
+            console.log(response);
+            grados = response.clasificaciones;
+            cargarSelectGrados(grados);
         },
         error: function (response) {
             console.log(JSON.stringify(response))
@@ -32,22 +28,14 @@ function traerGrados() {
 
 function cargarSelectGrados(grados) {
     for (var grado in grados) {
-        document.getElementById("grados").innerHTML += "<option value='" + grados[grado] + "'>" + grados[grado] + "</option>";
+        document.getElementById("grados").innerHTML += "<option value='" + grados[grado].id + "'>" + grados[grado].grado + "</option>";
     }
-
 }
 
 $("#btnGerar").on("click", function () {
     //window.location.assign("gestionCurso.html")
     consultarInformacion();
-    $("#grados").on("click", function () {
-        gradoseleccionado = $('#grados option:selected').val()
-        console.log(gradoseleccionado)
-        obj = {
-            grado: gradoseleccionado
-        }
-        consultarEstudianteGrado(obj);
-    });
+
 });
 
 function consultarInformacion(obj) {
@@ -63,6 +51,7 @@ function consultarInformacion(obj) {
                 // console.log(estadisticas)
                 grafica1(estadisticas)
                 filtrarClicksporDia(estadisticas)
+                consultarClicksGrado()
             } else {
                 console.log(response.mensaje);
             }
@@ -201,44 +190,73 @@ function filtrarClicksporDia(estadisticas) {
     });
 }
 
-function consultarEstudianteGrado(obj) {
+
+
+function consultarClicksGrado() {
     $.ajax({
-        method: 'POST',
-        url: 'EstudiantePorGradoServlet',
-        data: JSON.stringify(obj),
-        dataType: "json",
+        method: 'GET',
+        url: 'Estadisticas?tipoConsulta=ClicksPorGrado',
+        data: "json",
+        contentType: "JSON application/json charset=utf-8",
         success: function (response) {
-            if (response.tipo === "ok") {
-                console.log(response);
-                estudiantesGrado = response.estudiantes;
-                graficaBotonPanicoClicksGrado(estudiantesGrado);
-            } else {
-                console.log(response.mensaje);
+            console.log(response);
+            clicksGrado = response.Clicks;
+            gradosTraidos = response.grado;
+            frecuenciasClicksGrado.push(clicksGrado);
+            var gradosHistograma = []
+            for (let i = 0; i < grados.length; i++) {
+                gradosHistograma.push(grados[i].grado);
             }
+            crearHistograma(gradosHistograma);
         },
     });
 }
 
-function crearArregloFrecuenciaGradosInstitucion(grados) {
-    gradosInstitucion
-    for (let i = 0; i < grados[index]; i++) {
-        gradosInstitucion[i]=0;
-    }
-}
-
-function graficaBotonPanicoClicksGrado(estudiantesGrado) {
-    var clicksGrado = 0;
-    crearArregloFrecuenciaGradosInstitucion(grados);
-    for (let index = 0; index < estadisticas.length; index++) {
-        for (let i = 0; i < estadisticas[index].fechas.length; i++) {
-            if (estadisticas[index].estudiante[i] == estudiantesGrado[index].documento) {
-                clicksGrado = frec[j];
-                clicksGrado++;
-                frec[j] = clicksGrado
+function crearHistograma(gradosHistograma) {
+    var tablaInscripcionAconversatorio = new Chart(document.getElementById('situacionesComunes').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: gradosHistograma,
+            datasets: [{
+                label: 'Grados',
+                data: clicksGrado,
+                backgroundColor: [
+                    'rgb(136, 145, 200,0.6)',
+                    'rgba(210, 180, 140, 0.6)',
+                    'rgba(188, 143, 143, 0.6)',
+                    'rgba(153, 102, 255, 0.6)'
+                ],
+                borderColor: [
+                    'rgb(136, 145, 200)',
+                    'rgba(210, 180, 140, 1)',
+                    'rgba(188, 143, 143, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Número de estudiantes por grado que han usado el botón de pánico'
+            },
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 25,
+                    top: 0,
+                    bottom: 0
+                }
             }
-
         }
-    }
+    });
+
+
 }
-
-
