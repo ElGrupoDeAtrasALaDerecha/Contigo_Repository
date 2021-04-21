@@ -64,3 +64,12 @@ values ("1000853623","Juanita y sus amigos", "Juanita que es una niña valiente 
                             amigos, ¿Te acercarías a hablar con juanita?","img/school.jpg");
 insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
 values(null,1,"Amigo de Juanita","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Juanita.");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Miguel");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(1,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Miguel");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Miguel");

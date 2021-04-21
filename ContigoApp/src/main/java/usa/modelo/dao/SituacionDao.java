@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONObject;
 import static usa.modelo.dao.IDao.conn;
+import usa.modelo.dto.Arbol;
 import usa.modelo.dto.Situacion;
 
 /**
@@ -94,20 +96,22 @@ public class SituacionDao implements ISituacionDao{
     }
 
     @Override
-    public LinkedList<Situacion> consultarPorHistoria(int idHistoria) {
-        LinkedList<Situacion> situaciones = new LinkedList();
+    public Arbol consultarPorHistoria(int idHistoria) {
+        Arbol situaciones = new Arbol();
         try {
-            String sql = "select * from HISTORIA;";
+            String sql = "select * from situacion where HISTORIA_idHistoria = "+idHistoria+" order by id asc;";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
+            int i = 0;
             while (rs.next()) {
                 Situacion situacion = new Situacion();
                 situacion.setId(rs.getInt("id"));
+                situacion.setIdHistoria(rs.getInt("HISTORIA_idHistoria"));
                 situacion.setPredecesor(rs.getInt("SITUACION_id"));
                 situacion.setTitulo(rs.getString("titulo"));
                 situacion.setTexto(rs.getString("texto"));
                 situacion.setTextoOpcion(rs.getString("opcion"));
-                situaciones.add(situacion);
+                situaciones.agregarNodo(situacion);
             }
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);

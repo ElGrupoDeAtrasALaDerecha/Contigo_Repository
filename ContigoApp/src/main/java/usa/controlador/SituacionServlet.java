@@ -44,9 +44,9 @@ public class SituacionServlet extends HttpServlet {
         JSONObject respuesta = new JSONObject();
         Historia historia = (Historia) daoHistorias.consultar(id);
         if(historia!=null){
-            JSONArray arreglo=new JSONArray(daoSituacion.consultarPorHistoria(Integer.parseInt(id)));
+            JSONObject arreglo=new JSONObject(Utils.toJson(daoSituacion.consultarPorHistoria(Integer.parseInt(id))));
             respuesta.put("tipo","ok");
-            respuesta.put("situaciones", arreglo.toString());
+            respuesta.put("situaciones", arreglo);
         }else{
             respuesta.put("tipo","error");
             respuesta.put("mensaje", "No existe esa historia");

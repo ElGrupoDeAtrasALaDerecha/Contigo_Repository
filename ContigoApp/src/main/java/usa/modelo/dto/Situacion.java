@@ -14,9 +14,20 @@ public class Situacion {
     private String texto;
     private String textoOpcion;
     private LinkedList<Situacion> opciones;
-
+ 
+    public void agregarOpcion(Situacion st){
+        if(opciones == null){
+            opciones = new LinkedList();  
+        }
+        opciones.add(st);
+    }
+    
     public int getId() {
         return id;
+    }
+
+    public Situacion() {
+        opciones = new LinkedList();
     }
 
     public void setId(int id) {
