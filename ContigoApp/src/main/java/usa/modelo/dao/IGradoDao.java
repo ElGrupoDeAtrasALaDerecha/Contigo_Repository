@@ -1,6 +1,7 @@
 package usa.modelo.dao;
 
 import java.util.LinkedList;
+import org.json.JSONArray;
 import usa.modelo.dto.Grado;
 import usa.modelo.dto.GradoClasf;
 
@@ -10,4 +11,5 @@ import usa.modelo.dto.GradoClasf;
  */
 public interface IGradoDao extends IDao<Grado>{
     public LinkedList<GradoClasf> listarGradosClasf();
+    JSONArray consultarBtnPorGrado(String grado);
 }
