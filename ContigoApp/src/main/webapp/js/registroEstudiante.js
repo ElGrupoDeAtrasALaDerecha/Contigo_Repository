@@ -42,8 +42,8 @@ function registrar_estudiante() {
     codins = $("#CodigoInstitucional").val();
     snom = $("#SegundoNombre").val();
     sape = $("#SegundoApellido").val();
-    con = $("#contra").val()
-
+    con = $("#contra").val();
+    correo= $("#correo").val();
     if (tidocu == "") {
         toastr.warning('Por favor escoja un tipo de documento')
     }
@@ -58,7 +58,8 @@ function registrar_estudiante() {
         fechaDeNacimiento: fena,
         contraseña: con,
         genero: gen,
-        grado: codins
+        grado: codins,
+        correo: correo
     };
 
     $.ajax({

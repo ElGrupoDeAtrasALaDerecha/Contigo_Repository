@@ -10,21 +10,20 @@ import usa.utils.Correo;
  *
  * @author Santiago Pérez
  */
-public class MailConfirmacionPersonal extends Email implements IStrategy{
+public class MailRecuperacionContraseñaPersonal extends Email implements IStrategy{
 
-    public MailConfirmacionPersonal(String DESTINO) {
-        super(DESTINO,"Verifique su cuenta como personal calificado de contigo","mailTemplates/mailConfirmacionPersonal.html");
+    
+    public MailRecuperacionContraseñaPersonal(String destino) {
+        super(destino,"Recuperación de contraseña","mailTemplates/mailRecuperacionPersonal.html");
     }
-
-
     
     @Override
     public void enviarCorreo() {
         try {
             Correo.enviarCorreo(DESTINO, ASUNTO, this.leerArchivo());
         } catch (IOException | MessagingException ex) {
+            System.out.println("Error interno al enviar el correo: "+ex.getMessage());
             Logger.getLogger(MailConfirmacionInstitucion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 }

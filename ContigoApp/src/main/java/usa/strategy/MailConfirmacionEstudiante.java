@@ -10,20 +10,21 @@ import usa.utils.Correo;
  *
  * @author Santiago Pérez
  */
-public class MailConfirmacionPersonal extends Email implements IStrategy{
+public class MailConfirmacionEstudiante extends Email implements IStrategy{
 
-    public MailConfirmacionPersonal(String DESTINO) {
-        super(DESTINO,"Verifique su cuenta como personal calificado de contigo","mailTemplates/mailConfirmacionPersonal.html");
+    public MailConfirmacionEstudiante(String DESTINO) {
+        super(DESTINO, "Verifique su cuenta como estudiante", "mailTemplates/mailConfirmacionEstudiante.html");
     }
 
-
-    
     @Override
     public void enviarCorreo() {
         try {
             Correo.enviarCorreo(DESTINO, ASUNTO, this.leerArchivo());
         } catch (IOException | MessagingException ex) {
             Logger.getLogger(MailConfirmacionInstitucion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(Exception ex){
+            System.out.println("Error inesperado: "+ex.getMessage());
         }
     }
     
