@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
@@ -39,23 +40,6 @@ public class EstudiantePorGradoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EstudiantePorGradoServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EstudiantePorGradoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -86,7 +70,6 @@ public class EstudiantePorGradoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         response.setContentType("application/json;charset=UTF-8");
         JSONObject json = new JSONObject(Utils.readParams(request));
         PrintWriter out = response.getWriter();
@@ -97,18 +80,24 @@ public class EstudiantePorGradoServlet extends HttpServlet {
         System.out.println("-----> " + json.getString("grado"));
 
         LinkedList<Estudiante> estudiantes = daoestu.listarGradosEstudiante(json.getString("grado"));
-                
         if (estudiantes != null) {
             respuesta.put("tipo", "ok");
             for (Estudiante i : estudiantes) {
+                System.out.println("---> " + i.getPrimerApellido());
                 arreglo.put(new JSONObject(gson.toJson(i, Estudiante.class)));
             }
-            //respuesta.put("estudiantes", arreglo);
-        } else {
+            respuesta.put("estudiantes", arreglo);
+        } 
+        /**
+         * String grado = request.getParameter("grado"); if(grado != null){
+         * respuesta.put("estudiantes", new
+         * JSONObject(Utils.toJson(daoestu.listarGradosEstudiante(grado)))); }*
+         */
+        else {
             respuesta.put("tipo", "error");
             respuesta.put("mensaje", "No se ha posido consultar el estudiant");
         }
-        
+
         //respuesta.put("tipo", "ok");
         out.print(respuesta.toString());
     }

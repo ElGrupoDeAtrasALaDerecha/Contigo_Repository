@@ -67,47 +67,47 @@ function cargarSelectGrados(grados) {
     }
 }
 
-// function traerEstudiantes(){
-//     if(opcVisualizar === "2"){
-//         if(grados !==""){
-//             listaEstudiantes.style.display = "block"
-//             $.ajax({
-//                 method: 'GET',
-//                 url: 'EstudiantePorGradoServlet',
-//                 dataType: "json",
-//                 contentType: 'JSON application/json charset=utf-8',
-//                 headers:{
-//                     token:getCookie("token")
-//                 }, 
-//                 success: function (response) {
-//                     if (response.tipo === "ok") {
-//                         arregloEstudiantes = response.estudiantes;
-//                         llenarSelect();
-//                         listaEstudiantes.style.display = "block"
-//                         console.log(si);
-//                     }else{
-//                         console.log(response.mensaje);
-//                     }
-//                 },
-//                 error: function (response) {
-//                     console.log("Error: " + response.mensaje)
+// // function traerEstudiantes(){
+// //     if(opcVisualizar === "2"){
+// //         if(grados !==""){
+// //             listaEstudiantes.style.display = "block"
+// //             $.ajax({
+// //                 method: 'GET',
+// //                 url: 'EstudiantePorGradoServlet',
+// //                 dataType: "json",
+// //                 contentType: 'JSON application/json charset=utf-8',
+// //                 headers:{
+// //                     token:getCookie("token")
+// //                 }, 
+// //                 success: function (response) {
+// //                     if (response.tipo === "ok") {
+// //                         arregloEstudiantes = response.estudiantes;
+// //                         llenarSelect();
+// //                         listaEstudiantes.style.display = "block"
+// //                         console.log(si);
+// //                     }else{
+// //                         console.log(response.mensaje);
+// //                     }
+// //                 },
+// //                 error: function (response) {
+// //                     console.log("Error: " + response.mensaje)
                     
-//                 }
-//             });
-//         }
+// //                 }
+// //             });
+// //         }
+// //     }
+// // }
+
+
+// function llenarSelect(arregloEstudiantes){
+//     for(var i=0;i<arregloEstudiantes.length;i++){
+//         let txt=`<option value="${arregloEstudiantes[i].documento}">${arregloEstudiantes[i].primerNombre} ${arregloEstudiantes[i].segundoNombre} ${arregloEstudiantes[i].primerApellido} ${arregloEstudiantes[i].segundoApellido}</option>`
+//         $("#estudiantes").append(txt);
 //     }
 // }
-
-
-function llenarSelect(arregloEstudiantes){
-    for(var i=0;i<arregloEstudiantes.length;i++){
-        let txt=`<option value="${arregloEstudiantes[i].documento}">${arregloEstudiantes[i].primerNombre} ${arregloEstudiantes[i].segundoNombre} ${arregloEstudiantes[i].primerApellido} ${arregloEstudiantes[i].segundoApellido}</option>`
-        $("#estudiantes").append(txt);
-    }
-}
-$("#btnGerar").on("click", function () {
-    window.location.assign("gestionCurso.html")
-});
+// $("#btnGerar").on("click", function () {
+//     window.location.assign("gestionCurso.html")
+// });
 
 // ============================ Alternativa ============================
 $('#btnGenerar').click(function (e) {
@@ -125,6 +125,7 @@ function listarEstudiantes(obj) {
         method: 'POST',
         dataType: "json",
         data: JSON.stringify(obj),
+        contentType: "JSON application/json charset=utf-8",
         success: function (response) {
             if (response.tipo === "ok") {
                 console.log(response);
