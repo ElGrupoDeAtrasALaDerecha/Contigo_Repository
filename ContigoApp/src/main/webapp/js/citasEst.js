@@ -19,19 +19,20 @@ prevMonthDOM.addEventListener('click',mesAnterior);
 nextMonthDOM.addEventListener('click',mesSiguiente);
 
 escribirMeses(monthNumber);
+var fecha;
 function escribirMeses(month){
     var mesActual=3;
     if(month < 3){
         for(let i =inicioDia();i>0;i--){
             dates.innerHTML += `<div class="date item ">
-            <button class="ui  disabled basic button">
+            <button id="${obtenerDias(monthNumber-1)-(i-1)}" class="ui  disabled basic button">
                 ${obtenerDias(monthNumber-1)-(i-1)}
                 </button>
                 </div>`;
         }
         for (let i = 1; i <= obtenerDias(month); i++) {
             dates.innerHTML += `<div class="date">
-            <button class="ui disabled basic button">
+            <button id="${i}" class="ui disabled basic button">
             ${i}
             </button>
             </div>`;
@@ -40,28 +41,28 @@ function escribirMeses(month){
     if( month === 3){
         for(let i =inicioDia();i>0;i--){
             dates.innerHTML += `<div class="date item ">
-            <button class="ui  disabled basic button">
+            <button id="${obtenerDias(monthNumber-1)-(i-1)}" class="ui  disabled basic button">
                 ${obtenerDias(monthNumber-1)-(i-1)}
                 </button>
                 </div>`;
         }
         for (let i = 1; i <= obtenerDias(month); i++) {
-            if(i === currentDay && month=== monthNumber){
+            if(i === currentDay ){
                 dates.innerHTML += `<div class="date item today">
-                <button class="ui purple basic button">
+                <button id="${i}" class="ui purple basic button">
                 ${i}
                 </button>
                 </div>`;
                 
             }else if(i<currentDay){
                 dates.innerHTML += `<div class="date">
-                <button class="ui disabled basic button">
+                <button id="${i}" class="ui disabled basic button">
                 ${i}
                 </button>
                 </div>`;
             }else if(i>currentDay){
                 dates.innerHTML += `<div class="date">
-                <button class="ui grey basic button">
+                <button id="${i}"class="ui grey basic button">
                 ${i}
                 </button>
                 </div>`;
@@ -70,23 +71,23 @@ function escribirMeses(month){
     }else if(month > 3){
         for(let i =inicioDia();i>0;i--){
             dates.innerHTML += `<div class="date item ">
-            <button class="ui  basic button">
+            <button id="${obtenerDias(monthNumber-1)-(i-1)}" class="ui  basic button">
                 ${obtenerDias(monthNumber-1)-(i-1)}
                 </button>
                 </div>`;
         }
         for (let i = 1; i <= obtenerDias(month); i++) {
             dates.innerHTML += `<div class="date">
-            <button class="ui grey basic button">
+            <button id="${i}"class="ui grey basic button">
             ${i}
             </button>
             </div>`;
         }
     }
     
-    $(".ui.basic.button").click(function(){
-        var btn  = [$(this).text(), month];
-        console.log(btn);
+    $(".ui.basic.button").click(function(e){
+        fecha= currentYear+'-'+month+'-'+$(this).attr("id");
+        console.log(fecha);
     })
 
 }
