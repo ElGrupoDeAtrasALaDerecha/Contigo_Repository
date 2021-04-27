@@ -24,3 +24,5 @@ select * from conversatorio;
 select * from institucion;
 
 select * from historia;
+
+select * from situacion;

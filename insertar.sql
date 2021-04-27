@@ -80,4 +80,4 @@ insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_d
 insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
 
 insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("123456789",sysdate());
-insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("100718536",sysdate());
+#insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("100718536",sysdate());
