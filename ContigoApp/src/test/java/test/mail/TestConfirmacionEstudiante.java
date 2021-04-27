@@ -10,7 +10,7 @@ import usa.strategy.MailRecuperacionContraseñaPersonal;
  */
 public class TestConfirmacionEstudiante {
     public static void main(String[] args) {
-        MailConfirmacionEstudiante estrategia = new MailConfirmacionEstudiante("santipego0001@gmail.com");
+        MailConfirmacionEstudiante estrategia = new MailConfirmacionEstudiante("santiago.perez01@correo.usa.edu.co");
         Contexto contexto = new Contexto(estrategia);
         estrategia.enviarCorreo();
     }

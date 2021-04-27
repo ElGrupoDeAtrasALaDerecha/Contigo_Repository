@@ -76,7 +76,9 @@ public class Correo {
             }
         }
         message.setContent(multipart);
-        Transport.send(message);
+        Transport transport = session.getTransport("smtp");
+        transport.connect(prop.getProperty("mail.smtp.host"), from, password);
+        transport.send(message);
 
         System.out.println("Correo enviado");
 
