@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+
+.title {
+  text-align: center;
+  color: black;
+}
+
+.calendar{
+  background: #ffffff;
+  width: 80%;
+  max-width: 600px;
+  position: static;
+  padding: 1%;
+  text-align: center;
+  margin-left: 2%;
+}
+.calendarInfo{
+    display: flex;
+    align-items: center;
+    padding: 2%;
+    font-size: 100%;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+    /*flechas*/
+
+
+#prev{
+    margin-right: auto;
+}
+#next{
+    margin-left: auto;
+}
+/*cuadricula*/
+.week, .dates{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 10px;
+}
+
+#month, #year{
+    padding: .5em 1em;
+}
+
+.item{
+    text-align: center;
+    line-height: 2;
+    color: rgb(180, 192, 192);
+}
+
+
+
+#last-days{
+    opacity: .3;
+}
