@@ -17,17 +17,6 @@ public class GeneradorCodigos {
 
     public static String MINUSCULAS = "abcdefghijklmnopqrstuvwxyz";
 
-    public static String getPinNumber() {
-        return getCodigo(NUMEROS, 4);
-    }
-
-    public static String getCodigo() {
-        return getCodigo(8);
-    }
-
-    public static String getCodigo(int length) {
-        return getCodigo(NUMEROS + MAYUSCULAS + MINUSCULAS, length);
-    }
 
     public static String getCodigo(String tipoCodigo, int length) {
         String key = "";
