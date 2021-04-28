@@ -13,8 +13,6 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Institucion;
-import usa.strategy.Contexto;
-import usa.strategy.MailConfirmacionInstitucion;
 import usa.utils.Utils;
 
 /**
@@ -26,7 +24,6 @@ public class InstitucionServlet extends HttpServlet {
 
     AbstractFactory factoryDao=Producer.getFabrica("DAO");
     IDao dao = (IDao)factoryDao.obtener("InstitucionDao");
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -69,8 +66,7 @@ public class InstitucionServlet extends HttpServlet {
             if (dao.crear(ins)) {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Institucion registrada correctamente");
-                Contexto contexto = new Contexto(new MailConfirmacionInstitucion(ins.getCorreo()));
-                contexto.enviarCorreo();
+                Utils.enviarCorreoA("confirmacionInstitucion", ins.getCorreo());
             } else {
                 json.put("tipo", "error");
                 json.put("mensaje", "Error al registrar institucion");

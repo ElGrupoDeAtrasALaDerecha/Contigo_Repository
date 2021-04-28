@@ -5,11 +5,12 @@ import java.io.BufferedReader;
 import javax.servlet.http.HttpServletRequest;
 import usa.strategy.Contexto;
 import usa.strategy.MailConfirmacionEstudiante;
+import usa.strategy.MailConfirmacionInstitucion;
 import usa.strategy.MailConfirmacionPersonal;
 
 /**
  * Clase de utilidades. Contiene métodos estáticos para hacer tareas
- * específicas. Origen de Juan Leyva 
+ * específicas. Origen de Juan Leyva
  *
  * @author Valeria Bermúdez, Laura Blanco, Santiago Cáceres, Camila Fernández,
  * Andrés López, Natalia Montenegro, Santiago Pérez y Miguel Rippe
@@ -85,30 +86,31 @@ public class Utils {
     public static Object fromJson(String s, Class T) {
         return gson.fromJson(s, T);
     }
-    
-     /**
-     * Método que permite crear un codigo de curso con numeros y mayusculas. 
+
+    /**
+     * Método que permite crear un codigo de curso con numeros y mayusculas.
      *
      * @return un codigo
      */
-
     public static String crearCodigoCurso() {
         return GeneradorCodigos.getCodigo("N-M", 6);
     }
-    
-     /**
-     * Método que permite enviar un correo a un tipo de persona. 
-     *
-     */
 
+    /**
+     * Método que permite enviar un correo a un tipo de persona.
+     *
+     * @param tipoCorreo
+     * @param correo
+     */
     public static void enviarCorreoA(String tipoCorreo, String correo) {
         Contexto contexto = null;
         if (tipoCorreo.equals("confirmacionEstudiante")) {
             contexto = new Contexto(new MailConfirmacionEstudiante(correo));
         } else if (tipoCorreo.equals("confirmacionPersonal")) {
             contexto = new Contexto(new MailConfirmacionPersonal(correo));
+        } else if (tipoCorreo.equals("confirmacionInstitucion")) {
+            contexto = new Contexto(new MailConfirmacionInstitucion(correo));
         }
         contexto.enviarCorreo();
-
     }
 }
