@@ -8,16 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
-import usa.strategy.Contexto;
-import usa.strategy.MailConfirmacionEstudiante;
-import usa.strategy.MailConfirmacionPersonal;
 import usa.utils.Utils;
 
 /**
@@ -86,7 +82,6 @@ public class EstudianteServlet extends HttpServlet {
             if (dao.crear(estudiante)) {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Estudiante creado");
-                System.out.println(estudiante.getCorreo());
                 Utils.enviarCorreoA("confirmacionEstudiante", estudiante.getCorreo());
             } else {
                 json.put("tipo", "error");

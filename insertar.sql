@@ -74,7 +74,17 @@ values(1,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias",
 insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
 values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Miguel");
 
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(2,1,"Amigo de S4","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de S4");
 
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(3,1,"Amigo de S4","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de S4");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(6,1,"Amigo de cx","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de cx");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(6,1,"Amigo de cx","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de cx");
 insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"1007718536");
 insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"123456789");
 insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
