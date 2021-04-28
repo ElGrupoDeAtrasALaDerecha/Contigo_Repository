@@ -116,7 +116,30 @@ function crear(id) {
  * @param {*} obj 
  */
 function registrar(obj,metodo){
+    $.ajax({
+        url: "Historias",
+        type: metodo,
+        dataType: "json",
+        data: JSON.stringify(obj),
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            if (result.tipo != "error") {
+                console.log(result)
+            } else {
+                console.log(result)
+                
+            }
+        },
+        complete: function (result) {
 
+        },
+        error: function (result) {
+            console.log(result);
+        }
+
+    });
 }
 
 function eliminar() {
