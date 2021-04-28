@@ -66,12 +66,12 @@
 			nodo.appendChild(item);
 
 			item = document.createElement('div');
-			item.innerText = data.textoOpcion;
+			item.innerText = data.titulo;
 			item.className = 'nodo-puesto';
 			nodo.appendChild(item);
 
 			item = document.createElement('div');
-			item.innerText = data.titulo;
+			item.innerText = data.texto;
 			item.className = 'nodo-nombre';
 			nodo.appendChild(item);
 

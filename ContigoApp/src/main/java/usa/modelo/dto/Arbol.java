@@ -41,8 +41,13 @@ public class Arbol {
             if (situaciones.get(i).getId() == id) {
                 return situaciones.get(i);
             } else {
-                if(situaciones.get(i) instanceof Situacion)
-                return buscarPadre(id, (Situacion)situaciones.get(i));
+                if(situaciones.get(i) instanceof Situacion){
+                    Situacion posiblePadre=(Situacion)buscarPadre(id, (Situacion)situaciones.get(i));
+                    if(posiblePadre!=null){
+                        return posiblePadre;
+                    }
+                }
+                
             }
         }
         return null;
