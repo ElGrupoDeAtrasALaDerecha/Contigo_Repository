@@ -30,8 +30,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
     @Override
     public boolean crear(PersonalCalificado personal) {
         try {
-            String sql = "call insertarPersonalCalificado(?,?,?,?,?,?,?,?,?)";
-            Connection conn = Conexion.tomarConexion();
+            String sql = "call insertarPersonalCalificado(?,?,?,?,?,?,?,?,?,?,?,?)";
             CallableStatement call = conn.prepareCall(sql);
             call.setString("_documento", personal.getDocumento());
             call.setInt("_TIPO_DOCUMENTO_ID", personal.getTipoDocumento());
@@ -41,8 +40,10 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
             call.setString("_segundoApellido", personal.getSegundoApellido());
             call.setString("_token", Utils.generateNewToken());
             call.setString("_fechaNacimiento", personal.getFechaDeNacimiento());
+            call.setString("_contraseña", personal.getContraseña());
             call.setString("_genero", personal.getGenero());
             call.setString("_correo", personal.getCorreo());
+            call.setString("_imagen", personal.getImagen());
             call.execute();
             call.close();
             return true;
@@ -62,7 +63,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
      */
     @Override
     public PersonalCalificado consultar(String id) {
-        Connection conn = Conexion.tomarConexion();
+        
         PersonalCalificado personalCalificado = null;
         String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
                 + "where p.documento=" + id + ";";
@@ -80,6 +81,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setGenero(rs.getString("genero"));
                 personalCalificado.setCorreo(rs.getString("correo"));
                 personalCalificado.setToken(rs.getString("token"));
+                personalCalificado.setImagen(rs.getString("imagen"));
             }
             rs.close();
             pat.close();
@@ -109,7 +111,6 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
     @Override
     public LinkedList<PersonalCalificado> listarTodos() {
         LinkedList<PersonalCalificado> personales = new LinkedList();;
-        Connection conn = Conexion.tomarConexion();
         String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento;";
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
@@ -126,6 +127,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setGenero(rs.getString("genero"));
                 personalCalificado.setCorreo(rs.getString("correo"));
                 personalCalificado.setToken(rs.getString("token"));
+                personalCalificado.setImagen(rs.getString("imagen"));
                 personales.add(personalCalificado);
             }
             rs.close();
@@ -142,7 +144,6 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
      */
     @Override
     public PersonalCalificado consultarPorToken(String token) {
-        Connection conn = Conexion.tomarConexion();
         PersonalCalificado personalCalificado = null;
         String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
                 + "where p.token='" + token + "';";
@@ -176,7 +177,6 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
     @Override
     public PersonalCalificado consultarPorCredenciales(String correo, String contraseña) {
         PersonalCalificado personal = null;
-        Connection conn = Conexion.tomarConexion();
         try {
 
             String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "

@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.PersonalCalificadoDao;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
+import usa.modelo.dao.IDao;
 import usa.modelo.dto.PersonalCalificado;
+import usa.strategy.Contexto;
+import usa.strategy.MailConfirmacionPersonal;
 import usa.utils.Utils;
 
 /**
@@ -20,8 +24,8 @@ import usa.utils.Utils;
  */
 @WebServlet(name="PersonalCalificadoServlet", urlPatterns={"/PersonalCalificado"})
 public class PersonalCalificadoServlet extends HttpServlet {
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -32,14 +36,11 @@ public class PersonalCalificadoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        PersonalCalificadoDao dao = new PersonalCalificadoDao();
         JSONObject respuesta = new JSONObject();
         respuesta.put("tipo", "ok");
         respuesta.put("personales",new JSONArray(Utils.toJson(dao.listarTodos())));
         PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());
-        
-        
+        out.print(respuesta.toString());   
     } 
 
     /** 
@@ -54,25 +55,26 @@ public class PersonalCalificadoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         PersonalCalificado personal = (PersonalCalificado) Utils.fromJson(parametros, PersonalCalificado.class);
-        PersonalCalificadoDao dao = new PersonalCalificadoDao();
         JSONObject respuesta = new JSONObject();
         if (dao.consultar(personal.getDocumento())!=null){
             respuesta.put("tipo","error");
-            respuesta.put("mensaje","Ya existe un usuario con ese nombre documento");
+            respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");
         }else{
             if(dao.crear(personal)){
                 respuesta.put("tipo","ok");
                 respuesta.put("mensaje","Usuario registrado satisfactoriamente");
                 //Aquí se envía la verificación
+                Contexto contexto = new Contexto(new MailConfirmacionPersonal(personal.getCorreo()));
+                contexto.enviarCorreo();
             }else{
                 respuesta.put("tipo","error");
-                respuesta.put("mensaje","Ya existe un usuario con ese nombre documento");
+                respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");
             }
         }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }
-
+//
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          
@@ -89,7 +91,6 @@ public class PersonalCalificadoServlet extends HttpServlet {
         String parametros = Utils.readParams(request);
         String documento=request.getParameter("document");
         PersonalCalificado personal = (PersonalCalificado) Utils.fromJson(parametros, PersonalCalificado.class);
-        PersonalCalificadoDao dao = new PersonalCalificadoDao();
         JSONObject respuesta = new JSONObject();
         if (dao.consultar(personal.getDocumento())==null){
             respuesta.put("tipo","error");

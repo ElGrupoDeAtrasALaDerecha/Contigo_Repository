@@ -17,6 +17,12 @@ select * from PERSONAL;
 select * from clasificacion;
 select * FROM ESTUDIANTE;
 select * from institucion;
+
+select * from institucion where correo="contigoapp@gmail.com" and contraseña="contigo123";
 select * from grado;
 select * from conversatorio;
 select * from institucion;
+
+select * from historia;
+
+select * from situacion;

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +13,7 @@ import usa.modelo.dto.TipoDocumento;
  * @author santi.
  */
 public class TipoDocumentoDao implements IDao<TipoDocumento> {
-    
+    /**/
      PreparedStatement pat;
      ResultSet result;
 
@@ -45,17 +39,15 @@ public class TipoDocumentoDao implements IDao<TipoDocumento> {
 
     @Override
     public LinkedList<TipoDocumento> listarTodos() {
-        LinkedList<TipoDocumento> documentos = new LinkedList<TipoDocumento>();//jajaja encuentrame
+        LinkedList<TipoDocumento> documentos = new LinkedList<TipoDocumento>();//jajaja encuentrame12
         try {
             String sql = "select * from TIPO_DOCUMENTO";
-            Connection conn = Conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
                 TipoDocumento doc = new TipoDocumento();
                 doc.setId(result.getInt("id"));
                 doc.setTipo(result.getString("tipo"));
-         
                 documentos.add(doc);
             }
             return documentos;

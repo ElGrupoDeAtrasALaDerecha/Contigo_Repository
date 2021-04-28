@@ -1,9 +1,28 @@
 $("#sigin2").click(function(){
     window.location.href="Registro.html"
 })
+//Ingreso con tecla enter
+$("body").keyup(function (e) {
+    var email = $("#correo").val();
+    var pass = $("#password_inst").val();
+    var doc = $("#documento").val();
+    var passw = $("#contraseña").val();
+	if (e.keyCode == 13) {
+        if (email != "" & pass != "" ) {
+            $('#ing_inst').click();
+        }
+        else if (doc != "" & passw != "" ) {
+            $('#ing_est').click();
+        }
+	}
+});
+
 // Login Institucion
-$("#ing_inst").click(function (e) {
-    e.preventDefault();
+var ingresoI = document.getElementById("ing_inst");
+
+/* Se agrega el evento al elemento */
+ingresoI.addEventListener("click", ingresoInstitucion);
+function ingresoInstitucion() {
     var email = $("#correo").val();
     var pass = $("#password_inst").val();
     if(email && pass){    
@@ -17,7 +36,7 @@ $("#ing_inst").click(function (e) {
         toastr.warning('Por favor completa todos los daots')
 
     }
-});
+};
 /**
  * Función login
  * @param {*} obj 
@@ -39,10 +58,12 @@ function loginInstitucion(obj) {
                 $(location).attr('href', 'admin_inst.html');
             }else{
                 console.log(response.mensaje);
+                toastr.warning('El correo o la contraseña son incorrectos')
             }
         },
         error: function (response) {
             console.log("Error: " + response.mensaje)
+            toastr.warning('El correo o la contraseña son incorrectos')
             //console.log(JSON.stringify(response))
         }
     });
@@ -52,8 +73,15 @@ $("#sigin").click(function(){
     window.location.href="RegistroEstudiante.html"
 })
 // Login Estudiante
-$("#ing_est").click(function (e) {
-    e.preventDefault();
+var ingresoE= document.getElementById("ing_est");
+$("#ing_est").click(
+    function (e){
+        e.preventDefault();
+        ingresoEstudiante();
+    }
+);
+function ingresoEstudiante() {
+  
     var doc = $("#documento").val();
     var pass = $("#contraseña").val();
     if (doc && pass) {
@@ -66,7 +94,7 @@ $("#ing_est").click(function (e) {
     } else{
         toastr.warning('Por favor completa todos los daots')
     }
-});
+};
 
 /**
  * Función login de estudiante
@@ -83,16 +111,27 @@ function loginEstudiante(obj) {
             if (response.tipo === "ok") {
                 setCookie("token", response.estudiante.token, 0.3);
                 setCookie("documento", response.estudiante.documento, 0.3);
-                alert("Mensaje: " + response.mensaje);
+                
                 setCookie("tipoUsuario", 1, 0.5);
                 $(location).attr('href', 'opciones.html');
             } else {
                 alert("Error: " + response.mensaje)
+                toastr.warning('El documento de identidad o la contraseña son incorrectos')
             }
         },
         error: function (response) {
             console.log(JSON.stringify(response))
+            toastr.warning('El documento de identidad o la contraseña son incorrectos')
         }
     });
 }
 
+
+function ingresarEnter() {
+    tecla_enter = event.keyCode;
+    if (tecla_enter == 13) {
+        return ingresoInstitucion();
+    }
+}
+
+window.onkeydown = ingresarEnter;

@@ -1,38 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import usa.modelo.dto.Clasificacion;
+import org.json.JSONArray;
 import usa.modelo.dto.Grado;
 import usa.modelo.dto.GradoClasf;
 import usa.utils.GeneradorCodigos;
 
 /**
  *
- * @author andre
+ * @author Andrés C. López R.
  */
-public class GradoDao implements IDao<Grado> {
+public class GradoDao implements IGradoDao {
 
     private PreparedStatement pat;
-
     @Override
     public boolean crear(Grado grado) {
         if (consultar(String.valueOf(grado.getClasificacion_id())) == null) {
             try {
-                Connection con = Conexion.tomarConexion();
                 String sql = "insert into GRADO (codigo,CLASIFICACION_id,INSTITUCION_id) values (?,?,?)";
-                pat = con.prepareStatement(sql);
-                pat.setString(1, grado.getCodigo());
+                pat = conn.prepareStatement(sql);
+                pat.setString(1, GeneradorCodigos.getCodigo(GeneradorCodigos.MAYUSCULAS+GeneradorCodigos.NUMEROS,6));
                 pat.setInt(2, grado.getClasificacion_id());
                 pat.setInt(3, grado.getInstitucion_id());
                 pat.execute();
@@ -47,7 +39,6 @@ public class GradoDao implements IDao<Grado> {
     @Override
     public Grado consultar(String id) {
         Grado grado = null;
-        Connection conn = Conexion.tomarConexion();
         try {
             String sql = "select * from GRADO where CLASIFICACION_id = " + id;
             pat = conn.prepareStatement(sql);
@@ -78,7 +69,6 @@ public class GradoDao implements IDao<Grado> {
     public LinkedList<Grado> listarTodos() {
         LinkedList<Grado> grados = new LinkedList<Grado>();      
         Grado grado = null;
-        Connection conn = Conexion.tomarConexion();
         try {
             String sql = "select * from GRADO";
             pat = conn.prepareStatement(sql);
@@ -99,7 +89,6 @@ public class GradoDao implements IDao<Grado> {
     public LinkedList<GradoClasf> listarGradosClasf() {
         LinkedList<GradoClasf> grados = new LinkedList<GradoClasf>();
         GradoClasf grado = null;
-        Connection conn = Conexion.tomarConexion();
         try {
             String sql = "select CLASIFICACION.grado, GRADO.* from GRADO, CLASIFICACION where CLASIFICACION.id = GRADO.CLASIFICACION_id order by GRADO.CLASIFICACION_id asc;";
             pat = conn.prepareStatement(sql);
@@ -112,9 +101,38 @@ public class GradoDao implements IDao<Grado> {
                 grado.setClasificacion(rs.getString("grado"));
                 grados.add(grado);
             }
+            rs.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return grados;
+    }
+
+    @Override
+    public JSONArray consultarBtnPorGrado(String grado) {
+        JSONArray arregloBtnE=new JSONArray();
+        try {
+            String sql = "select q1.totalE as \"total\", q2.totalEP as \"si\", q1.totalE-q2.totalEP as \"no\" from \n" +
+            "(select count(*) as totalE from estudiante\n" +
+            "where GRADO_codigo=\'"+grado+"\') as q1, \n" +
+            "(select count(p.documento) as totalEP from Persona as p\n" +
+            "inner join Estudiante as e on e.PERSONA_documento=p.documento\n" +
+            "inner join GRADO as g on g.codigo=e.GRADO_codigo\n" +
+            "where g.codigo=\'"+grado+"\' and p.documento in (select distinct ESTUDIANTE_PERSONA_documento from estadisticas_btnpanico)\n" +
+            ") as q2;";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                arregloBtnE.put(rs.getInt("total"));
+                arregloBtnE.put(rs.getInt("si"));
+                arregloBtnE.put(rs.getInt("no"));
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arregloBtnE;
     }
 }

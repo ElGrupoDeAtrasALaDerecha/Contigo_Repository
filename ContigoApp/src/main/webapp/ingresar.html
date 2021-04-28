@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <title>Contigo</title>
 </head>
 
@@ -29,38 +31,67 @@
     <section id="contenedor_iI">
         <div id="cont1">
             <h2>Institución</h2>
+            <form action="">
+                <div class="contenedor_credencial">
+                    <input type="email" class="credencial" id="correo" placeholder="Correo" name="correo" required>
+                </div>
+                <div class="contenedor_credencial">
+                    <input type="password" class="credencial" id="password_inst" placeholder="Contraseña"
+                        name="password_inst" required>
+                </div>
+                <div class="contenedor_credencial">
+                    <input type="submit" class="btn_ing" id="ing_inst" value="Ingresar" name="ingresar">
+                </div>
+            </form>
             <div class="contenedor_credencial">
-                <input type="text" class="credencial" id="correo" placeholder="Correo" name="correo" required>
+                <a class="registro" id="btn-abrir-popup">¿Olvidaste tu contraseña?</a>
             </div>
             <div class="contenedor_credencial">
-                <input type="password" class="credencial" id="password_inst" placeholder="Contraseña"
-                    name="password_inst" required>
-            </div>
-            <div class="contenedor_credencial">
-                <input type="button" class="btn_ing" id="ing_inst" value="Ingresar" name="ingresar">
-            </div>
-            <div class="contenedor_credencial">
-                <a class="registro" href="Registro.html">Registra tu institución</a>
+                <a class="registro" href="Registro.html">Suscribirse</a>
             </div>
         </div>
     </section>
     <section id="contenedor_iE">
         <div id="cont2">
             <h2>Estudiante</h2>
+            <form action="">
+                <div class="contenedor_credencial">
+                    <input type="text" class="credencial" id="documento" placeholder="T.I o C.C" name="usr_est" required>
+                </div>
+                <div class="contenedor_credencial">
+                    <input type="password" class="credencial" id="contraseña" placeholder="Contraseña" name="password" required>
+                </div>
+                <div class="contenedor_credencial">
+                    <input type="submit" class="btn_ing" id="ing_est" value="Ingresar" name="ingresar">
+                </div>
+            </form>
             <div class="contenedor_credencial">
-                <input type="text" class="credencial" id="documento" placeholder="T.I o C.C" name="usr_est">
-            </div>
-            <div class="contenedor_credencial">
-                <input type="password" class="credencial" id="contraseña" placeholder="Contraseña" name="password">
-            </div>
-            <div class="contenedor_credencial">
-                <input type="button" class="btn_ing" id="ing_est" value="Ingresar" name="ingresar">
+                <a class="registro" id="btn-abrir-popup">¿Olvidaste tu contraseña?</a>
             </div>
             <div class="contenedor_credencial">
                 <a class="registro" href="RegistroEstudiante.html">Registrate</a>
             </div>
+            
         </div>
     </section>
+    <div class="overlay" id="overlay">
+        <div class="popup" id="popup">
+            <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup">
+                <i class="fa fa-times" aria-hidden="true"><b>x</b></i>
+            </a>
+            <h4>Recuperación de Contraseña</h4>
+            <p>Ingresa el correo electronico con el cual te registraste. Te enviaremos un enlace para la recuperación de tu contraseña.</p>
+            <form action="">
+                <div class="contenedor-inputs">
+                    <div class="contenedor_credencial">
+                        <input type="email" class="credencial" id="correo" placeholder="Correo" name="correo" required>
+                    </div>
+                </div>
+                <input type="submit" class="btn-submit" value="Enviar Correo">
+            </form>
+        </div>
+
+    </div>
     <footer id="footer">
         <div id="superior">
             <ul>
@@ -133,5 +164,7 @@
 </body>
 <script src="js/funciones.js"></script>
 <script src="js/ingresa.js"></script>
+<script src="js/popup.js"></script>
 
 </html>
+//vista

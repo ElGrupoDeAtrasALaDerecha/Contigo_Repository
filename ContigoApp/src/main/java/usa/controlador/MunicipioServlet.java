@@ -5,7 +5,6 @@
  */
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.modelo.dao.MunicipioDao;
-import usa.modelo.dto.Municipio;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
+import usa.modelo.dao.IDao;
+import usa.utils.Utils;
 
 /**
  *
@@ -24,32 +25,9 @@ import usa.modelo.dto.Municipio;
  */
 @WebServlet(name = "MunicipioServlet", urlPatterns = {"/Municipio"})
 public class MunicipioServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MunicipioServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MunicipioServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("MunicipioDao");
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -64,16 +42,10 @@ public class MunicipioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Gson gson = new Gson();
-        MunicipioDao dao = new MunicipioDao();
         JSONObject json = new JSONObject();
-        JSONArray arreglo = new JSONArray();
-        for (Municipio i : dao.listarTodos()) {
-            arreglo.put(new JSONObject(gson.toJson(i, Municipio.class)));
-        }
+        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         json.put("Municipios", arreglo);
         out.print(json.toString());
-
     }
 
     /**
@@ -87,7 +59,7 @@ public class MunicipioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**

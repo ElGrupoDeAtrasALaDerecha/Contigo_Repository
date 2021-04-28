@@ -31,11 +31,11 @@ insert into CLASIFICACION (grado) values("Docentes");
 
 
 INSERT INTO institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web) 
-VALUES (5,1,"Colegio Gimnasio Los Pinares", "colegiogimnasio@gmail.com","Cra. 35 #9 Sur 160",true,false,"Los Balsos II","42686034","1234","https://bit.ly/3thUZop");
+VALUES (5,1,"Colegio Gimnasio Los Pinares", "colegiogimnasio@gmail.com","Cra. 35 #9 Sur 160",true,false,"Los Balsos II","42686034",sha("1234"),"https://bit.ly/3thUZop");
 
 #Grados
-insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("aaaaa",1,2);
-insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("11B",2,2);
+insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("aaaaa",1,(select id from institucion where correo="colegiogimnasio@gmail.com"));
+insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("11B",2,(select id from institucion where correo="colegiogimnasio@gmail.com"));
 
 #Estudiante
 call insertarEstudiante("1000853620",1,"Valeria","","Bermúdez" ,"González","3","2000-07-26","12348","femenino","aaaaa");
@@ -56,3 +56,28 @@ insert into CONVERSATORIO (PERSONAL_PERSONA_documento,titulo,cronograma,imagen,d
 
 insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (1,1);
 insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (2,1);
+
+insert into HISTORIA (PERSONAL_PERSONA_documento,titulo,descripcion,urlImagen) 
+values ("1000853623","Juanita y sus amigos", "Juanita que es una niña valiente y muy inteligente llega a un nuevo colegio y se da
+                            cuenta que es
+                            diferente a sus compañeras, por esto se vuelve insegura y tímida lo que hace que le cueste hacer
+                            amigos, ¿Te acercarías a hablar con juanita?","img/school.jpg");
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(null,1,"Amigo de Juanita","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Juanita.");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Miguel");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(1,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Miguel");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
+values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Miguel");
+
+
+insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"1007718536");
+insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"123456789");
+insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
+
+insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("123456789",sysdate());
+#insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("100718536",sysdate());
