@@ -14,12 +14,15 @@
     width: 100%;
 
 }
-#cover{
+#cover, #cover2{
     background-image: url(../img/ImagenA.jpg);
     background-position: center center;
     background-size: cover;
     height: 100vh;
     padding: 0 0;
+}
+#cover2{
+    background-image: url(../img/school.jpg);
 }
 
 .box, .data{

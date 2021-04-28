@@ -1,14 +1,22 @@
+$("#sigin2").click(function(){
+    window.location.href="Registro.html"
+})
 // Login Institucion
 $("#ing_inst").click(function (e) {
     e.preventDefault();
     var email = $("#correo").val();
     var pass = $("#password_inst").val();
-    var obj = {
-        correo: email,
-        contraseña: pass
-    };
-    //console.log(obj);
-    loginInstitucion(obj);
+    if(email && pass){    
+        var obj = {
+            correo: email,
+            contraseña: pass
+        };
+        //console.log(obj);
+        loginInstitucion(obj);
+    }else{
+        toastr.warning('Por favor completa todos los daots')
+
+    }
 });
 /**
  * Función login
