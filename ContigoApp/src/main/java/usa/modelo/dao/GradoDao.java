@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import usa.modelo.dto.Grado;
 import usa.modelo.dto.GradoClasf;
 import usa.utils.GeneradorCodigos;
+import usa.utils.Utils;
 
 /**
  *
@@ -24,7 +25,7 @@ public class GradoDao implements IGradoDao {
             try {
                 String sql = "insert into GRADO (codigo,CLASIFICACION_id,INSTITUCION_id) values (?,?,?)";
                 pat = conn.prepareStatement(sql);
-                pat.setString(1, GeneradorCodigos.getCodigo(GeneradorCodigos.MAYUSCULAS+GeneradorCodigos.NUMEROS,6));
+                pat.setString(1, Utils.crearCodigoCurso());
                 pat.setInt(2, grado.getClasificacion_id());
                 pat.setInt(3, grado.getInstitucion_id());
                 pat.execute();
