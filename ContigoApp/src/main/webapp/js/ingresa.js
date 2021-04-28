@@ -40,18 +40,24 @@ function loginInstitucion(obj) {
     });
 }
 
-
+$("#sigin").click(function(){
+    window.location.href="RegistroEstudiante.html"
+})
 // Login Estudiante
 $("#ing_est").click(function (e) {
     e.preventDefault();
     var doc = $("#documento").val();
     var pass = $("#contraseña").val();
-    var obj = {
-        documento: doc,
-        contraseña: pass
-    };
-    console.log(obj);
-    loginEstudiante(obj);
+    if (doc && pass) {
+        var obj = {
+            documento: doc,
+            contraseña: pass
+        };
+        console.log(obj);
+        loginEstudiante(obj);
+    } else{
+        toastr.warning('Por favor completa todos los daots')
+    }
 });
 
 /**
