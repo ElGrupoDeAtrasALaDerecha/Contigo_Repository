@@ -1,0 +1,81 @@
+
+.grafest{
+    border: solid 2px rgb(255, 255, 255) ;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 1.5%;
+    padding: 1% 3%;
+    width: 30%;
+    align-content: center;
+    align-items: center;
+    margin-left: 35%;
+    position: relative;
+}
+#cursos{
+    text-align: center;
+}
+
+.credencial{
+    border: solid 2px rgb(255, 255, 255) ;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 1.5%;
+    padding: 2% 5%;
+    width: 35%;
+}
+#selectGrados, #selectConsulta, #selectTiempo{
+    border: solid 2px gray ;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 1.5%;
+    padding: 2% 5%;
+    width: 90%;
+}
+
+#contenedor_cc{
+    /* border: solid green 1px; */
+    background-color: white;
+    align-items: flex-start;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin-left: 20%;
+}
+.btn{
+    background-color: #2D4059;
+    border: none;
+    border-radius: 32px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    margin-bottom: 5%;
+    padding: 1% 5%;
+    text-align: center;
+ 
+}
+.btn:hover{
+    background-color: #374a64;
+    color: #fde9c9;
+}
+.contenedor_credencial{
+    /* border: solid green 1px; */
+    text-align: center;
+}
+.tamaño{
+    width: 40%;
+    height: 60%;
+}
+h1{
+    /* border: solid green 1px; */
+    text-align: center;
+}

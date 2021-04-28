@@ -73,3 +73,11 @@ values(1,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias",
 
 insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)
 values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Miguel");
+
+
+insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"1007718536");
+insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"123456789");
+insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
+
+insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("123456789",sysdate());
+#insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("100718536",sysdate());

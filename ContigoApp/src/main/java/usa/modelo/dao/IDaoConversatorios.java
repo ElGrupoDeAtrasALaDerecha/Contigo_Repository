@@ -6,7 +6,11 @@
 package usa.modelo.dao;
 
 import java.util.LinkedList;
+import org.json.JSONArray;
 import usa.modelo.dto.Conversatorio;
+import usa.modelo.dto.EstudianteConversatorio;
+
+
 
 /**
  *
@@ -15,4 +19,7 @@ import usa.modelo.dto.Conversatorio;
 public interface IDaoConversatorios extends IDao<Conversatorio> {
     int crearConver(Conversatorio conver);
     int crearClasi(String con, int resultado);
+    boolean registrarEstuConver(EstudianteConversatorio estu);
+    LinkedList <JSONArray> consultarPorGrado(String grado);
+    LinkedList <JSONArray> consultarPorInstitucion(String institucion);
 }

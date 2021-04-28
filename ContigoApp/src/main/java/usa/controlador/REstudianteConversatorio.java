@@ -5,37 +5,58 @@
  */
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
+import static java.lang.Integer.parseInt;
+import static java.lang.System.out;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
-import usa.factory.FactoryDao;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoConversatorios;
 import usa.modelo.dto.Conversatorio;
+import usa.modelo.dto.Estudiante;
+import usa.modelo.dto.EstudianteConversatorio;
 import usa.utils.Utils;
 
 /**
- * Clase de Conversatorios
  *
- * @author Miguel Angel Rippe y Natalia Montenegro
- * @since 2021-03-13
+ * @author migue
  */
-@WebServlet(name = "ConversatorioServlet", urlPatterns = {"/Conversatorio"})
-public class ConversatorioServlet extends HttpServlet {
-    
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+@WebServlet(name = "REstudianteConversatorio", urlPatterns = {"/REstudianteConversatorio"})
+public class REstudianteConversatorio extends HttpServlet {
+   AbstractFactory factoryDao=Producer.getFabrica("DAO");
     IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet REstudianteConversatorio</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet REstudianteConversatorio at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -47,17 +68,9 @@ public class ConversatorioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        response.setContentType("application/json;charset=UTF-8");
-        System.out.println(request);
-        JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-        respuesta.put("tipo", "ok");
-        respuesta.put("conversatorios", arreglo);
-        PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -70,41 +83,23 @@ public class ConversatorioServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         System.out.println(parametros);
-        Conversatorio conver = (Conversatorio) Utils.fromJson(parametros, Conversatorio.class);
         IDaoConversatorios daoConver=(IDaoConversatorios)dao;
+        EstudianteConversatorio esco = (EstudianteConversatorio) Utils.fromJson(parametros, EstudianteConversatorio.class);
         JSONObject respuesta = new JSONObject();
-        int resultado = daoConver.crearConver(conver);
-       
-        if (resultado != 0) {
-            respuesta.put("tipo", "ok");
-            respuesta.put("mensaje", "El conversatorio fue agendado correctamente");
-            respuesta.put("conversatorio", resultado);
-            String arregloClasificaciones[]=conver.getClasificacion();
-            for (int i = 0; i < arregloClasificaciones.length; i++) {
-                daoConver.crearClasi(arregloClasificaciones[i],resultado);
-            }
-    
-        } else {
-            respuesta.put("tipo", "error");
-            respuesta.put("mensaje", "No se ha podido crear el conversatorio");
-        }
         
-
+            if (daoConver.registrarEstuConver(esco)) {
+                respuesta.put("tipo", "ok");
+                respuesta.put("mensaje", "El estudiante fue registrado en el conversatorio");
+            } else {
+                respuesta.put("tipo", "error");
+                respuesta.put("mensaje", "Error al registrar el estudiante");
+            }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

@@ -16,7 +16,8 @@ public class FactoryDao implements AbstractFactory<IDao>{
             dao = (IDao) Class.forName("usa.modelo.dao."+nombreDao).newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(FactoryDao.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+
+        }
         return dao;
     }
    

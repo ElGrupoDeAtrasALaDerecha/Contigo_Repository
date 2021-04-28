@@ -93,6 +93,10 @@ input[type=number]::-webkit-inner-spin-button {
     text-align: center;
     outline:none;
 }
+#Button2:hover{
+    background-color: #174075;
+
+}
 #Columna-datos2{
     padding-left: 50px;
     padding-right: 50px;

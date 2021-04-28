@@ -23,7 +23,7 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://25.108.94.55:8080/ContigoApp/contiBot";
+var wsUri = "ws://25.111.209.182:8080/ContigoApp/contiBot";
 /**
 * Websocket
 */
@@ -172,9 +172,6 @@ function mueveReloj() {
 
 
 // Eventos de vista
-
-
-
 $("#btn_enviar_mns").click(function () {
 	var mns = $("#Enviarmensaje").val();
 	if (mns !== "") {

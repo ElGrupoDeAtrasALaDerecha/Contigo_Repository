@@ -1,4 +1,4 @@
-package usa.modelo.dao;
+package usa.bd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,7 @@ import usa.bd.IConexionBD;
  * Clase de conexión con la base de datos. 
  * @author Santiago Pérez
  */
+
 public class Conexion extends IConexionBD{
     String bd = "contigoBD";
     String user= "root";

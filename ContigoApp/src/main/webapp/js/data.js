@@ -18,11 +18,12 @@ $.ajax({
                 organigrama.eventEdit(EventoEdit);
     
                 function EventoAdd(id) {
-                    alert(id)
+                    console.log(id)
+                    crear(id);//
                 }
     
                 function EventoEdit(id) {
-                    alert(id)
+                    console.log(id)
                 }
     
             })();

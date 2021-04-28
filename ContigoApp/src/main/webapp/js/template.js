@@ -5,7 +5,7 @@ $(document).ready(function () {
                         <ul>
                             <li><a href="#" class="menuFooter">Inicio</a></li>
                             <li><a href="Conversatorios.html" class="menuFooter">Conversatorios</a></li>
-                            <li><a href="decisiones.html" class="menuFooter">Decisiones</a></li>
+                            <li><a href="listadoHistorias.html" class="menuFooter">Decisiones</a></li>
                             <li><a href="#" class="menuFooter">Ayuda</a></li>
                         </ul>
                         <hr>
@@ -76,7 +76,7 @@ $(document).ready(function () {
                                 <div id="up">
                                     <li><a href="opciones.html">Inicio</a></li>
                                     <li><a href="Conversatorios.html">Conversatorios</a></li>
-                                    <li><a href="decisiones.html">Decisiones</a></li>
+                                    <li><a href="listadoHistorias.html">Decisiones</a></li>
                                     <li><a href="#">Ayuda</a></li>
                                     <li style="float:right;"><div id="salir"><a>Salir</a></div></li>
                                 </div>

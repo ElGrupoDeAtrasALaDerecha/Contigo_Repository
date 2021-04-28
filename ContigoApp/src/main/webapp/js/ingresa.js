@@ -1,3 +1,19 @@
+//Ingreso con tecla enter
+$("body").keyup(function (e) {
+    var email = $("#correo").val();
+    var pass = $("#password_inst").val();
+    var doc = $("#documento").val();
+    var passw = $("#contraseña").val();
+	if (e.keyCode == 13) {
+        if (email != "" & pass != "" ) {
+            $('#ing_inst').click();
+        }
+        else if (doc != "" & passw != "" ) {
+            $('#ing_est').click();
+        }
+	}
+});
+
 // Login Institucion
 var ingresoI = document.getElementById("ing_inst");
 
@@ -49,10 +65,14 @@ function loginInstitucion(obj) {
 
 // Login Estudiante
 var ingresoE= document.getElementById("ing_est");
-
-ingresoI.addEventListener("click", ingresoEstudiante);
-function ingresoEstudiante(params) {
-    e.preventDefault();
+$("#ing_est").click(
+    function (e){
+        e.preventDefault();
+        ingresoEstudiante();
+    }
+);
+function ingresoEstudiante() {
+  
     var doc = $("#documento").val();
     var pass = $("#contraseña").val();
     var obj = {
@@ -78,7 +98,7 @@ function loginEstudiante(obj) {
             if (response.tipo === "ok") {
                 setCookie("token", response.estudiante.token, 0.3);
                 setCookie("documento", response.estudiante.documento, 0.3);
-                alert("Mensaje: " + response.mensaje);
+                
                 setCookie("tipoUsuario", 1, 0.5);
                 $(location).attr('href', 'opciones.html');
             } else {

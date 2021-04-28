@@ -1,29 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css">
-    
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
     <link rel="stylesheet" href="css/navfooter.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/prueba.css">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-    <title>Gestión de grado</title>
+
+
 </head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <body>
-    <div class="ui grid">
+
+    <br>
+    <center>
+        <h2>Gestión de datos</h2>
+    </center>
+
+    <br>
+    <center>
+        <h5>A continuación seleccione los datos solicitados y así obtendrá un análisis parcial del uso de la plataforma
+            dado por los estudiantes. </h5>
+    </center>
+    <br>
+    <br>
+
+    <div id="ge" class="grafest">
+        <center>
+            <p>¿Qué desea consultar?</p>
+        </center>
+        <div id="selectConsulta" class="ui search fluid dropdown" onchange="obtenerSelect();">
+            <input id="txtConsulta" type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text"></div>
+            <div id="DatosVisualizar" class="menu">
+            <div class="item" data-value="">Datos a visualizar</div>
+            <div class="item" data-value="1">Graficas por grados</div>
+            <!--<div class="item" data-value="2">Graficas por estudiante</div>-->
+            </div>
+        </div>
+    </div>
+
+    <!--<div id="ge" class="grafest">
+        <center>
+            <p>¿Qué desea consultar?</p>
+        </center>
+        <div id=select>
+            <select id="consulta" name="cons" class="ui search fluid dropdown" class="credencial"
+                onchange="obtenerSelect();">
+                <option value="">Datos a visualizar</option>
+                <option value="1">Graficas por grados</option>
+                <option value="2">Graficas por estudiante</option>
+            </select>
+        </div>
+    </div>-->
+
+    <div id="opcGrado">
+            <div id="cursos" class="grafest">
+                <center>
+                    <p>Seleccione el grado</p>
+                </center>
+                <div id="selectGrados" class="ui search fluid dropdown">
+                    <input id="txtGrado" type="hidden" name="gender">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Grados</div>
+                    <div id="grados" class="menu">
+
+                    </div>
+                </div>
+            </div>
+            <section id="contenedor_cc"></section>
+            <!--
+            <div id="tiempo" class="credencial">
+                <center>
+                    <p>¿Qué desea consultar?</p>
+                </center>
+                <div id="selectTiempo" class="ui search fluid dropdown" >
+                    <input id="txtTiempo" type="hidden" name="gender">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Intervalos de tiempo</div>
+                    <div id="DatosVisualizar" class="menu">
+                    <div class="item" data-value="">Intervalos de tiempo</div>
+                    <div class="item" data-value="1">Diario</div>
+                    <div class="item" data-value="2">Semanal</div>
+                    <div class="item" data-value="3">Mensual</div>
+                    </div>
+                </div>
+            </div>-->
+        </section>
+    </div>
+
+    <section id="contenedor_cc">
+        <div id="ListaEstudiantes" class="credencial">
+            <center>
+                <p>Seleccione el estudiante </p>
+            </center>
+            <div id="selectEstudiantes" class="ui search fluid dropdown">
+                <input id="txtEstudiante" type="hidden" name="gender">
+                <i class="dropdown icon"></i>
+                <div class="default text">Estudiantes</div>
+                <div id="estudiantes" class="menu">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="btnGrados">
+        <div class="contenedor_credencial">
+            <button href="gestionCurso.html" id="btnGerarG" class="btn" type="submit">Generar Datos</button>
+        </div>
+    </div>
+    <div id="btnEstudiantes">
+        <div class="contenedor_credencial">
+            <button href="gestionCurso.html" id="btnGerarE" class="btn" type="submit">Generar Datos</button>
+        </div>
+    </div>
+
+    <div id="Graficas" class="ui grid">
         <div class="ui row">
             <div class="ui five wide column">
 
             </div>
-            <div class="ui centered eight wide column">
-                <h1>Gestión del grado</h1>
+            <div class="" >
+                <h1>Análisis de datos</h1>
             </div>
             <div class="ui four wide column">
 
@@ -33,30 +148,44 @@
             <div class="ui one wide column">
 
             </div>
-            
+
             <div class="ui fourteen wide column">
                 <div class="ui stackable two column grid">
                     <div class="column">
-                        <canvas id="situacionesComunes" class="tamaño" ></canvas>
+                        <canvas id="clickDia" class="tamaño"></canvas>
                     </div>
                     <div class="column">
-                        <canvas id="conversatoriosComunes"  class="tamaño"></canvas>
+                        <canvas id="clickGrado" class="tamaño"></canvas>
                     </div>
                     <div class="column">
-                        <canvas id="usoChat"  class="tamaño"></canvas>
+                        <canvas id="GraficasTOPgrados" class="tamaño"></canvas>
                     </div>
                     <div class="column">
-                        <canvas id="cantidadEstudiantes"  class="tamaño"></canvas>
+                        <canvas id="usoChat" class="tamaño"></canvas>
                     </div>
-                  </div>
+                    <div class="column">
+                        <canvas id="cantidadEstudiantes" class="tamaño"></canvas>
+                    </div>
+                    <div class="column">
+                        <canvas id="cantidadEstudiantes" class="tamaño"></canvas>
+                    </div>
+                </div>
             </div>
             <div class="ui one wide column">
 
             </div>
         </div>
     </div>
-    
 </body>
+
 <script src="js/template.js"></script>
-<script src="js/tablasGestionGrado.js"></script>
+<script src="js/conver.js"></script>
+<script src="js/funciones.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script src="js/ayuda.js"></script>
+<!--<script src="js/estadisticasBotonPanico.js"></script>-->
+<script src="js/ins_admin.js"></script>
+<script src="js/Vestadisticas.js"></script>
+
 </html>

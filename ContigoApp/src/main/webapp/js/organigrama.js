@@ -28,9 +28,7 @@
 		}	
 		var btns = this.tabla.querySelectorAll('.nodo .btn-add');
 		for(var i = 0; i < btns.length; i++){
-			on('click', btns[i], function(){
-				c(this.getAttribute('data-id'));
-			});
+			on('click', btns[i], function(){c(this.getAttribute('data-id'));});
 		}
 	};
 

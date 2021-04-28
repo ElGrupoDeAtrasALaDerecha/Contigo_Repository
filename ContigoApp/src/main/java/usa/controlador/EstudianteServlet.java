@@ -27,8 +27,8 @@ import usa.utils.Utils;
 @WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
 public class EstudianteServlet extends HttpServlet {
 
-    AbstractFactory factoryDao = Producer.getFabrica("DAO");
-    IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao)factoryDao.obtener("EstudianteDao");
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -48,8 +48,7 @@ public class EstudianteServlet extends HttpServlet {
         Estudiante estudiante = daoestu.consultar(request.getParameter("id"));
         System.out.println(request.getParameter("id"));
         if (estudiante != null) {
-            Gson gson = new Gson();
-            JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
+            JSONObject estudianteJson = new JSONObject(Utils.toJson(estudiante));
             respuesta.put("tipo", "ok");
             respuesta.put("estudiante", estudianteJson);
         } else {
@@ -80,7 +79,7 @@ public class EstudianteServlet extends HttpServlet {
         Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
         EstudianteDao daoestu = (EstudianteDao) dao;
 
-        if (daoestu.consultarID(estudiante.getDocumento())!= null) {
+        if (daoestu.consultar(estudiante.getDocumento())!= null) {
             json.put("tipo", "error");
             json.put("mensaje", "Error el estudiante ya esta registrado");
         } else {

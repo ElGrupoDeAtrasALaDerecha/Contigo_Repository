@@ -87,8 +87,10 @@ public class SituacionServlet extends HttpServlet {
         String parametros = Utils.readParams(request);
         Situacion situacion = (Situacion) Utils.fromJson(parametros, Situacion.class);
         JSONObject respuesta = new JSONObject();
-        if(dao.consultar(String.valueOf(situacion.getId()))!=null){
-            if(dao.actualizar(situacion)){
+        Situacion situacionAActualizar= (Situacion)dao.consultar(String.valueOf(situacion.getId()));
+        if(situacionAActualizar!=null){
+            situacionAActualizar.setTexto(situacion.getTexto());
+            if(dao.actualizar(situacionAActualizar)){
                 respuesta.put("tipo","ok");
                 respuesta.put("mensaje", "Situación actualizada");
             }else{

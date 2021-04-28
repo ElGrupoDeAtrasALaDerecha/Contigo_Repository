@@ -4,10 +4,12 @@ var documento
 $(document).ready(function () {
 
     usuario = parseInt(getCookie("tipoUsuario"));
-    token = parseInt(getCookie("token"));
-    documento = parseInt(getCookie("documento"));
+    token = getCookie("token");
+    documento = getCookie("documento");
     $('.ui.dropdown').dropdown();
     console.log(usuario)
+    console.log(documento)
+    console.log(token)
     if (usuario === 1) {
         LlamarGrado();
     } else {
@@ -189,8 +191,9 @@ function listarConver(conversatorio) {
         window.location.assign("crear_cnv.html")
     });
 };
-
+var conversatorio
 function TraerOrador(conver, orador) {
+    conversatorio = conver
     $.ajax({
         url: "PersonalCalificado",
         type: "GET",
@@ -199,6 +202,7 @@ function TraerOrador(conver, orador) {
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
+            console.log(result)
             personal = result.personales;
             colocarInfo(conver, orador, personal)
             if (result != "error") {
@@ -216,7 +220,7 @@ function colocarInfo(array, orador, personal) {
     for (var i = 0; i < personal.length; i++) {
         if (personal[i].documento === orador) {
             text = '<br>' +
-                '<img src="https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg" class="imgRedonda">' +
+                '<img src="'+personal[i].imagen +'" class="imgRedonda">' +
                 '<br> Orador:' +
                 '<center>' +
                 '<h2>' +
@@ -258,8 +262,8 @@ function colocarInfo(array, orador, personal) {
         '<br>' +
         '</h2>' +
         '<p> </p>' +
-        '<h3><span></span> </h3>'
-    //'<a id="btnRegistrarEstu" class="banner-button">Registrarse</a>'
+        '<h3><span></span> </h3>'+
+    '<button id="btnRegistrarEstu" class="banner-button" onclick="registrarEstudiante();">Registrarse</button>'
     $("#titulo").append(text);
 
     document.getElementById("banner2").style.background = "url(" + array.imagen + ") repeat";
@@ -380,7 +384,7 @@ function crearConversatorio(personal) {
     var documento;
     console.log(getCookie("token"));
     for (var i = 0; i < personal.length; i++) {
-        if (parseInt(getCookie("token")) == parseInt(personal[i].token)) {
+        if (getCookie("token") == personal[i].token) {
             documento = personal[i].documento
         }
     }
@@ -429,6 +433,36 @@ function crearConversatorio(personal) {
         }
     });
 
-
 }
+
+
+function registrarEstudiante(){
+console.log(conversatorio.id)
+idConversatorio=conversatorio.id
+informacion = {
+    idConversatorio: idConversatorio,
+    idEstudiante: documento,
+};
+$.ajax({
+    url: "REstudianteConversatorio",
+    type: "POST",
+    dataType: "json",
+    data: JSON.stringify(informacion),
+    contentType: "JSON application/json charset=utf-8",
+    beforeSend: function () {
+    },
+    success: function (result, textStatus, request) {
+        console.log(result)
+        if (result != "error") {
+        } else {
+            console.log("error");
+        }
+    }, complete: function (result) {
+       
+    }, error: function (result) {
+        console.log(result)
+    }
+});
+}
+
 
