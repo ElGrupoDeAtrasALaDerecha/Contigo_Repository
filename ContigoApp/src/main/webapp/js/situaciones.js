@@ -117,7 +117,7 @@ function crear(id) {
  */
 function registrar(obj,metodo){
     $.ajax({
-        url: "Historias",
+        url: "Situacion",
         type: metodo,
         dataType: "json",
         data: JSON.stringify(obj),
