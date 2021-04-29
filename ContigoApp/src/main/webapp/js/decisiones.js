@@ -12,7 +12,7 @@ function cargarSituacion(){
         beforeSend: function () {
         },
         success: function (result) {
-            arbol=situaciones
+            arbol=result.situaciones
             pintarSituacion(arbol.primerNodo);    
         },
         complete: function (result) {
@@ -30,23 +30,27 @@ function cargarSituacion(){
  * @returns Un objeto situación o final
  */
 function buscarNodo(id,nodo){
+    debugger;
     if(nodo===undefined){
-        nodo===situaciones.primerNodo;
+        nodo=arbol.primerNodo;
     }
     if(nodo.id===id){
         return nodo;
     }else{
-        opciones=nodo.opciones;
+        let opciones=nodo.opciones;
         if(opciones!==undefined){
             for (let i = 0; i < opciones.length; i++) {
-                if(opciones[i].id){
-                    return opciones[i];
+                let opcion=opciones[i];
+                if(opcion.id===id){
+                    return opcion;
                 }else{
-                    if(opciones[i].opciones!==undefined){
-                        return buscarNodo(id,opciones[i]);
+                    if(opcion.opciones!==undefined&&opcion.opciones.length>0){
+                        let nodoEncontrado=buscarNodo(id,opcion);
+                        if(nodoEncontrado!==undefined){
+                            return nodoEncontrado;
+                        }
                     }
                 }
-                
             }
         }
     }
@@ -77,53 +81,38 @@ function pintarSituacion(nodo){
     $("#color_bk").append(txt);
     $(".opcion").click(function(){
         let id=$(this).prop("id");
-        let nodo=buscarNodo(id);
-        if(nodo.opciones!==undefined){
-            borrarSituacion();
-            pintarSituacion(nodo);
+        let nodoNuevo=buscarNodo(parseInt(id),nodo);
+        borrarSituacion();
+        if(nodoNuevo.opciones!==undefined){
+            pintarSituacion(nodoNuevo);
         }else{
-
+            pintarFinal(nodoNuevo);
         }
     });
 }
 
 function borrarSituacion(){
+    $("#color_bk").hide(5);
     $("#color_bk").empty();
+    $("#color_bk").show('slow');
 }
-$("#Primera").click(function() {
-    $("#situa").hide("slow");
-    mostrar();
-});
-$("#Segunda").click(function() {
-    $("#situa").toggle("slow");
-    $("#situa3").toggle("slow");
-});
-$("#Primera2").click(function() {
-    $("#situa2").toggle("slow");
-    $("#resp1").toggle("slow");
-});
-$("#Segunda2").click(function() {
-    $("#situa2").toggle("slow");
-    $("#resp2").toggle("slow");
-});
-$("#Tercera2").click(function() {
-    $("#situa2").toggle("slow");
-    $("#situa3").toggle("slow");
-});
-$("#Primera3").click(function() {
-    $("#situa3").toggle("slow");
-    $("#resp2").toggle("slow");
-});
-$("#Segunda3").click(function() {
-    $("#situa3").toggle("slow");
-    $("#resp3").toggle("slow");
-});
-$("#Tercera3").click(function() {
-    $("#situa3").toggle("slow");
-    $("#resp1").toggle("slow");
-});
 
-
-function mostrar(){
-    $("#situa2").toggle("slow");
+function pintarFinal(nodo){
+    let txt=
+    `<h2>${nodo.titulo}</h2>
+    <div id="${nodo.id}">
+        <aside id="contenedor_dsc">
+            <p>${nodo.texto}
+            <span>Aquí la historia ha terminado. Da click en volver <br>
+            al inicio para volver a la ventana principal</span>
+            </p>
+        </aside>
+        <section id="contenedor_esc">
+            <ul id="esc">
+                <li><a href="listadoHistorias.html">Volver al inicio</a></li>
+            </ul>
+        </section>
+        <div style="clear: both"></div>
+    </div>`
+    $("#color_bk").append(txt);
 }

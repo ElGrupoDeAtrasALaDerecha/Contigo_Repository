@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Arbol;
+import usa.modelo.dto.Final;
 import usa.modelo.dto.Situacion;
 
 /**
@@ -108,6 +109,25 @@ public class SituacionDao implements ISituacionDao{
                 situacion.setTexto(rs.getString("texto"));
                 situaciones.agregarNodo(situacion);
             }
+            pat.close();
+            rs.close();
+            sql="select f.* from fin as f\n" +
+            "inner join Situacion as s on s.id=f.SITUACION_id\n" +
+            "where s.HISTORIA_idHistoria='"+idHistoria+"';";
+            pat = conn.prepareStatement(sql);
+            rs = pat.executeQuery();
+            while(rs.next()){
+                Final fin = new Final();
+                fin.setId(rs.getInt("id"));
+                fin.setIdHistoria(idHistoria);
+                fin.setPredecesor(rs.getInt("SITUACION_id"));
+                fin.setTexto(rs.getString("texto"));
+                fin.setTitulo(rs.getString("titulo"));
+                situaciones.agregarNodo(fin);
+            }
+            pat.close();
+            rs.close();
+                    
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }

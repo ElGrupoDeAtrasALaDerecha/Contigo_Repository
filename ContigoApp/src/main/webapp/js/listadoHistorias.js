@@ -38,5 +38,9 @@ function pintarHistorias(){
         `
         $("#contenedorHistorias").append(txt);
         $("#"+historia.id).css('background-image', 'url(' + historia.urlImagen + ')');
+        $("#"+historia.id).click(function(){
+            setCookie("idHistoria",historia.id,0.1);
+            window.location.assign("decisiones.html");
+        })
     }
 }

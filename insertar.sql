@@ -63,7 +63,7 @@ values ("1000853623","Juanita y sus amigos", "Juanita que es una niña valiente 
                             diferente a sus compañeras, por esto se vuelve insegura y tímida lo que hace que le cueste hacer
                             amigos, ¿Te acercarías a hablar con juanita?","img/school.jpg");
 insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
-values(null,1,"Amigo de Juanita","Muy bien. No te dejas llevar por las apariencias", "Vas a ser amigo/a de Juanita.");
+values(null,1,"Amigo de Juanita","Muy bien. No te dejas llevar por las apariencias");
 
 insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
 values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias");
@@ -86,7 +86,8 @@ values(6,1,"Amigo de cx","Muy bien. No te dejas llevar por las apariencias");
 insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
 values(6,1,"Amigo de cx","Muy bien. No te dejas llevar por las apariencias");
 
-
+insert into FIN (SITUACION_id,titulo,texto)
+values(8,"Acompañas a cx","Muy bien. Lo has logrado excelentemente :D");
 insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"1007718536");
 insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"123456789");
 insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
