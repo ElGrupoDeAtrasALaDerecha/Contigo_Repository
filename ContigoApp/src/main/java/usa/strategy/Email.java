@@ -35,7 +35,8 @@ public abstract class Email {
                 cadena += input.nextLine();
             }
         } catch (FileNotFoundException ex) {
-            
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
         return cadena;
     }

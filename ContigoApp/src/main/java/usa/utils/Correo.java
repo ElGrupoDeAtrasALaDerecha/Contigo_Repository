@@ -45,9 +45,12 @@ public class Correo {
     public static void enviarCorreo(String to, String subject, String content, File[] files) throws IOException, AddressException, MessagingException {
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "465");
+        prop.put("mail.smtp.port", "587");
         prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.debug", "true");
         prop.put("mail.smtp.socketFactory.port", "465");
+        prop.put("mail.smtp.starttls.enable", "true");
+        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
         Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
@@ -56,7 +59,7 @@ public class Correo {
                 return new PasswordAuthentication(from, password);
             }
         });
-        Message message = new MimeMessage(session);
+        MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(from));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
         message.setSubject(subject);
@@ -66,13 +69,12 @@ public class Correo {
 
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(mimeBodyPart);
-
+        
         if (files != null) {
             for (File file : files) {
                 MimeBodyPart attachmentBodyPart = new MimeBodyPart();
                 attachmentBodyPart.attachFile(file);
                 multipart.addBodyPart(attachmentBodyPart);
-               
             }
         }
         message.setContent(multipart);
