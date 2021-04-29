@@ -94,7 +94,8 @@ function ingresoEstudiante() {
     } else{
         toastr.warning('Por favor completa todos los daots')
     }
-};
+}
+;
 
 /**
  * Función login de estudiante

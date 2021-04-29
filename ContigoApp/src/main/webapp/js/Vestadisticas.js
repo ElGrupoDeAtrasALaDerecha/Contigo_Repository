@@ -45,6 +45,7 @@ $(".ui.dropdown").click(function () {
     aparecerSelectEst();
 });
 
+
 function selects() {
     grados = document.getElementById("txtGrado").value;
     //var tiempo = document.getElementById("txtTiempo").value;
@@ -78,9 +79,18 @@ $("#btnGerarG").on("click", function () {
     consultarInformacion()
 });
 
+function gradock (){
+    var grado = getCookie("nombreGrado")
+    if(grado){
+        $('#txtGrado').val(grado);
+        solicitarDatosGrafica()
+        delete_cookie("nombreGrado")
+    }
+}
+window.onload = gradock;
 
 function solicitarDatosGrafica(){
-    let codigoGrado =document.getElementById('txtGrado');
+    let codigoGrado = document.getElementById('txtGrado');
     $.ajax({
         url: 'Estadisticas?tipoConsulta=PorGrado&grado='+ codigoGrado.value,
         method: 'GET',
