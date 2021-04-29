@@ -26,3 +26,7 @@ select * from institucion;
 select * from historia;
 
 select * from situacion;
+
+select * from agenda;
+
+select * from agenda where personal_persona_documento="1000853622" ; 
