@@ -14,7 +14,7 @@ public class Conexion extends IConexionBD{
 /**/
     String bd = "contigoBD";
     String user= "root";
-    String password="029624";
+    String password="220800";
     String host="localhost";
     String port="3306";
     private final String url = "jdbc:mysql://"+host+":"+port+"/"+bd+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";
