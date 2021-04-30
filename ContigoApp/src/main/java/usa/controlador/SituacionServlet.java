@@ -37,6 +37,7 @@ public class SituacionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("application/json;charset=UTF-8");
         ISituacionDao daoSituacion=(ISituacionDao) dao;
         String id = request.getParameter("id");
@@ -65,8 +66,10 @@ public class SituacionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
+        System.out.println(parametros);
         Situacion situacion = (Situacion) Utils.fromJson(parametros, Situacion.class);
         JSONObject respuesta = new JSONObject();
         if(dao.crear(situacion)){

@@ -22,7 +22,7 @@ public class SituacionDao implements ISituacionDao{
     public boolean crear(Situacion situacion) {
         try {
             String sql = "insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)\n" +
-            "values(?,?,?,?,?);";
+            "values(?,?,?,?);";
             pat = conn.prepareStatement(sql);
             if(situacion.getPredecesor()!=0){
                 pat.setInt(1, situacion.getPredecesor());

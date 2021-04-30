@@ -1,5 +1,9 @@
 var data;
 $(document).ready(function () {
+crearData();
+})
+
+function crearData(){
 $.ajax({
     url: "Situacion?id=" + getCookie("idHistoria"),
     type: "GET",
@@ -18,8 +22,7 @@ $.ajax({
                 organigrama.eventEdit(EventoEdit);
     
                 function EventoAdd(id) {
-                    console.log(id)
-                    crear(id);//
+                    crear(id);
                 }
     
                 function EventoEdit(id) {
@@ -34,15 +37,11 @@ $.ajax({
 
     },
     complete: function (result) {
-
-
-    },
+     },
     error: function (result) {
-
     }
 
 });
-})
-
+}
 
 

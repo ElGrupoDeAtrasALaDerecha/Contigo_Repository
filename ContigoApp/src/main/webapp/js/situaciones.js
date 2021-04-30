@@ -11,7 +11,7 @@ window.onload = function obtenerhisotia() {
                 console.log(result);
                 historia = result.historia;
                 console.log(getCookie("idHistoria"))
-                
+
             } else {
                 console.log("error");
             }
@@ -26,7 +26,7 @@ window.onload = function obtenerhisotia() {
         }
 
     });
-    crearRamita();
+
 }
 
 
@@ -52,8 +52,6 @@ function quitaropc() {
     }
 }
 
-
-
 function obtenerNombre() {
     var nom = $('#Nombre').val();
     return nom;
@@ -61,16 +59,16 @@ function obtenerNombre() {
 
 
 function crear(id) {
-    /*aquí se supone que va otro ajax*/
+  
     let txt = '<div class="overlay active" id="overlay">' +
         '<div class="popup active" id="popup">' +
         '<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup" onclick="eliminar()"> ' +
         '<i class="fa fa-times" aria-hidden="true"></i>' + '</a>' +
-        '<h3> ' + historia.titulo + ' </h3>' +
+        '<h3> ' + + ' </h3>' +
         '<h4>Formulario</h4>' +
         '<form action="">' +
         '<div class="contenedor-inputs">' +
-        '<input type="text" id="descripcion" placeholder="Descripción" value="'+situacion.texto+'">' +
+        '<input type="text" id="descripcion" placeholder="Descripción" value="">' +
         '<div class="numeroOpc">' +
         '<p>Numero de opciones (Max 3)</p>' +
         '<button id="opciones" class="Aumentar" onclick=mas()>+</button>' +
@@ -83,31 +81,45 @@ function crear(id) {
         + '</div>'
         + '</div';
     $("#ventana").append(txt);
-    $(".Aumentar ").click(function(e){
+    $(".Aumentar ").click(function (e) {
         e.preventDefault();
     });
-    $(".Disminuir").click(function(e){
+    $(".Disminuir").click(function (e) {
         e.preventDefault();
     });
-    $(".btn-submit").click(function(e){
+    $(".btn-submit").click(function (e) {
         e.preventDefault();
     });
-    $(".crearSituacion").click(function(){
+    $(".crearSituacion").click(function (e) {
+        /*
         let descripcion=$("#descripcion").val();
         let situacionActualizada={
             texto:descripcion,
             id:id
         }
-        registrar(situacionActualizada,"PUT");
-        let inputsTitulos=$(".opcion");
+        */
+        //registrar(situacionActualizada,"PUT");
+        let inputsTitulos = $(".opcion");
+        aux = 0;
         for (let i = 0; i < inputsTitulos.length; i++) {
-            let obj = {
-                idHistoria:historia.id,
-                titulo:$(inputsTitulos[i]).val(),
-                predecesor:id
+            if ($(inputsTitulos[i]).val() === "") {
+                aux++;
             }
-            registrar(obj,"POST"); 
-        }  
+        }
+        for (let i = 0; i < inputsTitulos.length; i++) {
+            if (aux === 0) {
+                var obj = {
+                    idHistoria: historia.id,
+                    titulo: $(inputsTitulos[i]).val(),
+                    predecesor: id
+                }
+                console.log(obj)
+                registrar(obj, "POST");
+            }
+        }
+        if(aux !== 0){
+            toastr.error('Complete los campos')
+        }
     });
 }
 
@@ -115,7 +127,7 @@ function crear(id) {
  * Método para registrar la historia (aquí va el ajax)
  * @param {*} obj 
  */
-function registrar(obj,metodo){
+function registrar(obj, metodo) {
     $.ajax({
         url: "Situacion",
         type: metodo,
@@ -127,9 +139,10 @@ function registrar(obj,metodo){
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
                 console.log(result)
+                toastr.success('Situacion creada con exito')
             } else {
                 console.log(result)
-                
+                toastr.success('No se ha podido crear la situacion')
             }
         },
         complete: function (result) {
@@ -140,6 +153,7 @@ function registrar(obj,metodo){
         }
 
     });
+    crearData();
 }
 
 function eliminar() {
@@ -147,14 +161,7 @@ function eliminar() {
     n = 0;
 }
 
-
-
-
-
 var situaciones
-function crearRamita() {
-   
-}
 
 
 

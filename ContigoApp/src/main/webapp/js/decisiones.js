@@ -30,7 +30,6 @@ function cargarSituacion(){
  * @returns Un objeto situación o final
  */
 function buscarNodo(id,nodo){
-    debugger;
     if(nodo===undefined){
         nodo=arbol.primerNodo;
     }
