@@ -23,7 +23,7 @@ function cargarSituacion(){
 }
 
 
-/**
+/***
  * 
  * @param {int} id 
  * @param {situacion} nodo 
