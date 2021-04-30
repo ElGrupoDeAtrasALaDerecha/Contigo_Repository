@@ -23,7 +23,6 @@ h2{
 }
 #contenedor{
     /* border: solid rgb(1, 252, 1) 1px; */
-    background-image: url(../img/m4.jpg);
     background-position: center center;
     background-size: cover;
     color: white;
