@@ -1,13 +1,32 @@
 var c=1;
 
 var arbol;
+var idHistoria;
 $(document).ready(function(){
+    idHistoria=getCookie("idHistoria");
+    cargarHistoria()
     cargarSituacion()
 });
-
+function cargarHistoria(){
+    $.ajax({
+        url: "Historia?id="+idHistoria,
+        type: "GET",
+        beforeSend: function () {
+        },
+        success: function (result) {
+            $("#contenedor").css(
+                'background-image', 'url(' + result.historia.urlImagen + ')'
+            );   
+        },
+        complete: function (result) {
+        },
+        error: function (result) {
+        }
+    });
+}
 function cargarSituacion(){
     $.ajax({
-        url: "Situacion?id="+getCookie("idHistoria"),
+        url: "Situacion?id="+idHistoria,
         type: "GET",
         beforeSend: function () {
         },
@@ -91,9 +110,9 @@ function pintarSituacion(nodo){
 }
 
 function borrarSituacion(){
-    $("#color_bk").hide(5);
+    $("#color_bk").hide('fast','swing');
     $("#color_bk").empty();
-    $("#color_bk").show('slow');
+    $("#color_bk").show('slow','swing');
 }
 
 function pintarFinal(nodo){
