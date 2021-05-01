@@ -26,7 +26,7 @@ $.ajax({
                 }
     
                 function EventoEdit(id) {
-                    console.log(id)
+                    actualizarSituacion(id);
                 }
     
             })();

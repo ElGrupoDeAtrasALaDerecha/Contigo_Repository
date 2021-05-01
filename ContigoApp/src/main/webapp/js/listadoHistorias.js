@@ -31,7 +31,7 @@ function pintarHistorias(){
         let historia =listaHistorias[i];
         let txt=`<div id="${historia.id}" class="item">
                     <div class="bottom">
-                        <a href="decisiones.html" class="textTitle">${historia.titulo}</a>
+                        <a  class="textTitle">${historia.titulo}</a>
                         <p class="text">${historia.descripcion}</p>
                         </div>
                 </div>

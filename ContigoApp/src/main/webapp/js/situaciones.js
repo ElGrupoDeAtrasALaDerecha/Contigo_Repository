@@ -57,17 +57,44 @@ function obtenerNombre() {
     return nom;
 }
 
+function buscarNodo(id,nodo){
+    if(nodo===undefined){
+        nodo=data;
+    }
+    if(nodo.id===id){
+        return nodo;
+    }else{
+        let opciones=nodo.opciones;
+        if(opciones!==undefined){
+            for (let i = 0; i < opciones.length; i++) {
+                let opcion=opciones[i];
+                if(opcion.id===id){
+                    return opcion;
+                }else{
+                    if(opcion.opciones!==undefined&&opcion.opciones.length>0){
+                        let nodoEncontrado=buscarNodo(id,opcion);
+                        if(nodoEncontrado!==undefined){
+                            return nodoEncontrado;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 function crear(id) {
-  
+
+    let situacion = buscarNodo(parseInt(id));
+    console.log(situacion)
     let txt = '<div class="overlay active" id="overlay">' +
         '<div class="popup active" id="popup">' +
         '<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup" onclick="eliminar()"> ' +
         '<i class="fa fa-times" aria-hidden="true"></i>' + '</a>' +
-        '<h3> ' + + ' </h3>' +
-        '<h4>Formulario</h4>' +
+        '<h4>Editar Situacion</h4>' +
         '<form action="">' +
         '<div class="contenedor-inputs">' +
+        '<input type="text" id="titulo" placeholder="Titulo" value="">' +
         '<input type="text" id="descripcion" placeholder="Descripción" value="">' +
         '<div class="numeroOpc">' +
         '<p>Numero de opciones (Max 3)</p>' +
@@ -76,7 +103,9 @@ function crear(id) {
         '</div>' +
         '<div id="extra"></div>' +
         '</div>' +
-        '<input type="submit"  class="btn-submit crearSituacion" value="Crear">'
+        '<input type="submit"  class="btn-submit actualizarSituacion" value="Actualizar">'+
+        '<input type="submit"  class="btn-submit crearSituacion" value="Crear">'+
+        '<br>'
         + '</form>'
         + '</div>'
         + '</div';
@@ -91,14 +120,7 @@ function crear(id) {
         e.preventDefault();
     });
     $(".crearSituacion").click(function (e) {
-        /*
-        let descripcion=$("#descripcion").val();
-        let situacionActualizada={
-            texto:descripcion,
-            id:id
-        }
-        */
-        //registrar(situacionActualizada,"PUT");
+   
         let inputsTitulos = $(".opcion");
         aux = 0;
         for (let i = 0; i < inputsTitulos.length; i++) {
@@ -117,11 +139,23 @@ function crear(id) {
                 registrar(obj, "POST");
             }
         }
-        if(aux !== 0){
+        if (aux !== 0) {
             toastr.error('Complete los campos')
         }
     });
+
+    $(".actualizarSituacion").click(function (e) {
+        
+        let descripcion=$("#descripcion").val();
+        let situacionActualizada={
+            texto:descripcion,
+            id:id
+        }
+        
+        //registrar(situacionActualizada,"PUT");
+    });
 }
+
 
 /**
  * Método para registrar la historia (aquí va el ajax)
