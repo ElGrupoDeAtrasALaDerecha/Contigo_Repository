@@ -20,28 +20,80 @@
 
 <body>
     <h1 class="title">Agendamiento de citas</h1>
+    <div id="todo">
+        <div id="calendarioCompleto" class="calendar">
+            <div class="calendarInfo">
+                <div class="calendar__prev" id="prev-month"><i class="bi bi-chevron-left"></i></div>
+                <div class="calendar__month" id="month"></div>
+                <div class="calendar__year" id="year"></div>
+                <div class="calendar__next" id="next-month"><i class="bi bi-chevron-right"></i></i></div>
+            </div>
 
-    <div class="calendar">
-        <div class="calendarInfo">
-            <div class="calendar__prev" id="prev-month"><i class="bi bi-chevron-left"></i></div>
-            <div class="calendar__month" id="month"></div>
-            <div class="calendar__year" id="year"></div>
-            <div class="calendar__next" id="next-month"><i class="bi bi-chevron-right"></i></i></div>
+            <div class="week">
+                <div class="calendar__day calendar__item">LU</div>
+                <div class="calendar__day calendar__item">MA</div>
+                <div class="calendar__day calendar__item">MI</div>
+                <div class="calendar__day calendar__item">JU</div>
+                <div class="calendar__day calendar__item">VI</div>
+                <div class="calendar__day calendar__item">SA</div>
+                <div class="calendar__day calendar__item">DO</div>
+            </div>
+
+            <div class="dates" id="dates"></div>
         </div>
-    
-        <div class="week">
-            <div class="calendar__day calendar__item">LU</div>
-            <div class="calendar__day calendar__item">MA</div>
-            <div class="calendar__day calendar__item">MI</div>
-            <div class="calendar__day calendar__item">JU</div>
-            <div class="calendar__day calendar__item">VI</div>
-            <div class="calendar__day calendar__item">SA</div>
-            <div class="calendar__day calendar__item">DO</div>
+
+
+        <!--<div id="horas" class="ui compact menu">
+            <div class="ui simple dropdown item">
+                Horas
+                <i class="dropdown icon"></i>
+                <div id="horas2" class="menu" onchange="selectHorario()">
+                    <div class="item"></div>
+                    <div class="item">8:00</div>
+                    <div class="item">9:00</div>
+                    <div class="item">10:00</div>
+                </div>
+            </div>
+            <div id="tardeMañana" class="ui simple dropdown item">
+                a.m. - p.m.
+                <i class="dropdown icon"></i>
+                <div id="tardeMañana2" class="menu">
+                    <div class="item">a.m.</div>
+                    <div class="item">p.m.</div>
+                </div>
+            </div>
+        </div>-->
+        <div id="horas">
+            <p>Hora de la cita</p>
+            <form action="">
+                <select id="horas2" name="horas2" onchange="selectHorario()">
+                    <option value="">Horas</option>
+                    <option value="1">8:00 </option>
+                    <option value="2">9:00 </option>
+                    <option value="3">10:00</option>
+                    <option value="4">11:00 </option>
+                    <option value="5">12:00 </option>
+                    <option value="6">1:00</option>
+                    <option value="7">2:00 </option>
+                    <option value="8">3:00 </option>
+                    <option value="9">4:00</option>
+                </select>
+                <br>
+                <select name="horario" id="tardeMañana2">
+                    <option value="">a.m. - p.m.</option>
+                    <option value="1">a.m.</option>
+                    <option value="2">p.m.</option>
+                </select>
+            </form>
+            
         </div>
-    
-        <div class="dates" id="dates"></div>
+
     </div>
-    
+
+
+    </div>
+
+
 
 </body>
 <script src="js/template.js"></script>

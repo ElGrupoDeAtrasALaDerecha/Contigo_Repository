@@ -29,7 +29,7 @@
     padding: 2% 5%;
     width: 35%;
 }
-#selectGrados, #selectConsulta, #selectTiempo{
+#selectGrados, #selectConsulta, #selectTiempo, #selecHoras{
     border: solid 2px gray ;
     border-radius: 34px;
     color: rgb(0, 0, 0);

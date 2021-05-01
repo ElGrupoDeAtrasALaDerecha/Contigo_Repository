@@ -11,11 +11,13 @@
   background: #ffffff;
   width: 80%;
   max-width: 600px;
-  position: static;
+  position: relative;
   padding: 1%;
   text-align: center;
   margin-left: 2%;
+ 
 }
+
 .calendarInfo{
     display: flex;
     align-items: center;
@@ -23,6 +25,7 @@
     font-size: 100%;
     text-transform: uppercase;
     text-align: center;
+    
 }
 
     /*flechas*/
@@ -51,8 +54,61 @@
     color: rgb(180, 192, 192);
 }
 
-
-
 #last-days{
     opacity: .3;
 }
+
+.dates, button:active {
+    /*background-color: rgb(200, 211, 245);
+   box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(209, 209, 255);*/
+}
+#calendarioCompleto{
+    width: 40%;
+    position:relative;
+}
+/*#selecthoras{
+    color: rgba(0, 0, 0, 0.747);
+    position: absolute;
+    right: auto;
+    left: 40%;
+    top: 25%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 1.5%;
+    padding: 1% 3%;
+}*/
+#horas{
+    
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    margin: 1%;
+    padding: 1% 2%;
+    width: 30%;
+    height: 5%;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    left: 35%;
+    top: 25%;
+}
+select {
+    background: transparent;
+    border-color: rgba(0, 0, 255, 0.308);
+    font-size: 14px;
+    height: 30px;
+    padding: 5px;
+    width: 30%;
+    
+ }
+ form{
+    display: inline-flex;
+    background-color: rgb(255, 255, 255);
+    width: 80%;
+    max-width: 35em;
+    justify-content: center;
+    padding: 1em;
+    border-radius: 10px;
+  }
