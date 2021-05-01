@@ -1,5 +1,9 @@
 let monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 var personal
+var horainicio
+var horafin
+var fechainicio
+var fechafin
 
 let currentDate = new Date();//fecha del pc como ref
 let currentDay = currentDate.getDate();//dia de la semana
@@ -145,39 +149,3 @@ function nuevaFecha() {
     escribirMeses(monthNumber);
 }
 
-$(document).ready(function () {
-    personal = getCookie("token");
-    var horainicio= 7
-    var horafin= 9
-    var fechainicio ="2021-04-28"
-    var fechafin ="2021-04-30"
-    var obj = {
-        personal: personal,
-        fechainicio: fechainicio,
-        fechafin: fechafin,
-        horainicio: horainicio,
-        horafin: horafin
-    }
-    crearAgenda(obj)
-});
-
-
-function crearAgenda(obj) {
-    $.ajax({
-        url: 'Agenda',
-        method: 'POST',
-        dataType: 'json',
-        data: JSON.stringify(obj),
-        contentType: 'JSON application/json charset=utf-8',
-        success: function (response) {
-            if (response.tipo == "ok") {
-                toastr.success('Se ha creado la agenda del personal')
-            } else {
-                toastr.success('Error al crear agenda')
-            }
-        },
-        error: function (response) {
-
-        }
-    })
-}

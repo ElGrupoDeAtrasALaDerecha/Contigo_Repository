@@ -16,16 +16,9 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.AgendaDao;
-import usa.modelo.dao.EstadisticasBtnPanicoDao;
-import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
-import usa.modelo.dao.InstitucionDao;
 import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Agenda;
-import usa.modelo.dto.Conversatorio;
-import usa.modelo.dto.EstadisticasBtnPanico;
-import usa.modelo.dto.Institucion;
-import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**/
@@ -52,7 +45,7 @@ public class AgendaServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
     IDao dao = (IDao) factoryDao.obtener("AgendaDao");
-    AgendaDao agendaD = (AgendaDao) dao;
+    IDao personalC = (IDao) factoryDao.obtener("PersonalCalificadoDao");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -66,28 +59,23 @@ public class AgendaServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject(Utils.readParams(request));
-        AgendaDao agendaN = new AgendaDao();
         IDao personalC = (IDao) factoryDao.obtener("PersonalCalificadoDao");
         PersonalCalificadoDao personal = (PersonalCalificadoDao) personalC;
         Agenda agenda = new Agenda();
         if (personal.consultarPorToken(json.getString("personal")).getDocumento() != null) {
-            if(agendaD!=null){
-                System.out.println("si sirvo");
-            }
-            System.out.println("" +json.getInt("horainicio"));
-            System.out.println(""+json.getInt("horafin"));
             agenda.setIdPersonal(personal.consultarPorToken(json.getString("personal")).getDocumento());
             agenda.setFechaInicio(json.getString("fechainicio"));
             agenda.setFechaFin(json.getString("fechafin"));
             agenda.setHoraInicio(json.getInt("horainicio"));
             agenda.setHoraFin(json.getInt("horafin"));
-            agendaN.crear(agenda);
+            dao.crear(agenda);
             json.put("tipo", "ok");
             json.put("mensaje", "Se ha creado la agenda del personal");
         } else {
             json.put("tipo", "error");
             json.put("mensaje", "Error al crear agenda");
         }
+
         out.print(json.toString());
 
     }

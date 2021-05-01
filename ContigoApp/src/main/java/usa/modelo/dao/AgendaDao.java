@@ -28,7 +28,6 @@ public class AgendaDao implements IDao<Agenda> {
 
     @Override
     public boolean crear(Agenda t) {
-        System.out.println("crear");
         try {
             String sql = "insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values (?,?,?,?,?)";
             pat = conn.prepareStatement(sql);
@@ -38,6 +37,7 @@ public class AgendaDao implements IDao<Agenda> {
             pat.setInt(4, t.getHoraInicio());
             pat.setInt(5, t.getHoraFin());
             pat.execute();
+            pat.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
