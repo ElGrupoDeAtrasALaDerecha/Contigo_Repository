@@ -48,6 +48,7 @@ h1{
 .bottom{
     background-color: rgb(48, 68, 92, .8 );
     height: 35%;
+    width: 100%;
 }
 .textTitle{
     font-size: 14px;
