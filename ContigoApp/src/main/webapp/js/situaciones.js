@@ -103,16 +103,10 @@ function crear(id) {
         '</div>' +
         '<div id="extra"></div>' +
         '</div>' +
-<<<<<<< HEAD
-        '<input type="submit"  class="btn-submit actualizarSituacion" value="Actualizar">'+
-        '<input type="submit"  class="btn-submit crearSituacion" value="Crear">'+
-        '<br>'
-=======
         '<div class="botonesForm">'+
         '<input type="submit"  class="btn-submit crearSituacion" value="Crear">'
         +'<input type="submit"  class="btn-submit crearSituacion" value="Crear final">'
         +'</div>'
->>>>>>> 105e7afbfa6dd866bd73ca111fcae59b1c07e11a
         + '</form>'
         + '</div>'
         + '</div';
