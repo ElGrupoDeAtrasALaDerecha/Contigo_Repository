@@ -22,11 +22,11 @@ $.ajax({
                 organigrama.eventEdit(EventoEdit);
     
                 function EventoAdd(id) {
-                    crear(id);
+                   
                 }
     
                 function EventoEdit(id) {
-                    actualizarSituacion(id);
+                    crear(id);
                 }
     
             })();

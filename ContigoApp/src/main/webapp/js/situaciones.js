@@ -94,8 +94,8 @@ function crear(id) {
         '<h4>Editar Situacion</h4>' +
         '<form action="">' +
         '<div class="contenedor-inputs">' +
-        '<input type="text" id="titulo" placeholder="Titulo" value="">' +
-        '<input type="text" id="descripcion" placeholder="Descripción" value="">' +
+        '<input type="text" id="titulo" placeholder="Titulo" value="'+situacion.titulo+'">' +
+        '<input type="text" id="descripcion" placeholder="Descripción" value="'+situacion.texto+'">' +
         '<div class="numeroOpc">' +
         '<p>Numero de opciones (Max 3)</p>' +
         '<button id="opciones" class="Aumentar" onclick=mas()>+</button>' +
@@ -105,7 +105,8 @@ function crear(id) {
         '</div>' +
         '<div class="botonesForm">'+
         '<input type="submit"  class="btn-submit crearSituacion" value="Crear">'
-        +'<input type="submit"  class="btn-submit crearSituacion" value="Crear final">'
+        +'<input type="submit"  class="btn-submit actualizarSituacion" value="Actualizar">'
+        +'<input type="submit"  class="btn-submit crearFinal" value="Crear final">'
         +'</div>'
         + '</form>'
         + '</div>'
@@ -146,14 +147,16 @@ function crear(id) {
     });
 
     $(".actualizarSituacion").click(function (e) {
-        
-        let descripcion=$("#descripcion").val();
-        let situacionActualizada={
+        var titulo = $("#titulo").val();
+        var descripcion=$("#descripcion").val();
+        var situacionActualizada={
+            idHistoria: historia.id,
             texto:descripcion,
+            titulo:titulo,
             id:id
         }
-        
-        //registrar(situacionActualizada,"PUT");
+        console.log(situacionActualizada);
+        registrar(situacionActualizada,"PUT");
     });
 }
 
@@ -174,10 +177,11 @@ function registrar(obj, metodo) {
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
                 console.log(result)
-                toastr.success('Situacion creada con exito')
+                toastr.success(result.mensaje)
+                crearData();
             } else {
                 console.log(result)
-                toastr.success('No se ha podido crear la situacion')
+                toastr.success(result.mensaje)
             }
         },
         complete: function (result) {
@@ -188,7 +192,6 @@ function registrar(obj, metodo) {
         }
 
     });
-    crearData();
 }
 
 function eliminar() {

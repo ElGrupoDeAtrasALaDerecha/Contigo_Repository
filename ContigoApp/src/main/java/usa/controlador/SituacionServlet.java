@@ -49,7 +49,7 @@ public class SituacionServlet extends HttpServlet {
             respuesta.put("situaciones", arreglo);
         }else{
             respuesta.put("tipo","error");
-            respuesta.put("mensaje", "No existe esa historia");
+            respuesta.put("mensaje", "No existe esa historia aa aa");
         }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
@@ -74,10 +74,10 @@ public class SituacionServlet extends HttpServlet {
         JSONObject respuesta = new JSONObject();
         if(dao.crear(situacion)){
             respuesta.put("tipo","ok");
-            respuesta.put("mensaje", "Situación creada");
+            respuesta.put("mensaje", "Situación creada con exito");
         }else{
             respuesta.put("tipo","error");
-            respuesta.put("mensaje", "Error interno al crear situación");
+            respuesta.put("mensaje", "Error al crear situación");
         }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
@@ -92,12 +92,14 @@ public class SituacionServlet extends HttpServlet {
         Situacion situacionAActualizar= (Situacion)dao.consultar(String.valueOf(situacion.getId()));
         if(situacionAActualizar!=null){
             situacionAActualizar.setTexto(situacion.getTexto());
+            situacionAActualizar.setTitulo(situacion.getTitulo());
+             situacionAActualizar.setIdHistoria(situacion.getIdHistoria());
             if(dao.actualizar(situacionAActualizar)){
                 respuesta.put("tipo","ok");
                 respuesta.put("mensaje", "Situación actualizada");
             }else{
                 respuesta.put("tipo","error");
-                respuesta.put("mensaje", "Error interno al crear situación");
+                respuesta.put("mensaje", "Error al actualizar la situación");
             }
         }else{
             respuesta.put("tipo","error");

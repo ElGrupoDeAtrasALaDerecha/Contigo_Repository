@@ -66,6 +66,7 @@ public class SituacionDao implements ISituacionDao{
 
     @Override
     public boolean actualizar(Situacion situacion) {
+        System.out.println(situacion);
        try {
             String sql = "UPDATE situacion SET HISTORIA_idHistoria=?, titulo=?, texto=? WHERE id=?";
             pat = conn.prepareStatement(sql);

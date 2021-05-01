@@ -20,7 +20,7 @@
 
 		createControls(this.tabla);
 	};
-
+	
 	organigrama.prototype.eventAdd = function(c){
 		if(c === undefined){
 			alert('Evento Add mal definido');
@@ -157,12 +157,14 @@
 			var id = nodos[i].getAttribute('data-id');
 			var div = document.createElement('div');
 			div.className = 'controls';
-
+			
 			// Btn Add
 			var btn = document.createElement('btn');
+			/*
 			btn.setAttribute('type','button');
 			btn.setAttribute('data-id', id);
 			btn.className = 'btn btn-primary btn-block btn-add';
+			*/
 
 			var icon = document.createElement('i');
 			icon.className = 'glyphicon glyphicon-plus';
