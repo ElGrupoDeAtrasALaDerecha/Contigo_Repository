@@ -61,3 +61,7 @@ h1{
     font-size: 10px;
     color:rgba(255,255,255,1);
 }
+.botonesForm{
+    display: flex;
+    flex-direction: row;
+}
