@@ -7,8 +7,78 @@ package usa.modelo.dto;
 
 /**
  *
- * @author usuario
+ * @author Valeria
  */
 public class Cita {
+
+    private int id;
+    private int idAgenda;
+    private String idEstudiante;
+    private int horaInicio;
+    private String fecha;
+    private int estado;
+    private String lugar;
+
+    public Cita() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdAgenda() {
+        return idAgenda;
+    }
+
+    public void setIdAgenda(int idAgenda) {
+        this.idAgenda = idAgenda;
+    }
+
+    public String getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public void setIdEstudiante(String idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public int getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(int horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
+    
+    
     
 }
