@@ -25,19 +25,20 @@ nextMonthDOM.addEventListener('click', mesSiguiente);
 
 escribirMeses(monthNumber);
 var fecha;
-function escribirMeses(month) {
-    var mesActual = 3;
+
+
+function escribirMeses(month, botonPresionado) {
     if (month < 3) {
         for (let i = inicioDia(); i > 0; i--) {
             dates.innerHTML += `<div class="date item ">
-            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui  disabled basic button">
+            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui  disabled button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
         }
         for (let i = 1; i <= obtenerDias(month); i++) {
             dates.innerHTML += `<div class="date">
-            <button id="${i}" class="ui disabled basic button">
+            <button id="${i}" class="ui disabled  button">
             ${i}
             </button>
             </div>`;
@@ -46,7 +47,7 @@ function escribirMeses(month) {
     if (month === 3) {
         for (let i = inicioDia(); i > 0; i--) {
             dates.innerHTML += `<div class="date item ">
-            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui  disabled basic button">
+            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui  disabled  button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
@@ -54,20 +55,20 @@ function escribirMeses(month) {
         for (let i = 1; i <= obtenerDias(month); i++) {
             if (i === currentDay) {
                 dates.innerHTML += `<div class="date item today">
-                <button id="${i}" class="ui purple basic button">
+                <button id="${i}" class="ui button">
                 ${i}
                 </button>
                 </div>`;
 
             } else if (i < currentDay) {
                 dates.innerHTML += `<div class="date">
-                <button id="${i}" class="ui disabled basic button">
+                <button id="${i}" class="ui disabled button">
                 ${i}
                 </button>
                 </div>`;
             } else if (i > currentDay) {
                 dates.innerHTML += `<div class="date">
-                <button id="${i}"class="ui grey basic button">
+                <button id="${i}"class="ui grey button">
                 ${i}
                 </button>
                 </div>`;
@@ -76,26 +77,41 @@ function escribirMeses(month) {
     } else if (month > 3) {
         for (let i = inicioDia(); i > 0; i--) {
             dates.innerHTML += `<div class="date item ">
-            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui  basic button">
+            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
         }
         for (let i = 1; i <= obtenerDias(month); i++) {
             dates.innerHTML += `<div class="date">
-            <button id="${i}"class="ui grey basic button">
+            <button id="${i}"class="ui   button">
             ${i}
             </button>
             </div>`;
         }
+        
     }
 
-    $(".ui.basic.button").click(function (e) {
+    var contador = 0;
+    $(".ui.button").click(function (e) {
+        contador++;
+        //escribirMeses(monthNumber);
         fecha = currentYear + '-' + month + '-' + $(this).attr("id");
         console.log(fecha);
+        console.log(contador);
+        /*if (contador === 1) {
+            botonPresionado = e.currentTarget;
+            botonPresionado.className = ("ui blue basic button");
+            console.log(contador);
+            console.log(botonPresionado)
+        } else if (contador === 2) {
+            $(".dates").empty();
+            botonPresionado = e.currentTarget;
+            escribirMeses(monthNumber, botonPresionado);
+        }*/
     })
-
 }
+
 function obtenerDias(month) {
     if (month === -1) month = 11;
     if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
@@ -149,3 +165,32 @@ function nuevaFecha() {
     escribirMeses(monthNumber);
 }
 
+
+var horario = document.getElementById('tardeMañana2');
+horario.style.display = "none";
+
+function selectHorario() {
+    var horas = document.getElementById("horas2").value;
+    if (horas !== "" ) {
+        
+        
+    } else {
+        
+    }
+}
+
+/*function condicionalSelectHoras(){
+    var horas = document.getElementById("horas2").value;
+    if(horas !== ""){
+        horario.style.display = "block"
+        if (horas === 1 || horas === 2 || horas === 3 || horas===4 ) {
+
+            $("#tardeMañana2").value("1")
+        } else if(horas === 5 || horas===6 || horas ===7 || horas===8 || horas===9) {
+            $("#tardeMañana2").value("2")
+        }
+    }else {
+        horario.style.display ="none"
+    }
+    
+}*/
