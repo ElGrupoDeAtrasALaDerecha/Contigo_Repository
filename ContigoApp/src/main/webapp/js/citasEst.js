@@ -1,4 +1,9 @@
 let monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+var personal
+var horainicio
+var horafin
+var fechainicio
+var fechafin
 
 let currentDate = new Date();//fecha del pc como ref
 let currentDay = currentDate.getDate();//dia de la semana
