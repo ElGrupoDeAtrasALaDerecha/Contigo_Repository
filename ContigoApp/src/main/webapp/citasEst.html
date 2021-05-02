@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="css/citasEst.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 </head>
 
@@ -66,24 +68,27 @@
         <div id="horas">
             <p>Hora de la cita</p>
             <form action="">
-                <select id="horas2" name="horas2" onchange="selectHorario()">
+                <select id="horas2" name="horas2" onchange="condicionalSelectHoras()">
                     <option value="">Horas</option>
-                    <option value="1">8:00 </option>
-                    <option value="2">9:00 </option>
-                    <option value="3">10:00</option>
-                    <option value="4">11:00 </option>
-                    <option value="5">12:00 </option>
-                    <option value="6">1:00</option>
-                    <option value="7">2:00 </option>
-                    <option value="8">3:00 </option>
-                    <option value="9">4:00</option>
+                    <option value="1">8:00 a.m. </option>
+                    <option value="2">9:00 a.m.</option>
+                    <option value="3">10:00 a.m.</option>
+                    <option value="4">11:00 a.m.</option>
+                    <option value="5">12:00 p.m.</option>
+                    <option value="6">1:00 p.m.</option>
+                    <option value="7">2:00 p.m.</option>
+                    <option value="8">3:00 p.m.</option>
+                    <option value="9">4:00 p.m.</option>
                 </select>
                 <br>
-                <select name="horario" id="tardeMañana2">
+                <!--
+                    <select name="horario" id="tardeMañana2">
                     <option value="">a.m. - p.m.</option>
                     <option value="1">a.m.</option>
                     <option value="2">p.m.</option>
                 </select>
+                -->
+                
             </form>
             
         </div>
@@ -97,8 +102,8 @@
 
 </body>
 <script src="js/template.js"></script>
+<script src="js/funciones.js"></script>
 <script src="js/citasEst.js"></script>
-<!--<script src="js/funciones.js"></script>-->
 <script language="JavaScript"></script>
 <script type="text/javascript" src="js/js_componentes/bootstrap.min.js"></script>
 

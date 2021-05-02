@@ -167,8 +167,25 @@ horario.style.display = "none";
 function selectHorario() {
     var horas = document.getElementById("horas2").value;
     if (horas !== "" ) {
-        horario.style.display = "block"
+        
+        
     } else {
-        horario.style.display ="none"
+        
     }
 }
+
+/*function condicionalSelectHoras(){
+    var horas = document.getElementById("horas2").value;
+    if(horas !== ""){
+        horario.style.display = "block"
+        if (horas === 1 || horas === 2 || horas === 3 || horas===4 ) {
+
+            $("#tardeMañana2").value("1")
+        } else if(horas === 5 || horas===6 || horas ===7 || horas===8 || horas===9) {
+            $("#tardeMañana2").value("2")
+        }
+    }else {
+        horario.style.display ="none"
+    }
+    
+}*/
