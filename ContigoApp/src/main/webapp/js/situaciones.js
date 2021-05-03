@@ -57,23 +57,23 @@ function obtenerNombre() {
     return nom;
 }
 
-function buscarNodo(id,nodo){
-    if(nodo===undefined){
-        nodo=data;
+function buscarNodo(id, nodo) {
+    if (nodo === undefined) {
+        nodo = data;
     }
-    if(nodo.id===id){
+    if (nodo.id === id) {
         return nodo;
-    }else{
-        let opciones=nodo.opciones;
-        if(opciones!==undefined){
+    } else {
+        let opciones = nodo.opciones;
+        if (opciones !== undefined) {
             for (let i = 0; i < opciones.length; i++) {
-                let opcion=opciones[i];
-                if(opcion.id===id){
+                let opcion = opciones[i];
+                if (opcion.id === id) {
                     return opcion;
-                }else{
-                    if(opcion.opciones!==undefined&&opcion.opciones.length>0){
-                        let nodoEncontrado=buscarNodo(id,opcion);
-                        if(nodoEncontrado!==undefined){
+                } else {
+                    if (opcion.opciones !== undefined && opcion.opciones.length > 0) {
+                        let nodoEncontrado = buscarNodo(id, opcion);
+                        if (nodoEncontrado !== undefined) {
                             return nodoEncontrado;
                         }
                     }
@@ -94,20 +94,20 @@ function crear(id) {
         '<h4>Editar Situacion</h4>' +
         '<form action="">' +
         '<div class="contenedor-inputs">' +
-        '<input type="text" id="titulo" placeholder="Titulo" value="'+situacion.titulo+'">' +
-        '<input type="text" id="descripcion" placeholder="Descripción" value="'+situacion.texto+'">' +
+        '<input type="text" id="titulo" placeholder="Titulo" value="' + situacion.titulo + '">' +
+        '<input type="text" id="descripcion" placeholder="Descripción" value="' + situacion.texto + '">' +
         '<div class="numeroOpc">' +
-        '<p>Numero de opciones (Max 3)</p>' +
-        '<button id="opciones" class="Aumentar" onclick=mas()>+</button>' +
-        '<button class="Disminuir" id="menos" onclick=quitaropc()>-</button>' +
+        //'<p>Numero de opciones (Max 3)</p>' +
+        // '<button id="opciones" class="Aumentar" onclick=mas()>+</button>' +
+        //  '<button class="Disminuir" id="menos" onclick=quitaropc()>-</button>' +
         '</div>' +
         '<div id="extra"></div>' +
         '</div>' +
-        '<div class="botonesForm">'+
-        '<input type="submit"  class="btn-submit crearSituacion" value="Crear">'
-        +'<input type="submit"  class="btn-submit actualizarSituacion" value="Actualizar">'
-        +'<input type="submit"  class="btn-submit crearFinal" value="Crear final">'
-        +'</div>'
+        '<div class="botonesForm">' +
+        //'<input type="submit"  class="btn-submit crearSituacion" value="Crear">'
+        '<input type="submit" class="btn-submit actualizarSituacion" value="Actualizar" >  '
+        + '  <input type="submit"  class="btn-submit crearFinal" value="Crear final">'
+        + '</div>'
         + '</form>'
         + '</div>'
         + '</div';
@@ -121,6 +121,7 @@ function crear(id) {
     $(".btn-submit").click(function (e) {
         e.preventDefault();
     });
+    /*
     $(".crearSituacion").click(function (e) {
    
         let inputsTitulos = $(".opcion");
@@ -145,18 +146,32 @@ function crear(id) {
             toastr.error('Complete los campos')
         }
     });
+*/
+    $(".crearFinal").click(function (e) {
+        var titulo = $("#titulo").val();
+        var descripcion = $("#descripcion").val();
+        var obj = {
+            texto: descripcion,
+            titulo: titulo,
+            predecesor: situacion.predecesor,
+            id:parseInt(id)
+
+        }
+        console.log(obj)
+        registrar(obj, "POST", "final");
+    });
 
     $(".actualizarSituacion").click(function (e) {
         var titulo = $("#titulo").val();
-        var descripcion=$("#descripcion").val();
-        var situacionActualizada={
+        var descripcion = $("#descripcion").val();
+        var situacionActualizada = {
             idHistoria: historia.id,
-            texto:descripcion,
-            titulo:titulo,
-            id:id
+            texto: descripcion,
+            titulo: titulo,
+            id: id
         }
         console.log(situacionActualizada);
-        registrar(situacionActualizada,"PUT");
+        registrar(situacionActualizada, "PUT", "situacion");
     });
 }
 
@@ -165,12 +180,15 @@ function crear(id) {
  * Método para registrar la historia (aquí va el ajax)
  * @param {*} obj 
  */
-function registrar(obj, metodo) {
+function registrar(obj, metodo, header) {
     $.ajax({
         url: "Situacion",
         type: metodo,
         dataType: "json",
         data: JSON.stringify(obj),
+        headers: {
+            tipo: header
+        },
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {
         },
@@ -181,7 +199,7 @@ function registrar(obj, metodo) {
                 crearData();
             } else {
                 console.log(result)
-                toastr.success(result.mensaje)
+                toastr.error(result.mensaje)
             }
         },
         complete: function (result) {

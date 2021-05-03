@@ -20,9 +20,25 @@ $.ajax({
                 // Agregamos los eventos para los botones
                 organigrama.eventAdd(EventoAdd);
                 organigrama.eventEdit(EventoEdit);
-    
+                var cont=0;
                 function EventoAdd(id) {
+                    var situacionActual = buscarNodo(parseInt(id));
+                     cont = situacionActual.opciones.length;
+                    console.log(cont)
+                    if (cont <= 2){
+                        var obj = {
+                            idHistoria: historia.id,
+                            titulo: "",
+                            texto: "",
+                            predecesor: id
+                        }
+                        console.log(obj)
+                        registrar(obj, "POST","situacion");
+                    }else{
+                        toastr.error('No puedes agregar mas de tres opciones');
+                    }
                    
+        
                 }
     
                 function EventoEdit(id) {

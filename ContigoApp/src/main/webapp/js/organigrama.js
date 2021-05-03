@@ -160,11 +160,10 @@
 			
 			// Btn Add
 			var btn = document.createElement('btn');
-			/*
 			btn.setAttribute('type','button');
 			btn.setAttribute('data-id', id);
 			btn.className = 'btn btn-primary btn-block btn-add';
-			*/
+		
 
 			var icon = document.createElement('i');
 			icon.className = 'glyphicon glyphicon-plus';
@@ -181,6 +180,8 @@
 			icon.className = 'glyphicon glyphicon-pencil';
 			btn.appendChild(icon);
 			div.appendChild(btn);
+
+			
 
 			nodos[i].appendChild(div);
 		}
