@@ -51,8 +51,6 @@ function validarFechasHoras() {
             }
             crearAgenda(obj)
         } else {
-            console.log(horainicio)
-            console.log(horafin)
             alert("Error , las horas ingresadas no son válidas")
         }
     } else {
