@@ -26,28 +26,33 @@ nextMonthDOM.addEventListener('click', mesSiguiente);
 escribirMeses(monthNumber);
 var fecha;
 
+var horas = document.getElementById("horas");
+var select = document.getElementById("horas2");
+var listaPersonal = document.getElementById('listaPersonal');
+listaPersonal.style.display= "none";
+horas.style.display="none"
 
 function escribirMeses(month, botonPresionado) {
-    if (month < 3) {
+    if (month < 4) {
         for (let i = inicioDia(); i > 0; i--) {
             dates.innerHTML += `<div class="date item ">
-            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui  disabled button">
+            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui inverted  disabled basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
         }
         for (let i = 1; i <= obtenerDias(month); i++) {
             dates.innerHTML += `<div class="date">
-            <button id="${i}" class="ui disabled  button">
+            <button id="${i}" class="ui inverted  disabled basic button">
             ${i}
             </button>
             </div>`;
         }
     }
-    if (month === 3) {
+    if (month === 4) {
         for (let i = inicioDia(); i > 0; i--) {
             dates.innerHTML += `<div class="date item ">
-            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui  disabled  button">
+            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui  inverted  disabled  basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
@@ -55,20 +60,20 @@ function escribirMeses(month, botonPresionado) {
         for (let i = 1; i <= obtenerDias(month); i++) {
             if (i === currentDay) {
                 dates.innerHTML += `<div class="date item today">
-                <button id="${i}" class="ui button">
+                <button id="${i}" class="ui inverted  blue basic button">
                 ${i}
                 </button>
                 </div>`;
 
             } else if (i < currentDay) {
                 dates.innerHTML += `<div class="date">
-                <button id="${i}" class="ui disabled button">
+                <button id="${i}" class="ui inverted disabled basic   button">
                 ${i}
                 </button>
                 </div>`;
             } else if (i > currentDay) {
                 dates.innerHTML += `<div class="date">
-                <button id="${i}"class="ui grey button">
+                <button id="${i}"class="ui inverted  blue basic button">
                 ${i}
                 </button>
                 </div>`;
@@ -77,14 +82,14 @@ function escribirMeses(month, botonPresionado) {
     } else if (month > 3) {
         for (let i = inicioDia(); i > 0; i--) {
             dates.innerHTML += `<div class="date item ">
-            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui button">
+            <button id="${obtenerDias(monthNumber - 1) - (i - 1)}" class="ui inverted blue basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
         }
         for (let i = 1; i <= obtenerDias(month); i++) {
             dates.innerHTML += `<div class="date">
-            <button id="${i}"class="ui   button">
+            <button id="${i}"class="ui inverted blue basic button">
             ${i}
             </button>
             </div>`;
@@ -93,22 +98,13 @@ function escribirMeses(month, botonPresionado) {
     }
 
     var contador = 0;
-    $(".ui.button").click(function (e) {
+    $(".ui.inverted.basic.button").click(function (e) {
         contador++;
-        //escribirMeses(monthNumber);
         fecha = currentYear + '-' + month + '-' + $(this).attr("id");
         console.log(fecha);
         console.log(contador);
-        /*if (contador === 1) {
-            botonPresionado = e.currentTarget;
-            botonPresionado.className = ("ui blue basic button");
-            console.log(contador);
-            console.log(botonPresionado)
-        } else if (contador === 2) {
-            $(".dates").empty();
-            botonPresionado = e.currentTarget;
-            escribirMeses(monthNumber, botonPresionado);
-        }*/
+        horas.style.display= "block";
+
     })
 }
 
@@ -167,10 +163,19 @@ function nuevaFecha() {
 
 
 function selectHorario(){
-    var select = document.getElementById("horas2"), //El <select>
+    
         value = select.value, //El valor seleccionado
         text = select.options[select.selectedIndex].innerText; //El texto de la opción seleccionada
         console.log(value);
         console.log(text);
+        ListaPersonalC(value);
 }
 
+function ListaPersonalC(e){  
+    console.log(e);
+    if(value !== ""){
+        listaPersonal.style.display="block";
+    }else{
+        listaPersonal.style.display="none";
+    }
+}
