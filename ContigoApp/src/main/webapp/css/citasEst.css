@@ -93,6 +93,7 @@
     position: absolute;
     left: 35%;
     top: 25%;
+    
 }
 select {
     background: transparent;
@@ -100,15 +101,24 @@ select {
     font-size: 14px;
     height: 30px;
     padding: 5px;
-    width: 30%;
+    width: 40%;
     
  }
- form{
+ #listaPersonal{
+     overflow: auto;
+     width: 45%;
+     position: absolute;
+    left: 85%;
+    top: 25%;
+ }
+ /*form{
     display: inline-flex;
     background-color: rgb(255, 255, 255);
-    width: 80%;
-    max-width: 35em;
+    width: 90%;
+    max-width: 100%;
     justify-content: center;
-    padding: 1em;
-    border-radius: 10px;
-  }
+    padding: 1%;
+    position: absolute;
+    left: 35%;
+    top: 25%;
+  }*/

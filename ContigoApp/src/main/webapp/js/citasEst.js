@@ -166,31 +166,11 @@ function nuevaFecha() {
 }
 
 
-var horario = document.getElementById('tardeMañana2');
-horario.style.display = "none";
-
-function selectHorario() {
-    var horas = document.getElementById("horas2").value;
-    if (horas !== "" ) {
-        
-        
-    } else {
-        
-    }
+function selectHorario(){
+    var select = document.getElementById("horas2"), //El <select>
+        value = select.value, //El valor seleccionado
+        text = select.options[select.selectedIndex].innerText; //El texto de la opción seleccionada
+        console.log(value);
+        console.log(text);
 }
 
-/*function condicionalSelectHoras(){
-    var horas = document.getElementById("horas2").value;
-    if(horas !== ""){
-        horario.style.display = "block"
-        if (horas === 1 || horas === 2 || horas === 3 || horas===4 ) {
-
-            $("#tardeMañana2").value("1")
-        } else if(horas === 5 || horas===6 || horas ===7 || horas===8 || horas===9) {
-            $("#tardeMañana2").value("2")
-        }
-    }else {
-        horario.style.display ="none"
-    }
-    
-}*/

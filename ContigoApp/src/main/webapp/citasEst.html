@@ -65,7 +65,7 @@
         <div id="horas">
             <p>Hora de la cita</p>
             <form action="">
-                <select id="horas2" name="horas2" onchange="condicionalSelectHoras()">
+                <select id="horas2" name="horas2" onchange="selectHorario()">
                     <option value="">Horas</option>
                     <option value="1">8:00 a.m. </option>
                     <option value="2">9:00 a.m.</option>
@@ -78,13 +78,17 @@
                     <option value="9">4:00 p.m.</option>
                 </select>
                 <br>
-                <!--
-                    <select name="horario" id="tardeMañana2">
-                    <option value="">a.m. - p.m.</option>
-                    <option value="1">a.m.</option>
-                    <option value="2">p.m.</option>
-                </select>
-                -->
+                <div id="listaPersonal">
+                    <p>Personal disponible</p>
+                    <div class="ui middle aligned divided list">
+                        <div class="item">
+                            <i class="user circle icon"></i>
+                          <div class="content">
+                            <a class="header">Daniel Louise</a>
+                          </div>
+                        </div>
+                      </div>
+                </div>
                 
             </form>
             
