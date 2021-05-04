@@ -27,7 +27,7 @@ public class HistoriaServlet extends HttpServlet {
     IDao personalCalificadoDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
 
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.holi
      *
      * @param request servlet request
      * @param response servlet response
@@ -86,6 +86,7 @@ public class HistoriaServlet extends HttpServlet {
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
+     * funcionaaaaaa
      */
     @Override
     public String getServletInfo() {
