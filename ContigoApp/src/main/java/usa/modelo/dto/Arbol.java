@@ -46,8 +46,7 @@ public class Arbol {
                     if(posiblePadre!=null){
                         return posiblePadre;
                     }
-                }
-                
+                } 
             }
         }
         return null;
