@@ -72,7 +72,7 @@ function listaDeGrados(serverMsj) {
   for (let index = 0; index < serverMsj.Grados.length; index++) {
     var grado =  serverMsj.GradosClasificados[index].clasificacion
     var codigo = serverMsj.GradosClasificados[index].codigo
-    table.insertRow(-1).innerHTML = '<td><a href="gestionCurso.html" onclick = "gradock('+ grado +')">' + grado +'</a></td> <td>' + codigo +'</td>';    
+    table.insertRow(-1).innerHTML = '<td><a href="gestionCurso.html" onclick = "gradock(\''+ grado +'\');">' + grado +'</a></td> <td>' + codigo +'</td>';    
   }
   cont++
 }
@@ -85,6 +85,7 @@ function setCodigo (serverMsj) {
 }
 
 function gradock(grado) {
+  console.log(grado)
   setCookie("nombreGrado", grado, 0.1);
 }
 //

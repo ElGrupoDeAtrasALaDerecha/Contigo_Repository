@@ -81,10 +81,16 @@ $("#btnGerarG").on("click", function () {
 
 function gradock (){
     var grado = getCookie("nombreGrado")
+    console.log("----> Grado: ")
+    console.log(grado)
     if(grado){
         $('#txtGrado').val(grado);
-        solicitarDatosGrafica()
+        graficas.style.display = "block"
+        solicitarDatosGrafica();
+        consultarInformacion()
         delete_cookie("nombreGrado")
+    }else {
+        console.log("Cookie not found")
     }
 }
 window.onload = gradock;
@@ -97,7 +103,7 @@ function solicitarDatosGrafica(){
         dataType: 'json',
         success: function (response) {
             arregloGrados = response.clasificaciones;
-            console.log(response)
+            //console.log(response)
             GraficaTorta(response.boton.datos);
             graficaTopGrados(response.conversatorios)
         },
@@ -206,7 +212,7 @@ function listarGrados() {
         dataType: 'json',
         success: function (response) {
             arregloGrados = response.clasificaciones;
-            console.log(response)
+            //console.log(response)
             for (let index = 0; index < response.clasificaciones.length; index++) {
                 codigoGrado[index]= response.clasificaciones.codigo;                
             }
@@ -285,7 +291,7 @@ function traerClasificacionGrados() {
         data: "json",
         contentType: "JSON application/json charset=utf-8",
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             gradosV = response.clasificaciones;
             cargarSelectGrados(gradosV);
         },
@@ -311,11 +317,11 @@ function consultarInformacion(obj) {
                 filtrarClicksporDia(estadisticas)
                 consultarClicksGrado()
             } else {
-                console.log(response.mensaje);
+                //console.log(response.mensaje);
             }
         },
         error: function (response) {
-            console.log(JSON.stringify(response))
+            //console.log(JSON.stringify(response))
         }
     });
 }
@@ -450,7 +456,7 @@ function consultarClicksGrado() {
         data: "json",
         contentType: "JSON application/json charset=utf-8",
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             clicksGrado = response.Clicks;
             frecuenciasClicksGrado.push(clicksGrado);
             var gradosHistograma = []
@@ -464,7 +470,7 @@ function consultarClicksGrado() {
 
 function crearHistograma(gradosHistograma) {
     for (let i = 0; i < gradosHistograma.length; i++) {
-        console.log(gradosHistograma[i])
+        //console.log(gradosHistograma[i])
     }
     var tablaInscripcionAconversatorio = new Chart(document.getElementById('clickGrado').getContext('2d'), {
         type: 'bar',
