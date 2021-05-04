@@ -27,9 +27,7 @@ function crearAgenda(obj) {
         success: function (response) {
             if (response.tipo == "ok") {
                 toastr.success('Se ha creado la agenda del personal')
-            } else {
-                toastr.error('Error al crear agenda')
-            }
+            } 
         },
         error: function (response) {
 
@@ -40,10 +38,8 @@ function crearAgenda(obj) {
 function validarFechasHoras() {
     var f1 = new Date(fechainicio);
     var f2 = new Date(fechafin);
-    if (f1 < f2) {
+    if (f1 <= f2) {
         if (horainicio < horafin+1) {
-            console.log(horainicio)
-            console.log(horafin)
             var obj = {
                 personal: personal,
                 fechainicio: fechainicio,
@@ -53,11 +49,11 @@ function validarFechasHoras() {
             }
             crearAgenda(obj)
         } else {
-            alert("Error , las horas ingresadas no son válidas")
+            toastr.error("Error , las horas ingresadas no son válidas")
         }
     } else {
 
-        alert("Error , las fechas ingresadas no son válidas")
+        toastr.error("Error , las fechas ingresadas no son válidas")
     }
 
 }
