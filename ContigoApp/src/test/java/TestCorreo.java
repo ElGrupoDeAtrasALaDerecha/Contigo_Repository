@@ -7,6 +7,6 @@ import usa.utils.Utils;
  */
 public class TestCorreo {
     public static void main(String[] args) {
-        Utils.enviarCorreoA("confirmacionEstudiante", "santipego0001@gmail.com");
+        Utils.enviarCorreoA("confirmacionInstitucion", "santipego0001@gmail.com");
     }
 }
