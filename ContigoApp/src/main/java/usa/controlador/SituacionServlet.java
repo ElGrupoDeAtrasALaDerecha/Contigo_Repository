@@ -126,12 +126,12 @@ public class SituacionServlet extends HttpServlet {
             respuesta.put("mensaje", "No existe una situación con ese id");
         }
         }else if( "final".equals(tipo)){
-            Situacion finalActualizar = (Situacion) daoFinal.consultar(String.valueOf(situacion.getId()));
+            Final finalActualizar = (Final) daoFinal.consultar(String.valueOf(situacion.getId()));
         if (finalActualizar != null) {
             finalActualizar.setTexto(situacion.getTexto());
             finalActualizar.setTitulo(situacion.getTitulo());
             finalActualizar.setIdHistoria(situacion.getIdHistoria());
-            if (dao.actualizar(finalActualizar)) {
+            if (daoFinal.actualizar(finalActualizar)) {
                 respuesta.put("tipo", "ok");
                 respuesta.put("mensaje", "Final actualizado");
             } else {
@@ -147,6 +147,47 @@ public class SituacionServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
 
+    }
+    
+     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        String parametros = Utils.readParams(request);
+        System.out.println(parametros);
+        String tipo = request.getHeader("tipo");
+        String id = request.getParameter("id");
+        JSONObject respuesta = new JSONObject();
+        if("situacion".equals(tipo)){
+        Situacion situacionEliminar = (Situacion) dao.consultar(String.valueOf(id));
+        if (situacionEliminar != null) {
+            if (dao.eliminar(String.valueOf(id))) {
+                respuesta.put("tipo", "ok");
+                respuesta.put("mensaje", "Situación eliminada");
+            } else {
+                respuesta.put("tipo", "error");
+                respuesta.put("mensaje", "Error al eliminar la situacion, debe eliminar sus situaciones primero");
+            }
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No existe una situación con ese id");
+        }
+        }else if( "final".equals(tipo)){
+            Final finalEliminar = (Final) daoFinal.consultar(id);
+        if (finalEliminar != null) {
+            if (daoFinal.eliminar(String.valueOf(String.valueOf(id)))) {
+                respuesta.put("tipo", "ok");
+                respuesta.put("mensaje", "Final Eliminado");
+            } else {
+                respuesta.put("tipo", "error");
+                respuesta.put("mensaje", "Error al eliminar el final");
+            }
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No existe un final con el id");
+        }  
+        }
+
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
     }
 
     /**

@@ -1,6 +1,7 @@
 package usa.modelo.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -27,7 +28,7 @@ public class FinalDao implements IFinalDao{
             sql = "insert into fin (id,SITUACION_id,titulo,texto)\n" +
             "values(?,?,?,?);";
             pat = conn.prepareStatement(sql);
-            pat.setInt(1, fin.getPredecesor());
+            pat.setInt(1, fin.getId());
             if(fin.getPredecesor()!=0){
                 pat.setInt(2, fin.getPredecesor());
             }else{
@@ -47,18 +48,35 @@ public class FinalDao implements IFinalDao{
 
     @Override
     public Final consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Final situacion = null ;
+        try {
+            String sql = "select * from fin where id =\""+id+"\"";
+            pat = conn.prepareStatement(sql);
+            ResultSet result = pat.executeQuery();
+            while(result.next()){
+                situacion = new Final();
+                situacion.setId(result.getInt("id"));
+                situacion.setPredecesor(result.getInt("SITUACION_id"));
+                situacion.setIdHistoria(result.getInt("HISTORIA_idHistoria"));
+                situacion.setTexto(result.getString("texto"));
+              
+                return situacion;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return situacion;
     }
 
     @Override
     public boolean actualizar(Final fin) {
        try {
-            String sql = "UPDATE fin SET HISTORIA_idHistoria=?, titulo=?, texto=? WHERE id=?";
+            String sql = "UPDATE fin SET titulo=?, texto=? WHERE id=?";
             pat = conn.prepareStatement(sql);
-            pat.setInt(1, fin.getIdHistoria());
-            pat.setString(2, fin.getTitulo());
-            pat.setString(3, fin.getTexto());
-            pat.setInt(4, fin.getId());
+            pat.setString(1, fin.getTitulo());
+            pat.setString(2, fin.getTexto());
+            pat.setInt(3, fin.getId());
             pat.execute();
             pat.close();
             return true;
@@ -70,7 +88,16 @@ public class FinalDao implements IFinalDao{
 
     @Override
     public boolean eliminar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       try {
+            String sql = "delete from fin where id="+id+";";
+            pat = conn.prepareStatement(sql);
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override

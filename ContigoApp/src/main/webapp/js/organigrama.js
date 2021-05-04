@@ -46,6 +46,20 @@
 		}
 	};
 
+	organigrama.prototype.eventDelete = function(c){
+		if(c === undefined){
+			alert('Evento Delete mal definido');
+			return;
+		}	
+		var btns = this.tabla.querySelectorAll('.nodo .btn-delete');
+
+		for(var i = 0; i < btns.length; i++){
+			on('click', btns[i], function(){
+				c(this.getAttribute('data-id'));
+			});
+		}
+	};
+
 	var addNode = function(parent, data) {
 		// Elementos para el nodo principal
 		var row = document.createElement('tr');
@@ -178,6 +192,17 @@
 
 			icon = document.createElement('i');
 			icon.className = 'glyphicon glyphicon-pencil';
+			btn.appendChild(icon);
+			div.appendChild(btn);
+
+			// Btn Eliminar
+			btn = document.createElement('btn');
+			btn.setAttribute('type','button');
+			btn.setAttribute('data-id', id);
+			btn.className = 'btn btn-danger btn-block btn-delete';
+
+			icon = document.createElement('i');
+			icon.className = 'glyphicon glyphicon-minus';
 			btn.appendChild(icon);
 			div.appendChild(btn);
 

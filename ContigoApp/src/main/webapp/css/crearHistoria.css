@@ -182,3 +182,15 @@ h1{
     font-size: 16px;
     cursor:pointer;
 }
+
+.btn-final{
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    color:#fff;
+    background: #700000;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor:pointer;
+}

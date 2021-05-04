@@ -20,10 +20,11 @@ $.ajax({
                 // Agregamos los eventos para los botones
                 organigrama.eventAdd(EventoAdd);
                 organigrama.eventEdit(EventoEdit);
+                organigrama.eventDelete(EventoDelete);
                 var cont=0;
                 function EventoAdd(id) {
                     var situacionActual = buscarNodo(parseInt(id));
-                     cont = situacionActual.opciones.length;
+                    cont = situacionActual.opciones.length;
                     console.log(cont)
                     if (cont <= 2){
                         var obj = {
@@ -37,20 +38,28 @@ $.ajax({
                     }else{
                         toastr.error('No puedes agregar mas de tres opciones');
                     }
-                   
-        
                 }
-    
                 function EventoEdit(id) {
                     crear(id);
                 }
-    
+                function EventoDelete(id) {
+                    eliminarSituacion(id);
+                }
             })();
         
         } else {
             console.log("error");
         }
-
+        let botones= $(".btn.btn-primary.btn-block.btn-add");
+        for(let i =0; i < botones.length; i++){
+            let btnAgregarId= parseInt($(botones[i]).attr("data-id"),10);
+            let nodo = buscarNodo(btnAgregarId);
+            if(nodo.opciones === undefined){
+                cuadroGrande=$(botones[i]).parent().parent()
+                $(cuadroGrande).css("background","#4e6582")
+                $(botones[i]).remove();
+            }
+        }
     },
     complete: function (result) {
      },

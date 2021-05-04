@@ -1,5 +1,6 @@
 var n = 0;
 var historia;
+var situaciones;
 window.onload = function obtenerhisotia() {
     var text;
     $.ajax({
@@ -84,9 +85,16 @@ function buscarNodo(id, nodo) {
 }
 
 function crear(id) {
-
+    var header
     let situacion = buscarNodo(parseInt(id));
     console.log(situacion)
+    let textoAdicional =""
+    if(situacion.opciones !== undefined){
+        textoAdicional += '  <input type="submit"  class="btn-final crearFinal" value="Establecer final">';
+        header="situacion"
+    }else{
+        header="final"
+    }
     let txt = '<div class="overlay active" id="overlay">' +
         '<div class="popup active" id="popup">' +
         '<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup" onclick="eliminar()"> ' +
@@ -106,7 +114,7 @@ function crear(id) {
         '<div class="botonesForm">' +
         //'<input type="submit"  class="btn-submit crearSituacion" value="Crear">'
         '<input type="submit" class="btn-submit actualizarSituacion" value="Actualizar" >  '
-        + '  <input type="submit"  class="btn-submit crearFinal" value="Crear final">'
+        + textoAdicional
         + '</div>'
         + '</form>'
         + '</div>'
@@ -168,24 +176,25 @@ function crear(id) {
             idHistoria: historia.id,
             texto: descripcion,
             titulo: titulo,
-            id: id
+            id: parseInt(id)
         }
         console.log(situacionActualizada);
-        registrar(situacionActualizada, "PUT", "situacion");
+        console.log(header)
+        registrar(situacionActualizada, "PUT", header);
     });
 }
 
+function eliminarSituacion(id){
+    let situacion = buscarNodo(parseInt(id));
+    if(situacion.opciones !== undefined){
+        header="situacion"
+    }else{
+        header="final"
+    }
 
-/**
- * Método para registrar la historia (aquí va el ajax)
- * @param {*} obj 
- */
-function registrar(obj, metodo, header) {
     $.ajax({
-        url: "Situacion",
-        type: metodo,
-        dataType: "json",
-        data: JSON.stringify(obj),
+        url: "Situacion?id=" +parseInt(id),
+        type: "DELETE",
         headers: {
             tipo: header
         },
@@ -210,14 +219,48 @@ function registrar(obj, metodo, header) {
         }
 
     });
+
+
 }
 
-function eliminar() {
-    $('#overlay').remove();
-    n = 0;
+/**
+ * Método para registrar la historia (aquí va el ajax)
+ * @param {*} obj 
+ */
+function registrar(obj, metodo, header) {
+    $.ajax({
+        url: "Situacion",
+        type: metodo,
+        dataType: "json",
+        data: JSON.stringify(obj),
+        headers: {
+            tipo: header
+        },
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            if (result.tipo != "error") {
+                console.log(result)
+                toastr.success(result.mensaje)
+                crearData();
+            
+            } else {
+                console.log(result)
+                toastr.error(result.mensaje)
+            }
+        },
+        complete: function (result) {
+
+        },
+        error: function (result) {
+            console.log(result);
+        }
+
+    });
 }
 
-var situaciones
+
 
 
 
