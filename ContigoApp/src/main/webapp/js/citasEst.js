@@ -1,9 +1,17 @@
 let monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+var horasN = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 var personal
 var horainicio
 var horafin
 var fechainicio
 var fechafin
+var listCitas
+var horasdisponibles = [];
+var fecha
+
+$(document).ready(function () {
+    cargarCitas();
+});
 
 let currentDate = new Date();//fecha del pc como ref
 let currentDay = currentDate.getDate();//dia de la semana
@@ -24,13 +32,12 @@ prevMonthDOM.addEventListener('click', mesAnterior);
 nextMonthDOM.addEventListener('click', mesSiguiente);
 
 escribirMeses(monthNumber);
-var fecha;
 
 var horas = document.getElementById("horas");
 var select = document.getElementById("horas2");
 var listaPersonal = document.getElementById('listaPersonal');
-listaPersonal.style.display= "none";
-horas.style.display="none"
+listaPersonal.style.display = "none";
+horas.style.display = "none"
 
 function escribirMeses(month, botonPresionado) {
     if (month < 4) {
@@ -94,18 +101,45 @@ function escribirMeses(month, botonPresionado) {
             </button>
             </div>`;
         }
-        
+
     }
 
     var contador = 0;
     $(".ui.inverted.basic.button").click(function (e) {
         contador++;
-        fecha = currentYear + '-' + month + '-' + $(this).attr("id");
+        variable = $(this).attr("id");
+        console.log(variable)
+        if (month < 10 && variable > 10) {
+            fecha = currentYear + '-' + 0 + month + '-' + variable;
+        } else if (variable < 10 && month < 10) {
+            fecha = currentYear + '-' + 0 + month + '-' + 0 + variable;
+        } else if (month > 10 && variable < 10) {
+            fecha = currentYear + '-' + month + '-' + 0 + variable;
+        } else if (month > 10 && variable > 10) {
+            fecha = currentYear + '-' + month + '-' + variable;
+        }
+        for (let i = 0; i < listCitas.length; i++) {
+            console.log("for" + i)
+            if (listCitas[i].fecha === fecha) {
+                console.log(listCitas[i].horaInicio)
+                horasdisponibles.push(listCitas[i].horaInicio)
+                console.log("entro")
+            }
+        }
+        filtrarHorasRepetidas()
         console.log(fecha);
         console.log(contador);
-        horas.style.display= "block";
+        horas.style.display = "block";
 
     })
+}
+
+function filtrarHorasRepetidas() {
+    var horasUnicas = horasdisponibles.filter(function (item, index, array) {
+        return array.indexOf(item) === index;
+    })
+    cargarHorasSelect(horasUnicas)
+
 }
 
 function obtenerDias(month) {
@@ -121,10 +155,12 @@ function obtenerDias(month) {
         return mesEspecial() ? 29 : 28;
     }
 }
+
 function mesEspecial() {//mes bisiesto
     return ((currentYear % 100 !== 0) && (currentYear % 4 === 0) || (currentYear % 400 === 0));
 
 }
+
 function inicioDia() {//saber el dia 1 del mes
     let start = new Date(currentYear, monthNumber, 1);
     if ((start.getDay() - 1) === -1) {
@@ -144,6 +180,7 @@ function mesAnterior() {
     }
     nuevaFecha();
 }
+
 function mesSiguiente() {
     if (monthNumber !== 11) {
         monthNumber++;
@@ -153,6 +190,7 @@ function mesSiguiente() {
     }
     nuevaFecha();
 }
+
 function nuevaFecha() {
     currentDate.setFullYear(currentYear, monthNumber, currentDay);
     month.textContent = monthNames[monthNumber];
@@ -162,20 +200,55 @@ function nuevaFecha() {
 }
 
 
-function selectHorario(){
-    
-        value = select.value, //El valor seleccionado
+function selectHorario(fecha) {
+    console.log(fecha)
+    value = select.value, //El valor seleccionado
         text = select.options[select.selectedIndex].innerText; //El texto de la opción seleccionada
-        console.log(value);
-        console.log(text);
-        ListaPersonalC(value);
+    ListaPersonalC(value);
 }
 
-function ListaPersonalC(e){  
+function ListaPersonalC(e) {
     console.log(e);
-    if(value !== ""){
-        listaPersonal.style.display="block";
-    }else{
-        listaPersonal.style.display="none";
+    if (value !== "") {
+        listaPersonal.style.display = "block";
+    } else {
+        listaPersonal.style.display = "none";
     }
 }
+
+
+function cargarHorasSelect(horasdisponibles) {
+    var m = ""
+    for (var i = 0; i < horasdisponibles.length; i++) {
+        if (horasdisponibles[i] > 11) {
+            m = " :00 pm"
+        }
+        else {
+            m = " :00 am"
+        }
+        let horasSelect2 = '<option value ="' + horasdisponibles[i] + '">' + horasdisponibles[i] + m +
+            '</option>';
+        $("#horas2").append(horasSelect2);
+    }
+}
+
+function cargarCitas() {
+    $.ajax({
+        url: "Cita",
+        type: "GET",
+        dataType: "json",
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (response) {
+            if (response.tipo === "ok") {
+                listCitas = response.citas;
+            }
+        }, complete: function (result) {
+
+        }, error: function (result) {
+            alert("Error interno")
+        }
+    });
+}
+

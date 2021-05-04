@@ -30,3 +30,9 @@ select * from situacion;
 select * from agenda;
 
 select * from agenda where personal_persona_documento="1000853622" ; 
+select * from cita;
+select id from AGENDA order by id desc limit 1;
+select DATE_ADD('2018-01-01', INTERVAL 1 DAY) as fecha;
+select DATEPART(dw, '5/03/2021')
+
+

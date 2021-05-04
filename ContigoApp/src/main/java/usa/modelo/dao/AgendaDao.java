@@ -41,7 +41,6 @@ public class AgendaDao implements IDaoAgenda {
             pat.setInt(4, ag.getHoraInicio());
             pat.setInt(5, ag.getHoraFin());
             pat.execute();
-            pat.close();
             String sql2 = "select id from AGENDA order by id desc limit 1;";
             pat = conn.prepareStatement(sql2);
             ResultSet rs = pat.executeQuery();

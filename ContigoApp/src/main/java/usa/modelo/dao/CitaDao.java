@@ -5,18 +5,14 @@
  */
 package usa.modelo.dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Cita;
 
@@ -44,7 +40,7 @@ public class CitaDao implements IDaoCita {
             pat.close();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -66,7 +62,28 @@ public class CitaDao implements IDaoCita {
 
     @Override
     public LinkedList<Cita> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList<Cita> citas = new LinkedList();
+        try {
+            String sql = "select *from cita ";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setId(rs.getInt("id"));
+                cita.setIdAgenda(rs.getInt("AGENDA_id"));
+                cita.setIdEstudiante(rs.getString("ESTUDIANTE_PERSONA_documento"));
+                cita.setHoraInicio(rs.getInt("horaInicio"));
+                cita.setFecha(rs.getString("fecha"));
+                cita.setEstado(rs.getInt("estado"));
+                cita.setLugar(rs.getString("lugar"));
+                citas.add(cita);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return citas;
     }
 
     public int asignarHoraDia(int horainicio) {
@@ -91,20 +108,20 @@ public class CitaDao implements IDaoCita {
      */
     @Override
     public String asignarFecha(String fechaInicio) {
-       try {
-           String sql = "select DATE_ADD(\""+fechaInicio+"\", INTERVAL 1 DAY) as fecha;";
+        try {
+            String sql = "select DATE_ADD(\"" + fechaInicio + "\", INTERVAL 1 DAY) as fecha;";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             if (rs.next()) {
                 String fechaI = rs.getString("fecha");
-                fechaInicio=null;
-                fechaInicio=fechaI;
+                fechaInicio = null;
+                fechaInicio = fechaI;
                 rs.close();
                 pat.close();
                 return fechaInicio;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
