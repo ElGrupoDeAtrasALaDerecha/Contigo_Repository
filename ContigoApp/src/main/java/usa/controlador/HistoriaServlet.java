@@ -13,6 +13,7 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Historia;
+import usa.modelo.dto.Situacion;
 import usa.utils.Utils;
 
 /**
@@ -24,6 +25,7 @@ public class HistoriaServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
     IDao dao = (IDao) factoryDao.obtener("HistoriaDao");
+    IDao dao2 = (IDao) factoryDao.obtener("SituacionDao");
     IDao personalCalificadoDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
 
     /**
@@ -75,6 +77,11 @@ public class HistoriaServlet extends HttpServlet {
             json.put("tipo", "ok");
             json.put("mensaje", "Historia creada");
             json.put("idHistoria", historia.getId());
+            Situacion situacion = new Situacion();
+            situacion.setIdHistoria(historia.getId());
+            situacion.setTitulo("");
+            situacion.setTexto("");
+            dao2.crear(situacion);
         } else {
             json.put("tipo", "error");
             json.put("mensaje", "Error al crear la historia");

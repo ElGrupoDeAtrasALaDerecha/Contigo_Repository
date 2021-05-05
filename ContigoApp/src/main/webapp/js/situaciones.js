@@ -12,7 +12,7 @@ window.onload = function obtenerhisotia() {
                 console.log(result);
                 historia = result.historia;
                 console.log(getCookie("idHistoria"))
-
+                document.getElementById('tituloHistoria').innerHTML = historia.titulo;
             } else {
                 console.log("error");
             }
@@ -261,7 +261,10 @@ function registrar(obj, metodo, header) {
 }
 
 
-
+function eliminar() {
+    $('#overlay').remove();
+    n = 0;
+}
 
 
 
