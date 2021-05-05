@@ -103,8 +103,8 @@ public class AgendaDao implements IDaoAgenda {
     public LinkedList<PersonalCalificado> percaCita (String hora) throws SQLException{
         LinkedList<PersonalCalificado> perca = new LinkedList<>();
         String sql = "select distinct AGENDA.PERSONAL_PERSONA_documento as ID_PERCA, PERSONA.primerNombre as Nombre, PERSONA.primerApellido as Apellido\n" +
-                    "from AGENDA, PERSONAL, CITA, PERSONA\n" +
-                    "where  CITA.AGENDA_id = AGENDA.id and PERSONA.documento = AGENDA.PERSONAL_PERSONA_documento and CITA.horaInicio = ' "+ hora + "';";
+                     "from AGENDA, PERSONAL, CITA, PERSONA\n" +
+                     "where  CITA.AGENDA_id = AGENDA.id and PERSONA.documento = AGENDA.PERSONAL_PERSONA_documento and CITA.horaInicio = ' "+ hora + "';";
         pat = conn.prepareStatement(sql);
         result = pat.executeQuery();
         while (result.next()) {
