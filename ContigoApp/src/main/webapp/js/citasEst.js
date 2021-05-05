@@ -120,26 +120,24 @@ function escribirMeses(month) {
 
         variable = $(this).attr("id");
         console.log(variable)
-        if (month < 10 && variable > 10) {
-            fecha = currentYear + '-' + 0 + month + '-' + variable;
-        } else if (variable < 10 && month < 10) {
-            fecha = currentYear + '-' + 0 + month + '-' + 0 + variable;
-        } else if (month > 10 && variable < 10) {
-            fecha = currentYear + '-' + month + '-' + 0 + variable;
-        } else if (month > 10 && variable > 10) {
-            fecha = currentYear + '-' + month + '-' + variable;
+        var mes = month+1
+        if (mes < 10 && variable > 10) {
+            fecha = currentYear + '-' + 0 + mes + '-' + variable;
+        } else if (variable < 10 && mes < 10) {
+            fecha = currentYear + '-' + 0 + mes + '-' + 0 + variable;
+        } else if (mes > 10 && variable < 10) {
+            fecha = currentYear + '-' + mes + '-' + 0 + variable;
+        } else if (mes > 10 && variable > 10) {
+            fecha = currentYear + '-' + mes + '-' + variable;
         }
         for (let i = 0; i < listCitas.length; i++) {
-            console.log("for" + i)
+            // console.log("for" + i)
             if (listCitas[i].fecha === fecha) {
                 console.log(listCitas[i].horaInicio)
                 horasdisponibles.push(listCitas[i].horaInicio)
-                console.log("entro")
             }
         }
         filtrarHorasRepetidas()
-        console.log(fecha);
-        console.log(contador);
         horas.style.display = "block";
 
     })
@@ -212,9 +210,10 @@ function nuevaFecha() {
 
 
 function selectHorario(fecha) {
-    console.log(fecha)
-    value = select.value, //El valor seleccionado
-        text = select.options[select.selectedIndex].innerText; //El texto de la opción seleccionada
+    var cita = fecha+"-"+select
+    console.log(cita)
+    // value = select.value, //El valor seleccionado
+    // text = select.options[select.selectedIndex].innerText; //El texto de la opción seleccionada
     ListaPersonalC(value);
 }
 
@@ -303,8 +302,7 @@ function limpiarDiv() {
     $('#divEmergente').empty();
 }
 
-
-
+/**********************************************LISTA */
 function cargarHorasSelect(horasdisponibles) {
     var m = ""
     for (var i = 0; i < horasdisponibles.length; i++) {
@@ -319,6 +317,16 @@ function cargarHorasSelect(horasdisponibles) {
         $("#horas2").append(horasSelect2);
     }
 }
+$('#btnAgenddamiento').click(
+function percaHora() {
+    console.log("°°°°°");
+    var hora = $("#horas2 option:selected").val()
+    var cita = {
+        fecha: fecha,
+        hora: hora
+    }
+    console.log(cita);
+})
 
 function cargarCitas() {
     $.ajax({
