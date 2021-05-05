@@ -303,10 +303,6 @@ function limpiarDiv() {
 }
 
 /**********************************************LISTA */
-    }
-}
-
-
 function cargarHorasSelect(horasdisponibles) {
     var m = ""
     for (var i = 0; i < horasdisponibles.length; i++) {
