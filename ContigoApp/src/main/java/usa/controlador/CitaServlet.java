@@ -33,13 +33,9 @@ import usa.utils.Utils;
 public class CitaServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
-<<<<<<< HEAD
     CitaDao dao = (CitaDao) factoryDao.obtener("CitaDao");
-    
-=======
-    IDao dao = (IDao) factoryDao.obtener("CitaDao");
 
->>>>>>> 8842bc23247cd3f8ae2ff7e461438539618cd84f
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
