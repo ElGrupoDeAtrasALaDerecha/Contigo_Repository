@@ -7,6 +7,7 @@ package usa.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,14 +17,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
+import usa.modelo.dao.CitaDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoCita;
-<<<<<<< HEAD
 import usa.modelo.dto.Cita;
-=======
 import usa.modelo.dao.IDaoEstudiante;
 import usa.modelo.dto.Estudiante;
->>>>>>> c2b26d0a412820d552cc15d1761bd2cdb8ffe7c5
 import usa.utils.Utils;
 
 /**
@@ -34,12 +33,32 @@ import usa.utils.Utils;
 public class CitaServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
-    IDao dao = (IDao) factoryDao.obtener("CitaDao");
+    CitaDao dao = (CitaDao) factoryDao.obtener("CitaDao");
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("application/json;charset=UTF-8");
+        System.out.println(request);
+        JSONObject respuesta = new JSONObject();
+        
+        String tipo=request.getParameter("tipo");
+        if(tipo != null){
+            if(tipo.equals("getPerca")){
+                String fecha=request.getHeader("fecha");
+                String hora=request.getHeader("hora");
+                System.out.println("---> " + fecha + " - "+ hora);
+                LinkedList<Cita> perca = dao.percaCita(fecha,hora);
+                respuesta.put("perca", perca);
+            }
+        }
+        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+        respuesta.put("tipo", "ok");
+        respuesta.put("citas", arreglo);  
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+        
+        /**
         response.setContentType("application/json;charset=UTF-8");
         System.out.println(request);
         JSONObject respuesta = new JSONObject();
@@ -65,7 +84,7 @@ public class CitaServlet extends HttpServlet {
         
         respuesta.put("citas", arreglo);
         PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());
+        out.print(respuesta.toString());**/
 
     }
 
@@ -98,16 +117,13 @@ public class CitaServlet extends HttpServlet {
     }
     
 
-    }
+   
 
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    
 
 }

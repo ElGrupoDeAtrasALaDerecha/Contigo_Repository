@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Cita;
+import usa.modelo.dto.PersonalCalificado;
 
 /**
  *
@@ -173,7 +174,7 @@ public class CitaDao implements IDaoCita {
                     + "inner join agenda as a on a.id=c.AGENDA_id\n"
                     + "inner join personal as pc on pc.PERSONA_documento=a.PERSONAL_PERSONA_documento\n"
                     + "inner join persona as p on p.documento=pc.PERSONA_documento\n"
-                    + "where ESTUDIANTE_PERSONA_documento=\""+documento+"\" and fecha<sysdate();";
+                    + "where ESTUDIANTE_PERSONA_documento=\"" + documento + "\" and fecha<sysdate();";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
@@ -185,7 +186,7 @@ public class CitaDao implements IDaoCita {
                 cita.setFecha(rs.getString("fecha"));
                 cita.setEstado(rs.getInt("estado"));
                 cita.setLugar(rs.getString("lugar"));
-                cita.setPersonal(rs.getString("personal"));
+                cita.setNombre_perca(rs.getString("personal"));
                 cita.setImagen(rs.getString("imagen"));
                 historialDeCitas.add(cita);
             }
@@ -193,5 +194,28 @@ public class CitaDao implements IDaoCita {
             Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return historialDeCitas;
+    }
+
+    @Override
+    public LinkedList<Cita> percaCita(String fecha, String hora) {
+        LinkedList<Cita> perca = new LinkedList<>();
+        try {
+            String sql = "select distinct AGENDA.PERSONAL_PERSONA_documento as ID_PERCA, PERSONA.primerNombre as Nombre, PERSONA.primerApellido as Apellido, PERSONAL.imagen"
+                    + " from AGENDA, PERSONAL, CITA, PERSONA "
+                    + " where  CITA.AGENDA_id = AGENDA.id and PERSONA.documento = AGENDA.PERSONAL_PERSONA_documento and CITA.fecha = '" + fecha + "' and CITA.horaInicio = '" + hora + "'"
+                    + " group by ID_PERCA;";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            while (result.next()) {
+                Cita personal = new Cita();
+                personal.setId_perca(result.getString("ID_PERCA"));
+                personal.setNombre_perca(result.getString("Nombre") + " " + result.getString("Apellido"));
+                personal.setImagen(result.getString("imagen"));
+                perca.add(personal);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return perca;
     }
 }
