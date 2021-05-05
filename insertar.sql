@@ -81,3 +81,11 @@ insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_d
 
 insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("123456789",sysdate());
 #insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("100718536",sysdate());
+
+insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-3-28","2021-3-30","9","11");
+insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-3-28","2021-4-5","9","11");
+
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,9,"2021-03-28",1,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,10,"2021-03-28",1,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,11,"2021-03-28",1,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,9,"2021-04-04",1,"https://meet.google.com/snf-yxio-tdp");

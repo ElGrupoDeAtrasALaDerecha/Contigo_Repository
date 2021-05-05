@@ -3,7 +3,6 @@ package usa.bd;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import usa.bd.IConexionBD;
 
 /**
  * Clase de conexión con la base de datos. 
@@ -13,7 +12,7 @@ import usa.bd.IConexionBD;
 public class Conexion extends IConexionBD{
     String bd = "contigoBD";
     String user= "root";
-    String password="029624";
+    String password="1234";
     String host="localhost";
     String port="3306";
     private final String url = "jdbc:mysql://"+host+":"+port+"/"+bd+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";

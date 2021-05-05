@@ -8,6 +8,7 @@ var fechafin
 var listCitas
 var horasdisponibles = [];
 var fecha
+var historialCitas;
 
 $(document).ready(function () {
     cargarCitas();
@@ -252,3 +253,27 @@ function cargarCitas() {
     });
 }
 
+function obtenerHistorial(){
+    $.ajax({
+        url: "Cita?tipo=historialEstudiante",
+        type: "GET",
+        dataType: "json",
+        headers:{
+            token:getCookie("token")
+        },
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (response) {
+            if (response.tipo === "ok") {
+                historialCitas = response.citas;
+            }
+        }, 
+        complete: function (result) {
+
+        },
+        error: function (result) {
+        
+        }
+    });
+}

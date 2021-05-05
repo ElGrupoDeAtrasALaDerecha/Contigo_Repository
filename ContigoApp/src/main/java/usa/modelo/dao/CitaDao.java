@@ -126,4 +126,27 @@ public class CitaDao implements IDaoCita {
         return null;
     }
 
+    @Override
+    public LinkedList<Cita> listarHistorial(String documento) {
+        LinkedList<Cita> historialDeCitas = new LinkedList();
+        try {
+            String sql = "select * from cita where ESTUDIANTE_PERSONA_documento=\""+documento+"\" and fecha<sysdate();";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setId(rs.getInt("id"));
+                cita.setIdAgenda(rs.getInt("AGENDA_id"));
+                cita.setIdEstudiante(rs.getString("ESTUDIANTE_PERSONA_documento"));
+                cita.setHoraInicio(rs.getInt("horaInicio"));
+                cita.setFecha(rs.getString("fecha"));
+                cita.setEstado(rs.getInt("estado"));
+                cita.setLugar(rs.getString("lugar"));
+                historialDeCitas.add(cita);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return historialDeCitas;
+    }
 }
