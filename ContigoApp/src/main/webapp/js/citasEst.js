@@ -8,6 +8,7 @@ var fechafin
 var listCitas
 var horasdisponibles = [];
 var fecha
+var historialCitas;
 
 $(document).ready(function () {
     cargarCitas();
@@ -32,14 +33,18 @@ prevMonthDOM.addEventListener('click', mesAnterior);
 nextMonthDOM.addEventListener('click', mesSiguiente);
 
 escribirMeses(monthNumber);
+var fecha;
+var textHora;
 
 var horas = document.getElementById("horas");
 var select = document.getElementById("horas2");
 var listaPersonal = document.getElementById('listaPersonal');
+var btnCitasAgendada = document.getElementById('btnCitasAgendada')
+btnCitasAgendada.style.display = "block";
 listaPersonal.style.display = "none";
 horas.style.display = "none"
 
-function escribirMeses(month, botonPresionado) {
+function escribirMeses(month) {
     if (month < 4) {
         for (let i = inicioDia(); i > 0; i--) {
             dates.innerHTML += `<div class="date item ">
@@ -107,6 +112,12 @@ function escribirMeses(month, botonPresionado) {
     var contador = 0;
     $(".ui.inverted.basic.button").click(function (e) {
         contador++;
+        mes=month+1;
+        fecha = currentYear + '-' + mes + '-' + $(this).attr("id");
+        console.log(fecha);
+        console.log(contador);
+        horas.style.display = "block";
+
         variable = $(this).attr("id");
         console.log(variable)
         if (month < 10 && variable > 10) {
@@ -216,6 +227,83 @@ function ListaPersonalC(e) {
     }
 }
 
+/*******************************************DIV EMERGENTE************************************************* */
+const openEls = document.querySelectorAll("[data-open]");
+const closeEls = document.querySelectorAll("[data-close]");
+const isVisible = "is-visible";
+for (const el of openEls) {
+    el.addEventListener("click", function () {
+        const modalId = this.dataset.open;
+        document.getElementById(modalId).classList.add(isVisible);
+        llenarDiv(fecha, textHora)
+    });
+}
+
+for (const el of closeEls) {
+    el.addEventListener("click", function () {
+        this.parentElement.parentElement.parentElement.classList.remove(isVisible);
+
+    });
+}
+
+document.addEventListener("click", e => {
+    if (e.target == document.querySelector(".modal.is-visible")) {
+        document.querySelector(".modal.is-visible").classList.remove(isVisible);
+        limpiarDiv()
+    }
+});
+
+document.addEventListener("keyup", e => {
+    // if we press the ESC
+    if (e.key == "Escape" && document.querySelector(".modal.is-visible")) {
+        document.querySelector(".modal.is-visible").classList.remove(isVisible);
+        limpiarDiv()
+    }
+});
+/************************************************DIV EMERGENTE******************** */
+var divTexto = document.getElementById('divEmergente');
+var contConf=0;
+    var contCanc=0;
+function llenarDiv(fecha, hora) {
+    divTexto = `<p>DATOS DE SU CITA: </p>` +
+        `<p>Fecha: ${fecha} </p>` +
+        `<p>Hora: ${hora}</p>` +
+        `<p>Personal calificado: </p>` +
+        `<div class="ui buttons">
+        <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
+        <div class="or"></div>
+        <button id="btnConfirmarC" class="ui blue button">Confirmar cita</button>
+        </div>`
+    $('#divEmergente').append(divTexto);
+    
+    $("#btnCancelarC").click(function(){
+        alert('Ha hecho click sobre el boton'); 
+        contCanc++;
+        console.log(contCanc);
+        document.querySelector(".modal.is-visible").classList.remove(isVisible);
+        limpiarDiv();
+        return false;
+    });
+    $("#btnConfirmarC").click(function(){
+        alert('Ha hecho click sobre el boton'); 
+        contConf++;
+        console.log(contConf)
+        return true;
+    });
+}
+function botonConfirmarC(){
+    if(contCanc++ !== 0){
+
+    }
+}
+
+
+
+function limpiarDiv() {
+    $('#divEmergente').empty();
+}
+
+
 
 function cargarHorasSelect(horasdisponibles) {
     var m = ""
@@ -252,3 +340,27 @@ function cargarCitas() {
     });
 }
 
+function obtenerHistorial(){
+    $.ajax({
+        url: "Cita?tipo=historialEstudiante",
+        type: "GET",
+        dataType: "json",
+        headers:{
+            token:getCookie("token")
+        },
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (response) {
+            if (response.tipo === "ok") {
+                historialCitas = response.citas;
+            }
+        }, 
+        complete: function (result) {
+
+        },
+        error: function (result) {
+        
+        }
+    });
+}

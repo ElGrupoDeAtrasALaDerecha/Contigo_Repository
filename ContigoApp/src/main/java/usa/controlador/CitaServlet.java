@@ -18,7 +18,12 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoCita;
+<<<<<<< HEAD
 import usa.modelo.dto.Cita;
+=======
+import usa.modelo.dao.IDaoEstudiante;
+import usa.modelo.dto.Estudiante;
+>>>>>>> c2b26d0a412820d552cc15d1761bd2cdb8ffe7c5
 import usa.utils.Utils;
 
 /**
@@ -30,7 +35,7 @@ public class CitaServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
     IDao dao = (IDao) factoryDao.obtener("CitaDao");
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -38,8 +43,26 @@ public class CitaServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         System.out.println(request);
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-        respuesta.put("tipo", "ok");
+        String tipo=request.getParameter("tipo");
+        JSONArray arreglo = null;
+        String token=request.getHeader("token");
+        if(tipo!=null){
+            if(tipo.equals("historialEstudiante")){
+                IDaoEstudiante daoEstudiante=(IDaoEstudiante)factoryDao.obtener("EstudianteDao");
+                Estudiante estudiante=daoEstudiante.consultarPorToken(token);
+                if(estudiante!=null){
+                    respuesta.put("tipo", "ok");
+                    arreglo=new JSONArray(Utils.toJson(((IDaoCita)dao).listarHistorial(estudiante.getDocumento())));
+                }else{
+                    respuesta.put("tipo", "error");
+                }
+            }
+        }else{
+            if(token!=null){
+                arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+            }   
+        }
+        
         respuesta.put("citas", arreglo);
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());

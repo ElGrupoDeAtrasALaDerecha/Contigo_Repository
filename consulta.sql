@@ -33,6 +33,10 @@ select * from agenda where personal_persona_documento="1000853622" ;
 select * from cita;
 select id from AGENDA order by id desc limit 1;
 select DATE_ADD('2018-01-01', INTERVAL 1 DAY) as fecha;
-select DATEPART(dw, '5/03/2021')
+select DATEPART(dw, '5/03/2021');
 
-
+select concat(p.primerNombre," ",p.segundoNombre," ",p.primerApellido," ",p.segundoApellido) as personal, pc.imagen , c.* from cita as c 
+inner join agenda as a on a.id=c.AGENDA_id
+inner join personal as pc on pc.PERSONA_documento=a.PERSONAL_PERSONA_documento
+inner join persona as p on p.documento=pc.PERSONA_documento
+where ESTUDIANTE_PERSONA_documento="1000853624" and fecha<sysdate();

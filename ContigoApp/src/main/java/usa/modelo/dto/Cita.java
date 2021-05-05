@@ -20,6 +20,8 @@ public class Cita {
     private String lugar;
     private String motivo;
     private String recomendaciones;
+    private String personal;
+    private String imagen;
 
     public Cita() {
     }
@@ -80,6 +82,7 @@ public class Cita {
         this.lugar = lugar;
     }
 
+<<<<<<< HEAD
     public String getMotivo() {
         return motivo;
     }
@@ -94,6 +97,22 @@ public class Cita {
 
     public void setRecomendaciones(String recomendaciones) {
         this.recomendaciones = recomendaciones;
+=======
+    public String getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(String personal) {
+        this.personal = personal;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+>>>>>>> c2b26d0a412820d552cc15d1761bd2cdb8ffe7c5
     }
 
     

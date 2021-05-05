@@ -5,6 +5,7 @@
  */
 package usa.modelo.dao;
 
+import java.util.LinkedList;
 import usa.modelo.dto.Cita;
 
 /**
@@ -20,4 +21,5 @@ public interface IDaoCita extends IDao<Cita> {
     String asignarFecha(String fechaInicio);
     
     boolean registroSucedidoEstudiante(Cita ci);
+    LinkedList <Cita> listarHistorial(String documento);
 }

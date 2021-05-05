@@ -3,7 +3,6 @@ package usa.bd;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import usa.bd.IConexionBD;
 
 /**
  * Clase de conexión con la base de datos. 
