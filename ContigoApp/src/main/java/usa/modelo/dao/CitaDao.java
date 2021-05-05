@@ -130,7 +130,11 @@ public class CitaDao implements IDaoCita {
     public LinkedList<Cita> listarHistorial(String documento) {
         LinkedList<Cita> historialDeCitas = new LinkedList();
         try {
-            String sql = "select * from cita where ESTUDIANTE_PERSONA_documento=\""+documento+"\" and fecha<sysdate();";
+            String sql = "select concat(p.primerNombre,\" \",p.segundoNombre,\" \",p.primerApellido,\" \",p.segundoApellido) as personal, pc.imagen , c.* from cita as c \n"
+                    + "inner join agenda as a on a.id=c.AGENDA_id\n"
+                    + "inner join personal as pc on pc.PERSONA_documento=a.PERSONAL_PERSONA_documento\n"
+                    + "inner join persona as p on p.documento=pc.PERSONA_documento\n"
+                    + "where ESTUDIANTE_PERSONA_documento=\""+documento+"\" and fecha<sysdate();";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
@@ -142,6 +146,8 @@ public class CitaDao implements IDaoCita {
                 cita.setFecha(rs.getString("fecha"));
                 cita.setEstado(rs.getInt("estado"));
                 cita.setLugar(rs.getString("lugar"));
+                cita.setPersonal(rs.getString("personal"));
+                cita.setImagen(rs.getString("imagen"));
                 historialDeCitas.add(cita);
             }
         } catch (SQLException ex) {
