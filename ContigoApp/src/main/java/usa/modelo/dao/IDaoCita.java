@@ -5,6 +5,7 @@
  */
 package usa.modelo.dao;
 
+import java.util.LinkedList;
 import usa.modelo.dto.Cita;
 
 /**
@@ -18,4 +19,6 @@ public interface IDaoCita extends IDao<Cita> {
     int asignarHoraDia(int horainicio);
 
     String asignarFecha(String fechaInicio);
+    
+    LinkedList <Cita> listarHistorial(String documento);
 }

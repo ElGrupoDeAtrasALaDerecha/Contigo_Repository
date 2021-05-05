@@ -18,6 +18,8 @@ public class Cita {
     private String fecha;
     private int estado;
     private String lugar;
+    private String personal;
+    private String imagen;
 
     public Cita() {
     }
@@ -76,6 +78,22 @@ public class Cita {
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
+    }
+
+    public String getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(String personal) {
+        this.personal = personal;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     
