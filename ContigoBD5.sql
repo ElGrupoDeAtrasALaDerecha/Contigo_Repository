@@ -256,6 +256,8 @@ CREATE TABLE CITA (
   fecha DATE NOT NULL,
   estado INTEGER UNSIGNED NULL,
   lugar VARCHAR(300) NOT NULL,
+  motivo VARCHAR(20) null,
+  recomendaciones VARCHAR(20) null,
   PRIMARY KEY(id),
   INDEX CITA_FKIndex1(ESTUDIANTE_PERSONA_documento),
   INDEX CITA_FKIndex2(AGENDA_id),

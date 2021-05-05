@@ -57,7 +57,8 @@ public class CitaDao implements IDaoCita {
                 cita.setId(result.getInt("id"));
                 cita.setIdAgenda(result.getInt("AGENDA_id"));
                 cita.setIdEstudiante(result.getString("ESTUDIANTE_PERSONA_documento"));
-                cita.setHoraInicio(result.getInt("fechaInicio"));
+                cita.setHoraInicio(result.getInt("horaInicio"));
+                cita.setFecha(result.getString("fecha"));
                 cita.setEstado(result.getInt("estado"));
                 cita.setLugar(result.getString("lugar"));
                 cita.setMotivo(result.getString("motivo"));
@@ -148,20 +149,21 @@ public class CitaDao implements IDaoCita {
     }
 
     public boolean registroSucedidoEstudiante(Cita ci) {
-        String sql = "update cita set estado=\"" + ci.getEstado() + "\", motivo=\"" + ci.getMotivo() + "\",recomendaciones=\"" + ci.getRecomendaciones() + "\" where id=\"" + ci.getId() + "\";";
+        System.out.println("" + ci.getEstado());
+        String sql = "update cita set estado=?, motivo=?,recomendaciones=? where id=?;";
         try {
+            System.out.println("entro");
             pat = conn.prepareStatement(sql);
-            ResultSet rs = pat.executeQuery();
             pat.setInt(1, ci.getEstado());
             pat.setString(2, ci.getMotivo());
-            pat.setString(2, ci.getRecomendaciones());
+            pat.setString(3, ci.getRecomendaciones());
+            pat.setInt(4, ci.getId());
             pat.execute();
             pat.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return false;
     }
 
@@ -173,7 +175,7 @@ public class CitaDao implements IDaoCita {
                     + "inner join agenda as a on a.id=c.AGENDA_id\n"
                     + "inner join personal as pc on pc.PERSONA_documento=a.PERSONAL_PERSONA_documento\n"
                     + "inner join persona as p on p.documento=pc.PERSONA_documento\n"
-                    + "where ESTUDIANTE_PERSONA_documento=\""+documento+"\" and fecha<sysdate();";
+                    + "where ESTUDIANTE_PERSONA_documento=\"" + documento + "\" and fecha<sysdate();";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
