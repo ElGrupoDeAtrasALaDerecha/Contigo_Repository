@@ -43,20 +43,21 @@
 
         <div id="horas">
             <p>Hora de la cita</p>
-            <div class="item"> 
-            <select id="horas2" name="horas2" onchange="selectHorario()">
-                <option value="">Horas</option>
-                <option value="1">8:00 a.m. </option>
-                <option value="2">9:00 a.m.</option>
-                <option value="3">10:00 a.m.</option>
-                <option value="4">11:00 a.m.</option>
-                <option value="5">12:00 p.m.</option>
-                <option value="6">1:00 p.m.</option>
-                <option value="7">2:00 p.m.</option>
-                <option value="8">3:00 p.m.</option>
-                <option value="9">4:00 p.m.</option>
-            </select> </div>
-            
+            <div class="item">
+                <select id="horas2" name="horas2" onchange="selectHorario()">
+                    <option value="">Horas</option>
+                    <option value="1">8:00 a.m. </option>
+                    <option value="2">9:00 a.m.</option>
+                    <option value="3">10:00 a.m.</option>
+                    <option value="4">11:00 a.m.</option>
+                    <option value="5">12:00 p.m.</option>
+                    <option value="6">1:00 p.m.</option>
+                    <option value="7">2:00 p.m.</option>
+                    <option value="8">3:00 p.m.</option>
+                    <option value="9">4:00 p.m.</option>
+                </select>
+            </div>
+
             <div id="listaPersonal">
 
                 <div class="ui middle aligned divided list">
@@ -64,11 +65,35 @@
                     <div class="item">
                         <i class="user circle icon"></i>
                         <div class="content">
-                            <a class="header">Daniel Louise</a>
+                            <a id="personalCalificadoLista" class="header" href="Camila"> camila f</a>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+            
+        </div>
+        
+    </div>
+
+    <div id="btnCitasAgendada" class="btn-group">
+        <button id="btnAgenddamiento"type="button" class="open-modal" data-open="modal1">
+            Agendar cita
+        </button>
+    </div>
+    
+    <div class="modal" id="modal1" data-animation="slideInOutLeft">
+        <div class="modal-dialog">
+            <header class="modal-header">
+                Agendamiento de citas
+                <button class="close-modal" data-close>
+                    X
+                </button>
+            </header>
+            <section id="divEmergente" class="modal-content">
+
+            </section>
+
         </div>
     </div>
 </body>
