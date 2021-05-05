@@ -20,5 +20,6 @@ public interface IDaoCita extends IDao<Cita> {
 
     String asignarFecha(String fechaInicio);
     
+    boolean registroSucedidoEstudiante(Cita ci);
     LinkedList <Cita> listarHistorial(String documento);
 }

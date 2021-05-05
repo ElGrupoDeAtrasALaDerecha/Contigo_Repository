@@ -27,6 +27,7 @@ function crearAgenda(obj) {
         success: function (response) {
             if (response.tipo == "ok") {
                 toastr.success('Se ha creado la agenda del personal')
+                limpiarInput()
             } 
         },
         error: function (response) {
@@ -76,3 +77,9 @@ function cargarHorasSelect() {
 }
 
 
+function limpiarInput(){
+    document.getElementById("horainicio").value = "";
+    document.getElementById("horafin").value = "";
+    document.getElementById("fecha").value = "";
+    document.getElementById("fecha2").value = "";
+}

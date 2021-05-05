@@ -18,8 +18,12 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoCita;
+<<<<<<< HEAD
+import usa.modelo.dto.Cita;
+=======
 import usa.modelo.dao.IDaoEstudiante;
 import usa.modelo.dto.Estudiante;
+>>>>>>> c2b26d0a412820d552cc15d1761bd2cdb8ffe7c5
 import usa.utils.Utils;
 
 /**
@@ -35,7 +39,7 @@ public class CitaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("application/json;charset=UTF-8");
         System.out.println(request);
         JSONObject respuesta = new JSONObject();
@@ -65,17 +69,35 @@ public class CitaServlet extends HttpServlet {
 
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject(Utils.readParams(request));
+        Cita citaActualizar = (Cita) dao.consultar(json.getString("id"));
+        if (citaActualizar != null) {
+            IDaoCita daocita = (IDaoCita) dao;
+            citaActualizar.setEstado(json.getInt("estado"));
+            if (json.getInt("estado") == 3 || json.getInt("estado") == 7 ) {
+                citaActualizar.setMotivo(json.getString("motivo"));
+                citaActualizar.setRecomendaciones(json.getString("recomendaciones"));
+                if (daocita.registroSucedidoEstudiante(citaActualizar)) {
+                    json.put("tipo", "ok");
+                    json.put("mensaje", "Se ha registrado la información");
+                } else {
+                    json.put("tipo", "error");
+                    json.put("mensaje", "No se ha podido guardar el registro");
+                }
+            }
+        }
+    }
+    
+
     }
 
     /**
