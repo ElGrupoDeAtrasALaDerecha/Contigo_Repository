@@ -117,12 +117,6 @@ public class CitaServlet extends HttpServlet {
             }
         }
     }
-<<<<<<< HEAD
-    
-
-   
-=======
->>>>>>> 8842bc23247cd3f8ae2ff7e461438539618cd84f
 
     /**
      * Returns a short description of the servlet.
