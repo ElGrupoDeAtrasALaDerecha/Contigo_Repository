@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.JSONArray;
+import org.json.JSONObject;
 import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Cita;
 
@@ -45,9 +45,30 @@ public class CitaDao implements IDaoCita {
         return false;
     }
 
-    @Override
     public Cita consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int idr = Integer.valueOf(id);
+        Cita cita = null;
+        try {
+            String sql = "select * from cita where id = '" + idr + "';";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            cita = new Cita();
+            while (result.next()) {
+                cita.setId(result.getInt("id"));
+                cita.setIdAgenda(result.getInt("AGENDA_id"));
+                cita.setIdEstudiante(result.getString("ESTUDIANTE_PERSONA_documento"));
+                cita.setHoraInicio(result.getInt("fechaInicio"));
+                cita.setEstado(result.getInt("estado"));
+                cita.setLugar(result.getString("lugar"));
+                cita.setMotivo(result.getString("motivo"));
+                cita.setRecomendaciones(result.getString("recomendaciones"));
+            }
+            result.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AgendaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cita;
     }
 
     @Override
@@ -124,6 +145,24 @@ public class CitaDao implements IDaoCita {
             Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public boolean registroSucedidoEstudiante(Cita ci) {
+        String sql = "update cita set estado=\"" + ci.getEstado() + "\", motivo=\"" + ci.getMotivo() + "\",recomendaciones=\"" + ci.getRecomendaciones() + "\" where id=\"" + ci.getId() + "\";";
+        try {
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            pat.setInt(1, ci.getEstado());
+            pat.setString(2, ci.getMotivo());
+            pat.setString(2, ci.getRecomendaciones());
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
     }
 
 }

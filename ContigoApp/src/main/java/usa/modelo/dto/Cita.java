@@ -18,6 +18,8 @@ public class Cita {
     private String fecha;
     private int estado;
     private String lugar;
+    private String motivo;
+    private String recomendaciones;
 
     public Cita() {
     }
@@ -76,6 +78,22 @@ public class Cita {
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public String getRecomendaciones() {
+        return recomendaciones;
+    }
+
+    public void setRecomendaciones(String recomendaciones) {
+        this.recomendaciones = recomendaciones;
     }
 
     

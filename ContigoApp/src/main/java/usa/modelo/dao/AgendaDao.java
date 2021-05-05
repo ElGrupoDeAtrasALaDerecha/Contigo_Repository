@@ -71,7 +71,7 @@ public class AgendaDao implements IDaoAgenda {
                 agenda.setFechaInicio(result.getString("fechaInicio"));
                 agenda.setFechaInicio(result.getString("fechaFin"));
                 agenda.setHoraInicio(result.getInt("horaInicio"));
-                agenda.setHoraInicio(result.getInt("horaFin"));
+                agenda.setHoraFin(result.getInt("horaFin"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AgendaDao.class.getName()).log(Level.SEVERE, null, ex);
