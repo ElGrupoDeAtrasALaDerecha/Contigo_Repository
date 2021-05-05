@@ -97,6 +97,13 @@ public class Cita {
 
     public void setRecomendaciones(String recomendaciones) {
         this.recomendaciones = recomendaciones;
+<<<<<<< HEAD
+=======
+    }
+    
+    public String getPersonal() {
+        return personal;
+>>>>>>> 8842bc23247cd3f8ae2ff7e461438539618cd84f
     }
 
     public String getId_perca() {
