@@ -81,20 +81,12 @@ public class AgendaServlet extends HttpServlet {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Se ha creado la agenda del personal");
                 fechaFin = daocita.asignarFecha(fechaFin);
-                System.out.println(fechaInicio.compareTo(fechaFin) != 0);
                 while (fechaInicio.compareTo(fechaFin) != 0) {
-                    System.out.println("entro" + fechaInicio);
-                    System.out.println("entro" + fechaFin);
                     while (horaInicio < horaFin) {
                         Cita cita = daocita.crearObjetoCita(idAgenda, horaInicio, fechaInicio);
                         if (citaD.crear(cita)) {
-                            json.put("tipo", "cita");
-                            json.put("mensaje", "Se han creado las citas del personal");
                             horaInicio = daocita.asignarHoraDia(horaInicio);
-                        } else {
-                            json.put("tipo", "error");
-                            json.put("mensaje", "Error al crear cita");
-                        }
+                        } 
                     }
                     horaInicio = json.getInt("horainicio");
                     String fechaI = daocita.asignarFecha(fechaInicio);

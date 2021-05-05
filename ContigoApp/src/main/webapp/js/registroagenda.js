@@ -1,7 +1,7 @@
-var horas = [7, 8, 9, 10, 11, 12, 1,2,3,4,5,6];
-var horainicio 
-var horafin
-var fechainicio 
+let horas = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+var horainicio=0;
+var horafin=0;
+var fechainicio
 var fechafin
 
 $(document).ready(function () {
@@ -27,9 +27,7 @@ function crearAgenda(obj) {
         success: function (response) {
             if (response.tipo == "ok") {
                 toastr.success('Se ha creado la agenda del personal')
-            } else {
-                toastr.error('Error al crear agenda')
-            }
+            } 
         },
         error: function (response) {
 
@@ -40,8 +38,8 @@ function crearAgenda(obj) {
 function validarFechasHoras() {
     var f1 = new Date(fechainicio);
     var f2 = new Date(fechafin);
-    if (f1 < f2) {
-        if (horainicio > horafin) {
+    if (f1 <= f2) {
+        if (horainicio < horafin+1) {
             var obj = {
                 personal: personal,
                 fechainicio: fechainicio,
@@ -51,28 +49,30 @@ function validarFechasHoras() {
             }
             crearAgenda(obj)
         } else {
-            alert("Error , las horas ingresadas no son válidas")
+            toastr.error("Error , las horas ingresadas no son válidas")
         }
     } else {
-        
-        alert("Error , las fechas ingresadas no son válidas")
+
+        toastr.error("Error , las fechas ingresadas no son válidas")
     }
 
 }
 
 function cargarHorasSelect() {
-    var m=""
+    var m = ""
     for (var i = 0; i < horas.length; i++) {
-        if(horas[i]<7){
-            m=" pm"
+        if (horas[i] > 11) {
+            m = " :00 pm"
         }
-        else{
-            m=" am"
+        else {
+            m = " :00 am"
         }
-        let horasSelect = '<option value ="' + horas[i]  + '">' + horas[i] + m+
+        let horasSelect = '<option value ="' + horas[i] + '">' + horas[i] + m +
             '</option>';
         $("#horainicio").append(horasSelect);
         $("#horafin").append(horasSelect);
 
     }
 }
+
+
