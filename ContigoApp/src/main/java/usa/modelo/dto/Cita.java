@@ -82,7 +82,6 @@ public class Cita {
         this.lugar = lugar;
     }
 
-<<<<<<< HEAD
     public String getMotivo() {
         return motivo;
     }
@@ -97,7 +96,8 @@ public class Cita {
 
     public void setRecomendaciones(String recomendaciones) {
         this.recomendaciones = recomendaciones;
-=======
+    }
+    
     public String getPersonal() {
         return personal;
     }
@@ -112,7 +112,6 @@ public class Cita {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
->>>>>>> c2b26d0a412820d552cc15d1761bd2cdb8ffe7c5
     }
 
     

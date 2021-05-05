@@ -18,12 +18,9 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoCita;
-<<<<<<< HEAD
 import usa.modelo.dto.Cita;
-=======
 import usa.modelo.dao.IDaoEstudiante;
 import usa.modelo.dto.Estudiante;
->>>>>>> c2b26d0a412820d552cc15d1761bd2cdb8ffe7c5
 import usa.utils.Utils;
 
 /**
@@ -98,7 +95,6 @@ public class CitaServlet extends HttpServlet {
     }
     
 
-    }
 
     /**
      * Returns a short description of the servlet.
