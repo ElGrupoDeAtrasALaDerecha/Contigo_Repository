@@ -1,7 +1,12 @@
 var listaHistorias;
+var usu;
 
 $(document).ready(function(){
     cargarListaDeHistorias();
+    usu = parseInt(getCookie("tipoUsuario"));
+    if (usu !== 2) {
+        document.getElementById('btnCrear').style.display = 'none';
+    }
 });
 
 function cargarListaDeHistorias(){
