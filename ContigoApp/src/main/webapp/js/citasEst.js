@@ -256,7 +256,6 @@ for (const el of openEls) {
   el.addEventListener("click", function () {
     const modalId = this.dataset.open;
     document.getElementById(modalId).classList.add(isVisible);
-    //llenarDiv(fecha, textHora);
   });
 }
 
@@ -288,7 +287,7 @@ function llenarDiv(cita) {
   divTexto =
     `<p>DATOS DE SU CITA: </p>` +
     `<p>Fecha: ${cita.fecha} </p>` +
-    `<p>Hora: ${cita.hora}</p>` +
+    `<p>Hora: ${cita.hora}:00</p>` +
     `<p>Personal calificado: ${cita.personal} </p>` +
     `<div class="ui buttons">
         <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
@@ -305,14 +304,10 @@ function llenarDiv(cita) {
     limpiarDiv();
     return false;
   });
+
   $("#btnConfirmarC").click(function () {
-    alert("Ha hecho click sobre el boton");
-    limpiarDiv();
-    divTexto =`<p>Su cita ha sido asignada satisfactoriamente. </p>`
-    $("#divEmergente").append(divTexto);
-    contConf++;
-    console.log(contConf);
-    return true;
+    alert("Hola!")
+    agendarCita(citaS,personal)
   });
 }
 
@@ -392,23 +387,35 @@ function cargarCitas() {
     },
   });
 }
+var personal
+var citaS
 function listarPerca(perca) {
     console.log(perca)
+    personal = perca
     listaPersonal.style.display = "block";
     $("#perca").empty()
     for (let index = 0; index < perca.length; index++) {
-        $("#perca").append('<div class="item"> <i class="user circle icon"></i> <input type="radio" id="' + perca[index].id_perca +'" name="percaD" value="' + perca[index].id_perca + '"> <label for="' + perca[index].id_perca +'"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>') 
+        $("#perca").append('<div class="item"> <img src="'+ perca[index].imagen+'"> <input type="radio" id="' + perca[index].id_perca +'" name="percaD" value="' + perca[index].nombre_perca + '"> <label for="' + perca[index].id_perca +'"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>') 
     }
 }
 $("#btnAgenddamiento").click(function getDatos() {
     var cita = {
         fecha: fecha,
         hora: $("#horas2 option:selected").val(),
-        perca: $('input:radio[name=percaD]:checked').val()
+        personal: $('input:radio[name=percaD]:checked').val()
     };
-    console.log(cita)
-    llenarDiv(cita);
+    citaS = cita
+    llenarDiv(cita)
 })
+
+function agendarCita(cita, personal) {
+  for (let index = 0; index < personal.length; index++) {
+    if (personal[index].nombre_perca == cita.personal) {
+      cita.idc = personal[index].id
+      cita.ida = personal[index].idAgenda
+    }
+  }
+}
 
 function obtenerHistorial() {
   $.ajax({

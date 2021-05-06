@@ -1,5 +1,8 @@
-document.getElementById("ingresar").onclick = function () {
-    location.href = "ingresar.html";
+document.getElementById("ingresar_inst").onclick = function () {
+    location.href = "login_inst.html";
+};
+document.getElementById("ingresar_est").onclick = function () {
+  location.href = "login_est.html";
 };
 
 document.getElementById("registro").onclick = function () {

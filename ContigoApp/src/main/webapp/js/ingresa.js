@@ -1,3 +1,6 @@
+$("#sigin2").click(function(){
+    window.location.href="Registro.html"
+})
 //Ingreso con tecla enter
 $("body").keyup(function (e) {
     var email = $("#correo").val();
@@ -23,14 +26,18 @@ function ingresoInstitucion(e) {
     e.preventDefault();
     var email = $("#correo").val();
     var pass = $("#password_inst").val();
-    var obj = {
-        correo: email,
-        contraseña: pass
-    };
-    //console.log(obj);
-    loginInstitucion(obj);
-}
+    if(email && pass){    
+        var obj = {
+            correo: email,
+            contraseña: pass
+        };
+        //console.log(obj);
+        loginInstitucion(obj);
+    }else{
+        toastr.warning('Por favor completa todos los daots')
 
+    }
+};
 /**
  * Función login
  * @param {*} obj 
@@ -63,7 +70,9 @@ function loginInstitucion(obj) {
     });
 }
 
-
+$("#sigin").click(function(){
+    window.location.href="RegistroEstudiante.html"
+})
 // Login Estudiante
 var ingresoE= document.getElementById("ing_est");
 $("#ing_est").click(
@@ -76,13 +85,18 @@ function ingresoEstudiante() {
   
     var doc = $("#documento").val();
     var pass = $("#contraseña").val();
-    var obj = {
-        documento: doc,
-        contraseña: pass
-    };
-    console.log(obj);
-    loginEstudiante(obj);
+    if (doc && pass) {
+        var obj = {
+            documento: doc,
+            contraseña: pass
+        };
+        console.log(obj);
+        loginEstudiante(obj);
+    } else{
+        toastr.warning('Por favor completa todos los daots')
+    }
 }
+;
 
 /**
  * Función login de estudiante
