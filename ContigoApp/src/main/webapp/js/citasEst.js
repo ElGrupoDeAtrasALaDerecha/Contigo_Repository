@@ -124,43 +124,6 @@ function escribirMeses(month) {
             </button>
             </div>`;
     }
-<<<<<<< HEAD
-
-    var contador = 0;
-    $(".ui.inverted.basic.button").click(function (e) {
-        contador++;
-        mes = month + 1;
-        fecha = currentYear + '-' + mes + '-' + $(this).attr("id");
-        console.log(fecha);
-        console.log(contador);
-        horas.style.display = "block";
-
-        variable = $(this).attr("id");
-        console.log(variable)
-        if (month < 10 && variable > 10) {
-            fecha = currentYear + '-' + 0 + month + '-' + variable;
-        } else if (variable < 10 && month < 10) {
-            fecha = currentYear + '-' + 0 + month + '-' + 0 + variable;
-        } else if (month > 10 && variable < 10) {
-            fecha = currentYear + '-' + month + '-' + 0 + variable;
-        } else if (month > 10 && variable > 10) {
-            fecha = currentYear + '-' + month + '-' + variable;
-        }
-        for (let i = 0; i < listCitas.length; i++) {
-            console.log("for" + i)
-            if (listCitas[i].fecha === fecha) {
-                console.log(listCitas[i].horaInicio)
-                horasdisponibles.push(listCitas[i].horaInicio)
-                console.log("entro")
-            }
-        }
-        filtrarHorasRepetidas()
-        console.log(fecha);
-        console.log(contador);
-        horas.style.display = "block";
-
-    })
-=======
   }
 
   var contador = 0;
@@ -194,7 +157,6 @@ function escribirMeses(month) {
     filtrarHorasRepetidas();
     horas.style.display = "block";
   });
->>>>>>> 61a6991bc265b13d7504760f1b03b095c70f579f
 }
 
 function filtrarHorasRepetidas() {
@@ -294,7 +256,7 @@ for (const el of openEls) {
   el.addEventListener("click", function () {
     const modalId = this.dataset.open;
     document.getElementById(modalId).classList.add(isVisible);
-    llenarDiv(fecha, textHora);
+    //llenarDiv(fecha, textHora);
   });
 }
 
@@ -319,51 +281,15 @@ document.addEventListener("keyup", (e) => {
   }
 });
 /************************************************DIV EMERGENTE******************** */
-<<<<<<< HEAD
-var divTexto = document.getElementById('divEmergente');
-var contConf = 0;
-var contCanc = 0;
-function llenarDiv(fecha, hora) {
-    divTexto = `<p>DATOS DE SU CITA: </p>` +
-        `<p>Fecha: ${fecha} </p>` +
-        `<p>Hora: ${hora}</p>` +
-        `<p>Personal calificado: </p>` +
-        `<div class="ui buttons">
-        <button id="btnCancelarC" class="ui button">Cancelar </button>
-        <div class="or"></div>
-        <button id="btnConfirmarC" class="ui blue button">Confirmar </button>
-        </div>`
-    $('#divEmergente').append(divTexto);
-    $("#btnCancelarC").click(function () {
-        contCanc++;
-        console.log(contCanc);
-        document.querySelector(".modal.is-visible").classList.remove(isVisible);
-        limpiarDiv();
-        return false;
-    });
-    $("#btnConfirmarC").click(function () {
-        contConf++;
-        console.log(contConf)
-        limpiarDiv();
-        confirmacionCitas();
-        return true;
-    });
-}
-
-
-function confirmacionCitas() {
-    divTexto = `<p> Su cita ha sido asignada satisfactoriamente </p>`
-    $('#divEmergente').append(divTexto);
-=======
 var divTexto = document.getElementById("divEmergente");
 var contConf = 0;
 var contCanc = 0;
-function llenarDiv(fecha, hora) {
+function llenarDiv(cita) {
   divTexto =
     `<p>DATOS DE SU CITA: </p>` +
-    `<p>Fecha: ${fecha} </p>` +
-    `<p>Hora: ${hora}</p>` +
-    `<p>Personal calificado: </p>` +
+    `<p>Fecha: ${cita.fecha} </p>` +
+    `<p>Hora: ${cita.hora}</p>` +
+    `<p>Personal calificado: ${cita.personal} </p>` +
     `<div class="ui buttons">
         <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
         <div class="or"></div>
@@ -381,24 +307,21 @@ function llenarDiv(fecha, hora) {
   });
   $("#btnConfirmarC").click(function () {
     alert("Ha hecho click sobre el boton");
+    limpiarDiv();
+    divTexto =`<p>Su cita ha sido asignada satisfactoriamente. </p>`
+    $("#divEmergente").append(divTexto);
     contConf++;
     console.log(contConf);
     return true;
   });
 }
-function botonConfirmarC() {
-  if (contCanc++ !== 0) {
-  }
->>>>>>> 61a6991bc265b13d7504760f1b03b095c70f579f
-}
+
 
 function limpiarDiv() {
   $("#divEmergente").empty();
 }
 
 /**********************************************LISTA */
-<<<<<<< HEAD
-=======
 function cargarHorasSelect(horasdisponibles) {
   var m = "";
   for (var i = 0; i < horasdisponibles.length; i++) {
@@ -426,7 +349,6 @@ $("#horas2").click(function percaHora() {
   };
   getPerca(cita)
 });
->>>>>>> 61a6991bc265b13d7504760f1b03b095c70f579f
 
 function getPerca(cita) {    
     $.ajax({
@@ -485,6 +407,7 @@ $("#btnAgenddamiento").click(function getDatos() {
         perca: $('input:radio[name=percaD]:checked').val()
     };
     console.log(cita)
+    llenarDiv(cita);
 })
 
 function obtenerHistorial() {
