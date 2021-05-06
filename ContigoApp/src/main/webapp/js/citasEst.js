@@ -310,10 +310,7 @@ function llenarDiv(cita) {
     agendarCita(citaS,personal)
   });
 }
-function botonConfirmarC() {
-  if (contCanc++ !== 0) {
-  }
-}
+
 
 function limpiarDiv() {
   $("#divEmergente").empty();
