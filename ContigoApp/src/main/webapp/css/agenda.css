@@ -1,0 +1,59 @@
+#agendatitulo{
+    padding-top: 2.5%;
+    padding-bottom: 2%;
+    padding-right: 2%;
+    text-align: center;
+}
+
+#h1{
+    font-size: 300%;
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 10px; 
+}
+
+#registroagenda{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    width: 50%;
+    margin: 0 auto;
+    align-content: center;
+}
+
+.textCampos{
+    color: #9c9999;
+    vertical-align:baseline ;
+    font-weight: lighter;
+    font-size: 10px;
+    padding-left: 17%;
+}
+
+#boton2{
+    text-align: center;
+    padding-top: 30px;
+    outline:none;
+    padding-bottom: 30px;
+}
+
+#Button3{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 25px;
+    width: 450px;
+    border: none;
+    background-color: #2d4059;
+    color: rgba(255,255,255,1);
+    text-align: center;
+    outline:none;
+}
+
+#Button3:hover{
+    background-color: #174075;
+}
+
+#Espacios{
+    width: 420px !important;
+    padding-left: 17%;
+    padding-bottom: 2%;
+}

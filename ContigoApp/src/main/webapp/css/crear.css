@@ -14,20 +14,22 @@ h2{
 }
 #contenedor{
     /* border: solid rgb(252, 1, 1) 1px; */
-    align-items: flex-start;
     display: flex;
-    padding: 2% 0;
+    padding: 2% 7%;
+}
+#contenedor2{
+    padding: 0 0;    
 }
 #contenedor_cc{
     /* border: solid green 1px; */
     background-color: white;
-    width: 50%;
+    width: 60%;
 }
 #contenedor_conv{
     /* border: solid rgb(153, 69, 146) 1px; */
     background-color: white;
-    padding-right:5%;
-    width: 50%;
+    padding-right:2%;
+    width: 60%;
 }
 
 ::placeholder {
@@ -43,14 +45,72 @@ h2{
     font-size: 18px;
     font-weight: lighter;
     margin: 1.5%;
-    padding: 2% 5%;
+    padding: 2% 3%;
     width: 80%;
 }
+
+.credencial2{
+    border: solid 2px gray ;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 2.5%;
+    padding: 3% 3%;
+    width: 80%;
+}
+
+.credencial3{
+    border: solid 2px gray ;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 1.5%;
+    padding: 2% 3%;
+    width: 55%;
+}
+
+.credencial4{
+    border: solid 2px gray ;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 2.5%;
+    padding: 2% 3%;
+    width: 56%;
+}
+
+.input-groupdate{
+
+    border: solid 2px gray ;
+    border-radius: 34px;
+    color: rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    margin: 4%;
+    padding: 2% 6%;
+    width: 55%;
+
+}
+
+.img{
+   
+    height: auto;
+    width: 15%;
+    
+   
+}
+
 .calendar{
 
     margin:0;
 }
-
 
 .btn{
     background-color: #2D4059;
@@ -97,3 +157,4 @@ h2{
     padding: 10px;
     width: 100%;
 }
+

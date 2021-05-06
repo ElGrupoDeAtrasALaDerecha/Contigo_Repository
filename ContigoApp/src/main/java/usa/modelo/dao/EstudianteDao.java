@@ -108,7 +108,7 @@ public class EstudianteDao implements IDaoEstudiante {
 
         return estudiantes;
     }
-
+    @Override
     public Estudiante consultarPorToken(String token) {
         Estudiante estudiante = null;
         try {
@@ -135,7 +135,7 @@ public class EstudianteDao implements IDaoEstudiante {
         }
         return estudiante;
     }
-
+    @Override
     public Estudiante consultarPorTokenGrado(String id) {
         Estudiante estudiante = null;
         try {

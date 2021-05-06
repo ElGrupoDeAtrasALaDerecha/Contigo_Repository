@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
+    <link rel="stylesheet" href="css/navfooter.css">
+    <link rel="stylesheet" href="css/crear.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<body>
+    <h2>Registro </h2>
+    <form class="needs-validation" novalidate>
+        <div id="contenedor">
+            <section id="contenedor_cc">
+
+                <div class="contenedor_credencial">
+                    <input type="text" class="credencial" id="Nombre" placeholder="Nombre del Paciente">
+                    <div class="invalid-feedback">
+                        Inserta el Nombre 
+                    </div>
+               
+
+                    <input type="text" class="credencial" id="Apellido" placeholder="Apellido del Paciente"
+                        name="tlt_cnv" required>
+                    <div class="invalid-feedback">
+                       Inserta el Apellido 
+                    </div>
+              
+                    <input type="text" class="credencial" id="Documento" placeholder="Documento de identidad"
+                        name="tlt_cnv" required>
+                    <div class="invalid-feedback">
+                       Inserta el Documento de identidad 
+                    </div>
+                </div>
+                 
+            </section>
+
+            <section id="contenedor_conv">
+                <div class="contenedor_credencial">
+                <input type="text" class="credencial3" id="Edad" placeholder="Edad del Paciente"
+                  name="tlt_cnv" required>
+                 <div class="invalid-feedback">
+                  Inserta la edad 
+                 </div>
+            
+                    <div id="Asistencia" class="">
+                    <center>
+                        <select id="Asistencia2" name="Asistencia" class="credencial4">
+                            <option value="">Asistencia</option>
+                            <option value="3">Asistió</option>
+                            <option value="7">No Asistió</option>
+                        </select>
+                    </center>
+                  
+                </div>
+                
+                <img class="img" src="img/CONTI22.png">
+            </section>
+
+        </div>
+
+ <div id="contenedor2">
+   
+        <center>
+            <textarea type="text" class="credencial" id="Motivo" placeholder="Motivo de consulta"
+            name="des_cnv" required></textarea>
+             <div class="invalid-feedback">
+            Inserta la descripcion
+            </div>  
+        </center>
+
+        <center>
+            <textarea type="text" class="credencial" id="Recomendaciones" placeholder="Recomendaciones"
+            name="des_cnv" required></textarea>
+             <div class="invalid-feedback">
+            Inserta la descripcion
+            </div>  
+        </center>
+
+ </div>      
+
+        <div class="contenedor_credencial">
+            <button id="btnCrear" class="btn" type="submit">Registrar</button>
+        </div>
+    </form>
+
+
+
+</body>
+<script src="js/template.js"></script>
+<script src="js/funciones.js"></script>
+<script src="js/registrosCitaPersonal.js"></script>
+
+
+</html>
+
