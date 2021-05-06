@@ -27,7 +27,6 @@ $(document).ready(function () {
 
 
 function obtenerSelect() {
-
     opcVisualiza = document.getElementById("txtConsulta").value;
     if (opcVisualiza === "1" || opcVisualiza === "2") {
         opcGrado.style.display = "block"
@@ -90,28 +89,12 @@ $("#btnGerarE").on("click", function () {
 
 $("#selectGrados").on("click", function () {
     graficas.style.display = "block"
-    solicitarDatosGrafica();
+    let codigoGrado = document.getElementById('selectGrados').value
+    solicitarDatosGrafica(codigoGrado);
     consultarInformacion()
 });
 
-function gradock (){
-    var grado = getCookie("nombreGrado")
-    console.log("----> Grado: ")
-    console.log(grado)
-    if(grado){
-        $('#txtGrado').val(grado);
-        graficas.style.display = "block"
-        solicitarDatosGrafica();
-        consultarInformacion()
-        delete_cookie("nombreGrado")
-    }else {
-        console.log("Cookie not found")
-    }
-}
-window.onload = gradock;
-
-function solicitarDatosGrafica(){
-    let codigoGrado = document.getElementById('selectGrados').value;
+function solicitarDatosGrafica(codigoGrado){
     $.ajax({
         url: 'Estadisticas?tipoConsulta=PorGrado&grado='+ codigoGrado,
         method: 'GET',
@@ -129,6 +112,7 @@ function solicitarDatosGrafica(){
     }) 
 }
 
+window.onload = gradock;
 //=========================================== Gráficas ============================================================
 
 function GraficaTorta(data) {

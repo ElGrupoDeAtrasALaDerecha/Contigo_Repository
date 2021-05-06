@@ -395,7 +395,7 @@ function listarPerca(perca) {
     listaPersonal.style.display = "block";
     $("#perca").empty()
     for (let index = 0; index < perca.length; index++) {
-        $("#perca").append('<div class="item"> <i class="user circle icon"></i> <input type="radio" id="' + perca[index].id_perca +'" name="percaD" value="' + perca[index].nombre_perca + '"> <label for="' + perca[index].id_perca +'"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>') 
+        $("#perca").append('<div class="item"> <img src="'+ perca[index].imagen+'"> <input type="radio" id="' + perca[index].id_perca +'" name="percaD" value="' + perca[index].nombre_perca + '"> <label for="' + perca[index].id_perca +'"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>') 
     }
 }
 $("#btnAgenddamiento").click(function getDatos() {

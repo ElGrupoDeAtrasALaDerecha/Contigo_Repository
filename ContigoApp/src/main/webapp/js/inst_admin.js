@@ -46,11 +46,9 @@ function crearGrado (obj) {
     data: JSON.stringify(obj),
     contentType: 'JSON application/json charset=utf-8',
     success: function (response) {
-      // console.log(response)
       setCodigo(response)
     },
     error: function (response) {
-      // console.log(JSON.stringify(response))
       setCodigo(response)
     }
   })
@@ -97,20 +95,23 @@ function listaDeGrados(serverMsj) {
   for (let index = 0; index < serverMsj.Grados.length; index++) {
     var grado =  serverMsj.GradosClasificados[index].clasificacion
     var codigo = serverMsj.GradosClasificados[index].codigo
-    table.insertRow(-1).innerHTML = '<td><a href="gestionCurso.html" onclick = "gradock(\''+ grado +'\');">' + grado +'</a></td> <td>' + codigo +'</td>';    
+    var curso = {g: grado, c: codigo}
+    table.insertRow(-1).innerHTML = '<td><a onclick = "setCurso(\''+ curso +'\');">' + grado +'</a></td> <td>' + codigo +'</td>';    
   }
   cont++
 }
 
 function setCodigo (serverMsj) {
-  // alert(serverMsj.codigo)
   if(serverMsj.codigo){
     document.getElementById('grado_code').value = serverMsj.codigo
   }
 }
 
-function gradock(grado) {
-  console.log(grado)
-  setCookie("nombreGrado", grado, 0.1);
+function setCurso(data) {
+    var codigoGrado =
+    show("m2")
+    graficas.style.display = "block"
+    solicitarDatosGrafica();
+    consultarInformacion()
 }
-//
+
