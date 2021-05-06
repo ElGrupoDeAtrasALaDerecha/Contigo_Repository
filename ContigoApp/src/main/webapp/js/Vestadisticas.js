@@ -12,15 +12,14 @@ var listaEstudiantes = document.getElementById('ListaEstudiantes');;
 var arregloEstudiantes;
 var codigoGrado = [];
 
-opcGrado.style.display = "none"
-btnGrados.style.display = "none"
-btnEstudiantes.style.display = "none"
+opcGrado.style.display = "block"
+// btnGrados.style.display = "block"
+// btnEstudiantes.style.display = "none"
 graficas.style.display = "none"
 listaEstudiantes.style.display = "none"
 
 $('.ui.dropdown')
-    .dropdown()
-    ;
+    .dropdown();
 
 $(document).ready(function () {
     listarGrados();
@@ -28,7 +27,6 @@ $(document).ready(function () {
 
 
 function obtenerSelect() {
-
     opcVisualiza = document.getElementById("txtConsulta").value;
     if (opcVisualiza === "1" || opcVisualiza === "2") {
         opcGrado.style.display = "block"
@@ -40,10 +38,12 @@ function obtenerSelect() {
     }
 }
 
+$(".ui.dropdown").dropdown();
 $(".ui.dropdown").click(function () {
     selects();
     aparecerSelectEst();
 });
+
 
 function selects() {
     grados = document.getElementById("txtGrado").value;
@@ -55,15 +55,31 @@ function selects() {
     }
 }
 
-function aparecerSelectEst() {
-    opcVisualizar = document.getElementById("txtConsulta").value;
-    grados = document.getElementById("txtGrado").value;
-    if (opcVisualizar === "2") {
-        if (grados !== "") {
-            listaEstudiantes.style.display = "block"
-            btnEstudiantes.style.display = "block"
-        }
+function llenarSelectGrados(a) {    
+    for (var i = 0; i < a.length; i++) {
+        let txt = `<option value="${a[i].codigo}">${a[i].grado}</option>`
+        $("#grados").append(txt);
     }
+}
+
+function listarGrados() {
+    $.ajax({
+        url: 'ClasificacionServlet',
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            arregloGrados = response.clasificaciones;
+            console.log(response)
+            for (let index = 0; index < response.clasificaciones.length; index++) {
+                codigoGrado[index]= response.clasificaciones.codigo;                
+            }
+            llenarSelectGrados(arregloGrados);
+        },
+        error: function (response) {
+            // console.log("Error en la petición GET")
+            // console.log(JSON.stringify(response))
+        }
+    })
 }
 
 $("#btnGerarE").on("click", function () {
@@ -71,23 +87,21 @@ $("#btnGerarE").on("click", function () {
     graficas.style.display = "block"
 });
 
-$("#btnGerarG").on("click", function () {
-    //window.location.assign("gestionCurso.html")
+$("#selectGrados").on("click", function () {
     graficas.style.display = "block"
-    solicitarDatosGrafica();
+    let codigoGrado = document.getElementById('selectGrados').value
+    solicitarDatosGrafica(codigoGrado);
     consultarInformacion()
 });
 
-
-function solicitarDatosGrafica(){
-    let codigoGrado =document.getElementById('txtGrado');
+function solicitarDatosGrafica(codigoGrado){
     $.ajax({
-        url: 'Estadisticas?tipoConsulta=PorGrado&grado='+ codigoGrado.value,
+        url: 'Estadisticas?tipoConsulta=PorGrado&grado='+ codigoGrado,
         method: 'GET',
         dataType: 'json',
         success: function (response) {
             arregloGrados = response.clasificaciones;
-            console.log(response)
+            //console.log(response)
             GraficaTorta(response.boton.datos);
             graficaTopGrados(response.conversatorios)
         },
@@ -98,9 +112,8 @@ function solicitarDatosGrafica(){
     }) 
 }
 
-
-
-//Gráficas
+window.onload = gradock;
+//=========================================== Gráficas ============================================================
 
 function GraficaTorta(data) {
     var oilCanvas = document.getElementById("usoChat");
@@ -125,9 +138,6 @@ function GraficaTorta(data) {
         data: oilData
     });
 }
-
-
-
 
 function graficaTopGrados(datos){
     var densityCanvas = document.getElementById("GraficasTOPgrados");
@@ -187,76 +197,6 @@ function graficaTopGrados(datos){
     });
 }
 
-
-
-function listarGrados() {
-    $.ajax({
-        url: 'ClasificacionServlet',
-        method: 'GET',
-        dataType: 'json',
-        success: function (response) {
-            arregloGrados = response.clasificaciones;
-            console.log(response)
-            for (let index = 0; index < response.clasificaciones.length; index++) {
-                codigoGrado[index]= response.clasificaciones.codigo;                
-            }
-            llenarSelectGrados(arregloGrados);
-        },
-        error: function (response) {
-            // console.log("Error en la petición GET")
-            // console.log(JSON.stringify(response))
-        }
-    })
-}
-
-function llenarSelectGrados(a) {
-    
-    for (var i = 0; i < a.length; i++) {
-        let txt = `<div class="item" data-value="${a[i].codigo}">${a[i].grado}</div>`
-        $("#grados").append(txt);
-    }
-}
-
-// ============================ Alternativa ============================
-/*$('#selectGrados').click(function (e) {
-    var gradoSelt = $('#txtGrado').val()
-    // var id_inst = getCookie("ID_Inst")
-    var obj = {
-        grado: gradoSelt
-    }
-    listarEstudiantes(obj)
-})
-
-function listarEstudiantes(obj) {
-    $.ajax({
-        url: 'EstudiantePorGradoServlet',
-        method: 'POST',
-        dataType: "json",
-        data: JSON.stringify(obj),
-        contentType: "JSON application/json charset=utf-8",
-        success: function (response) {
-            if (response.tipo === "ok") {
-                console.log(response);
-                llenarSelectEstudiantes(response.estudiantes);
-            } else {
-                console.log(response.mensaje);
-            }
-        },
-        error: function (response) {
-            console.log(JSON.stringify(response))
-            console.log((response))
-        }
-    })
-}
-function llenarSelectEstudiantes(arregloEstudiantes) {
-    for (var i = 0; i < arregloEstudiantes.length; i++) {
-        let txt = `<div class="item" data-value="${arregloEstudiantes[i].documento}">${arregloEstudiantes[i].primerNombre} ${arregloEstudiantes[i].segundoNombre} ${arregloEstudiantes[i].primerApellido} ${arregloEstudiantes[i].segundoApellido}</div>`
-        $("#estudiantes").append(txt);
-    }
-}*/
-
-// ===============================================
-
 var estudiante
 var estadisticas
 var gradosV
@@ -275,7 +215,7 @@ function traerClasificacionGrados() {
         data: "json",
         contentType: "JSON application/json charset=utf-8",
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             gradosV = response.clasificaciones;
             cargarSelectGrados(gradosV);
         },
@@ -301,11 +241,11 @@ function consultarInformacion(obj) {
                 filtrarClicksporDia(estadisticas)
                 consultarClicksGrado()
             } else {
-                console.log(response.mensaje);
+                //console.log(response.mensaje);
             }
         },
         error: function (response) {
-            console.log(JSON.stringify(response))
+            //console.log(JSON.stringify(response))
         }
     });
 }
@@ -356,7 +296,6 @@ function parametrosGrafica(x, y) {
         }
     });
 }
-
 
 function filtrarClicksporDia(estadisticas) {
     var clicksdiarios = 0;
@@ -431,8 +370,6 @@ function filtrarClicksporDia(estadisticas) {
     });
 }
 
-
-
 function consultarClicksGrado() {
     $.ajax({
         method: 'GET',
@@ -440,7 +377,7 @@ function consultarClicksGrado() {
         data: "json",
         contentType: "JSON application/json charset=utf-8",
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             clicksGrado = response.Clicks;
             frecuenciasClicksGrado.push(clicksGrado);
             var gradosHistograma = []
@@ -454,7 +391,7 @@ function consultarClicksGrado() {
 
 function crearHistograma(gradosHistograma) {
     for (let i = 0; i < gradosHistograma.length; i++) {
-        console.log(gradosHistograma[i])
+        //console.log(gradosHistograma[i])
     }
     var tablaInscripcionAconversatorio = new Chart(document.getElementById('clickGrado').getContext('2d'), {
         type: 'bar',

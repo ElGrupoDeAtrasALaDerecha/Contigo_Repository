@@ -59,6 +59,7 @@ public class LoginInstitucionServlet extends HttpServlet {
         //Se convierte de json a objeto Institucion
         Institucion institucion = (Institucion) Utils.fromJson(usr_inst, Institucion.class);
         Institucion instBD = daoInstitucion.loginInstitucion(institucion.getCorreo(), institucion.getContraseña());
+        System.out.println("----> " + institucion.getCorreo() + ", " + institucion.getContraseña());
         if(instBD != null){
             json.put("tipo", "ok");
             json.put("mensaje","Ingreso satisfactorio");

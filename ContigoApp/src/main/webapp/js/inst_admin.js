@@ -1,4 +1,29 @@
-$('#crear_g').click(function (e) {
+// Sidebar conf
+$(document).ready(function () {
+  $("#m1").css("background-color", "#162997")
+  $(".m1").css("display", "block")
+  $(".m2").css("display", "none")
+  $(".m3").css("display", "none")
+  $(".m4").css("display", "none")
+})
+
+$(".d-block").click(function(){
+  var selected = '#'+($(this).attr('id'))
+  $(".selected").css("background-color", "#111B54")
+  $(selected).css("background-color", "#162997")
+  show(($(this).attr('id')))
+})
+
+function show(txt) {
+  $(".m1").css("display", "none")
+  $(".m2").css("display", "none")
+  $(".m3").css("display", "none")
+  $(".m4").css("display", "none")
+  $("."+txt).css("display", "block")
+}
+// 
+
+$('#grado_slect').click(function (e) {
   var gradoSelt = $('#grado_slect option:selected').val()
   var id_inst = getCookie("ID_Inst")
   var obj = {
@@ -21,11 +46,9 @@ function crearGrado (obj) {
     data: JSON.stringify(obj),
     contentType: 'JSON application/json charset=utf-8',
     success: function (response) {
-      // console.log(response)
       setCodigo(response)
     },
     error: function (response) {
-      // console.log(JSON.stringify(response))
       setCodigo(response)
     }
   })
@@ -70,16 +93,25 @@ function listaDeGrados(serverMsj) {
     aux = serverMsj.Grados.length
   }
   for (let index = 0; index < serverMsj.Grados.length; index++) {
-    table.insertRow(-1).innerHTML = '<td><a href="gestionCurso.html">' + serverMsj.GradosClasificados[index].clasificacion +'</a></td> <td>' + serverMsj.GradosClasificados[index].codigo +'</td>';    
+    var grado =  serverMsj.GradosClasificados[index].clasificacion
+    var codigo = serverMsj.GradosClasificados[index].codigo
+    var curso = {g: grado, c: codigo}
+    table.insertRow(-1).innerHTML = '<td><a onclick = "setCurso(\''+ curso +'\');">' + grado +'</a></td> <td>' + codigo +'</td>';    
   }
   cont++
 }
 
 function setCodigo (serverMsj) {
-  // alert(serverMsj.codigo)
   if(serverMsj.codigo){
     document.getElementById('grado_code').value = serverMsj.codigo
   }
 }
 
-//
+function setCurso(data) {
+    var codigoGrado =
+    show("m2")
+    graficas.style.display = "block"
+    solicitarDatosGrafica();
+    consultarInformacion()
+}
+
