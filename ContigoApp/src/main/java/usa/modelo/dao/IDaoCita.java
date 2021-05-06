@@ -19,7 +19,8 @@ public interface IDaoCita extends IDao<Cita> {
     int asignarHoraDia(int horainicio);
 
     String asignarFecha(String fechaInicio);
-    
+
     boolean registroSucedidoEstudiante(Cita ci);
-    LinkedList <Cita> listarHistorial(String documento);
+
+    LinkedList<Cita> listarHistorial(String documento);
 }
