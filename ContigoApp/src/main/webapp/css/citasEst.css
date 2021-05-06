@@ -204,7 +204,12 @@ select {
   margin-top: 1rem;
 }
 
-
+#estado{
+  position:relative;
+  width: 150px;
+  margin-left: 80%;
+  
+}
 /* ANIMATIONS
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 [data-animation] .modal-dialog {
