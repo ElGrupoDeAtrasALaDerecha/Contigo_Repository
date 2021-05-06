@@ -1,4 +1,29 @@
-$('#crear_g').click(function (e) {
+// Sidebar conf
+$(document).ready(function () {
+  $("#m1").css("background-color", "#162997")
+  $(".m1").css("display", "block")
+  $(".m2").css("display", "none")
+  $(".m3").css("display", "none")
+  $(".m4").css("display", "none")
+})
+
+$(".d-block").click(function(){
+  var selected = '#'+($(this).attr('id'))
+  $(".selected").css("background-color", "#111B54")
+  $(selected).css("background-color", "#162997")
+  show(($(this).attr('id')))
+})
+
+function show(txt) {
+  $(".m1").css("display", "none")
+  $(".m2").css("display", "none")
+  $(".m3").css("display", "none")
+  $(".m4").css("display", "none")
+  $("."+txt).css("display", "block")
+}
+// 
+
+$('#grado_slect').click(function (e) {
   var gradoSelt = $('#grado_slect option:selected').val()
   var id_inst = getCookie("ID_Inst")
   var obj = {

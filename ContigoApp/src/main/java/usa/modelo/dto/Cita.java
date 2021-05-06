@@ -18,6 +18,11 @@ public class Cita {
     private String fecha;
     private int estado;
     private String lugar;
+    private String motivo;
+    private String recomendaciones;
+    private String id_perca;
+    private String nombre_perca;
+    private String imagen;
 
     public Cita() {
     }
@@ -78,7 +83,45 @@ public class Cita {
         this.lugar = lugar;
     }
 
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public String getRecomendaciones() {
+        return recomendaciones;
+    }
+
+    public void setRecomendaciones(String recomendaciones) {
+        this.recomendaciones = recomendaciones;
+    }
     
+    public String getId_perca() {
+        return id_perca;
+    }
+
+    public void setId_perca(String id_perca) {
+        this.id_perca = id_perca;
+    }
+
+    public String getNombre_perca() {
+        return nombre_perca;
+    }
+
+    public void setNombre_perca(String nombre_perca) {
+        this.nombre_perca = nombre_perca;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
     
     
 }
