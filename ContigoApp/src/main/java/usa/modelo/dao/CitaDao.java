@@ -202,18 +202,21 @@ public class CitaDao implements IDaoCita {
     public LinkedList<Cita> percaCita(String fecha, String hora) {
         LinkedList<Cita> perca = new LinkedList<>();
         try {
-            String sql = "select distinct AGENDA.PERSONAL_PERSONA_documento as ID_PERCA, PERSONA.primerNombre as Nombre, PERSONA.primerApellido as Apellido, PERSONAL.imagen"
+            String sql = "select distinct AGENDA.PERSONAL_PERSONA_documento as ID_PERCA, PERSONA.primerNombre as Nombre, PERSONA.primerApellido as Apellido, PERSONAL.imagen, CITA.AGENDA_id, CITA.id"
                     + " from AGENDA, PERSONAL, CITA, PERSONA "
                     + " where  CITA.AGENDA_id = AGENDA.id and PERSONA.documento = AGENDA.PERSONAL_PERSONA_documento and CITA.fecha = '" + fecha + "' and CITA.horaInicio = '" + hora + "'"
                     + " group by ID_PERCA;";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while (result.next()) {
-                Cita personal = new Cita();
-                personal.setId_perca(result.getString("ID_PERCA"));
-                personal.setNombre_perca(result.getString("Nombre") + " " + result.getString("Apellido"));
-                personal.setImagen(result.getString("imagen"));
-                perca.add(personal);
+                Cita cita = new Cita();
+                cita.setId_perca(result.getString("ID_PERCA"));
+                cita.setNombre_perca(result.getString("Nombre") + " " + result.getString("Apellido"));
+                cita.setImagen(result.getString("imagen"));
+                cita.setId(result.getInt("id"));
+                cita.setIdAgenda(result.getInt("AGENDA_id"));
+                System.out.println("###" + result.getInt("AGENDA_id") + result.getInt("id"));
+                perca.add(cita);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
