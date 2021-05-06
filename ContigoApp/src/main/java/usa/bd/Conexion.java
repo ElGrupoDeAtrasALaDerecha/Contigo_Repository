@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 /**
  * Clase de conexión con la base de datos. 
- * @author Santiago Pérez
+ * @author Santiago Pérez 
  */
 
 public class Conexion extends IConexionBD{
