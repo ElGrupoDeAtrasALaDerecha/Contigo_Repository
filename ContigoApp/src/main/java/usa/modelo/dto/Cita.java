@@ -20,7 +20,8 @@ public class Cita {
     private String lugar;
     private String motivo;
     private String recomendaciones;
-    private String personal;
+    private String id_perca;
+    private String nombre_perca;
     private String imagen;
 
     public Cita() {
@@ -98,12 +99,20 @@ public class Cita {
         this.recomendaciones = recomendaciones;
     }
     
-    public String getPersonal() {
-        return personal;
+    public String getId_perca() {
+        return id_perca;
     }
 
-    public void setPersonal(String personal) {
-        this.personal = personal;
+    public void setId_perca(String id_perca) {
+        this.id_perca = id_perca;
+    }
+
+    public String getNombre_perca() {
+        return nombre_perca;
+    }
+
+    public void setNombre_perca(String nombre_perca) {
+        this.nombre_perca = nombre_perca;
     }
 
     public String getImagen() {
@@ -113,8 +122,6 @@ public class Cita {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
-
-    
     
     
 }

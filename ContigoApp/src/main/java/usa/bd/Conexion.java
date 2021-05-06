@@ -19,6 +19,8 @@ public class Conexion extends IConexionBD{
     private static Connection con = null;
     /**
      * Constructor privado de la clase conexión
+     * 
+     * 
      */
     private Conexion() {
         try {

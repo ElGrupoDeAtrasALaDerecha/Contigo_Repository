@@ -100,21 +100,6 @@ public class AgendaDao implements IDaoAgenda {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public LinkedList<PersonalCalificado> percaCita (String hora) throws SQLException{
-        LinkedList<PersonalCalificado> perca = new LinkedList<>();
-        String sql = "select distinct AGENDA.PERSONAL_PERSONA_documento as ID_PERCA, PERSONA.primerNombre as Nombre, PERSONA.primerApellido as Apellido\n" +
-                     "from AGENDA, PERSONAL, CITA, PERSONA\n" +
-                     "where  CITA.AGENDA_id = AGENDA.id and PERSONA.documento = AGENDA.PERSONAL_PERSONA_documento and CITA.horaInicio = ' "+ hora + "';";
-        pat = conn.prepareStatement(sql);
-        result = pat.executeQuery();
-        while (result.next()) {
-            PersonalCalificado personal = new PersonalCalificado();
-            personal.setDocumento(result.getString("ID_PERCA"));
-            personal.setPrimerNombre(result.getString("Nombre"));
-            personal.setPrimerApellido(result.getString("Apellido"));
-            perca.add(personal);
-        }
-        return perca;
-    }
+  
 
 }

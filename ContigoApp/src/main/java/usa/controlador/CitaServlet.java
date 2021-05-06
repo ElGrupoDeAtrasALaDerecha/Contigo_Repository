@@ -7,6 +7,7 @@ package usa.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
+import usa.modelo.dao.CitaDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoCita;
 import usa.modelo.dto.Cita;
@@ -31,12 +33,48 @@ import usa.utils.Utils;
 public class CitaServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
-    IDao dao = (IDao) factoryDao.obtener("CitaDao");
+    CitaDao dao = (CitaDao) factoryDao.obtener("CitaDao");
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("application/json;charset=UTF-8");
+        System.out.println(request);
+        JSONObject respuesta = new JSONObject();
+        JSONArray arreglo =null;
+        String tipo=request.getParameter("tipo");
+         String token = request.getHeader("token");
+        if(tipo != null){
+            if(tipo.equals("getPerca")){
+                String fecha=request.getHeader("fecha");
+                String hora=request.getHeader("hora");
+                System.out.println("---> " + fecha + " - "+ hora);
+                LinkedList<Cita> perca = dao.percaCita(fecha,hora);
+                respuesta.put("perca", perca);
+            }
+             if (tipo.equals("historialEstudiante")) {
+                IDaoEstudiante daoEstudiante = (IDaoEstudiante) factoryDao.obtener("EstudianteDao");
+                Estudiante estudiante = daoEstudiante.consultarPorToken(token);
+                if (estudiante != null) {
+                    respuesta.put("tipo", "ok");
+                    arreglo = new JSONArray(Utils.toJson(((IDaoCita) dao).listarHistorial(estudiante.getDocumento())));
+                } else {
+                    respuesta.put("tipo", "error");
+                }
+            }
+            
+        }else {
+           // if (token != null) {
+                arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+            //}
+        }
+        
+        respuesta.put("citas", arreglo);  
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+        
+        /**
         response.setContentType("application/json;charset=UTF-8");
         System.out.println(request);
         JSONObject respuesta = new JSONObject();
@@ -62,7 +100,7 @@ public class CitaServlet extends HttpServlet {
 
         respuesta.put("citas", arreglo);
         PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());
+        out.print(respuesta.toString());**/
 
     }
 
@@ -100,9 +138,6 @@ public class CitaServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    
 
 }
