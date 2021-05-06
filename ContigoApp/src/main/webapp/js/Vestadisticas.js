@@ -4,7 +4,6 @@ var btnGrados = document.getElementById('btnGrados');
 var btnEstudiantes = document.getElementById('btnEstudiantes');
 var graficas = document.getElementById('Graficas');
 var listaEstudiantes = document.getElementById('ListaEstudiantes');
-//prueba fallaaaaaaaaaaaaaaaaaa
 var opcVisualizar;//Select de opcion a visualizar tipo de graficas a analizar 
 var grados;
 var estudiante
@@ -12,11 +11,7 @@ var listaEstudiantes = document.getElementById('ListaEstudiantes');;
 var arregloEstudiantes;
 var codigoGrado = [];
 
-opcGrado.style.display = "block"
-// btnGrados.style.display = "block"
-// btnEstudiantes.style.display = "none"
 graficas.style.display = "none"
-listaEstudiantes.style.display = "none"
 
 $('.ui.dropdown')
     .dropdown();
@@ -55,13 +50,6 @@ function selects() {
     }
 }
 
-function llenarSelectGrados(a) {    
-    for (var i = 0; i < a.length; i++) {
-        let txt = `<option value="${a[i].codigo}">${a[i].grado}</option>`
-        $("#grados").append(txt);
-    }
-}
-
 function listarGrados() {
     $.ajax({
         url: 'ClasificacionServlet',
@@ -69,17 +57,25 @@ function listarGrados() {
         dataType: 'json',
         success: function (response) {
             arregloGrados = response.clasificaciones;
-            console.log(response)
             for (let index = 0; index < response.clasificaciones.length; index++) {
                 codigoGrado[index]= response.clasificaciones.codigo;                
             }
             llenarSelectGrados(arregloGrados);
         },
         error: function (response) {
-            // console.log("Error en la petición GET")
-            // console.log(JSON.stringify(response))
+            console.log("Error en la petición GET")
+            console.log(JSON.stringify(response))
         }
     })
+}
+
+function llenarSelectGrados(a) {    
+    for (var i = 0; i < a.length; i++) {
+        $("#gradosSlt").append($("<option>", {
+            value: a[i].codigo,
+            text: a[i].grado
+        }));
+    }
 }
 
 $("#btnGerarE").on("click", function () {
@@ -87,9 +83,9 @@ $("#btnGerarE").on("click", function () {
     graficas.style.display = "block"
 });
 
-$("#selectGrados").on("click", function () {
+$("#gradosSlt").on("click", function () {
     graficas.style.display = "block"
-    let codigoGrado = document.getElementById('selectGrados').value
+    let codigoGrado = document.getElementById('gradosSlt').value
     solicitarDatosGrafica(codigoGrado);
     consultarInformacion()
 });
@@ -112,7 +108,6 @@ function solicitarDatosGrafica(codigoGrado){
     }) 
 }
 
-window.onload = gradock;
 //=========================================== Gráficas ============================================================
 
 function GraficaTorta(data) {
@@ -217,7 +212,7 @@ function traerClasificacionGrados() {
         success: function (response) {
             //console.log(response);
             gradosV = response.clasificaciones;
-            cargarSelectGrados(gradosV);
+            // cargarSelectGrados(gradosV);
         },
         error: function (response) {
             // console.log(JSON.stringify(response))

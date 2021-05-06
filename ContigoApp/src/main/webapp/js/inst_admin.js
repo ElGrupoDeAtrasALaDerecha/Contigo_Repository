@@ -14,6 +14,13 @@ $(".d-block").click(function(){
   show(($(this).attr('id')))
 })
 
+function higlight(){
+  var selected = '#'+($(this).attr('id'))
+  $(".selected").css("background-color", "#111B54")
+  $(selected).css("background-color", "#162997")
+  show(($(this).attr('id')))
+}
+
 function show(txt) {
   $(".m1").css("display", "none")
   $(".m2").css("display", "none")
@@ -108,10 +115,10 @@ function setCodigo (serverMsj) {
 }
 
 function setCurso(data) {
-    var codigoGrado =
+    let codigoGrado = data.codigo
     show("m2")
     graficas.style.display = "block"
-    solicitarDatosGrafica();
+    solicitarDatosGrafica(codigoGrado);
     consultarInformacion()
 }
 
