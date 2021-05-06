@@ -19,7 +19,8 @@ var ingresoI = document.getElementById("ing_inst");
 
 /* Se agrega el evento al elemento */
 ingresoI.addEventListener("click", ingresoInstitucion);
-function ingresoInstitucion() {
+function ingresoInstitucion(e) {
+    e.preventDefault();
     var email = $("#correo").val();
     var pass = $("#password_inst").val();
     var obj = {
