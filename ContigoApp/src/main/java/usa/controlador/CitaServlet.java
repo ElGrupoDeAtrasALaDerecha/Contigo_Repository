@@ -42,8 +42,9 @@ public class CitaServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         System.out.println(request);
         JSONObject respuesta = new JSONObject();
-        
+        JSONArray arreglo =null;
         String tipo=request.getParameter("tipo");
+         String token = request.getHeader("token");
         if(tipo != null){
             if(tipo.equals("getPerca")){
                 String fecha=request.getHeader("fecha");
@@ -52,9 +53,23 @@ public class CitaServlet extends HttpServlet {
                 LinkedList<Cita> perca = dao.percaCita(fecha,hora);
                 respuesta.put("perca", perca);
             }
+             if (tipo.equals("historialEstudiante")) {
+                IDaoEstudiante daoEstudiante = (IDaoEstudiante) factoryDao.obtener("EstudianteDao");
+                Estudiante estudiante = daoEstudiante.consultarPorToken(token);
+                if (estudiante != null) {
+                    respuesta.put("tipo", "ok");
+                    arreglo = new JSONArray(Utils.toJson(((IDaoCita) dao).listarHistorial(estudiante.getDocumento())));
+                } else {
+                    respuesta.put("tipo", "error");
+                }
+            }
+            
+        }else {
+           // if (token != null) {
+                arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+            //}
         }
-        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-        respuesta.put("tipo", "ok");
+        
         respuesta.put("citas", arreglo);  
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
