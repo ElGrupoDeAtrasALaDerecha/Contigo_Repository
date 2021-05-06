@@ -111,7 +111,7 @@ function escribirMeses(month) {
     var contador = 0;
     $(".ui.inverted.basic.button").click(function (e) {
         contador++;
-        mes=month+1;
+        mes = month + 1;
         fecha = currentYear + '-' + mes + '-' + $(this).attr("id");
         console.log(fecha);
         console.log(contador);
@@ -261,39 +261,39 @@ document.addEventListener("keyup", e => {
 });
 /************************************************DIV EMERGENTE******************** */
 var divTexto = document.getElementById('divEmergente');
-var contConf=0;
-    var contCanc=0;
+var contConf = 0;
+var contCanc = 0;
 function llenarDiv(fecha, hora) {
     divTexto = `<p>DATOS DE SU CITA: </p>` +
         `<p>Fecha: ${fecha} </p>` +
         `<p>Hora: ${hora}</p>` +
         `<p>Personal calificado: </p>` +
         `<div class="ui buttons">
-        <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
+        <button id="btnCancelarC" class="ui button">Cancelar </button>
         <div class="or"></div>
-        <button id="btnConfirmarC" class="ui blue button">Confirmar cita</button>
+        <button id="btnConfirmarC" class="ui blue button">Confirmar </button>
         </div>`
     $('#divEmergente').append(divTexto);
-    
-    $("#btnCancelarC").click(function(){
-        alert('Ha hecho click sobre el boton'); 
+    $("#btnCancelarC").click(function () {
         contCanc++;
         console.log(contCanc);
         document.querySelector(".modal.is-visible").classList.remove(isVisible);
         limpiarDiv();
         return false;
     });
-    $("#btnConfirmarC").click(function(){
-        alert('Ha hecho click sobre el boton'); 
+    $("#btnConfirmarC").click(function () {
         contConf++;
         console.log(contConf)
+        limpiarDiv();
+        confirmacionCitas();
         return true;
     });
 }
-function botonConfirmarC(){
-    if(contCanc++ !== 0){
 
-    }
+
+function confirmacionCitas() {
+    divTexto = `<p> Su cita ha sido asignada satisfactoriamente </p>`
+    $('#divEmergente').append(divTexto);
 }
 
 
@@ -303,9 +303,6 @@ function limpiarDiv() {
 }
 
 /**********************************************LISTA */
-    }
-}
-
 
 function cargarHorasSelect(horasdisponibles) {
     var m = ""
