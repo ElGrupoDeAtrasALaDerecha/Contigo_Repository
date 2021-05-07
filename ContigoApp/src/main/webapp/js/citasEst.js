@@ -337,7 +337,7 @@ function cargarHorasSelect(horasdisponibles) {
 }
 
 $("#horas2").click(function percaHora() {
-  var hora = $("#horas2 option:selected").val();
+  var hora = $("#horas2").val();
   var cita = {
     fecha: fecha,
     hora: hora,
@@ -398,6 +398,7 @@ function listarPerca(perca) {
         $("#perca").append('<div class="item"> <img src="'+ perca[index].imagen+'"> <input type="radio" id="' + perca[index].id_perca +'" name="percaD" value="' + perca[index].nombre_perca + '"> <label for="' + perca[index].id_perca +'"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>') 
     }
 }
+// Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
     var cita = {
         fecha: fecha,
