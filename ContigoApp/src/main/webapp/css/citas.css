@@ -1,11 +1,7 @@
 * {
   box-sizing: border-box;
 }
-.content {
-  overflow-y: auto;
-  height: 100vh;
-  padding-bottom: 5rem;
-}
+
 .title {
   text-align: center;
   font-family: "Open Sans", sans-serif;
@@ -101,9 +97,7 @@ select {
   width: 40%;
 }
 #listaPersonal {
-  width: 45%;
-  display: flex;
-  flex-direction: row;
+  width: 300%;
   top: 15px;
   margin: 0;
   padding: 0;
@@ -156,7 +150,7 @@ select {
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
+  
   align-items: center;
   justify-content: center;
   padding: 1rem;
@@ -193,7 +187,7 @@ select {
 }
 
 .modal-header {
-  display: flex;
+  
   align-items: center;
   justify-content: space-between;
 }
