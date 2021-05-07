@@ -52,6 +52,8 @@ public class Persona {
     private String contraseña;
     
     private String token;
+
+    private String correo;
     /**
      * 
      * @return 
@@ -138,4 +140,12 @@ public class Persona {
         this.token = token;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+    
 }

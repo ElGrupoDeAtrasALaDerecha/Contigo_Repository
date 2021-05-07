@@ -31,12 +31,16 @@ function pintarHistorias(){
         let historia =listaHistorias[i];
         let txt=`<div id="${historia.id}" class="item">
                     <div class="bottom">
-                        <a href="decisiones.html" class="textTitle">${historia.titulo}</a>
+                        <a  class="textTitle">${historia.titulo}</a>
                         <p class="text">${historia.descripcion}</p>
                         </div>
                 </div>
         `
         $("#contenedorHistorias").append(txt);
         $("#"+historia.id).css('background-image', 'url(' + historia.urlImagen + ')');
+        $("#"+historia.id).click(function(){
+            setCookie("idHistoria",historia.id,0.1);
+            window.location.assign("decisiones.html");
+        })
     }
 }

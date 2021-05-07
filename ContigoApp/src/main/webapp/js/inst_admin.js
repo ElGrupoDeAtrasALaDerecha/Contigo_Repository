@@ -14,19 +14,14 @@ $(".d-block").click(function(){
   show(($(this).attr('id')))
 })
 
-function higlight(){
-  var selected = '#'+($(this).attr('id'))
-  $(".selected").css("background-color", "#111B54")
-  $(selected).css("background-color", "#162997")
-  show(($(this).attr('id')))
-}
-
 function show(txt) {
   $(".m1").css("display", "none")
   $(".m2").css("display", "none")
   $(".m3").css("display", "none")
   $(".m4").css("display", "none")
   $("."+txt).css("display", "block")
+  var selected = '#'+txt
+  $(selected).css("background-color", "#162997")
 }
 // 
 
@@ -117,6 +112,7 @@ function setCodigo (serverMsj) {
 function setCurso(data) {
     let codigoGrado = data.codigo
     show("m2")
+    $("#m1").css("background-color", "#111B54")
     graficas.style.display = "block"
     solicitarDatosGrafica(codigoGrado);
     consultarInformacion()

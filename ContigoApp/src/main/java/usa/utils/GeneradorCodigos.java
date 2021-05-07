@@ -10,30 +10,30 @@ package usa.utils;
  * @author Andrés López
  */
 public class GeneradorCodigos {
-    
+
     public static String NUMEROS = "0123456789";
- 
+
     public static String MAYUSCULAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
- 
+
     public static String MINUSCULAS = "abcdefghijklmnopqrstuvwxyz";
-    
-    public static String getPinNumber() {
-	return getCodigo(NUMEROS, 4);
-    }
 
-    public static String getCodigo() {
-            return getCodigo(8);
-    }
 
-    public static String getCodigo(int length) {
-            return getCodigo(NUMEROS + MAYUSCULAS + MINUSCULAS, length);
-    }
-
-    public static String getCodigo(String key, int length) {
-            String codigo = "";
-            for (int i = 0; i < length; i++) {
-                    codigo+=(key.charAt((int)(Math.random() * key.length())));
+    public static String getCodigo(String tipoCodigo, int length) {
+        String key = "";
+        String[] arreglo = tipoCodigo.split("-");
+        for (int i = 0; i < arreglo.length; i++) {
+            if (arreglo[i].equals("N")) {
+                key += NUMEROS;
+            } else if (arreglo[i].equals("M")) {
+                key += MAYUSCULAS;
+            } else if (arreglo[i].equals("m")) {
+                key += MINUSCULAS;
             }
-            return codigo;
+        }
+        String codigo = "";
+        for (int i = 0; i < length; i++) {
+            codigo += (key.charAt((int) (Math.random() * key.length())));
+        }
+        return codigo;
     }
 }

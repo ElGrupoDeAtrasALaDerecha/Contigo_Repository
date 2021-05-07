@@ -18,6 +18,7 @@ public class HistoriaDao implements IHistoriasDao {
     PreparedStatement pat;
     ResultSet result;
 
+    
     @Override
     public boolean crear(Historia his) {
         try {

@@ -159,9 +159,7 @@ h1{
     margin-bottom:20px;
     /*opacity: 0;*/
 }
-.popup form .contenedor-inputs{
 
-}
 .popup form .contenedor-inputs input{
     width: 100%;
     margin-bottom: 20px;
@@ -178,6 +176,18 @@ h1{
     border: none;
     color:#fff;
     background: #222831;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor:pointer;
+}
+
+.btn-final{
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    color:#fff;
+    background: #700000;
     border-radius: 3px;
     font-size: 16px;
     cursor:pointer;

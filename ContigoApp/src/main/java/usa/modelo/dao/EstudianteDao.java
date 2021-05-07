@@ -23,7 +23,7 @@ public class EstudianteDao implements IDaoEstudiante {
     @Override
     public boolean crear(Estudiante estudiante) {
         try {
-            String sql = "call insertarEstudiante(?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "call insertarEstudiante(?,?,?,?,?,?,?,?,?,?,?,?)";
             CallableStatement call = conn.prepareCall(sql);
             call.setString("_documento", estudiante.getDocumento());
             call.setInt("_TIPO_DOCUMENTO_ID", estudiante.getTipoDocumento());
@@ -36,6 +36,7 @@ public class EstudianteDao implements IDaoEstudiante {
             call.setString("_genero", estudiante.getGenero());
             call.setString("_contraseña", estudiante.getContraseña());
             call.setString("_GRADO_codigo", estudiante.getGrado());
+            call.setString("_correo",estudiante.getCorreo());
             call.execute();
             return true;
         } catch (SQLException ex) {
@@ -63,6 +64,7 @@ public class EstudianteDao implements IDaoEstudiante {
                 estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
                 estudiante.setGenero(rs.getString("p.genero"));
                 estudiante.setGrado(rs.getString("GRADO_codigo"));
+                estudiante.setCorreo(rs.getString("correo"));
             }
             rs.close();
             pat.close();
@@ -100,6 +102,7 @@ public class EstudianteDao implements IDaoEstudiante {
                 estudiante.setSegundoApellido(rs.getString("p.segundoApellido"));
                 estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
                 estudiante.setGenero(rs.getString("p.genero"));
+                estudiante.setCorreo(rs.getString("correo"));
                 estudiantes.add(estudiante);
             }
         } catch (SQLException ex) {
@@ -128,6 +131,7 @@ public class EstudianteDao implements IDaoEstudiante {
                 estudiante.setSegundoApellido(rs.getString("p.segundoApellido"));
                 estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
                 estudiante.setGenero(rs.getString("p.genero"));
+                estudiante.setCorreo(rs.getString("correo"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,6 +177,7 @@ public class EstudianteDao implements IDaoEstudiante {
                 estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
                 estudiante.setGenero(rs.getString("p.genero"));
                 estudiante.setToken(rs.getString("p.token"));
+                estudiante.setCorreo(rs.getString("correo"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,6 +207,7 @@ public class EstudianteDao implements IDaoEstudiante {
                 estudi.setPrimerApellido(rs.getString("primerApellido"));
                 estudi.setSegundoApellido(rs.getString("segundoApellido"));
                 estudi.setGrado(rs.getString("grado"));
+                estudi.setCorreo(rs.getString("correo"));
                 estudiantes.add(estudi);
             }
             rs.close();

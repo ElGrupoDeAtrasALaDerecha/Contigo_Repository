@@ -8,7 +8,7 @@ package usa.modelo.dto;
 public class PersonalCalificado extends Persona {
 
     
-    private String correo;
+
     private String imagen;
 
     public String getImagen() {
@@ -22,17 +22,6 @@ public class PersonalCalificado extends Persona {
      * Default constructor
      */
     public PersonalCalificado() {
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-    /**
-     * 
-     * @param correo 
-     */
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dto;
 
 import java.util.LinkedList;
@@ -14,33 +9,44 @@ import java.util.LinkedList;
 public class Arbol {
 
     Situacion primerNodo;
-
-    public void agregarNodo(Situacion situacion) {
+    /**
+     * Método que agrega una situación a un árbol (o un final). 
+     * Se agregan nodos con necesidad de encontrar un nodo padre para componer la historia.
+     * @param situacion que es la situación de decisión que se agregará al árbol
+     */
+    public void agregarNodo(Componente situacion) {
         if (primerNodo == null) {
-            primerNodo = situacion;
+            primerNodo = (Situacion)situacion;
         } else {
             if (primerNodo.getOpciones().isEmpty() || situacion.getPredecesor() == primerNodo.getId()) {
                 primerNodo.agregarOpcion(situacion);
                 return;
             }
-            Situacion situacionPadre = buscarPadre(situacion.getPredecesor(), primerNodo);
+            Situacion situacionPadre = (Situacion)buscarPadre(situacion.getPredecesor(), primerNodo);
             situacionPadre.agregarOpcion(situacion);
-
         }
     }
-
-    public Situacion buscarPadre(int id, Situacion situacion) {
-        if(situacion.getId() == id ){
+    /**
+     * Método que busca un nodo padre
+     * @param id que es el id del nodo que se busca
+     * @param situacion que es una situación que posiblemente sea el padre o que contenga al padre
+     * @return una instancia de situación que puede ser el padre.
+     */
+    public Componente buscarPadre(int id, Situacion situacion) {
+        if(situacion.getId() == id){
             return situacion;
         }
-        LinkedList<Situacion> situaciones = situacion.getOpciones();
+        LinkedList<Componente> situaciones = situacion.getOpciones();
         for (int i = 0; i < situaciones.size(); i++) {
             if (situaciones.get(i).getId() == id) {
                 return situaciones.get(i);
             } else {
-
-                return buscarPadre(id, situaciones.get(i));
-
+                if(situaciones.get(i) instanceof Situacion){
+                    Situacion posiblePadre=(Situacion)buscarPadre(id, (Situacion)situaciones.get(i));
+                    if(posiblePadre!=null){
+                        return posiblePadre;
+                    }
+                } 
             }
         }
         return null;

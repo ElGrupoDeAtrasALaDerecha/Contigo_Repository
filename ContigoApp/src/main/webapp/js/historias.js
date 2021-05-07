@@ -86,6 +86,7 @@ function crearHistoria() {
             if (result != "error") {
                 console.log(result);
                 setCookie('idHistoria',result.idHistoria, 0.1)
+                $(location).attr('href', 'situaciones.html?id='+getCookie("idHistoria"));
             } else {
                 console.log("error");
             }
@@ -97,3 +98,7 @@ function crearHistoria() {
     });
 
 }
+
+
+
+

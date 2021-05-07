@@ -417,9 +417,14 @@ function agendarCita(cita, personal) {
   for (let index = 0; index < personal.length; index++) {
     if (personal[index].nombre_perca == cita.personal) {
       cita.idc = personal[index].id
-      cita.ida = personal[index].idAgenda
+      break;
     }
+    console.log(cita)
   }
+  var obj={
+        id:cita.idc
+  }
+  solicitarCita(obj);
 }
 
 function obtenerHistorial() {
@@ -439,5 +444,29 @@ function obtenerHistorial() {
     },
     complete: function (result) {},
     error: function (result) {},
+  });
+}
+
+function solicitarCita(obj){
+  $.ajax({
+    url: "Cita",
+    type: "POST",
+    dataType: "json",
+    headers: {
+      token: getCookie("token"),
+    },
+    data: JSON.stringify(obj),
+    contentType: "JSON application/json charset=utf-8",
+    beforeSend: function () {},
+    success: function (response) {
+      if(response.tipo==="ok"){
+          alert("Cita asignada correctamente\n Se recomienda estar con diez minutos de anticipación en la cita")
+          window.location.assign("opciones.html");
+      }
+    },
+    complete: function (result) {},
+    error: function (result) {
+        console.log(result);
+    },
   });
 }
