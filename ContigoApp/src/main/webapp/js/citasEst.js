@@ -415,6 +415,7 @@ function agendarCita(cita, personal) {
       cita.idc = personal[index].id
       cita.ida = personal[index].idAgenda
     }
+    console.log(cita)
   }
 }
 
