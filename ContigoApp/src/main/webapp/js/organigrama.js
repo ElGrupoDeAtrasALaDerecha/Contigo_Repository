@@ -20,7 +20,7 @@
 
 		createControls(this.tabla);
 	};
-
+	
 	organigrama.prototype.eventAdd = function(c){
 		if(c === undefined){
 			alert('Evento Add mal definido');
@@ -28,9 +28,7 @@
 		}	
 		var btns = this.tabla.querySelectorAll('.nodo .btn-add');
 		for(var i = 0; i < btns.length; i++){
-			on('click', btns[i], function(){
-				c(this.getAttribute('data-id'));
-			});
+			on('click', btns[i], function(){c(this.getAttribute('data-id'));});
 		}
 	};
 
@@ -40,6 +38,20 @@
 			return;
 		}	
 		var btns = this.tabla.querySelectorAll('.nodo .btn-edit');
+
+		for(var i = 0; i < btns.length; i++){
+			on('click', btns[i], function(){
+				c(this.getAttribute('data-id'));
+			});
+		}
+	};
+
+	organigrama.prototype.eventDelete = function(c){
+		if(c === undefined){
+			alert('Evento Delete mal definido');
+			return;
+		}	
+		var btns = this.tabla.querySelectorAll('.nodo .btn-delete');
 
 		for(var i = 0; i < btns.length; i++){
 			on('click', btns[i], function(){
@@ -68,12 +80,12 @@
 			nodo.appendChild(item);
 
 			item = document.createElement('div');
-			item.innerText = data.textoOpcion;
+			item.innerText = data.titulo;
 			item.className = 'nodo-puesto';
 			nodo.appendChild(item);
 
 			item = document.createElement('div');
-			item.innerText = data.titulo;
+			item.innerText = data.texto;
 			item.className = 'nodo-nombre';
 			nodo.appendChild(item);
 
@@ -159,12 +171,13 @@
 			var id = nodos[i].getAttribute('data-id');
 			var div = document.createElement('div');
 			div.className = 'controls';
-
+			
 			// Btn Add
 			var btn = document.createElement('btn');
 			btn.setAttribute('type','button');
 			btn.setAttribute('data-id', id);
 			btn.className = 'btn btn-primary btn-block btn-add';
+		
 
 			var icon = document.createElement('i');
 			icon.className = 'glyphicon glyphicon-plus';
@@ -181,6 +194,19 @@
 			icon.className = 'glyphicon glyphicon-pencil';
 			btn.appendChild(icon);
 			div.appendChild(btn);
+
+			// Btn Eliminar
+			btn = document.createElement('btn');
+			btn.setAttribute('type','button');
+			btn.setAttribute('data-id', id);
+			btn.className = 'btn btn-danger btn-block btn-delete';
+
+			icon = document.createElement('i');
+			icon.className = 'glyphicon glyphicon-minus';
+			btn.appendChild(icon);
+			div.appendChild(btn);
+
+			
 
 			nodos[i].appendChild(div);
 		}

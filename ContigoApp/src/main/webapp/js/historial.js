@@ -48,7 +48,7 @@ function mostrarHistorial(historialCita) {
             '<img src="' + historialCita[i].imagen + '">' +
             '</div>' +
             '<div class="content">' +
-            '<a class="header">Fecha: 20/05/2021 </a>' +
+            '<a class="header">Fecha: '+historialCita[i].fecha+' </a>' +
             '<div class="meta">' +
             '<span class="cinema">Personal Calificado:  ' + historialCita[i].nombre_perca + '</span>' +
             '<br><br>' +
@@ -63,7 +63,8 @@ function mostrarHistorial(historialCita) {
         if (historialCita[i].estado === 1) {
             texto += '<div id="estado" class="ui blue inverted segment">Cita sin Asignar</div>'
         } else if (historialCita[i].estado === 2) {
-            texto += '<div id="estado" class="ui green inverted segment">Cita Asignada</div>'
+            texto += `<div id="estado" class="ui green inverted segment">Cita Asignada 
+            <div class="ui right floated button cancelar">Cancelar cita</div></div>`
         } else if (historialCita[i].estado === 3) {
             texto += '<div id="estado" class="ui grey inverted segment">Cita Asistida</div>'
         } else if (historialCita[i].estado === 4) {
@@ -73,5 +74,29 @@ function mostrarHistorial(historialCita) {
             '</div>' +
             '</div>'
         $("#historial").append(texto)
+        $(".cancelar").click(function(){
+            /*Aquí se supone que se cancela la cita
+            $.ajax({
+                url: "Cita",
+                type: "",
+                headers: {
+                    token: getCookie("token")
+                },
+                dataType: "json",
+                contentType: "JSON application/json charset=utf-8",
+                beforeSend: function () {
+                },
+                success: function (response) {
+                    var historialCita = response.citas
+                    mostrarHistorial(historialCita);
+        
+                }, complete: function (result) {
+        
+                }, error: function (result) {
+                    console.log(result);
+        
+                }
+            });*/
+        })
     }
 }

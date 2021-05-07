@@ -12,14 +12,16 @@ import usa.utils.Correo;
  */
 public class MailConfirmacionInstitucion extends Email implements IStrategy{
 
+    private String texto="<h1>Cuenta confirmada</h1>\n" +
+            "¡Muchas gracias por comprar nuestros servicios!";
     public MailConfirmacionInstitucion(String DESTINO) {
-        super(DESTINO,"Verifique su cuenta","mailTemplates/mailRecuperacionPersonal.html");
+        super(DESTINO,"Verifique su cuenta","");
     }
     
     @Override
     public void enviarCorreo() {
         try {
-            Correo.enviarCorreo(DESTINO,ASUNTO ,leerArchivo());
+            Correo.enviarCorreo(DESTINO,ASUNTO ,texto);
         } catch (IOException | MessagingException ex) {
             Logger.getLogger(MailConfirmacionInstitucion.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.CitaDao;
+import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoCita;
 import usa.modelo.dto.Cita;
@@ -34,6 +35,7 @@ public class CitaServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
     CitaDao dao = (CitaDao) factoryDao.obtener("CitaDao");
+    EstudianteDao estudianteDao=(EstudianteDao)factoryDao.obtener("EstudianteDao");
 
 
     @Override
@@ -53,6 +55,7 @@ public class CitaServlet extends HttpServlet {
                 LinkedList<Cita> perca = dao.percaCita(fecha,hora);
                 respuesta.put("tipo", "ok");
                 respuesta.put("perca", perca);
+                respuesta.put("tipo", "ok");
             }
              if (tipo.equals("historialEstudiante")) {
                 IDaoEstudiante daoEstudiante = (IDaoEstudiante) factoryDao.obtener("EstudianteDao");
@@ -75,40 +78,30 @@ public class CitaServlet extends HttpServlet {
         respuesta.put("citas", arreglo);  
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
-        
-        /**
-        response.setContentType("application/json;charset=UTF-8");
-        System.out.println(request);
-        JSONObject respuesta = new JSONObject();
-        String tipo = request.getParameter("tipo");
-        JSONArray arreglo = null;
-        String token = request.getHeader("token");
-        if (tipo != null) {
-            if (tipo.equals("historialEstudiante")) {
-                IDaoEstudiante daoEstudiante = (IDaoEstudiante) factoryDao.obtener("EstudianteDao");
-                Estudiante estudiante = daoEstudiante.consultarPorToken(token);
-                if (estudiante != null) {
-                    respuesta.put("tipo", "ok");
-                    arreglo = new JSONArray(Utils.toJson(((IDaoCita) dao).listarHistorial(estudiante.getDocumento())));
-                } else {
-                    respuesta.put("tipo", "error");
-                }
-            }
-        } else {
-            if (token != null) {
-                arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-            }
-        }
-
-        respuesta.put("citas", arreglo);
-        PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());**/
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        JSONObject data = new JSONObject(Utils.readParams(request));
+        JSONObject respuesta = new JSONObject();
+        String token = request.getHeader("token");
+        String id = String.valueOf(data.getInt("id"));
+        Cita cita = dao.consultar(id);
+        Estudiante e = estudianteDao.consultarPorToken(token);
+        if(cita!=null && e!=null){
+            cita.setIdEstudiante(e.getDocumento());
+            cita.setEstado(2);
+            respuesta.put("tipo","ok");
+            respuesta.put("mensaje", "Estudiante registrado en la cita");
+        }else{
+            respuesta.put("tipo","error");
+            respuesta.put("mensaje", "Ese estudiante o cita no existe");
+        }
+        out.print(respuesta.toString());        
+        
     }
 
     @Override
