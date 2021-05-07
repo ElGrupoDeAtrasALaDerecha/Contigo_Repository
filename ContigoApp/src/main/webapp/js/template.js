@@ -7,6 +7,7 @@ $(document).ready(function () {
                             <li><a href="Conversatorios.html" class="menuFooter">Conversatorios</a></li>
                             <li><a href="listadoHistorias.html" class="menuFooter">Decisiones</a></li>
                             <li><a href="#" class="menuFooter">Ayuda</a></li>
+                            <li><a href="citasEst.html" class="menuFooter">Citas</a></li>
                         </ul>
                         <hr>
                     </div>
@@ -77,7 +78,9 @@ $(document).ready(function () {
                                     <li><a href="opciones.html">Inicio</a></li>
                                     <li><a href="Conversatorios.html">Conversatorios</a></li>
                                     <li><a href="listadoHistorias.html">Decisiones</a></li>
+                                    <li><a href="citasEst.html" class="menuFooter">Citas</a></li>
                                     <li><a href="#">Ayuda</a></li>
+                                 
                                     <li style="float:right;"><div id="salir"><a>Salir</a></div></li>
                                 </div>
                             </ul>

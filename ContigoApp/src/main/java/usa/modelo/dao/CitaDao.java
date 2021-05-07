@@ -108,7 +108,6 @@ public class CitaDao implements IDaoCita {
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
                 Cita cita = new Cita();
-                ObservadorCita observador = new ObservadorCita(cita);
                 cita.setId(rs.getInt("id"));
                 cita.setIdAgenda(rs.getInt("AGENDA_id"));
                 cita.setIdEstudiante(rs.getString("ESTUDIANTE_PERSONA_documento"));

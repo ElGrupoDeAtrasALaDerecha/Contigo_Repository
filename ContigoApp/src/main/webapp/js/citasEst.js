@@ -297,7 +297,6 @@ function llenarDiv(cita) {
   $("#divEmergente").append(divTexto);
 
   $("#btnCancelarC").click(function () {
-    alert("Ha hecho click sobre el boton");
     contCanc++;
     console.log(contCanc);
     document.querySelector(".modal.is-visible").classList.remove(isVisible);
@@ -306,7 +305,6 @@ function llenarDiv(cita) {
   });
 
   $("#btnConfirmarC").click(function () {
-    alert("Hola!")
     agendarCita(citaS,personal)
   });
 }
