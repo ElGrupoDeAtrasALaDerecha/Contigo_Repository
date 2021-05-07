@@ -345,6 +345,8 @@ $("#horas2").click(function percaHora() {
   getPerca(cita)
 });
 
+var citaDelDia ;
+
 function getPerca(cita) {    
     $.ajax({
       url: "Cita?tipo=getPerca",
@@ -358,6 +360,8 @@ function getPerca(cita) {
       beforeSend: function () {},
       success: function (response) {
         if (response.tipo === "ok") {
+            citaDelDia = response.perca;
+            console.log(response)
             listarPerca(response.perca)
         }
       },

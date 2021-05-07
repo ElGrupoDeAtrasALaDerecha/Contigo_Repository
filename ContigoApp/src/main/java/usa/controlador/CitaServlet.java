@@ -51,6 +51,7 @@ public class CitaServlet extends HttpServlet {
                 String hora=request.getHeader("hora");
                 System.out.println("---> " + fecha + " - "+ hora);
                 LinkedList<Cita> perca = dao.percaCita(fecha,hora);
+                respuesta.put("tipo", "ok");
                 respuesta.put("perca", perca);
             }
              if (tipo.equals("historialEstudiante")) {
@@ -66,6 +67,7 @@ public class CitaServlet extends HttpServlet {
             
         }else {
            // if (token != null) {
+                respuesta.put("tipo", "ok");
                 arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
             //}
         }
