@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import javax.servlet.http.HttpServletRequest;
 import usa.strategy.Contexto;
+import usa.strategy.MailConfirmacionCita;
 import usa.strategy.MailConfirmacionEstudiante;
 import usa.strategy.MailConfirmacionInstitucion;
 import usa.strategy.MailConfirmacionPersonal;
@@ -110,6 +111,20 @@ public class Utils {
             contexto = new Contexto(new MailConfirmacionPersonal(correo));
         } else if (tipoCorreo.equals("confirmacionInstitucion")) {
             contexto = new Contexto(new MailConfirmacionInstitucion(correo));
+        }
+        contexto.enviarCorreo();
+    }    
+    /**
+     * Método que permite enviar un correo a un tipo de persona.
+     *
+     * @param tipoCorreo
+     * @param correo
+     * @param contenido
+     */
+    public static void enviarCorreoA(String tipoCorreo, String correo,String contenido) {
+        Contexto contexto = null;
+        if(tipoCorreo.equals("confirmacionCita")){
+            contexto = new Contexto(new MailConfirmacionCita(correo,"Confirmación de cita",contenido));
         }
         contexto.enviarCorreo();
     }

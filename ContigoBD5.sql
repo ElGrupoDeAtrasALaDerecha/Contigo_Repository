@@ -48,6 +48,7 @@ CREATE TABLE PERSONA (
   fechaNacimiento DATE NOT NULL,
   contraseña VARCHAR(200) NOT NULL,
   genero VARCHAR(15) NULL,
+  correo VARCHAR(80) NOT NULL unique,
   PRIMARY KEY(documento),
   INDEX PERSONA_FKIndex1(TIPO_DOCUMENTO_id),
   FOREIGN KEY(TIPO_DOCUMENTO_id)
@@ -58,7 +59,6 @@ CREATE TABLE PERSONA (
 
 CREATE TABLE PERSONAL (
   PERSONA_documento VARCHAR(20) NOT NULL,
-  correo VARCHAR(80) NOT NULL unique,
   imagen VARCHAR(240) NOT NULL,
   PRIMARY KEY(PERSONA_documento),
   INDEX PERSONAL_FKIndex1(PERSONA_documento),
@@ -256,7 +256,7 @@ CREATE TABLE CITA (
   estado INTEGER UNSIGNED NULL,
   lugar VARCHAR(300) NOT NULL,
   motivo VARCHAR(20) null,
-  recomendaciones VARCHAR(20) null,
+  recomendaciones VARCHAR(1000) null,
   PRIMARY KEY(id),
   INDEX CITA_FKIndex1(ESTUDIANTE_PERSONA_documento),
   INDEX CITA_FKIndex2(AGENDA_id),

@@ -21,7 +21,11 @@ $("body").keyup(function (e) {
 var ingresoI = document.getElementById("ing_inst");
 
 /* Se agrega el evento al elemento */
-ingresoI.addEventListener("click", ingresoInstitucion);
+//ingresoI.addEventListener("click", ingresoInstitucion);
+$("#ing_inst").click(function(e){
+    e.preventDefault()
+    ingresoInstitucion();
+})
 function ingresoInstitucion() {
     var email = $("#correo").val();
     var pass = $("#password_inst").val();
@@ -84,7 +88,7 @@ function ingresoEstudiante() {
   
     var doc = $("#documento").val();
     var pass = $("#contraseña").val();
-    if (doc && pass) {
+    if (doc!=="" && pass!=="") {
         var obj = {
             documento: doc,
             contraseña: pass

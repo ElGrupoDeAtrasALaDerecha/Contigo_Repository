@@ -5,18 +5,19 @@
  */
 package usa.modelo.dto;
 
+import usa.observer.Subject;
+
 /**
  *
  * @author Valeria
  */
-public class Cita {
+public class Cita extends Subject{
 
     private int id;
     private int idAgenda;
     private String idEstudiante;
     private int horaInicio;
     private String fecha;
-    private int estado;
     private String lugar;
     private String motivo;
     private String recomendaciones;
@@ -65,14 +66,6 @@ public class Cita {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
     }
 
     public String getLugar() {

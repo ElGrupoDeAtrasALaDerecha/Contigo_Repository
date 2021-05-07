@@ -54,6 +54,7 @@ public class CitaServlet extends HttpServlet {
                 System.out.println("---> " + fecha + " - "+ hora);
                 LinkedList<Cita> perca = dao.percaCita(fecha,hora);
                 respuesta.put("perca", perca);
+                respuesta.put("tipo", "ok");
             }
              if (tipo.equals("historialEstudiante")) {
                 IDaoEstudiante daoEstudiante = (IDaoEstudiante) factoryDao.obtener("EstudianteDao");
@@ -68,6 +69,7 @@ public class CitaServlet extends HttpServlet {
             
         }else {
            // if (token != null) {
+                respuesta.put("tipo", "ok");
                 arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
             //}
         }
@@ -75,34 +77,6 @@ public class CitaServlet extends HttpServlet {
         respuesta.put("citas", arreglo);  
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
-        
-        /**
-        response.setContentType("application/json;charset=UTF-8");
-        System.out.println(request);
-        JSONObject respuesta = new JSONObject();
-        String tipo = request.getParameter("tipo");
-        JSONArray arreglo = null;
-        String token = request.getHeader("token");
-        if (tipo != null) {
-            if (tipo.equals("historialEstudiante")) {
-                IDaoEstudiante daoEstudiante = (IDaoEstudiante) factoryDao.obtener("EstudianteDao");
-                Estudiante estudiante = daoEstudiante.consultarPorToken(token);
-                if (estudiante != null) {
-                    respuesta.put("tipo", "ok");
-                    arreglo = new JSONArray(Utils.toJson(((IDaoCita) dao).listarHistorial(estudiante.getDocumento())));
-                } else {
-                    respuesta.put("tipo", "error");
-                }
-            }
-        } else {
-            if (token != null) {
-                arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-            }
-        }
-
-        respuesta.put("citas", arreglo);
-        PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());**/
 
     }
 
@@ -113,7 +87,7 @@ public class CitaServlet extends HttpServlet {
         JSONObject data = new JSONObject(Utils.readParams(request));
         JSONObject respuesta = new JSONObject();
         String token = request.getHeader("token");
-        String id = data.getString("id");
+        String id = String.valueOf(data.getInt("id"));
         Cita cita = dao.consultar(id);
         Estudiante e = estudianteDao.consultarPorToken(token);
         if(cita!=null && e!=null){
