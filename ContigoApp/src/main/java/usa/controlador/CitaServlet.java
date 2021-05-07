@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.CitaDao;
+import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoCita;
 import usa.modelo.dto.Cita;
@@ -34,6 +35,7 @@ public class CitaServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
     CitaDao dao = (CitaDao) factoryDao.obtener("CitaDao");
+    EstudianteDao estudianteDao=(EstudianteDao)factoryDao.obtener("EstudianteDao");
 
 
     @Override
@@ -107,6 +109,24 @@ public class CitaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        JSONObject data = new JSONObject(Utils.readParams(request));
+        JSONObject respuesta = new JSONObject();
+        String token = request.getHeader("token");
+        String id = data.getString("id");
+        Cita cita = dao.consultar(id);
+        Estudiante e = estudianteDao.consultarPorToken(token);
+        if(cita!=null && e!=null){
+            cita.setIdEstudiante(e.getDocumento());
+            cita.setEstado(2);
+            respuesta.put("tipo","ok");
+            respuesta.put("mensaje", "Estudiante registrado en la cita");
+        }else{
+            respuesta.put("tipo","error");
+            respuesta.put("mensaje", "Ese estudiante o cita no existe");
+        }
+        out.print(respuesta.toString());        
+        
     }
 
     @Override

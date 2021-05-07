@@ -173,7 +173,7 @@ select {
 .modal-dialog {
   position: relative;
   width: 30%;
-  height: 45%;
+  height:auto;
   border-radius: 5px;
   background: rgba(96, 98, 121, 0.541);
   overflow: auto;
@@ -204,7 +204,12 @@ select {
   margin-top: 1rem;
 }
 
-
+#estado{
+  position:relative;
+  width: 150px;
+  margin-left: 80%;
+  
+}
 /* ANIMATIONS
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 [data-animation] .modal-dialog {

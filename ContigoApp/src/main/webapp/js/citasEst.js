@@ -256,7 +256,6 @@ for (const el of openEls) {
   el.addEventListener("click", function () {
     const modalId = this.dataset.open;
     document.getElementById(modalId).classList.add(isVisible);
-    llenarDiv(fecha, textHora);
   });
 }
 
@@ -284,12 +283,12 @@ document.addEventListener("keyup", (e) => {
 var divTexto = document.getElementById("divEmergente");
 var contConf = 0;
 var contCanc = 0;
-function llenarDiv(fecha, hora) {
+function llenarDiv(cita) {
   divTexto =
     `<p>DATOS DE SU CITA: </p>` +
-    `<p>Fecha: ${fecha} </p>` +
-    `<p>Hora: ${hora}</p>` +
-    `<p>Personal calificado: </p>` +
+    `<p>Fecha: ${cita.fecha} </p>` +
+    `<p>Hora: ${cita.hora}:00</p>` +
+    `<p>Personal calificado: ${cita.personal} </p>` +
     `<div class="ui buttons">
         <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
         <div class="or"></div>
@@ -305,17 +304,13 @@ function llenarDiv(fecha, hora) {
     limpiarDiv();
     return false;
   });
+
   $("#btnConfirmarC").click(function () {
-    alert("Ha hecho click sobre el boton");
-    contConf++;
-    console.log(contConf);
-    return true;
+    alert("Hola!")
+    agendarCita(citaS,personal)
   });
 }
-function botonConfirmarC() {
-  if (contCanc++ !== 0) {
-  }
-}
+
 
 function limpiarDiv() {
   $("#divEmergente").empty();
@@ -342,7 +337,7 @@ function cargarHorasSelect(horasdisponibles) {
 }
 
 $("#horas2").click(function percaHora() {
-  var hora = $("#horas2 option:selected").val();
+  var hora = $("#horas2").val();
   var cita = {
     fecha: fecha,
     hora: hora,
@@ -392,22 +387,40 @@ function cargarCitas() {
     },
   });
 }
+var personal
+var citaS
 function listarPerca(perca) {
     console.log(perca)
+    personal = perca
     listaPersonal.style.display = "block";
     $("#perca").empty()
     for (let index = 0; index < perca.length; index++) {
-        $("#perca").append('<div class="item"> <i class="user circle icon"></i> <input type="radio" id="' + perca[index].id_perca +'" name="percaD" value="' + perca[index].id_perca + '"> <label for="' + perca[index].id_perca +'"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>') 
+        $("#perca").append('<div class="item"> <img src="'+ perca[index].imagen+'"> <input type="radio" id="' + perca[index].id_perca +'" name="percaD" value="' + perca[index].nombre_perca + '"> <label for="' + perca[index].id_perca +'"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>') 
     }
 }
+// Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
     var cita = {
         fecha: fecha,
         hora: $("#horas2 option:selected").val(),
-        perca: $('input:radio[name=percaD]:checked').val()
+        personal: $('input:radio[name=percaD]:checked').val()
     };
-    console.log(cita)
+    citaS = cita
+    llenarDiv(cita)
 })
+
+function agendarCita(cita, personal) {
+  for (let index = 0; index < personal.length; index++) {
+    if (personal[index].nombre_perca == cita.personal) {
+      cita.idc = personal[index].id
+      break;
+    }
+  }
+  var obj={
+        id:cita.idc
+  }
+  solicitarCita(obj);
+}
 
 function obtenerHistorial() {
   $.ajax({
@@ -426,5 +439,29 @@ function obtenerHistorial() {
     },
     complete: function (result) {},
     error: function (result) {},
+  });
+}
+
+function solicitarCita(obj){
+  $.ajax({
+    url: "Cita",
+    type: "POST",
+    dataType: "json",
+    headers: {
+      token: getCookie("token"),
+    },
+    data: JSON.stringify(obj),
+    contentType: "JSON application/json charset=utf-8",
+    beforeSend: function () {},
+    success: function (response) {
+      if(response.tipo==="ok"){
+          alert("Cita asignada correctamente\n Se recomienda estar con diez minutos de anticipación en la cita")
+          window.location.assign("opciones.html");
+      }
+    },
+    complete: function (result) {},
+    error: function (result) {
+        console.log(result);
+    },
   });
 }
