@@ -56,7 +56,6 @@ public class CitaDao implements IDaoCita {
             result = pat.executeQuery();
 
             cita = new Cita();
-            ObservadorCita observador = new ObservadorCita(cita);
             while (result.next()) {
                 cita.setId(result.getInt("id"));
                 cita.setIdAgenda(result.getInt("AGENDA_id"));
@@ -83,7 +82,7 @@ public class CitaDao implements IDaoCita {
                     + "set ESTUDIANTE_PERSONA_documento = \""+cita.getIdEstudiante()+"\"\n,"
                     + "estado="+cita.getEstado()+", "
                     + "motivo=\""+cita.getMotivo()+"\" "
-                    + "where id="+cita.getId()+",;";
+                    + "where id="+cita.getId()+";";
             pat = conn.prepareStatement(sql);
             pat.execute();
             pat.close();
@@ -220,7 +219,9 @@ public class CitaDao implements IDaoCita {
         try {
             String sql = "select distinct AGENDA.PERSONAL_PERSONA_documento as ID_PERCA, PERSONA.primerNombre as Nombre, PERSONA.primerApellido as Apellido, PERSONAL.imagen, CITA.AGENDA_id, CITA.id"
                     + " from AGENDA, PERSONAL, CITA, PERSONA "
-                    + " where  CITA.AGENDA_id = AGENDA.id and PERSONA.documento = AGENDA.PERSONAL_PERSONA_documento and CITA.fecha = '" + fecha + "' and CITA.horaInicio = '" + hora + "'"
+                    + " where  CITA.AGENDA_id = AGENDA.id and PERSONA.documento = AGENDA.PERSONAL_PERSONA_documento"
+                    + " and CITA.fecha = '" + fecha + "' and CITA.horaInicio = '" + hora + "' "
+                    + " and CITA.estado=1"
                     + " group by ID_PERCA;";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();

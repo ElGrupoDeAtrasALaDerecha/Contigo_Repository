@@ -32,11 +32,11 @@ public abstract class Subject {
 
     public void setEstado(int estado) {
         this.estado = estado;
-        /*
+        
         if(!observadores.isEmpty()){
-        this.notificarAObservadores();
+            this.notificarAObservadores();
         }
-         */
+        
     }
 
     public void notificarAObservadores() {

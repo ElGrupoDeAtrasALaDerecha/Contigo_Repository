@@ -24,6 +24,7 @@ import usa.modelo.dao.IDaoCita;
 import usa.modelo.dto.Cita;
 import usa.modelo.dao.IDaoEstudiante;
 import usa.modelo.dto.Estudiante;
+import usa.observer.ObservadorCita;
 import usa.utils.Utils;
 
 /**
@@ -92,10 +93,13 @@ public class CitaServlet extends HttpServlet {
         Cita cita = dao.consultar(id);
         Estudiante e = estudianteDao.consultarPorToken(token);
         if(cita!=null && e!=null){
+            ObservadorCita observador = new ObservadorCita(cita);
             cita.setIdEstudiante(e.getDocumento());
             cita.setEstado(2);
-            respuesta.put("tipo","ok");
-            respuesta.put("mensaje", "Estudiante registrado en la cita");
+            if(dao.actualizar(cita)){
+                respuesta.put("tipo","ok");
+                respuesta.put("mensaje", "Estudiante registrado en la cita");
+            } 
         }else{
             respuesta.put("tipo","error");
             respuesta.put("mensaje", "Ese estudiante o cita no existe");
@@ -113,6 +117,7 @@ public class CitaServlet extends HttpServlet {
         Cita citaActualizar = (Cita) dao.consultar(id);
         if (citaActualizar != null) {
             IDaoCita daocita = (IDaoCita) dao;
+            ObservadorCita observador = new ObservadorCita(citaActualizar);
             citaActualizar.setEstado(json.getInt("estado"));
             if (json.getInt("estado") == 3 || json.getInt("estado") == 7) {
                 citaActualizar.setMotivo(json.getString("motivo"));
