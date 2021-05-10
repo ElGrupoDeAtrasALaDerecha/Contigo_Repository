@@ -1,107 +1,105 @@
 * {
   box-sizing: border-box;
 }
+
 .title {
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
-    text-decoration: none;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: none;
   color: rgb(0, 0, 0);
 }
-.calendar{
+#horas2 {
+  width: 200%;
+  margin: 5px;
+  text-align: center;
+}
+.p {
+  margin: 5px;
+  margin-left: 15px;
+}
+.calendar {
   background: #222831;
   width: 100%;
   max-width: 600px;
   position: relative;
   padding: 1%;
   text-align: center;
-  margin-left: 2%;
+  margin-left: 10%;
   margin-bottom: 3%;
- 
 }
 
-.calendarInfo{
-    display: flex;
-    align-items: center;
-    padding: 2%;
-    font-size: 100%;
-    text-transform: uppercase;
-    text-align: center;
-  font-family: 'Open Sans', sans-serif;
-    text-decoration: none;
+.calendarInfo {
+  display: flex;
+  align-items: center;
+  padding: 2%;
+  font-size: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: none;
   color: rgb(255, 255, 255);
-    
 }
-    /*flechas*/
-#prev{
-    margin-right: auto;
+/*flechas*/
+#prev {
+  margin-right: auto;
 }
-#next{
-    margin-left: auto;
+#next {
+  margin-left: auto;
 }
 /*cuadricula*/
-.week, .dates{
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 10px;
+.week,.dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 10px;
 }
 
-#month, #year{
-    padding: .5em 1em;
+#month,#year {
+  padding: 0.5em 1em;
 }
 
-.item{
-    text-align: center;
-    line-height: 2;
-    color: rgb(180, 192, 192);
+.item {
+  text-align: center;
+  line-height: 2;
+  color: rgb(180, 192, 192);
 }
 
-#last-days{
-    opacity: .3;
+#last-days {
+  opacity: 0.3;
 }
-.dates{
+.dates {
   width: 100%;
 }
-.dates, button:active {
-    /*background-color: rgb(200, 211, 245);
-   box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(209, 209, 255);*/
+
+#calendarioCompleto {
+  width: 100%;
+  position: relative;
+  margin-top: 50px;
 }
-#calendarioCompleto{
-    width: 100%;
-    position:relative;
-}
-#horas{
-    
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-    font-weight: lighter;
-    margin: 1%;
-    padding: 1% 2%;
-    width: 30%;
-    height: 5%;
-    align-content: center;
-    align-items: center;
-    text-align: center;
-    position: absolute;
-    left: 35%;
-    top: 25%;
-    
+#horas {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: lighter;
+  margin: 1%;
+  padding: 1% 2%;
+  width: 30%;
+  height: 5%;
+  margin-top: -75%;
+  margin-left: 130%;
 }
 select {
-    background: transparent;
-    border-color: #222831;
-    font-size: 14px;
-    height: 30px;
-    padding: 5px;
-    width: 40%;
-    
- }
- #listaPersonal{
-     overflow: auto;
-     width: 45%;
-     position: absolute;
-    left: 85%;
-    top: 25%;
- }
+  background: transparent;
+  border-color: #222831;
+  font-size: 14px;
+  height: 30px;
+  padding: 5px;
+  width: 40%;
+}
+#listaPersonal {
+  width: 300%;
+  top: 15px;
+  margin: 0;
+  padding: 0;
+}
 /*****************************/
 :root {
   --lightgray: #efefef;
@@ -111,19 +109,17 @@ select {
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
 }
 
-#btnAgendamiento{
+#btnAgendamiento {
   cursor: pointer;
   background: transparent;
   border: none;
   outline: none;
   font-size: inherit;
-  
 }
 .btn-group {
   text-align: center;
-  position: absolute;
-  margin-left: 80%;
-  top: 25%;
+  margin-top: 15px;
+  width: 200%;
 }
 
 .open-modal {
@@ -142,12 +138,10 @@ select {
   border: none;
   outline: none;
   font-size: inherit;
-  
 }
 
-
 /* MODAL
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .modal {
   position: fixed;
   top: 0;
@@ -173,7 +167,7 @@ select {
 .modal-dialog {
   position: relative;
   width: 30%;
-  height:auto;
+  height: auto;
   border-radius: 5px;
   background: rgba(96, 98, 121, 0.541);
   overflow: auto;
@@ -204,14 +198,13 @@ select {
   margin-top: 1rem;
 }
 
-#estado{
-  position:relative;
+#estado {
+  position: relative;
   width: 150px;
   margin-left: 80%;
-  
 }
 /* ANIMATIONS
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
 [data-animation] .modal-dialog {
   opacity: 0;
   transition: all 0.5s var(--bounceEasing);
@@ -305,3 +298,6 @@ select {
     transform: rotate(0deg);
   }
 }
+
+
+

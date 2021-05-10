@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Cita;
 import usa.modelo.dto.PersonalCalificado;
+import usa.observer.ObservadorCita;
 
 /**
  *
@@ -53,7 +54,9 @@ public class CitaDao implements IDaoCita {
             String sql = "select * from cita where id = '" + idr + "';";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
+
             cita = new Cita();
+            ObservadorCita observador = new ObservadorCita(cita);
             while (result.next()) {
                 cita.setId(result.getInt("id"));
                 cita.setIdAgenda(result.getInt("AGENDA_id"));
@@ -74,8 +77,21 @@ public class CitaDao implements IDaoCita {
     }
 
     @Override
-    public boolean actualizar(Cita t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(Cita cita) {
+        try {
+            String sql = "update cita\n"
+                    + "set ESTUDIANTE_PERSONA_documento = \""+cita.getIdEstudiante()+"\"\n,"
+                    + "estado="+cita.getEstado()+", "
+                    + "motivo=\""+cita.getMotivo()+"\" "
+                    + "where id="+cita.getId()+",;";
+            pat = conn.prepareStatement(sql);
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgendaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -92,6 +108,7 @@ public class CitaDao implements IDaoCita {
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
                 Cita cita = new Cita();
+                ObservadorCita observador = new ObservadorCita(cita);
                 cita.setId(rs.getInt("id"));
                 cita.setIdAgenda(rs.getInt("AGENDA_id"));
                 cita.setIdEstudiante(rs.getString("ESTUDIANTE_PERSONA_documento"));
@@ -176,7 +193,7 @@ public class CitaDao implements IDaoCita {
                     + "inner join agenda as a on a.id=c.AGENDA_id\n"
                     + "inner join personal as pc on pc.PERSONA_documento=a.PERSONAL_PERSONA_documento\n"
                     + "inner join persona as p on p.documento=pc.PERSONA_documento\n"
-                    + "where ESTUDIANTE_PERSONA_documento=\"" + documento + "\" and fecha<sysdate();";
+                    + "where ESTUDIANTE_PERSONA_documento=\"" + documento + "\";";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {

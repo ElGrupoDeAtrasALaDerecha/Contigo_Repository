@@ -337,13 +337,15 @@ function cargarHorasSelect(horasdisponibles) {
 }
 
 $("#horas2").click(function percaHora() {
-  var hora = $("#horas2 option:selected").val();
+  var hora = $("#horas2").val();
   var cita = {
     fecha: fecha,
     hora: hora,
   };
   getPerca(cita)
 });
+
+var citaDelDia ;
 
 function getPerca(cita) {    
     $.ajax({
@@ -358,6 +360,8 @@ function getPerca(cita) {
       beforeSend: function () {},
       success: function (response) {
         if (response.tipo === "ok") {
+            citaDelDia = response.perca;
+            console.log(response)
             listarPerca(response.perca)
         }
       },
@@ -398,6 +402,7 @@ function listarPerca(perca) {
         $("#perca").append('<div class="item"> <img src="'+ perca[index].imagen+'"> <input type="radio" id="' + perca[index].id_perca +'" name="percaD" value="' + perca[index].nombre_perca + '"> <label for="' + perca[index].id_perca +'"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>') 
     }
 }
+// Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
     var cita = {
         fecha: fecha,
@@ -412,9 +417,14 @@ function agendarCita(cita, personal) {
   for (let index = 0; index < personal.length; index++) {
     if (personal[index].nombre_perca == cita.personal) {
       cita.idc = personal[index].id
-      cita.ida = personal[index].idAgenda
+      break;
     }
+    console.log(cita)
   }
+  var obj={
+        id:cita.idc
+  }
+  solicitarCita(obj);
 }
 
 function obtenerHistorial() {
@@ -434,5 +444,29 @@ function obtenerHistorial() {
     },
     complete: function (result) {},
     error: function (result) {},
+  });
+}
+
+function solicitarCita(obj){
+  $.ajax({
+    url: "Cita",
+    type: "POST",
+    dataType: "json",
+    headers: {
+      token: getCookie("token"),
+    },
+    data: JSON.stringify(obj),
+    contentType: "JSON application/json charset=utf-8",
+    beforeSend: function () {},
+    success: function (response) {
+      if(response.tipo==="ok"){
+          alert("Cita asignada correctamente\n Se recomienda estar con diez minutos de anticipación en la cita")
+          window.location.assign("opciones.html");
+      }
+    },
+    complete: function (result) {},
+    error: function (result) {
+        console.log(result);
+    },
   });
 }

@@ -19,8 +19,11 @@ body{
     font-weight: 300;
     color: var(--primary);
 }
-a, a:hover{
+a, a:hover {
     text-decoration: none;
+}
+#tabla_grados td a:hover{
+    color: #1330d8;
 }
 .bg-primary{
     background-color: var(--primary) !important;

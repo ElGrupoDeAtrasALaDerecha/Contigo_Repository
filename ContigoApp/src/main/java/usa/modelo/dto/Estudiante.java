@@ -10,8 +10,6 @@ public class Estudiante extends Persona {
      */
     public Estudiante() {
     }
-
-    private String correo;
     //a
     /**
      *
@@ -26,13 +24,6 @@ public class Estudiante extends Persona {
 
     public void setGrado(String grado) {
         this.grado = grado;
-    }
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
 }

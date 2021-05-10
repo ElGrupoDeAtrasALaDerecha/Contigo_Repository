@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Arbol;
+import usa.modelo.dto.Final;
 import usa.modelo.dto.Situacion;
 
 /**
@@ -20,8 +21,8 @@ public class SituacionDao implements ISituacionDao{
     @Override
     public boolean crear(Situacion situacion) {
         try {
-            String sql = "insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto,opcion)\n" +
-            "values(?,?,?,?,?);";
+            String sql = "insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)\n" +
+            "values(?,?,?,?);";
             pat = conn.prepareStatement(sql);
             if(situacion.getPredecesor()!=0){
                 pat.setInt(1, situacion.getPredecesor());
@@ -31,7 +32,6 @@ public class SituacionDao implements ISituacionDao{
             pat.setInt(2, situacion.getIdHistoria());
             pat.setString(3, situacion.getTitulo());
             pat.setString(4, situacion.getTexto());
-            pat.setString(5, situacion.getTextoOpcion());
             pat.execute();
             pat.close();
             return true;
@@ -54,7 +54,6 @@ public class SituacionDao implements ISituacionDao{
                 situacion.setPredecesor(result.getInt("SITUACION_id"));
                 situacion.setIdHistoria(result.getInt("HISTORIA_idHistoria"));
                 situacion.setTexto(result.getString("texto"));
-                situacion.setTextoOpcion(result.getString("opcion"));
               
                 return situacion;
             }
@@ -67,15 +66,14 @@ public class SituacionDao implements ISituacionDao{
 
     @Override
     public boolean actualizar(Situacion situacion) {
+    
        try {
-     
-            String sql = "UPDATE situacion SET SITUACION_id=?, HISTORIA_idHistoria=?, titulo=?, texto=?, opcion=? WHERE id=?";
+            String sql = "UPDATE situacion SET HISTORIA_idHistoria=?, titulo=?, texto=? WHERE id=?";
             pat = conn.prepareStatement(sql);
             pat.setInt(1, situacion.getIdHistoria());
             pat.setString(2, situacion.getTitulo());
             pat.setString(3, situacion.getTexto());
-            pat.setString(4, situacion.getTextoOpcion());
-            pat.setInt(5, situacion.getId());
+            pat.setInt(4, situacion.getId());
             pat.execute();
             pat.close();
             return true;
@@ -87,7 +85,16 @@ public class SituacionDao implements ISituacionDao{
 
     @Override
     public boolean eliminar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       try {
+            String sql = "delete from situacion where id="+id+";";
+            pat = conn.prepareStatement(sql);
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -110,9 +117,27 @@ public class SituacionDao implements ISituacionDao{
                 situacion.setPredecesor(rs.getInt("SITUACION_id"));
                 situacion.setTitulo(rs.getString("titulo"));
                 situacion.setTexto(rs.getString("texto"));
-                situacion.setTextoOpcion(rs.getString("opcion"));
                 situaciones.agregarNodo(situacion);
             }
+            pat.close();
+            rs.close();
+            sql="select f.* from fin as f\n" +
+            "inner join Situacion as s on s.id=f.SITUACION_id\n" +
+            "where s.HISTORIA_idHistoria='"+idHistoria+"';";
+            pat = conn.prepareStatement(sql);
+            rs = pat.executeQuery();
+            while(rs.next()){
+                Final fin = new Final();
+                fin.setId(rs.getInt("id"));
+                fin.setIdHistoria(idHistoria);
+                fin.setPredecesor(rs.getInt("SITUACION_id"));
+                fin.setTexto(rs.getString("texto"));
+                fin.setTitulo(rs.getString("titulo"));
+                situaciones.agregarNodo(fin);
+            }
+            pat.close();
+            rs.close();
+                    
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }

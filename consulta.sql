@@ -27,6 +27,9 @@ select * from historia;
 
 select * from situacion;
 
+select f.* from fin as f
+inner join Situacion as s on s.id=f.SITUACION_id
+where s.HISTORIA_idHistoria=1;
 select * from agenda;
 
 select * from agenda where personal_persona_documento="1000853622" ; 

@@ -20,6 +20,8 @@ function show(txt) {
   $(".m3").css("display", "none")
   $(".m4").css("display", "none")
   $("."+txt).css("display", "block")
+  var selected = '#'+txt
+  $(selected).css("background-color", "#162997")
 }
 // 
 
@@ -108,10 +110,11 @@ function setCodigo (serverMsj) {
 }
 
 function setCurso(data) {
-    var codigoGrado =
+    let codigoGrado = data.codigo
     show("m2")
+    $("#m1").css("background-color", "#111B54")
     graficas.style.display = "block"
-    solicitarDatosGrafica();
+    solicitarDatosGrafica(codigoGrado);
     consultarInformacion()
 }
 

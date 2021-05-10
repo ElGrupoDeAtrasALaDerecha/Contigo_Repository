@@ -64,8 +64,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
                 respuesta.put("tipo","ok");
                 respuesta.put("mensaje","Usuario registrado satisfactoriamente");
                 //Aquí se envía la verificación
-                Contexto contexto = new Contexto(new MailConfirmacionPersonal(personal.getCorreo()));
-                contexto.enviarCorreo();
+              Utils.enviarCorreoA("confirmacionPersonal", personal.getCorreo());
             }else{
                 respuesta.put("tipo","error");
                 respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");

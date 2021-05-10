@@ -8,16 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
-import usa.strategy.Contexto;
-import usa.strategy.MailConfirmacionEstudiante;
-import usa.strategy.MailConfirmacionPersonal;
 import usa.utils.Utils;
 
 /**
@@ -27,10 +23,9 @@ import usa.utils.Utils;
 @WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
 public class EstudianteServlet extends HttpServlet {
 
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao dao = (IDao)factoryDao.obtener("EstudianteDao");
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -70,7 +65,7 @@ public class EstudianteServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         Gson gson = new Gson();
@@ -79,16 +74,14 @@ public class EstudianteServlet extends HttpServlet {
         Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
         EstudianteDao daoestu = (EstudianteDao) dao;
 
-        if (daoestu.consultar(estudiante.getDocumento())!= null) {
+        if (daoestu.consultar(estudiante.getDocumento()) != null) {
             json.put("tipo", "error");
             json.put("mensaje", "Error el estudiante ya esta registrado");
         } else {
             if (dao.crear(estudiante)) {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Estudiante creado");
-                System.out.println(estudiante.getCorreo());
-                Contexto contexto = new Contexto(new MailConfirmacionEstudiante(estudiante.getCorreo()));
-                contexto.enviarCorreo();
+                Utils.enviarCorreoA("confirmacionEstudiante", estudiante.getCorreo());
             } else {
                 json.put("tipo", "error");
                 json.put("mensaje", "Error al crear estudiante");
