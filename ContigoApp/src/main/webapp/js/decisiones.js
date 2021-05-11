@@ -74,8 +74,9 @@ function buscarNodo(id,nodo){
     }
 }
 
-
+var texto;
 function pintarSituacion(nodo){
+    texto = nodo.texto;
     let opciones=nodo.opciones;
     let txtOpciones="";
     for (let i = 0; i < opciones.length; i++) {
@@ -109,6 +110,14 @@ function pintarSituacion(nodo){
     });
 }
 
+document.getElementById('hablar').addEventListener("click", () => {
+    console.log(texto)
+    decir(texto)
+});
+function decir(texto) {
+    speechSynthesis.speak(new SpeechSynthesisUtterance(texto));
+}
+
 function borrarSituacion(){
     $("#color_bk").hide('fast','swing');
     $("#color_bk").empty();
@@ -132,5 +141,6 @@ function pintarFinal(nodo){
         </section>
         <div style="clear: both"></div>
     </div>`
+    
     $("#color_bk").append(txt);
 }
