@@ -314,9 +314,11 @@ function limpiarDiv() {
   $("#divEmergente").empty();
 }
 
+
 /**********************************************LISTA */
 function cargarHorasSelect(horasdisponibles) {
   var m = "";
+  $("#horas2").empty();
   for (var i = 0; i < horasdisponibles.length; i++) {
     if (horasdisponibles[i] > 11) {
       m = " :00 pm";

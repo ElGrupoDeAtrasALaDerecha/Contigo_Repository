@@ -1,13 +1,14 @@
 
 $(document).ready(function () {
-    const footer = `<div id="footer">
+const footer = `<div id="footer">
                     <div id="superior">
                         <ul>
                             <li><a href="#" class="menuFooter">Inicio</a></li>
                             <li><a href="Conversatorios.html" class="menuFooter">Conversatorios</a></li>
                             <li><a href="listadoHistorias.html" class="menuFooter">Decisiones</a></li>
-                            <li><a href="#" class="menuFooter">Ayuda</a></li>
                             <li><a href="citas.html" class="menuFooter">Citas</a></li>
+                            <li><a href="#" class="menuFooter">Ayuda</a></li>
+                            
                         </ul>
                         <hr>
                     </div>
@@ -71,7 +72,7 @@ $(document).ready(function () {
                     </div>
                     </div>`
 
-    const menuSuperior = `<div id="menu">
+        const menuSuperior = `<div id="menu">
                             <ul>
                                 <li><a id="contigo-1" href="index.html">Contigo</a></li>
                                 <div id="up">
@@ -86,16 +87,16 @@ $(document).ready(function () {
                             </ul>
                             </div>`
 
-    $('body').prepend(menuSuperior)
-    $('body').append(footer)
-    $("#salir").click(function(){
-        cerrarSesion();
-    });
-})
+        $('body').prepend(menuSuperior)
+        $('body').append(footer)
+        $("#salir").click(function(){
+cerrarSesion();
+});
+        })
 
-function cerrarSesion() {
-    delete_cookie("token");
-    delete_cookie("tipoUsuario");
-    delete_cookie("documento");
-    window.location.assign("index.html");
-}
+        function cerrarSesion() {
+        delete_cookie("token");
+                delete_cookie("tipoUsuario");
+                delete_cookie("documento");
+                window.location.assign("index.html");
+                }
