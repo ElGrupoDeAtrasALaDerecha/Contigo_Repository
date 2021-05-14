@@ -262,8 +262,12 @@ function colocarInfo(array, orador, personal) {
         '<br>' +
         '</h2>' +
         '<p> </p>' +
-        '<h3><span></span> </h3>'+
-    '<button id="btnRegistrarEstu" class="banner-button" onclick="registrarEstudiante();">Registrarse</button>'
+        '<h3><span></span> </h3>'
+    if(usuario === 1){
+        text += '<button id="btnRegistrarEstu" class="banner-button" onclick="registrarEstudiante();">Registrarse</button>'
+    }else if(usuario === 2){
+        text += '<button id="btnRegistrarEstu" class="banner-button" onclick="registrarEstudiante();">Modificar</button>'
+    }
     $("#titulo").append(text);
 
     document.getElementById("banner2").style.background = "url(" + array.imagen + ") repeat";
