@@ -11,7 +11,7 @@ INSERT INTO metodo_pago (nombre) VALUES ("Pago Colegio Gimnasio Los Pinares");
 #Personal calificado
 call insertarPersonalCalificado(  "1000853623",1,"Santiago","","Pérez" ,"González","1","2000-07-26","12345","masculino","santipego0001@gmail.com","https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg");
 call insertarPersonalCalificado("1000853622",1,"Valeria","","Bermúdez" ,"González","1234","2000-07-26","12346","femenino","aja@gmail.com","https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg");
-call insertarPersonalCalificado("10008",1,"Valeria","","Bermúdez" ,"González","22222222","2000-07-26","12347999","femenino","aja2@gmail.com","https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg");
+call insertarPersonalCalificado("10008",1,"Valeria","","Bermúdez" ,"González","22222222","2000-07-26","12347999","femenino","aja2@gmail.com","/https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg");
 
 
 #Clasificación
@@ -38,9 +38,9 @@ insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("aaaaa",1,(se
 insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("11B",2,(select id from institucion where correo="colegiogimnasio@gmail.com"));
 
 #Estudiante
-#call insertarEstudiante("1000853620",1,"Valeria","","Bermúdez" ,"González","3","2000-07-26","12348","femenino","aaaaa","");
+call insertarEstudiante("1000853620",1,"Valeria","","Bermúdez" ,"González","3","2000-07-26","12348","femenino","aaaaa","");
 call insertarEstudiante("1000853624",1,"Santiago","","Pérez" ,"González","4","2000-07-26","12349","masculino","aaaaa","santiago.perez01@correo.usa.edu.co");
-call insertarEstudiante("1007718536",1,"Miguel","Angel","Rippe" ,"Pereira","5","2000-11-26","123410","masculino","aaaaa","miguel.rippe01@correo.usa.edu.co");
+call insertarEstudiante("1007718536",1,"Miguel","Angel","Rippe" ,"Pereira","5","2000-11-26","123410","masculino","aaaaa","santipego@yahoo.es");
 call insertarEstudiante("123456789",1,"María","Camila","Fernández" ,"González","123","2000-07-26","222222","femenino","aaaaa","contigoedsxapp@gmail.com");
 
 
@@ -108,6 +108,5 @@ insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,9,"2021-0
 
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,9,"2021-05-07",1,"https://meet.google.com/snf-yxio-tdp");
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-05-07",1,"https://meet.google.com/snf-yxio-tdp");
-insert into CITA (AGENDA_id ,ESTUDIANTE_PERSONA_documento,horaInicio,fecha,estado,lugar ) values (1,"1007718536",10,"2021-05-06",2,"https://meet.google.com/snf-yxio-tdp");
-insert into CITA (AGENDA_id ,ESTUDIANTE_PERSONA_documento,horaInicio,fecha,estado,lugar ) values (2,"1007718536",9,"2021-05-06",3,"https://meet.google.com/snf-yxio-tdp");
-insert into CITA (AGENDA_id ,ESTUDIANTE_PERSONA_documento,horaInicio,fecha,estado,lugar ) values (2,"1007718536",9,"2021-05-06",4,"https://meet.google.com/snf-yxio-tdp");
+
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-05-11",1,"https://meet.google.com/snf-yxio-tdp");
