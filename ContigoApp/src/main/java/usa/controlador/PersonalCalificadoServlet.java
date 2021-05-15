@@ -14,8 +14,8 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.PersonalCalificado;
-import usa.strategy.Contexto;
-import usa.strategy.MailConfirmacionPersonal;
+import usa.adapter.Contexto;
+import usa.adapter.MailConfirmacionPersonal;
 import usa.utils.Utils;
 
 /**

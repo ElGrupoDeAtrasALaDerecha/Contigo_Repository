@@ -1,4 +1,4 @@
-package usa.strategy;
+package usa.adapter;
 
 import java.io.File;
 import java.io.FileNotFoundException;

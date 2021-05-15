@@ -1,8 +1,8 @@
 package test.mail;
 
-import usa.strategy.Contexto;
-import usa.strategy.MailConfirmacionEstudiante;
-import usa.strategy.MailRecuperacionContraseñaPersonal;
+import usa.adapter.Contexto;
+import usa.adapter.MailConfirmacionEstudiante;
+import usa.adapter.MailRecuperacionContraseñaPersonal;
 
 /**
  *

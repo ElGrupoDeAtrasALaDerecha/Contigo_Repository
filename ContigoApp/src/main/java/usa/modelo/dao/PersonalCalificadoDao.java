@@ -160,6 +160,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toString());
                 personalCalificado.setGenero(rs.getString("genero"));
                 personalCalificado.setCorreo(rs.getString("correo"));
+                personalCalificado.setImagen(rs.getString("imagen"));
             }
             rs.close();
             pat.close();

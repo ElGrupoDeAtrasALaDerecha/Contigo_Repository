@@ -1,4 +1,4 @@
-package usa.strategy;
+package usa.adapter;
 
 import java.io.IOException;
 import java.util.logging.Level;

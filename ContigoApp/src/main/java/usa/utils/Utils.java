@@ -3,11 +3,11 @@ package usa.utils;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import javax.servlet.http.HttpServletRequest;
-import usa.strategy.Contexto;
-import usa.strategy.MailConfirmacionCita;
-import usa.strategy.MailConfirmacionEstudiante;
-import usa.strategy.MailConfirmacionInstitucion;
-import usa.strategy.MailConfirmacionPersonal;
+import usa.adapter.Contexto;
+import usa.adapter.MailConfirmacionCita;
+import usa.adapter.MailConfirmacionEstudiante;
+import usa.adapter.MailConfirmacionInstitucion;
+import usa.adapter.MailConfirmacionPersonal;
 
 /**
  * Clase de utilidades. Contiene métodos estáticos para hacer tareas

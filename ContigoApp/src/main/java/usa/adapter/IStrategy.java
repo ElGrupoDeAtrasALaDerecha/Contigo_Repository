@@ -1,4 +1,4 @@
-package usa.strategy;
+package usa.adapter;
 
 /**
  *

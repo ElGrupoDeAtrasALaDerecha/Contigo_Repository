@@ -1,7 +1,7 @@
 package test.mail;
 
-import usa.strategy.Contexto;
-import usa.strategy.MailRecuperacionContraseñaPersonal;
+import usa.adapter.Contexto;
+import usa.adapter.MailRecuperacionContraseñaPersonal;
 
 /**
  *
