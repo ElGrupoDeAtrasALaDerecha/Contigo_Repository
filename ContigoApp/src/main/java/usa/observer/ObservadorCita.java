@@ -59,6 +59,6 @@ public class ObservadorCita extends Observer{
         IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
         Cita cita = (Cita)sujeto;
         Estudiante e = (Estudiante) dao.consultar(cita.getIdEstudiante());
-        Utils.enviarCorreoA(params,e.getCorreo(),texto);
+        //Utils.enviarCorreoA(params,e.getCorreo(),texto);
     }
 }
