@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
   <link rel="stylesheet" href="css/Registro2.css">
   <link rel="stylesheet" href="css/style2.css">
+  <link rel="stylesheet" href="css/divEmergente.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -20,15 +21,35 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 
+
 <body>
   <div class="banner2" id="banner2">
     <div class="bg-overlay">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <div id="titulo" class="banner-text">
+            <div id="titulo" class="banner-text"></div>
+
+              <button id="btnRegistrarEstu" class="banner-button" data-open="modal1">
+                Registrarse
+              </button>
               
-            </div>
+              <div class="modal" id="modal1" data-animation="slideInOutLeft">
+                <div class="modal-dialog">
+                  <header class="modal-header">
+                    Agendamiento de citas
+                    <button class="close-modal" data-close>
+                      X
+                    </button>
+                  </header>
+                  <section id="divEmergente" class="modal-content">
+            
+                  </section>
+            
+                </div>
+              </div>
+
+            
           </div>
         </div>
       </div>
@@ -43,12 +64,15 @@
   <section id="contenidoV">
 
     <div id="orador" class="block"></div>
-    <div id ="infografia" class="block"></div>
+    <div id="infografia" class="block"></div>
     <div id="cronograma" class="block"> </div>
 
     <br>
     <br> <br> <br> <br>
   </section>
+
+
+
 </body>
 
 <script src="js/template.js"></script>
@@ -57,7 +81,7 @@
 <script src="js/funciones.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/ayuda.js"></script>
+<script src="alertify.min.js"></script>
+
+
 </html>
-
-
-

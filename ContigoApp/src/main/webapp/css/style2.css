@@ -70,20 +70,20 @@ a {
 }
 /*-----Fondo de los botones superiores-------*/
 .banner-button {
-	border: rgba(204, 204, 204, 0.18) 1px solid;
+	border: rgba(0, 0, 0, 0.18) 1px solid;
 	padding: 12px 35px;
-	color: #ccc;
 	text-decoration: none;
 	display: inline-block;
 	border-radius: 25px 25px 25px 25px;
 	font-size: 15px;
 	margin-top: 50px;
+	
 }
 /*-----Fondo de los botones Banner-------*/
 .banner-button:hover {
-	background-color: #ccc;
 	text-decoration: none;
-	color: #000;
+	background: #00000056;
+  	color: rgb(255, 255, 255);
 }
 .mynav {
 	transition: all 0.8s ease-in;

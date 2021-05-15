@@ -1,6 +1,76 @@
 var usuario
 var token
 var documento
+var btnRegistrar = document.getElementById("btnRegistrarEstu");
+/*******************************************DIV EMERGENTE************************************************* */
+const openEls = document.querySelectorAll("[data-open]");
+const closeEls = document.querySelectorAll("[data-close]");
+const isVisible = "is-visible";
+for (const el of openEls) {
+    el.addEventListener("click", function () {
+        const modalId = this.dataset.open;
+        console.log(modalId)
+        document.getElementById(modalId).classList.add(isVisible);
+    });
+}
+
+for (const el of closeEls) {
+    el.addEventListener("click", function () {
+        this.parentElement.parentElement.parentElement.classList.remove(isVisible);
+    });
+}
+
+document.addEventListener("click", (e) => {
+    if (e.target == document.querySelector(".modal.is-visible")) {
+        document.querySelector(".modal.is-visible").classList.remove(isVisible);
+        limpiarDiv();
+    }
+});
+
+document.addEventListener("keyup", (e) => {
+    // if we press the ESC
+    if (e.key == "Escape" && document.querySelector(".modal.is-visible")) {
+        document.querySelector(".modal.is-visible").classList.remove(isVisible);
+        limpiarDiv();
+    }
+});
+/************************************************DIV EMERGENTE******************** */
+var divTexto = document.getElementById("divEmergente");
+var contConf = 0;
+var contCanc = 0;
+
+function llenarDiv(array, oradordiv) {
+    divTexto =
+        `<p>DATOS DE SU CITA: </p>` +
+        `<p>Conversatorio: ${array.titulo} </p>` +
+        `<p>Orador: ${oradordiv.primerNombre} ${oradordiv.primerApellido} </p>` +
+        `<p>Lugar: ${array.lugar} </p>` +
+        `<p>Cronograma: ${array.cronograma} </p>` +
+        `<div class="ui buttons">
+        <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
+        <div class="or"></div>
+        <button id="btnConfirmarC" class="ui blue button">Confirmar cita</button>
+        </div>`;
+    $("#divEmergente").append(divTexto);
+
+    $("#btnCancelarC").click(function () {
+        contCanc++;
+        console.log(contCanc);
+        document.querySelector(".modal.is-visible").classList.remove(isVisible);
+        limpiarDiv();
+        return false;
+    });
+
+    $("#btnConfirmarC").click(function () {
+        registrarEstudiante();
+    });
+}
+
+
+function limpiarDiv() {
+    $("#divEmergente").empty();
+}
+
 $(document).ready(function () {
 
     usuario = parseInt(getCookie("tipoUsuario"));
@@ -30,7 +100,7 @@ $(document).ready(function () {
                     console.log("error");
                 }
             }, complete: function (result) {
-               
+
             }, error: function (result) {
                 console.log(result)
             }
@@ -56,7 +126,7 @@ function LlamarGrado() {
                 console.log("error");
             }
         }, complete: function (result) {
-           
+
         }, error: function (result) {
             console.log(result)
         }
@@ -90,7 +160,7 @@ function LlamarEstudiante(grado) {
                 console.log("error");
             }
         }, complete: function (result) {
-           
+
         }, error: function (result) {
             console.log(result)
         }
@@ -119,7 +189,7 @@ function LlamarClasi(clasi) {
             }
         },
         complete: function (result) {
-          
+
         },
         error: function (result) {
             console.log(result);
@@ -151,7 +221,7 @@ function LlamarConver(arregloConver) {
             listarConver(converEstudiante);
 
         }, complete: function (result) {
-        
+
         }, error: function (result) {
             console.log(result)
         }
@@ -219,8 +289,9 @@ function TraerOrador(conver, orador) {
 function colocarInfo(array, orador, personal) {
     for (var i = 0; i < personal.length; i++) {
         if (personal[i].documento === orador) {
+            var oradordiv = personal[i];
             text = '<br>' +
-                '<img src="'+personal[i].imagen +'" class="imgRedonda">' +
+                '<img src="' + personal[i].imagen + '" class="imgRedonda">' +
                 '<br> Orador:' +
                 '<center>' +
                 '<h2>' +
@@ -263,17 +334,23 @@ function colocarInfo(array, orador, personal) {
         '</h2>' +
         '<p> </p>' +
         '<h3><span></span> </h3>'
-    if(usuario === 1){
-        text += '<button id="btnRegistrarEstu" class="banner-button" onclick="registrarEstudiante();">Registrarse</button>'
-    }else if(usuario === 2){
-        text += '<button id="btnRegistrarEstu" class="banner-button" onclick="registrarEstudiante();">Modificar</button>'
+    if (usuario === 1) {
+        btnRegistrar.style.display = "block"
+        // text += '<button id="btnRegistrarEstu"  class="banner-button" onclick="divConfRegistro();">Registrarse</button>'
+    } else if (usuario === 2) {
+        btnRegistrar.style.display = "none"
+        text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
     }
     $("#titulo").append(text);
-
     document.getElementById("banner2").style.background = "url(" + array.imagen + ") repeat";
 
-
+    $("#btnRegistrarEstu").click(function () {
+        llenarDiv(array, oradordiv);
+    })
 }
+
+
+
 
 $("#btnCrear").on("click", function (e) {
     e.preventDefault();
@@ -440,33 +517,43 @@ function crearConversatorio(personal) {
 }
 
 
-function registrarEstudiante(){
-console.log(conversatorio.id)
-idConversatorio=conversatorio.id
-informacion = {
-    idConversatorio: idConversatorio,
-    idEstudiante: documento,
-};
-$.ajax({
-    url: "REstudianteConversatorio",
-    type: "POST",
-    dataType: "json",
-    data: JSON.stringify(informacion),
-    contentType: "JSON application/json charset=utf-8",
-    beforeSend: function () {
-    },
-    success: function (result, textStatus, request) {
-        console.log(result)
-        if (result != "error") {
-        } else {
-            console.log("error");
+function registrarEstudiante() {
+
+    console.log(conversatorio.id)
+    idConversatorio = conversatorio.id
+    informacion = {
+        idConversatorio: idConversatorio,
+        idEstudiante: documento,
+    };
+    $.ajax({
+        url: "REstudianteConversatorio",
+        type: "POST",
+        dataType: "json",
+        data: JSON.stringify(informacion),
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            console.log(result)
+            if (result != "error") {
+            } else {
+                console.log("error");
+            }
+        }, complete: function (result) {
+
+        }, error: function (result) {
+            console.log(result)
         }
-    }, complete: function (result) {
-       
-    }, error: function (result) {
-        console.log(result)
-    }
-});
+    });
 }
+
+function ModificarConversatorio() {
+    window.location.assign("crear_cnv.html")
+}
+
+
+
+
+
 
 
