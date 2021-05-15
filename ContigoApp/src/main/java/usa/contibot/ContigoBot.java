@@ -152,6 +152,13 @@ public class ContigoBot {
                     //Aviso al estudiante que se conectó el personal calificado.
                     obj.put("mensaje","Hola. Soy "+personalCalificado.getPrimerNombre()+" "+personalCalificado.getPrimerApellido()+""
                             + " Dame un momento reviso tu pregunta");
+                    
+                    JSONObject personal=new JSONObject(Utils.toJson(personalCalificado));
+                    personal.remove("token");
+                    personal.remove("contraseña");
+                    personal.remove("correo");
+                    personal.remove("documento");
+                    objRespuesta.put("personal",personal);
                     sala.recibirMensajePersonal(obj, objRespuesta);
                     
                     //Aviso a todos los personales que el estudiante de una sala ya está siendo atendido
