@@ -4,8 +4,8 @@
 
 
 
-$(document).ready(function(){
-	if(getCookie("tipoUsuario")!=="1"){
+$(document).ready(function () {
+	if (getCookie("tipoUsuario") !== "1") {
 		alert("No autorizado");
 		/*window.location.assign("index.html");*/
 	}
@@ -13,7 +13,7 @@ $(document).ready(function(){
 })
 
 var numeroSala;
-var conexionTerminada=false;
+var conexionTerminada = false;
 
 /**
 * Promesa
@@ -28,21 +28,21 @@ var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
 * Websocket
 */
 
-var misMensajes=new Array();
+var misMensajes = new Array();
 var websocket;
 
 /**
  * Función que se encarga de conectar al servidor
  */
-function conectar(){
-	websocket=new WebSocket(wsUri);
+function conectar() {
+	websocket = new WebSocket(wsUri);
 	websocket.onopen = function (event) {
 		ping();
 		console.log("Conectado..."); //... y aparecerá en la pantalla
 		enviarCredenciales();
-		
+
 	}
-	
+
 	websocket.onmessage = function (event) {
 		if (event.data === "pong") {
 			ping();
@@ -51,25 +51,25 @@ function conectar(){
 			if (obj.tipo === "codigo sala") {
 				numeroSala = obj.numero;
 				pintarRespuesta(obj.mensaje);
-			} else if (obj.tipo === "respuesta" ||obj.tipo === "mensajeDePersonal"||obj.tipo === "perdidaConexion") {
+			} else if (obj.tipo === "respuesta" || obj.tipo === "mensajeDePersonal" || obj.tipo === "perdidaConexion") {
 				pintarRespuesta(obj.mensaje);
-			} else if (obj.tipo === "escribiendoPersonal"){
+			} else if (obj.tipo === "escribiendoPersonal") {
 				pintarEscribiendo();
-			} else if (obj.tipo==="cerrar conexion"){
-                pintarCierreConexion(obj.mensaje);    
-            }
+			} else if (obj.tipo === "cerrar conexion") {
+				pintarCierreConexion(obj.mensaje);
+			}
 		}
 	}
-	websocket.onerror=function (event){
+	websocket.onerror = function (event) {
 		console.error('Socket encountered error: ', err.message, 'Closing socket');
-    	ws.close();
-  	}
-	websocket.onclose=function(event){
-		if (conexionTerminada){
+		ws.close();
+	}
+	websocket.onclose = function (event) {
+		if (conexionTerminada) {
 			alert("Se perdió la conexión con el servidor. En un momento se reestablecerá la conexión");
 			console.log('Socket is closed. Reconnect will be attempted in 1 second.');
-    		setTimeout(function() {conectar();}, 1000);
-		}		
+			setTimeout(function () { conectar(); }, 1000);
+		}
 	}
 }
 
@@ -121,7 +121,7 @@ function pintarRespuesta(respuesta) {
 	</div>
 	`
 	$("#mensajes").append(txtConti);
-	$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
+	$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
 }
 
 
@@ -184,7 +184,7 @@ $("#btn_enviar_mns").click(function () {
 					</div>`
 		$("#mensajes").append(mensaje);
 		$('input[type="text"]').val('');
-		$("#mensajes").animate({ scrollTop: $("#mensajes").height()*(($("#mensajes").children()).length)});
+		$("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
 	}
 
 });
@@ -198,31 +198,31 @@ $("body").keyup(function (e) {
 
 
 const x = document.getElementById('escribiendoPersonal');
-	x.style.display ="none"
-$("#Enviarmensaje").keypress(function(event){
-	if (event.which !== 13){
-		let mensaje={
-			tipo:"escribiendoEstudiante",
+x.style.display = "none"
+$("#Enviarmensaje").keypress(function (event) {
+	if (event.which !== 13) {
+		let mensaje = {
+			tipo: "escribiendoEstudiante",
 			numeroSala: numeroSala
 		}
 		enviarMensaje(mensaje)
 	}
 })
 
-function pintarEscribiendo(){
+function pintarEscribiendo() {
 	let timeout
-	x.style.display ="block"
+	x.style.display = "block"
 	clearTimeout(timeout)
 	timeout = setTimeout(() => {
-		x.style.display ="none"
+		x.style.display = "none"
 		clearTimeout(timeout)
-	}, 1000)	
+	}, 1000)
 }
 
-function pintarCierreConexion(mensaje){
-	conexionTerminada=true;
+function pintarCierreConexion(mensaje) {
+	conexionTerminada = true;
 	pintarRespuesta(mensaje);
 	$("#Enviarmensaje").val("En un momento serás redirigido a la ventana principal");
 	$("#Enviarmensaje").prop("readonly", true);
-	setTimeout(function(){window.location.assign("opciones.html")}, 8000);
+	setTimeout(function () { window.location.assign("opciones.html") }, 8000);
 }
