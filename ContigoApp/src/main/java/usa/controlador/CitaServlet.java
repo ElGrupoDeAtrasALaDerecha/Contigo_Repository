@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.controlador;
 
 import java.io.IOException;
@@ -15,13 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.adapter.CorreoCita;
-import usa.adapter.CorreoProxy;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.CitaDao;
 import usa.modelo.dao.EstudianteDao;
-import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoCita;
 import usa.modelo.dto.Cita;
 import usa.modelo.dao.IDaoEstudiante;
@@ -95,14 +87,12 @@ public class CitaServlet extends HttpServlet {
         Cita cita = dao.consultar(id);
         Estudiante e = estudianteDao.consultarPorToken(token);
         if(cita!=null && e!=null){
-            //ObservadorCita observador = new ObservadorCita(cita);
+            ObservadorCita observador = new ObservadorCita(cita);
             cita.setIdEstudiante(e.getDocumento());
             cita.setEstado(2);
             if(dao.actualizar(cita)){
                 respuesta.put("tipo","ok");
                 respuesta.put("mensaje", "Estudiante registrado en la cita");
-                CorreoProxy proxy = new CorreoProxy(new CorreoCita(cita));
-                proxy.enviarCorreo(e.getCorreo());
             } 
         }else{
             respuesta.put("tipo","error");
