@@ -96,12 +96,37 @@ select {
     
  }
  #listaPersonal{
-     overflow: auto;
-     width: 45%;
-     position: absolute;
+    overflow: auto;
+    width: 45%;
+    position: absolute;
     left: 85%;
     top: 25%;
  }
+
+ #motivoSelect{
+    overflow: auto;
+    width: 56%;
+    position: sticky;
+    left: 25%;
+    top: 35%;
+
+}
+
+#MotivoS{
+    padding: 20%;
+}
+
+#textAreaMotivo{
+  padding: 10%;
+  border-color: red;
+}
+
+#MotivoOtros{
+  width: 69%;
+  height:10%;
+  top:15%;
+  left:22%;
+}
 /*****************************/
 :root {
   --lightgray: #efefef;

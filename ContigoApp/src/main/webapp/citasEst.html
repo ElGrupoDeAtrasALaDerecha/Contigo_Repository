@@ -43,29 +43,43 @@
 
         <div id="horas">
             <p>Hora de la cita</p>
-            <div class="item"> 
-            <select id="horas2" name="horas2" >
-                <option value="">Horas</option>
-            </select> </div>
+            <div class="item">
+                <select id="horas2" name="horas2">
+                    <option value="">Horas</option>
+                </select>
+            </div>
             <form action="" id="checkPerca">
                 <div id="listaPersonal">
                     <p>Personal disponible</p>
                     <div class="ui middle aligned divided list" id="perca">
-                        
+
                     </div>
                 </div>
             </form>
-            
+            <div id="MotivoS">
+                <p>Motivo de la Cita</p>
+                <select id="motivoSelect" name="motivoSelect" required>
+                    <option value="">Motivos</option>
+                    <option value="1">Otros</option>
+                </select>
+                <div id="textAreaMotivo">
+                    <textarea type="text" class="credencial" id="MotivoOtros" placeholder="Motivo de consulta"
+                    ></textarea>
+                </div>
+                
+            </div>
         </div>
-        
+
+    </div>
+
     </div>
 
     <div id="btnCitasAgendada" class="btn-group">
-        <button id="btnAgenddamiento"type="button" class="open-modal" data-open="modal1">
+        <button id="btnAgenddamiento" type="button" class="open-modal" data-open="modal1">
             Agendar cita
         </button>
     </div>
-    
+
     <div class="modal" id="modal1" data-animation="slideInOutLeft">
         <div class="modal-dialog">
             <header class="modal-header">
