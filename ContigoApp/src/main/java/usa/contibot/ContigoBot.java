@@ -19,6 +19,7 @@ import usa.modelo.dao.IDao;
 import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
 import usa.modelo.dto.PersonalCalificado;
+import usa.observer.ObservadorSala;
 import usa.utils.Utils;
 
 /**
@@ -100,6 +101,7 @@ public class ContigoBot {
                     sala.setSesionEstudiante(sesion);
                     sala.setCodigo(Utils.generarNumeroSala());
                     sala.enviarPrimerMensaje(objRespuesta);
+                    ObservadorSala observador = new ObservadorSala(sala);
 
                     SALAS.add(sala);
                     sala.setEstado(1);

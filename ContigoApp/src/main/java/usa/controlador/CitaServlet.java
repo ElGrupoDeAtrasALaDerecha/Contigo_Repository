@@ -41,7 +41,7 @@ public class CitaServlet extends HttpServlet {
         JSONObject respuesta = new JSONObject();
         JSONArray arreglo =null;
         String tipo=request.getParameter("tipo");
-         String token = request.getHeader("token");
+        String token = request.getHeader("token");
         if(tipo != null){
             if(tipo.equals("getPerca")){
                 String fecha=request.getHeader("fecha");

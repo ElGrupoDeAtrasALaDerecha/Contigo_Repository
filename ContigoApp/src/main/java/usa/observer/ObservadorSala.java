@@ -30,6 +30,7 @@ public class ObservadorSala extends Observer{
     public void mostrar() {
         Sala sala = (Sala)sujeto;
         try {
+                //Se manda la conversación al personal califiado
                 JSONObject objRespuesta=new JSONObject();
                 objRespuesta.put("tipo", "conversacion");
                 objRespuesta.put("conversacion", new JSONArray(Utils.toJson(sala.getMensajes())));
@@ -42,6 +43,7 @@ public class ObservadorSala extends Observer{
                 obj.put("mensaje","Hola. Soy "+sala.getPersonaCalificada().getPrimerNombre()+" "+sala.getPersonaCalificada().getPrimerApellido()+""
                         + " Dame un momento reviso tu pregunta");
 
+                //Se mandan datos del personal calificado al estudiante
                 JSONObject personal=new JSONObject(Utils.toJson(sala.getPersonaCalificada()));
                 personal.remove("token");
                 personal.remove("contraseña");
