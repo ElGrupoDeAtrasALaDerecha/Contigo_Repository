@@ -102,6 +102,7 @@ public class ContigoBot {
                     sala.enviarPrimerMensaje(objRespuesta);
 
                     SALAS.add(sala);
+                    sala.setEstado(1);
 
                     //Se manda información al personal calificado acerca de la nueva sala
                     JSONObject respuestaPersonal = new JSONObject();
@@ -137,12 +138,14 @@ public class ContigoBot {
                     sala.recibirMensajePersonal(obj, objRespuesta);
                     break;
                 case "conexion personal":
-
+                    
                     //Se asigna un personal a una sala y se le manda la conversación
                     personalCalificado = personalDaoConcreto.consultarPorToken((String) obj.get("token"));
                     sala = this.buscarSalas(obj.getInt("numeroSala"));
                     sala.setPersonaCalificada(personalCalificado);
                     sala.setSesionPersonal(sesion);
+                    
+                    sala.setEstado(2);
                     objRespuesta.put("tipo", "conversacion");
                     objRespuesta.put("conversacion", new JSONArray(Utils.toJson(sala.getMensajes())));
                     objRespuesta.put("numeroSala", sala.getCodigo());

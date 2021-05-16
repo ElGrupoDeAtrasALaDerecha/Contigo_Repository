@@ -8,7 +8,7 @@ package usa.observer;
 public abstract class Observer {
     protected Subject sujeto;
     public abstract void actualizar();
-    public abstract void mostrar(String params);
+    public abstract void mostrar();
     public Observer(Subject sujeto) {
         this.sujeto = sujeto;
         sujeto.suscribir(this);
