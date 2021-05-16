@@ -146,23 +146,6 @@ public class ContigoBot {
                     sala.setSesionPersonal(sesion);
                     
                     sala.setEstado(2);
-                    objRespuesta.put("tipo", "conversacion");
-                    objRespuesta.put("conversacion", new JSONArray(Utils.toJson(sala.getMensajes())));
-                    objRespuesta.put("numeroSala", sala.getCodigo());
-                    objRespuesta.put("estudiante", new JSONObject(Utils.toJson(sala.getEstudiante())));
-                    sesion.getBasicRemote().sendText(objRespuesta.toString());
-                    
-                    //Aviso al estudiante que se conectó el personal calificado.
-                    obj.put("mensaje","Hola. Soy "+personalCalificado.getPrimerNombre()+" "+personalCalificado.getPrimerApellido()+""
-                            + " Dame un momento reviso tu pregunta");
-                    
-                    JSONObject personal=new JSONObject(Utils.toJson(personalCalificado));
-                    personal.remove("token");
-                    personal.remove("contraseña");
-                    personal.remove("correo");
-                    personal.remove("documento");
-                    objRespuesta.put("personal",personal);
-                    sala.recibirMensajePersonal(obj, objRespuesta);
                     
                     //Aviso a todos los personales que el estudiante de una sala ya está siendo atendido
                     JSONObject avisoAPersonales = new JSONObject();
@@ -200,6 +183,7 @@ public class ContigoBot {
                             SALAS.get(j).setSesionPersonal(null);
                             SALAS.get(j).setPersonaCalificada(null);
                             SALAS.get(j).enviarAdvertenciaAEstudiante();
+                            SALAS.get(j).setEstado(1);
                             JSONObject respuestaPersonal = new JSONObject();
                             respuestaPersonal.put("tipo", "nuevoEstudiante");
                             respuestaPersonal.put("estudiante", new JSONObject(Utils.toJson(SALAS.get(j).getEstudiante())));
