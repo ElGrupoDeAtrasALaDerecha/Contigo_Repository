@@ -88,12 +88,12 @@ function crear(id) {
     var header
     let situacion = buscarNodo(parseInt(id));
     console.log(situacion)
-    let textoAdicional =""
-    if(situacion.opciones !== undefined){
+    let textoAdicional = ""
+    if (situacion.opciones !== undefined) {
         textoAdicional += '  <input type="submit"  class="btn-final crearFinal" value="Establecer final">';
-        header="situacion"
-    }else{
-        header="final"
+        header = "situacion"
+    } else {
+        header = "final"
     }
     let txt = '<div class="overlay active" id="overlay">' +
         '<div class="popup active" id="popup">' +
@@ -162,7 +162,7 @@ function crear(id) {
             texto: descripcion,
             titulo: titulo,
             predecesor: situacion.predecesor,
-            id:parseInt(id)
+            id: parseInt(id)
 
         }
         console.log(obj)
@@ -184,16 +184,16 @@ function crear(id) {
     });
 }
 
-function eliminarSituacion(id){
+function eliminarSituacion(id) {
     let situacion = buscarNodo(parseInt(id));
-    if(situacion.opciones !== undefined){
-        header="situacion"
-    }else{
-        header="final"
+    if (situacion.opciones !== undefined) {
+        header = "situacion"
+    } else {
+        header = "final"
     }
 
     $.ajax({
-        url: "Situacion?id=" +parseInt(id),
+        url: "Situacion?id=" + parseInt(id),
         type: "DELETE",
         headers: {
             tipo: header
@@ -244,7 +244,7 @@ function registrar(obj, metodo, header) {
                 console.log(result)
                 toastr.success(result.mensaje)
                 crearData();
-            
+
             } else {
                 console.log(result)
                 toastr.error(result.mensaje)
@@ -268,3 +268,21 @@ function eliminar() {
 
 
 
+function validarHistoria(nodo) {
+    if (nodo === undefined) {
+        nodo = data;
+    }
+    let opciones = nodo.opciones;
+    if (opciones !== undefined) {
+        if (opciones.length === 0) {
+            return false;
+        }
+        for (let i = 0; i < opciones.length; i++) {
+            let opcion = opciones[i];
+            if (!validarHistoria(opcion)){
+                return false;
+            }
+        }
+    }
+    return true;
+}
