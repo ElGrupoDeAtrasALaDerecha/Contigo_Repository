@@ -1,6 +1,7 @@
 var n = 0;
 var historia;
 var situaciones;
+
 window.onload = function obtenerhisotia() {
     var text;
     $.ajax({
@@ -275,14 +276,32 @@ function validarHistoria(nodo) {
     let opciones = nodo.opciones;
     if (opciones !== undefined) {
         if (opciones.length === 0) {
+            console.log('si servi');
             return false;
         }
         for (let i = 0; i < opciones.length; i++) {
-            let opcion = opciones[i];
-            if (!validarHistoria(opcion)){
+            var opcion = opciones[i];
+            if (!validarHistoria(opcion)) {
+
+                let obj = {
+                    texto: opcion.texto,
+                    titulo: opcion.titulo,
+                    predecesor: opcion.predecesor,
+                    id: parseInt(opcion.id)
+                }
+                console.log(obj);
+                registrar(obj, "POST", "final");
+
                 return false;
             }
         }
     }
+
     return true;
+
 }
+
+
+/*
+
+     */
