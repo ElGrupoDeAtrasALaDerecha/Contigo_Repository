@@ -1,16 +1,18 @@
-$("#img-uploader").change(function(){
-    filename=this.files[0].filename
-    console.log(filename);
-})
-
 $(document).ready(function () {
     usuario = parseInt(getCookie("tipoUsuario"));
     token = parseInt(getCookie("token"));
     documento = parseInt(getCookie("documento"));
+    $('.ui.dropdown').dropdown();
     console.log(documento);
     console.log(usuario);
     console.log(token);
 });
+
+
+$("#img-uploader").change(function(){
+    filename=this.files[0].filename
+    console.log(filename);
+})
 
 
 const imageUploader = document.getElementById('img-uploader');
@@ -98,7 +100,6 @@ function crearHistoria() {
     });
 
 }
-
 
 
 
