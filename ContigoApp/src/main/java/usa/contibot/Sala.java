@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import usa.modelo.dto.Estudiante;
 import usa.modelo.dto.Mensaje;
 import usa.modelo.dto.PersonalCalificado;
+import usa.observer.Subject;
 import usa.utils.Utils;
 
 /**
@@ -14,7 +15,7 @@ import usa.utils.Utils;
  *
  * @author Valeria Bermúdez y Santiago Pérez
  */
-public class Sala {
+public class Sala extends Subject{
 
     /**
      * Código de la sala
@@ -46,50 +47,6 @@ public class Sala {
      */
     public Sala() {
         this.mensajes = new LinkedList();
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public Estudiante getEstudiante() {
-        return estudiante;
-    }
-
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    public PersonalCalificado getPersonaCalificada() {
-        return personaCalificada;
-    }
-
-    public void setPersonaCalificada(PersonalCalificado personaCalificada) {
-        this.personaCalificada = personaCalificada;
-    }
-
-    public Session getSesionEstudiante() {
-        return sesionEstudiante;
-    }
-
-    public void setSesionEstudiante(Session sesionEstudiante) {
-        this.sesionEstudiante = sesionEstudiante;
-    }
-
-    public Session getSesionPersonal() {
-        return sesionPersonal;
-    }
-
-    public void setSesionPersonal(Session sesionPersonal) {
-        this.sesionPersonal = sesionPersonal;
-    }
-
-    public LinkedList<Mensaje> getMensajes() {
-        return mensajes;
     }
 
     /**
@@ -206,5 +163,50 @@ public class Sala {
         objRespuesta.put("mensaje", new JSONObject(Utils.toJson(mensaje)));
         this.sesionEstudiante.getBasicRemote().sendText(objRespuesta.toString());
 
+    }
+    
+    
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public PersonalCalificado getPersonaCalificada() {
+        return personaCalificada;
+    }
+
+    public void setPersonaCalificada(PersonalCalificado personaCalificada) {
+        this.personaCalificada = personaCalificada;
+    }
+
+    public Session getSesionEstudiante() {
+        return sesionEstudiante;
+    }
+
+    public void setSesionEstudiante(Session sesionEstudiante) {
+        this.sesionEstudiante = sesionEstudiante;
+    }
+
+    public Session getSesionPersonal() {
+        return sesionPersonal;
+    }
+
+    public void setSesionPersonal(Session sesionPersonal) {
+        this.sesionPersonal = sesionPersonal;
+    }
+
+    public LinkedList<Mensaje> getMensajes() {
+        return mensajes;
     }
 }

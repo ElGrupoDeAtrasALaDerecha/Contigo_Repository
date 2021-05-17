@@ -1,0 +1,76 @@
+:root{
+    --primary:#111B54;
+    --secondary:#162997;
+    --light: #ffffff;
+    --gray: #efefef;
+}
+*,*:before, *:after{ 
+    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0;
+}
+.brd{
+    border: 1px solid greenyellow;
+}
+body{
+    /* overflow: hidden; */
+    font-family: 'Mulish', sans-serif;
+    font-weight: 300;
+    color: var(--primary);
+}
+a, a:hover {
+    text-decoration: none;
+}
+#tabla_grados td a:hover{
+    color: #1330d8;
+}
+.bg-primary{
+    background-color: var(--primary) !important;
+}
+.bg-light{
+    background-color: var(--light) !important;
+}
+.container {
+    margin: 0 0 !important;
+}
+#sidebar-container{
+    min-height: 100vh;
+}
+#sidebar-container .logo{
+    padding: .875rem 1.25rem;
+}
+#sidebar-container .menu{
+    width: 18rem;;
+}
+.btn-serch{
+    right: 5px;
+}
+.avatar{
+    max-width: 35px;
+}
+#content{
+    overflow-y: auto;
+    height: 100vh;
+    padding-bottom: 5rem;
+}
+.btn{
+    border: 0;
+}
+.btn-primary{
+    background-color: var(--primary);
+}
+.btn-primary:hover{
+    
+}
+.py-3{
+    padding: 0 1%;
+}
+.box-center{
+    margin: 0 auto;
+}
+@media (max-width: 768px){
+    #sidebar-container{
+        display: none;
+    }
+}

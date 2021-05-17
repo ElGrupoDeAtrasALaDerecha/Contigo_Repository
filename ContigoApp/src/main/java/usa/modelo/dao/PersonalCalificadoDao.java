@@ -160,6 +160,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toString());
                 personalCalificado.setGenero(rs.getString("genero"));
                 personalCalificado.setCorreo(rs.getString("correo"));
+                personalCalificado.setImagen(rs.getString("imagen"));
             }
             rs.close();
             pat.close();
@@ -180,7 +181,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         try {
 
             String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
-                    + "where pc.correo = \"" + correo + "\"  and p.contraseña = sha(\"" + contraseña + "\");";
+                    + "where p.correo = \"" + correo + "\"  and p.contraseña = sha(\"" + contraseña + "\");";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {

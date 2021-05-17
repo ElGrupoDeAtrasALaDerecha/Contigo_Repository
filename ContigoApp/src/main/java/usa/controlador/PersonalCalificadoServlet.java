@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usa.adapter.CorreoInscripcion;
+import usa.adapter.CorreoProxy;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.PersonalCalificado;
-import usa.strategy.Contexto;
-import usa.strategy.MailConfirmacionPersonal;
 import usa.utils.Utils;
 
 /**
@@ -64,7 +64,8 @@ public class PersonalCalificadoServlet extends HttpServlet {
                 respuesta.put("tipo","ok");
                 respuesta.put("mensaje","Usuario registrado satisfactoriamente");
                 //Aquí se envía la verificación
-              Utils.enviarCorreoA("confirmacionPersonal", personal.getCorreo());
+                CorreoProxy proxy = new CorreoProxy(new CorreoInscripcion("personalCalificado"));
+                proxy.enviarCorreo(personal.getCorreo());
             }else{
                 respuesta.put("tipo","error");
                 respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");

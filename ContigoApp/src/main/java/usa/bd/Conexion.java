@@ -3,7 +3,6 @@ package usa.bd;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import usa.bd.IConexionBD;
 
 /**
  * Clase de conexión con la base de datos. funciona polx 
@@ -20,6 +19,8 @@ public class Conexion extends IConexionBD{
     private static Connection con = null;
     /**
      * Constructor privado de la clase conexión
+     * 
+     * 
      */
     private Conexion() {
         try {

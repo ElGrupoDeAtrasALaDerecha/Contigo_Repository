@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contigo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/css_componentes/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/navfooter.css">
+    <link rel="stylesheet" href="css/citasEst.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+</head>
+
+<body>
+    <h1 class="title">Agendamiento de citas</h1>
+    
+    <div id="todo">
+        <div class="dimmed pusher">
+            <div class="ui massive vertical menu">
+                <a class="active item">
+                  <div class="ui small teal label">1</div>
+                  Solicitar citas
+                </a>
+                <a class="item">
+                  <div class="ui small label">51</div>
+                  Mis citas
+                </a>
+              </div>
+          </div>
+        <div id="calendarioCompleto" class="calendar">
+            <div class="calendarInfo">
+                <div class="calendar__prev" id="prev-month"><i class="bi bi-chevron-left"></i></div>
+                <div class="calendar__month" id="month"></div>
+                <div class="calendar__year" id="year"></div>
+                <div class="calendar__next" id="next-month"><i class="bi bi-chevron-right"></i></i></div>
+            </div>
+
+            <div class="week">
+                <div class="calendar__day calendar__item">LU</div>
+                <div class="calendar__day calendar__item">MA</div>
+                <div class="calendar__day calendar__item">MI</div>
+                <div class="calendar__day calendar__item">JU</div>
+                <div class="calendar__day calendar__item">VI</div>
+                <div class="calendar__day calendar__item">SA</div>
+                <div class="calendar__day calendar__item">DO</div>
+            </div>
+
+            <div class="dates" id="dates"></div>
+        </div>
+
+        <div id="horas">
+            <p>Hora de la cita</p>
+            <div class="item"> 
+            <select id="horas2" name="horas2" >
+                <option value="">Horas</option>
+            </select> </div>
+            <form action="" id="checkPerca">
+                <div id="listaPersonal">
+                    <p>Personal disponible</p>
+                    <div class="ui middle aligned divided list" id="perca">
+                        
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+        
+    </div>
+
+    <div id="btnCitasAgendada" class="btn-group">
+        <button id="btnAgenddamiento"type="button" class="open-modal" data-open="modal1">
+            Agendar cita
+        </button>
+    </div>
+    
+    <div class="modal" id="modal1" data-animation="slideInOutLeft">
+        <div class="modal-dialog">
+            <header class="modal-header">
+                Agendamiento de citas
+                <button class="close-modal" data-close>
+                    X
+                </button>
+            </header>
+            <section id="divEmergente" class="modal-content">
+
+            </section>
+
+        </div>
+    </div>
+</body>
+<script src="js/template.js"></script>
+<script src="js/funciones.js"></script>
+<script src="js/citasEst.js"></script>
+<script language="JavaScript"></script>
+<script type="text/javascript" src="js/js_componentes/bootstrap.min.js"></script>
+
+</html>
