@@ -39,7 +39,7 @@ h1{
     padding-top: 9px;
     padding-left: 5%;
     padding-right: 5%;
-    border-radius: 25px;
+    border-radius: 5px;
     text-decoration: none;
     width: 450px;
     border: solid;
@@ -83,6 +83,43 @@ h1{
 	overflow: hidden;
 	position: absolute;
 	z-index: -1;
+}
+.Texto{
+    transition: background 0.2s border 0.2s;
+}
+.select-css {
+    appearance: none;
+    background-image: url("Imagen/flecha.png");
+    background-repeat: no-repeat, repeat;
+    background-position: right .9em top 50%, 0 0;
+    background-size: .99em auto, 100%;
+  }
+  
+.Espacios[data-error] .Texto{
+    border-color: red;
+    color: red;
+}
+.Espacios[data-error]::after{
+    content: attr(data-error);
+    font-size: 0.85em;
+    color:red;
+    display: block;
+    padding-left: 20px;
+}
+.Texto{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 5%;
+    padding-right: 5%;
+    text-decoration: none;
+    width: 450px;
+    border: solid;
+    border-width: 1px;
+    border-color: #9c9999 solid;
+    color: #9c9999;
+    overflow: hidden;
+    font-weight: lighter;
+    outline:none;
 }
 
 .Aumentar{
@@ -191,4 +228,7 @@ h1{
     border-radius: 3px;
     font-size: 16px;
     cursor:pointer;
+}
+.credencial{
+    width: 450px;
 }
