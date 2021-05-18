@@ -100,4 +100,21 @@ public class HistoriaDao implements IHistoriasDao {
         return historias;
     }
 
+    @Override
+    public int crearClasi(String his, int resultado) {
+        try {
+            String sql = "insert into CLASIFICACION_has_HISTORIA (CLASIFICACION_id,HISTORIA_idHistoria) values (?,?);";
+            pat = conn.prepareStatement(sql);
+            pat.setString(1, his);
+            pat.setString(2, String.valueOf(resultado));
+            pat.execute();
+            pat.close();
+            return 0;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 1;
+    }
+
 }

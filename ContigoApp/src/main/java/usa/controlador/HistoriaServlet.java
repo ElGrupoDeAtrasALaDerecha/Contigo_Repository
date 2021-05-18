@@ -73,10 +73,12 @@ public class HistoriaServlet extends HttpServlet {
         String token = request.getHeader("token");
         System.out.println(mensaje);
         Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
+        
         if (dao.crear(historia)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Historia creada");
             json.put("idHistoria", historia.getId());
+             String arregloClasificaciones[]=historia.getClasificacion();
             Situacion situacion = new Situacion();
             situacion.setIdHistoria(historia.getId());
             situacion.setTitulo("");

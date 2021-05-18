@@ -61,12 +61,14 @@ function crearHistoria() {
 
     nombre = $("#Nombre").val();
     descripcion = $("#Descripcion").val();
+    clasifica = $("#grados").val();
 
     informacion = {
         documentoCreador: "1000853623",
         titulo: nombre,
         descripcion: descripcion,
         urlImagen: img,
+        clasificacion: clasifica
     };
 
 
