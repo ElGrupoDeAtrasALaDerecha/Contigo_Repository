@@ -23,7 +23,7 @@
  
  $(document).ready(function () {
 	 if (getCookie("tipoUsuario") !== "2") {
-		 alert("No autorizado");
+		 //alert("No autorizado");
 		 //window.location.assign("index.html");
 		 $('#cerrarConexion').popup();
 	 }
@@ -326,6 +326,7 @@
 	 $("#" + id).click(function () {
 		 salaElegida = id;
 		 aparecerChat(nombre);
+		 agregarInformacion();
 	 });
  }
  
@@ -459,7 +460,7 @@
 	 }
  }
  /**
-  * 
+  * Mensaje que pinta la notificación de escritura a un estudiante. 
   * @param {*} numeroSalaMensaje 
   */
  function pintarEscribiendo(numeroSalaMensaje) {
@@ -473,7 +474,10 @@
 		 }, 1000)
 	 }
  }
- 
+
+ /**
+  * Función que termina la sesión de chat con un estudiante.
+  */
  function cerrarConexionConEstudiante(){
 	 let obj= {
 		 tipo:"cerrar conexion",
