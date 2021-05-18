@@ -1,7 +1,6 @@
 package usa.modelo.dao;
 
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -82,6 +81,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setCorreo(rs.getString("correo"));
                 personalCalificado.setToken(rs.getString("token"));
                 personalCalificado.setImagen(rs.getString("imagen"));
+                personalCalificado.setBiografia(rs.getString("biografia"));
             }
             rs.close();
             pat.close();
@@ -91,9 +91,40 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         return personalCalificado;
     }
 
+    /**
+     * Método que permite actualizar los datos de un personal calificado en la base de datos
+     * @param p que son los datos del personal a modificar
+     * @return verdadero si actualiza y falso si no
+     */
     @Override
-    public boolean actualizar(PersonalCalificado t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(PersonalCalificado p) {
+        try {
+            String sql="update personal as pc ,persona as p\n" +
+                    "set p.primerNombre=?,\n" +
+                    "p.segundoNombre=?,\n" +
+                    "p.primerApellido=?,\n" +
+                    "p.segundoApellido=?,\n" +
+                    "p.fechaNacimiento=?,\n" +
+                    "p.genero=?,\n" +
+                    "pc.imagen =?,\n" +
+                    "pc.biografia =?\n" +
+                    "where PERSONA_documento=?;";
+            PreparedStatement pat = conn.prepareStatement(sql);
+            pat.setString(1,p.getPrimerNombre());
+            pat.setString(2, p.getSegundoNombre());
+            pat.setString(3, p.getPrimerApellido());
+            pat.setString(4, p.getSegundoApellido());
+            pat.setString(5, p.getFechaDeNacimiento());
+            pat.setString(6, p.getGenero());
+            pat.setString(7, p.getImagen());
+            pat.setString(8, p.getBiografia());
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -128,6 +159,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setCorreo(rs.getString("correo"));
                 personalCalificado.setToken(rs.getString("token"));
                 personalCalificado.setImagen(rs.getString("imagen"));
+                personalCalificado.setBiografia(rs.getString("biografia"));
                 personales.add(personalCalificado);
             }
             rs.close();
@@ -161,6 +193,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setGenero(rs.getString("genero"));
                 personalCalificado.setCorreo(rs.getString("correo"));
                 personalCalificado.setImagen(rs.getString("imagen"));
+                personalCalificado.setBiografia(rs.getString("biografia"));
             }
             rs.close();
             pat.close();
@@ -196,6 +229,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personal.setGenero(rs.getString("genero"));
                 personal.setCorreo(rs.getString("correo"));
                 personal.setToken(rs.getString("token"));
+                personal.setBiografia(rs.getString("biografia"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);

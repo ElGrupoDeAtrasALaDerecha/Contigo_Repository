@@ -5,3 +5,7 @@ update cita
 set ESTUDIANTE_PERSONA_documento = "1000853624",
 estado=2
 where id=1;
+
+update personal
+set biografia = ""
+where PERSONA_documento="1000853623";
