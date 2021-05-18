@@ -55,6 +55,12 @@ public class ObservadorCita extends Observer {
                 break;
             //Aquí va la cancelación de la cita por parte del personal calificado
             case 5:
+                dao= (IDao) factoryDao.obtener("EstudianteDao");
+                e = (Estudiante) dao.consultar(cita.getIdEstudiante());
+                proxy= new CorreoProxy(new CorreoCita(cita));
+                if (e.getCorreo() != null) {
+                    proxy.enviarCorreo(e.getCorreo());
+                }
                 break;
             //Aquí va el estado de la cita perdida
             case 6:
