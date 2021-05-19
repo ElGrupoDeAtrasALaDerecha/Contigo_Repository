@@ -5,10 +5,8 @@
  */
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
-import usa.factory.FactoryDao;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoConversatorios;
@@ -37,7 +34,6 @@ public class ConversatorioServlet extends HttpServlet {
     IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -77,7 +73,7 @@ public class ConversatorioServlet extends HttpServlet {
         IDaoConversatorios daoConver=(IDaoConversatorios)dao;
         JSONObject respuesta = new JSONObject();
         int resultado = daoConver.crearConver(conver);
-        
+       
         if (resultado != 0) {
             respuesta.put("tipo", "ok");
             respuesta.put("mensaje", "El conversatorio fue agendado correctamente");

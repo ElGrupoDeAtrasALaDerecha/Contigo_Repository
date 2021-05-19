@@ -31,17 +31,17 @@ insert into CLASIFICACION (grado) values("Docentes");
 
 
 INSERT INTO institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web) 
-VALUES (5,1,"Colegio Gimnasio Los Pinares", "colegiogimnasio@gmail.com","Cra. 35 #9 Sur 160",true,false,"Los Balsos II","42686034","1234","https://bit.ly/3thUZop");
+VALUES (5,1,"Colegio Gimnasio Los Pinares", "colegiogimnasio@gmail.com","Cra. 35 #9 Sur 160",true,false,"Los Balsos II","42686034",sha("1234"),"https://bit.ly/3thUZop");
 
 #Grados
 insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("aaaaa",1,(select id from institucion where correo="colegiogimnasio@gmail.com"));
 insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("11B",2,(select id from institucion where correo="colegiogimnasio@gmail.com"));
 
 #Estudiante
-call insertarEstudiante("1000853620",1,"Valeria","","Bermúdez" ,"González","3","2000-07-26","12348","femenino","aaaaa");
-call insertarEstudiante("1000853624",1,"Santiago","","Pérez" ,"González","4","2000-07-26","12349","masculino","aaaaa");
-call insertarEstudiante("1007718536",1,"Miguel","Angel","Rippe" ,"Pereira","5","2000-11-26","123410","masculino","aaaaa");
-call insertarEstudiante("123456789",1,"María","Camila","Fernández" ,"González","123","2000-07-26","222222","femenino","aaaaa");
+call insertarEstudiante("1000853620",1,"Valeria","","Bermúdez" ,"González","3","2000-07-26","12348","femenino","aaaaa","");
+call insertarEstudiante("1000853624",1,"Santiago","","Pérez" ,"González","4","2000-07-26","12349","masculino","aaaaa","santiago.perez01@correo.usa.edu.co");
+call insertarEstudiante("1007718536",1,"Miguel","Angel","Rippe" ,"Pereira","5","2000-11-26","123410","masculino","aaaaa","santipego@yahoo.es");
+call insertarEstudiante("123456789",1,"María","Camila","Fernández" ,"González","123","2000-07-26","222222","femenino","aaaaa","contigoedsxapp@gmail.com");
 
 
 
@@ -56,3 +56,57 @@ insert into CONVERSATORIO (PERSONAL_PERSONA_documento,titulo,cronograma,imagen,d
 
 insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (1,1);
 insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (2,1);
+
+insert into HISTORIA (PERSONAL_PERSONA_documento,titulo,descripcion,urlImagen) 
+values ("1000853623","Juanita y sus amigos", "Juanita que es una niña valiente y muy inteligente llega a un nuevo colegio y se da
+                            cuenta que es
+                            diferente a sus compañeras, por esto se vuelve insegura y tímida lo que hace que le cueste hacer
+                            amigos, ¿Te acercarías a hablar con juanita?","img/school.jpg");
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
+values(null,1,"Amigo de Juanita","Muy bien. No te dejas llevar por las apariencias");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
+values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
+values(1,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
+values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
+values(2,1,"Amigo de S4","Muy bien. No te dejas llevar por las apariencias");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
+values(3,1,"Amigo de S4","Muy bien. No te dejas llevar por las apariencias");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
+values(6,1,"Amigo de cx","Muy bien. No te dejas llevar por las apariencias");
+
+insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
+values(6,1,"Amigo de cx","Muy bien. No te dejas llevar por las apariencias");
+
+insert into FIN (SITUACION_id,titulo,texto)
+values(8,"Acompañas a cx","Muy bien. Lo has logrado excelentemente :D");
+insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"1007718536");
+insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"123456789");
+insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
+
+insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("123456789",sysdate());
+#insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("100718536",sysdate());
+
+insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-3-28","2021-3-30","9","11");
+insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-3-28","2021-4-5","9","11");
+insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-05-05","2021-05-20","9","11");
+
+
+
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,9,"2021-03-28",1,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,10,"2021-03-28",1,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,11,"2021-03-28",1,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,9,"2021-04-04",1,"https://meet.google.com/snf-yxio-tdp");
+
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,9,"2021-05-07",1,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-05-07",1,"https://meet.google.com/snf-yxio-tdp");
+
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-05-11",1,"https://meet.google.com/snf-yxio-tdp");

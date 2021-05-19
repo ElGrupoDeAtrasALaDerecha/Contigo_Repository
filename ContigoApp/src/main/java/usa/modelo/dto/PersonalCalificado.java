@@ -8,22 +8,30 @@ package usa.modelo.dto;
 public class PersonalCalificado extends Persona {
 
     
-    private String correo;
+
+    private String imagen;
+    
+    private String biografia;
+    
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
     /**
      * Default constructor
      */
     public PersonalCalificado() {
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getBiografia() {
+        return biografia;
     }
-    /**
-     * 
-     * @param correo 
-     */
-    public void setCorreo(String correo) {
-        this.correo = correo;
+
+    public void setBiografia(String biografia) {
+        this.biografia = biografia;
     }
 
 }

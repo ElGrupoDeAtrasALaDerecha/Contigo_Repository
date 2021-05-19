@@ -23,6 +23,12 @@
     padding-right: 50px;
     text-decoration: none;
 }
+#Columna-datos3{
+    padding-top: 26px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-decoration: none;
+}
 h1{
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
@@ -56,9 +62,10 @@ h1{
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-#Espacios{
+.Espacios{
     padding-top: 10px;
     padding-bottom: 10px;
+    
 }
 #Button{
     padding-bottom: 9px;
@@ -86,29 +93,31 @@ input[type=number]::-webkit-inner-spin-button {
     text-align: center;
     outline:none;
 }
+#Button2:hover{
+    background-color: #174075;
+
+}
 #Columna-datos2{
     padding-left: 50px;
     padding-right: 50px;
     text-decoration: none;
 }
-#Espacios2{
-    padding-top: 11px;
-    padding-bottom: 10px;
-}
-#Espacios3{
-    padding-top: 10px;
-    padding-bottom: 20px;
-}
-#Espacios4{
-    padding-top: -15px;
-    padding-bottom: 20px;
-}
-#Espacios5{
-    padding-top: 0px;
-    padding-bottom: 20px;
-}
 
 
+.Espacios[data-error] .Texto{
+    border-color: red;
+    color: red;
+}
+.Espacios[data-error]::after{
+    content: attr(data-error);
+    font-size: 0.85em;
+    color:red;
+    display: block;
+    padding-left: 20px;
+}
+.Texto{
+    transition: background 0.2s border 0.2s;
+}
 .select-css {
     appearance: none;
     background-image: url("Imagen/flecha.png");
@@ -116,3 +125,4 @@ input[type=number]::-webkit-inner-spin-button {
     background-position: right .9em top 50%, 0 0;
     background-size: .99em auto, 100%;
   }
+  

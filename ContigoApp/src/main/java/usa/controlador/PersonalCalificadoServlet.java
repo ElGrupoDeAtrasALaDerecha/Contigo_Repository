@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usa.adapter.CorreoInscripcion;
+import usa.adapter.CorreoProxy;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
@@ -56,21 +58,23 @@ public class PersonalCalificadoServlet extends HttpServlet {
         JSONObject respuesta = new JSONObject();
         if (dao.consultar(personal.getDocumento())!=null){
             respuesta.put("tipo","error");
-            respuesta.put("mensaje","Ya existe un usuario con ese nombre documento");
+            respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");
         }else{
             if(dao.crear(personal)){
                 respuesta.put("tipo","ok");
                 respuesta.put("mensaje","Usuario registrado satisfactoriamente");
                 //Aquí se envía la verificación
+                CorreoProxy proxy = new CorreoProxy(new CorreoInscripcion("personalCalificado"));
+                proxy.enviarCorreo(personal.getCorreo());
             }else{
                 respuesta.put("tipo","error");
-                respuesta.put("mensaje","Ya existe un usuario con ese nombre documento");
+                respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");
             }
         }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }
-
+//
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          

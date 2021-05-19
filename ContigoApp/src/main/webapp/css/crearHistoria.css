@@ -1,0 +1,194 @@
+h1{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+#Espacios{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    
+}
+
+.FullContainer{
+    Display: inline-flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 10px;
+    Flex-wrap: wrap;
+}
+.Container1{
+    Display: inline-flex;
+    width: 100%;
+    margin-bottom: 10px;
+    Flex-wrap: wrap;
+    Flex-direction: column;
+    Justify-content: Center;
+    padding-bottom: 40px;
+    justify-content: space-between;
+    align-items: center;
+}
+.Container2{
+    padding-bottom: 40px;
+}
+.Texto{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 25px;
+    text-decoration: none;
+    width: 450px;
+    border: solid;
+    border-width: 1px;
+    border-color: #9c9999 solid;
+    color: #9c9999;
+    overflow: hidden;
+    font-weight: lighter;
+    outline:none;
+}
+.Button{
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 25px;
+    width: 450px;
+    border: none;
+    background-color: #2d4059;
+    color: rgba(255,255,255,1);
+    text-align: center;
+    outline:none;
+}
+.label1{
+    cursor: pointer; 
+}
+.numeroOpc{
+    display: flex;
+    justify-content: space-around;
+    width:350px ;
+    margin-bottom: 15px;
+}
+#Descripcion{
+    resize: none;
+    
+}
+.img-uploader{
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.Aumentar{
+    background-color: rgba(255,255,255,1);
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px #2d4059 solid;
+}
+.Disminuir{
+    background-color: rgba(255,255,255,1);
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px #2d4059 solid;
+}
+#extra{
+    width: 100%;
+}
+.contenedor-inputs{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    Flex-direction: column;
+}
+
+.overlay{
+    background: rgba(0,0,0,.3);
+    position: fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+.overlay.active{
+    visibility: visible;
+}
+.popup{
+    background: rgba(255,255,255,1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0,.3);
+    border-radius: 3px;
+    font-family: 'Open Sans', sans-serif;
+    padding:20px;
+    text-align: center;
+    width: 600px;
+}
+.btn-cerrar-popup{
+    font-size: 16px;
+    line-height: 16px;
+    display: block;
+    text-align: right;
+    color: rgba(255,255,255,1);
+}
+.btn-cerrar-popup:hover{
+    color:#000;
+}
+.popup h3{
+    color: #222831;
+    font-family: 'Kaushan Script';
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom:10px;
+    /*opacity: 0;*/
+}
+.popup h4{
+    color: #222831;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom:20px;
+    /*opacity: 0;*/
+}
+
+.popup form .contenedor-inputs input{
+    width: 100%;
+    margin-bottom: 20px;
+    height: 52px;
+    line-height: 52px;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid #BBBBBB;
+}
+.popup form .btn-submit{
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    color:#fff;
+    background: #222831;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor:pointer;
+}
+
+.btn-final{
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    color:#fff;
+    background: #700000;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor:pointer;
+}

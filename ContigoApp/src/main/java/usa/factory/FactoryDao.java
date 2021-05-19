@@ -1,16 +1,8 @@
 package usa.factory;
 
-import usa.modelo.dao.ClasificacionDao;
-import usa.modelo.dao.MunicipioDao;
-import usa.modelo.dao.PersonalCalificadoDao;
-import usa.modelo.dao.DepartamentoDao;
-import usa.modelo.dao.EstudianteDao;
-import usa.modelo.dao.GradoDao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import usa.modelo.dao.IDao;
-import usa.modelo.dao.ConversatoriosDao;
-import usa.modelo.dao.HistoriaDao;
-import usa.modelo.dao.SituacionDao;
-import usa.modelo.dao.TipoDocumentoDao;
 
 /**
  * Fábrica de DAO
@@ -20,37 +12,13 @@ public class FactoryDao implements AbstractFactory<IDao>{
     @Override
     public IDao obtener(String nombreDao){
         IDao dao=null;    
-        if(nombreDao.equals("ClasificacionDao")){
-            dao = new ClasificacionDao(); 
+        try {
+            dao = (IDao) Class.forName("usa.modelo.dao."+nombreDao).newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(FactoryDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else if(nombreDao.equals("MunicipioDao")){
-            dao = new MunicipioDao();
-        }
-        else if(nombreDao.equals("DepartamentoDao")){
-            dao=new DepartamentoDao(); 
-        }
-        else if(nombreDao.equals("EstudianteDao")){
-            dao=new EstudianteDao(); 
-        }
-        else if(nombreDao.equals("ConversatoriosDao")){
-            dao =  new ConversatoriosDao();
-        }
-        else if(nombreDao.equals("TipoDocumento")){
-            dao = new TipoDocumentoDao(); 
-        } 
-        else if(nombreDao.equals("PersonalCalificadoDao")){
-            dao=new PersonalCalificadoDao(); 
-        }
-        else if (nombreDao.equals("GradoDao")){
-            dao=new GradoDao();
-        }else if (nombreDao.equals("HistoriaDao")){
-            dao=new HistoriaDao();
-        } 
-        else if (nombreDao.equals("SituacionDao")){
-            dao=new SituacionDao();
-        } 
         return dao;
     }
-    
+   
     
 }

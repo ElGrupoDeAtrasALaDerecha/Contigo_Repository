@@ -148,7 +148,7 @@ var chart = new Chart(document.getElementById('cantidadEstudiantes').getContext(
             borderColor: '#2d4059',
 
             backgroundColor: 'rgba(176, 196, 222, 0.35)',
-            data: [200, 240, 410, 391,350]
+            data: [200, 240, 410, 391, 350]
         }]
     },
     options: {

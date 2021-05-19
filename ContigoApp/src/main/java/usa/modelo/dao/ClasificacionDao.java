@@ -10,14 +10,15 @@ import java.util.logging.Logger;
 import usa.modelo.dto.Clasificacion;
 
 /**
- *
+ *fdsfsdfsdfsd
  * @author andre
  */
-public class ClasificacionDao implements IDao<Clasificacion>{
+public class ClasificacionDao implements IDao<Clasificacion> {
 
     PreparedStatement pat;
-    Statement stmt; 	            
-    ResultSet result;     
+    Statement stmt;
+    ResultSet result;
+
     @Override
     public boolean crear(Clasificacion t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -35,8 +36,8 @@ public class ClasificacionDao implements IDao<Clasificacion>{
                 sql = "select * from CLASIFICACION where grado = " + txt;
             }
             pat = conn.prepareStatement(sql);
-            result = pat.executeQuery();    
-            while(result.next()){
+            result = pat.executeQuery();
+            while (result.next()) {
                 clasf.setId(result.getInt("id"));
                 clasf.setGrado(result.getString("grado"));
             }
@@ -46,7 +47,7 @@ public class ClasificacionDao implements IDao<Clasificacion>{
         }
         return clasf;
     }
-    
+
     @Override
     public boolean actualizar(Clasificacion t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -59,7 +60,24 @@ public class ClasificacionDao implements IDao<Clasificacion>{
 
     @Override
     public LinkedList<Clasificacion> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LinkedList<Clasificacion> lista = new LinkedList();
+        String sql = "";
+        try {
+            sql = "select clasificacion.id,  clasificacion.grado, grado.codigo from clasificacion, grado where grado.CLASIFICACION_id = clasificacion.id; ";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            while (result.next()) {
+                Clasificacion clasf = new Clasificacion();
+                clasf.setId(result.getInt("id"));
+                clasf.setGrado(result.getString("grado"));
+                clasf.setCodigo(result.getString("codigo"));
+                lista.add(clasf);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
     }
-    
+
 }

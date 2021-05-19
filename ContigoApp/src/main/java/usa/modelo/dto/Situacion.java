@@ -6,51 +6,23 @@ import java.util.LinkedList;
  * Clase de situaciones
  * @author Miguel Rippe, Santiago Cáceres, Laura Blanco y Santiago Pérez
  */
-public class Situacion {
-    private int id;
-    private String titulo;
-    private String texto;
-    private String textoOpcion;
-    private LinkedList<Situacion> opciones;
-
-    public int getId() {
-        return id;
+public class Situacion extends Componente{
+    
+    private LinkedList<Componente> opciones;
+ 
+    public void agregarOpcion(Componente componente){
+        opciones.add(componente);
     }
-
-    public void setId(int id) {
-        this.id = id;
+    
+    public Situacion() {
+        opciones = new LinkedList();
     }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getTexto() {
-        return texto;
-    }
-
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
-
-    public String getTextoOpcion() {
-        return textoOpcion;
-    }
-
-    public void setTextoOpcion(String textoOpcion) {
-        this.textoOpcion = textoOpcion;
-    }
-
-    public LinkedList<Situacion> getOpciones() {
+    
+    public LinkedList<Componente> getOpciones() {
         return opciones;
     }
 
-    public void setOpciones(LinkedList<Situacion> opciones) {
+    public void setOpciones(LinkedList<Componente> opciones) {
         this.opciones = opciones;
     }
-    
 }
