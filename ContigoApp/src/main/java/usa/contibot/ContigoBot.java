@@ -63,8 +63,8 @@ public class ContigoBot {
      */
     @OnMessage
     public void onMessage(String mensaje, Session sesion) {
-        System.out.println("Mensaje entrante " + mensaje);
-        System.out.println("Mensaje de " + sesion.getId());
+        //System.out.println("Mensaje entrante " + mensaje);
+        //System.out.println("Mensaje de " + sesion.getId());
         JSONObject obj = new JSONObject(mensaje);
         String tipo = (String) obj.get("tipo");
         JSONObject objRespuesta = new JSONObject();

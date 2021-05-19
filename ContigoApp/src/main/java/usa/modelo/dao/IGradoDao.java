@@ -12,4 +12,5 @@ import usa.modelo.dto.GradoClasf;
 public interface IGradoDao extends IDao<Grado>{
     public LinkedList<GradoClasf> listarGradosClasf();
     JSONArray consultarBtnPorGrado(String grado);
+    public Grado consultarUnico(String codigo);
 }

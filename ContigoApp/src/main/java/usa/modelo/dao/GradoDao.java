@@ -41,7 +41,7 @@ public class GradoDao implements IGradoDao {
     public Grado consultar(String id) {
         Grado grado = null;
         try {
-            String sql = "select * from GRADO where CLASIFICACION_id = " + id;
+            String sql = "select * from GRADO where CLASIFICACION_id =\" " + id+"\"";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
@@ -135,5 +135,26 @@ public class GradoDao implements IGradoDao {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return arregloBtnE;
+    }
+
+    @Override
+    public Grado consultarUnico(String id) {
+        Grado grado = null;
+        try {
+            String sql = "select * from GRADO where codigo=\"" + id+"\"";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                grado = new Grado();
+                grado.setCodigo(rs.getString("codigo"));
+                grado.setInstitucion_id(rs.getInt("INSTITUCION_id"));
+                grado.setClasificacion_id(rs.getInt("CLASIFICACION_id"));
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return grado;
     }
 }
