@@ -108,7 +108,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                     "p.genero=?,\n" +
                     "pc.imagen =?,\n" +
                     "pc.biografia =?\n" +
-                    "where PERSONA_documento=?;";
+                    "where p.documento=? and pc.PERSONA_documento=p.documento;";
             PreparedStatement pat = conn.prepareStatement(sql);
             pat.setString(1,p.getPrimerNombre());
             pat.setString(2, p.getSegundoNombre());
