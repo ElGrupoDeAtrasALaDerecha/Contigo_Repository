@@ -22,3 +22,5 @@ select * from institucion where correo="contigoapp@gmail.com" and contraseña="c
 select * from grado;
 select * from conversatorio;
 select * from institucion;
+
+select * from historia;

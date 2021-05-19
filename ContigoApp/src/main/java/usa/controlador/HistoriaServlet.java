@@ -1,6 +1,5 @@
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,18 +12,16 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
-import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
 
 /**
  *
- * @author Santiago Pérez
+ * @author Miguel Rippe, Santiago Cáceres, Laura Blanco y Santiago Pérez
  */
-@WebServlet(name = "Estudiante", urlPatterns = {"/Estudiante"})
-public class EstudianteServlet extends HttpServlet {
-
-    AbstractFactory factoryDao = Producer.getFabrica("DAO");
-    IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
+@WebServlet(name = "HistoriaServlet", urlPatterns = {"/Historia"})
+public class HistoriaServlet extends HttpServlet {
+    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+    IDao dao = (IDao)factoryDao.obtener("HistoriaDao");
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -36,13 +33,13 @@ public class EstudianteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         respuesta.put("tipo", "ok");
-        respuesta.put("estudiante",arreglo);
+        respuesta.put("historias",new JSONArray(Utils.toJson(dao.listarTodos())));
+        PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }
 
@@ -55,24 +52,9 @@ public class EstudianteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        JSONObject json = new JSONObject();
-        Gson gson = new Gson();
-        String mensaje = Utils.readParams(request);
-        System.out.println(mensaje);
-        Estudiante estudiante = (Estudiante) gson.fromJson(mensaje, Estudiante.class);
-
-        if (dao.crear(estudiante)) {
-            json.put("tipo", "ok");
-            json.put("mensaje", "Estudiante creado");
-        } else {
-            json.put("tipo", "error");
-            json.put("mensaje", "Error al crear estudiante");
-        }
-        out.print(json.toString());
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
     }
 
     /**
