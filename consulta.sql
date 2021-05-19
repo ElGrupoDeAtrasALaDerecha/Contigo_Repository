@@ -20,6 +20,7 @@ select * from institucion;
 
 select * from institucion where correo="contigoapp@gmail.com" and contraseña="contigo123";
 select * from grado;
+select * from GRADO where codigo="aaaaa"; 
 select * from conversatorio;
 select * from institucion;
 
