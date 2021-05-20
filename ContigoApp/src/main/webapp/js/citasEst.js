@@ -22,6 +22,7 @@ var listCitas;
 var horasdisponibles = [];
 var fecha;
 var historialCitas;
+var motivo;
 
 $(document).ready(function () {
   cargarCitas();
@@ -288,7 +289,7 @@ function llenarDiv(cita) {
     `<p>Fecha: ${cita.fecha} </p>` +
     `<p>Hora: ${cita.hora}:00</p>` +
     `<p>Personal calificado: ${cita.personal} </p>` +
-    `<p>Motivo: ${cita.motivo} </p>` +
+    `<p>Motivo: ${motivo} </p>` +
     `<div class="ui buttons">
         <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
         <div class="or"></div>
@@ -474,11 +475,18 @@ function solicitarCita(obj) {
 
 $(function () {
   $("#motivoSelect").change(function () {
-    console.log("entro")
     if ($(this).val() === "1") {
       textAreaMotivo.style.display = "block";
+      motivo = $("#MotivoOtros").val()
+      console.log(motivo)
     } else {
       textAreaMotivo.style.display = "none";
+      motivo = $("#motivoSelect").val()
+      document.getElementById("MotivoOtros").value = "";
+      console.log(motivo)
     }
   });
 });
+
+
+
