@@ -44,3 +44,25 @@ inner join agenda as a on a.id=c.AGENDA_id
 inner join personal as pc on pc.PERSONA_documento=a.PERSONAL_PERSONA_documento
 inner join persona as p on p.documento=pc.PERSONA_documento
 where ESTUDIANTE_PERSONA_documento="1000853624" and fecha<sysdate();
+
+
+
+select i.*,b.* from informacion as i
+inner join biografia as b on b.INFORMACION_id=i.id
+where i.PERSONAL_PERSONA_documento="1000853623";
+
+select i.*,expe.* from informacion as i
+inner join experiencia as expe on expe.INFORMACION_id=i.id
+where i.PERSONAL_PERSONA_documento="1000853623";
+
+select i.*,c.* from informacion as i
+inner join certificado as c on c.INFORMACION_id=i.id
+where i.PERSONAL_PERSONA_documento="1000853623";
+
+select i.*,esp.* from informacion as i
+inner join especialidad as esp on esp.INFORMACION_id=i.id
+where i.PERSONAL_PERSONA_documento="1000853623";
+
+select i.*,rs.* from informacion as i
+inner join red_social as rs on rs.INFORMACION_id=i.id
+where i.PERSONAL_PERSONA_documento="1000853623";

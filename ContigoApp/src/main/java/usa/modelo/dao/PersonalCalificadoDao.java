@@ -81,7 +81,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setCorreo(rs.getString("correo"));
                 personalCalificado.setToken(rs.getString("token"));
                 personalCalificado.setImagen(rs.getString("imagen"));
-                personalCalificado.setBiografia(rs.getString("biografia"));
+                //personalCalificado.setBiografia(rs.getString("biografia"));
             }
             rs.close();
             pat.close();
@@ -107,7 +107,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                     "p.fechaNacimiento=?,\n" +
                     "p.genero=?,\n" +
                     "pc.imagen =?,\n" +
-                    "pc.biografia =?\n" +
+                    //"pc.biografia =?\n" +
                     "where p.documento=? and pc.PERSONA_documento=p.documento;";
             PreparedStatement pat = conn.prepareStatement(sql);
             pat.setString(1,p.getPrimerNombre());
@@ -117,7 +117,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
             pat.setString(5, p.getFechaDeNacimiento());
             pat.setString(6, p.getGenero());
             pat.setString(7, p.getImagen());
-            pat.setString(8, p.getBiografia());
+            //pat.setString(8, p.getBiografia());
             pat.execute();
             pat.close();
             return true;
@@ -149,7 +149,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
 
             while (rs.next()) {
                 PersonalCalificado personalCalificado = new PersonalCalificado();
-                personalCalificado.setDocumento(rs.getString("documento"));
+                //personalCalificado.setDocumento(rs.getString("documento"));
                 personalCalificado.setPrimerNombre(rs.getString("primerNombre"));
                 personalCalificado.setSegundoNombre(rs.getString("segundoNombre"));
                 personalCalificado.setPrimerApellido(rs.getString("primerApellido"));
@@ -157,9 +157,9 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toString());
                 personalCalificado.setGenero(rs.getString("genero"));
                 personalCalificado.setCorreo(rs.getString("correo"));
-                personalCalificado.setToken(rs.getString("token"));
+                //personalCalificado.setToken(rs.getString("token"));
                 personalCalificado.setImagen(rs.getString("imagen"));
-                personalCalificado.setBiografia(rs.getString("biografia"));
+                //personalCalificado.setBiografia(rs.getString("biografia"));
                 personales.add(personalCalificado);
             }
             rs.close();
@@ -193,7 +193,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setGenero(rs.getString("genero"));
                 personalCalificado.setCorreo(rs.getString("correo"));
                 personalCalificado.setImagen(rs.getString("imagen"));
-                personalCalificado.setBiografia(rs.getString("biografia"));
+                //personalCalificado.setBiografia(rs.getString("biografia"));
             }
             rs.close();
             pat.close();
@@ -229,7 +229,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personal.setGenero(rs.getString("genero"));
                 personal.setCorreo(rs.getString("correo"));
                 personal.setToken(rs.getString("token"));
-                personal.setBiografia(rs.getString("biografia"));
+                //personal.setBiografia(rs.getString("biografia"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);

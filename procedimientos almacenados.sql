@@ -44,3 +44,62 @@ insert into PERSONA(documento,TIPO_DOCUMENTO_id,primerNombre,segundoNombre,prime
 values(_documento,_TIPO_DOCUMENTO_ID,_primerNombre,_segundoNombre,_primerApellido,_segundoApellido ,_token ,_fechaNacimiento ,sha(_contraseña),_genero,_correo);
 insert into ESTUDIANTE(PERSONA_documento,GRADO_codigo) values (_documento,_GRADO_codigo);
 end $$
+
+
+delimiter $$
+
+create procedure insertarBiografia (
+  _documento VARCHAR(20),
+  _biografia VARCHAR(1000)
+)
+begin
+insert into INFORMACION(PERSONAL_PERSONA_documento)
+values(_documento);
+insert into BIOGRAFIA(INFORMACION_id,biografia) 
+values ((select id from INFORMACION order by id desc limit 1),_biografia);
+end $$
+
+
+delimiter $$
+
+create procedure insertarExperiencia (
+  _documento VARCHAR(20),
+  _cargo VARCHAR(20),
+  _detalles VARCHAR(300)
+)
+begin
+insert into INFORMACION(PERSONAL_PERSONA_documento)
+values(_documento);
+insert into EXPERIENCIA(INFORMACION_id,cargo,detalles) 
+values ((select id from INFORMACION order by id desc limit 1),_cargo,_detalles);
+end $$
+
+
+delimiter $$
+
+create procedure insertarEspecialidad (
+  _documento VARCHAR(20),
+  _especialidad VARCHAR(150)
+)
+begin
+insert into INFORMACION(PERSONAL_PERSONA_documento)
+values(_documento);
+insert into ESPECIALIDAD(INFORMACION_id,especialidad) 
+values ((select id from INFORMACION order by id desc limit 1),_especialidad);
+end $$
+
+
+delimiter $$
+
+create procedure insertarRedSocial (
+  _documento VARCHAR(20),
+  _nombre VARCHAR(30),
+  _link VARCHAR(200),
+  _alias VARCHAR(100)
+)
+begin
+insert into INFORMACION(PERSONAL_PERSONA_documento)
+values(_documento);
+insert into RED_SOCIAL(INFORMACION_id,nombre,link,alias) 
+values ((select id from INFORMACION order by id desc limit 1),_nombre,_link,_alias);
+end $$
