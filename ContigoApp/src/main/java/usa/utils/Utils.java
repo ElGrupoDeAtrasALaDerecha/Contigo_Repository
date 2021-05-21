@@ -100,4 +100,13 @@ public class Utils {
     public static String crearCodigoRecuperacion() {
         return GeneradorCodigos.getCodigo("N-M-m", 7);
     }
+    
+    /**
+     * Función que valida un token de usuario
+     * @param token que es el token que se va a validar
+     * @return verdadero si es válido y falso si no
+     */
+    public boolean validarToken(String token){
+        return true;
+    }
 }

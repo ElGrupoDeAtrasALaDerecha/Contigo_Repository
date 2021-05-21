@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dto.PersonalCalificado;
+import usa.modelo.dto.decorador.IInformacion;
+import usa.modelo.dto.decorador.Informacion;
 import usa.utils.Utils;
 
 /**
@@ -20,8 +22,10 @@ import usa.utils.Utils;
  * @since 2021-03-16
  */
 public class PersonalCalificadoDao implements IPersonalCalificadoDao {
+
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
     IDao informacionDao = (IDao) factoryDao.obtener("InformacionDao");
+
     /**
      * Método que permite crear personal calificado. Obtiene los datos de un
      * objeto y los establece en la base de datos
@@ -65,7 +69,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
      */
     @Override
     public PersonalCalificado consultar(String id) {
-        
+
         PersonalCalificado personalCalificado = null;
         String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
                 + "where p.documento=" + id + ";";
@@ -98,25 +102,27 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
     }
 
     /**
-     * Método que permite actualizar los datos de un personal calificado en la base de datos
+     * Método que permite actualizar los datos de un personal calificado en la
+     * base de datos
+     *
      * @param p que son los datos del personal a modificar
      * @return verdadero si actualiza y falso si no
      */
     @Override
     public boolean actualizar(PersonalCalificado p) {
         try {
-            String sql="update personal as pc ,persona as p\n" +
-                    "set p.primerNombre=?,\n" +
-                    "p.segundoNombre=?,\n" +
-                    "p.primerApellido=?,\n" +
-                    "p.segundoApellido=?,\n" +
-                    "p.fechaNacimiento=?,\n" +
-                    "p.genero=?,\n" +
-                    "pc.imagen =?,\n" +
-                    //"pc.biografia =?\n" +
+            String sql = "update personal as pc ,persona as p\n"
+                    + "set p.primerNombre=?,\n"
+                    + "p.segundoNombre=?,\n"
+                    + "p.primerApellido=?,\n"
+                    + "p.segundoApellido=?,\n"
+                    + "p.fechaNacimiento=?,\n"
+                    + "p.genero=?,\n"
+                    + "pc.imagen =?,\n"
+                    + //"pc.biografia =?\n" +
                     "where p.documento=? and pc.PERSONA_documento=p.documento;";
             PreparedStatement pat = conn.prepareStatement(sql);
-            pat.setString(1,p.getPrimerNombre());
+            pat.setString(1, p.getPrimerNombre());
             pat.setString(2, p.getSegundoNombre());
             pat.setString(3, p.getPrimerApellido());
             pat.setString(4, p.getSegundoApellido());
@@ -155,7 +161,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
 
             while (rs.next()) {
                 PersonalCalificado personalCalificado = new PersonalCalificado();
-                //personalCalificado.setDocumento(rs.getString("documento"));
+                personalCalificado.setDocumento(rs.getString("documento"));
                 personalCalificado.setPrimerNombre(rs.getString("primerNombre"));
                 personalCalificado.setSegundoNombre(rs.getString("segundoNombre"));
                 personalCalificado.setPrimerApellido(rs.getString("primerApellido"));
@@ -167,8 +173,10 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setImagen(rs.getString("imagen"));
                 //personalCalificado.setBiografia(rs.getString("biografia"));
                 IDaoInformacion infoDao = (IDaoInformacion) informacionDao;
-                infoDao.consultarPorPersonal(personalCalificado);
+                IInformacion informacion = infoDao.consultarPorPersonal(personalCalificado);
+                informacion.agregarInformacion();
                 personalCalificado.limpiar();
+                personalCalificado.setDocumento(null);
                 personales.add(personalCalificado);
             }
             rs.close();
@@ -178,8 +186,10 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         }
         return personales;
     }
+
     /**
      * Método que permite consultar en la base de datos por el token
+     *
      * @param token que es un token propio del usuario
      * @return Un objeto de personal calificado o nulo si no lo encuentra
      */
@@ -214,8 +224,10 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         }
         return personalCalificado;
     }
+
     /**
      * Metodo que permite consultar personal calificado por usuario y contraseña
+     *
      * @param correo que es el correo del usuario
      * @param contraseña que es la contraseña del usuario
      * @return Un objeto de personal calificado o nulo si no lo encuentra
@@ -250,4 +262,29 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         return personal;
     }
 
+    /**
+     * Metodo que permite consultar personal calificado por usuario y contraseña
+     *
+     * @return Un objeto de personal calificado o nulo si no lo encuentra
+     */
+    @Override
+    public LinkedList<PersonalCalificado> consultarConBiografia() {
+        LinkedList<PersonalCalificado> todos = this.listarTodos();
+        for (PersonalCalificado p : todos) {
+            LinkedList<IInformacion> informacion = p.getInfo();
+            
+            if (informacion != null) {
+                LinkedList<IInformacion> nuevaLista = new LinkedList();
+                for (IInformacion info : informacion) {
+                    if (((Informacion) info).isPublico()) {
+                        nuevaLista.add(info);
+                    }
+                }
+                p.setInfo(nuevaLista);
+            }
+            
+        }
+
+        return todos;
+    }
 }

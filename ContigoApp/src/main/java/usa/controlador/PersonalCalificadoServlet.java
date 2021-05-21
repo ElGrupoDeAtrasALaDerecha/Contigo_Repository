@@ -14,6 +14,7 @@ import usa.adapter.CorreoProxy;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
@@ -40,12 +41,26 @@ public class PersonalCalificadoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
         String token = request.getHeader("token");
-        if (token != null) {
-            respuesta.put("tipo", "ok");
-            respuesta.put("personales", new JSONArray(Utils.toJson(dao.listarTodos())));
-            PrintWriter out = response.getWriter();
-            out.print(respuesta.toString());
+        PrintWriter out = response.getWriter();
+        if (request.getParameter("tipo") != null) {
+            String tipo = request.getParameter("tipo");
+            if(tipo.equals("bio")){
+                IPersonalCalificadoDao personalDao = (IPersonalCalificadoDao)dao;
+                respuesta.put("tipo","ok");
+                respuesta.put("personales",new JSONArray(Utils.toJson(personalDao.consultarConBiografia())));
+            }
+        } else {
+            if (token != null) {
+                respuesta.put("tipo", "ok");
+                respuesta.put("personales", new JSONArray(Utils.toJson(dao.listarTodos())));
+            } else {
+                respuesta.put("tipo", "error");
+                respuesta.put("mensaje", "No autorizado");
+                response.sendError(401);
+            }
         }
+        out.print(respuesta.toString());
+
     }
 
     /**
