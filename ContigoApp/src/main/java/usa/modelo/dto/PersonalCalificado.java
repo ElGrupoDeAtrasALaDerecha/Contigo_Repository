@@ -37,9 +37,20 @@ public class PersonalCalificado extends Persona implements IInformacion {
     }
 
     public void limpiar() {
-        for (IInformacion i : info) {
-            Informacion informacion = (Informacion) i;
-            informacion.setInformacion(null);
+        if (info != null) {
+            for (IInformacion i : info) {
+                Informacion informacion = (Informacion) i;
+                informacion.setInformacion(null);
+            }
         }
     }
+
+    public LinkedList<IInformacion> getInfo() {
+        return info;
+    }
+
+    public void setInfo(LinkedList<IInformacion> info) {
+        this.info = info;
+    }
+    
 }

@@ -1,5 +1,6 @@
 package usa.modelo.dao;
 
+import java.util.LinkedList;
 import usa.modelo.dto.PersonalCalificado;
 
 /**
@@ -11,5 +12,6 @@ public interface IPersonalCalificadoDao extends IDao<PersonalCalificado> {
 
     PersonalCalificado consultarPorToken(String token);
     PersonalCalificado consultarPorCredenciales(String correo, String contraseña);
+    LinkedList<PersonalCalificado> consultarConBiografia();
 }
 /**/
