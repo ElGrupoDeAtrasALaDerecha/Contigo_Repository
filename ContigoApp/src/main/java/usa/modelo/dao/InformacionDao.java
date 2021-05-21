@@ -53,7 +53,8 @@ public class InformacionDao implements IDaoInformacion {
     }
 
     /**
-     * Método que obtiene toda la información extra de un personal calificado. Todo se hace a partir del patrón decorador
+     * Método que obtiene toda la información extra de un personal calificado.
+     * Todo se hace a partir del patrón decorador
      * @param p que son los datos del personal calificado
      * @return la información extra
      */
