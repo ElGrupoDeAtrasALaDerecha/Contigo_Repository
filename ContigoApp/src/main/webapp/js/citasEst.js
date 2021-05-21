@@ -299,7 +299,6 @@ function llenarDiv(cita) {
   $("#divEmergente").append(divTexto);
 
   $("#btnCancelarC").click(function () {
-    alert("Ha hecho click sobre el boton");
     contCanc++;
     console.log(contCanc);
     document.querySelector(".modal.is-visible").classList.remove(isVisible);
@@ -308,8 +307,7 @@ function llenarDiv(cita) {
   });
 
   $("#btnConfirmarC").click(function () {
-    alert("Hola!")
-    agendarCita(citaS, personal)
+    agendarCita(citaS,personal)
   });
 }
 
@@ -318,9 +316,11 @@ function limpiarDiv() {
   $("#divEmergente").empty();
 }
 
+
 /**********************************************LISTA */
 function cargarHorasSelect(horasdisponibles) {
   var m = "";
+  $("#horas2").empty();
   for (var i = 0; i < horasdisponibles.length; i++) {
     if (horasdisponibles[i] > 11) {
       m = " :00 pm";

@@ -1,13 +1,14 @@
 package usa.modelo.dao;
 
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
@@ -19,7 +20,8 @@ import usa.utils.Utils;
  * @since 2021-03-16
  */
 public class PersonalCalificadoDao implements IPersonalCalificadoDao {
-
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+    IDao informacionDao = (IDao) factoryDao.obtener("InformacionDao");
     /**
      * Método que permite crear personal calificado. Obtiene los datos de un
      * objeto y los establece en la base de datos
@@ -82,6 +84,10 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setCorreo(rs.getString("correo"));
                 personalCalificado.setToken(rs.getString("token"));
                 personalCalificado.setImagen(rs.getString("imagen"));
+                //personalCalificado.setBiografia(rs.getString("biografia"));
+                IDaoInformacion infoDao = (IDaoInformacion) informacionDao;
+                infoDao.consultarPorPersonal(personalCalificado);
+                personalCalificado.limpiar();
             }
             rs.close();
             pat.close();
@@ -91,9 +97,40 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         return personalCalificado;
     }
 
+    /**
+     * Método que permite actualizar los datos de un personal calificado en la base de datos
+     * @param p que son los datos del personal a modificar
+     * @return verdadero si actualiza y falso si no
+     */
     @Override
-    public boolean actualizar(PersonalCalificado t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(PersonalCalificado p) {
+        try {
+            String sql="update personal as pc ,persona as p\n" +
+                    "set p.primerNombre=?,\n" +
+                    "p.segundoNombre=?,\n" +
+                    "p.primerApellido=?,\n" +
+                    "p.segundoApellido=?,\n" +
+                    "p.fechaNacimiento=?,\n" +
+                    "p.genero=?,\n" +
+                    "pc.imagen =?,\n" +
+                    //"pc.biografia =?\n" +
+                    "where p.documento=? and pc.PERSONA_documento=p.documento;";
+            PreparedStatement pat = conn.prepareStatement(sql);
+            pat.setString(1,p.getPrimerNombre());
+            pat.setString(2, p.getSegundoNombre());
+            pat.setString(3, p.getPrimerApellido());
+            pat.setString(4, p.getSegundoApellido());
+            pat.setString(5, p.getFechaDeNacimiento());
+            pat.setString(6, p.getGenero());
+            pat.setString(7, p.getImagen());
+            //pat.setString(8, p.getBiografia());
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -118,7 +155,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
 
             while (rs.next()) {
                 PersonalCalificado personalCalificado = new PersonalCalificado();
-                personalCalificado.setDocumento(rs.getString("documento"));
+                //personalCalificado.setDocumento(rs.getString("documento"));
                 personalCalificado.setPrimerNombre(rs.getString("primerNombre"));
                 personalCalificado.setSegundoNombre(rs.getString("segundoNombre"));
                 personalCalificado.setPrimerApellido(rs.getString("primerApellido"));
@@ -126,8 +163,12 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toString());
                 personalCalificado.setGenero(rs.getString("genero"));
                 personalCalificado.setCorreo(rs.getString("correo"));
-                personalCalificado.setToken(rs.getString("token"));
+                //personalCalificado.setToken(rs.getString("token"));
                 personalCalificado.setImagen(rs.getString("imagen"));
+                //personalCalificado.setBiografia(rs.getString("biografia"));
+                IDaoInformacion infoDao = (IDaoInformacion) informacionDao;
+                infoDao.consultarPorPersonal(personalCalificado);
+                personalCalificado.limpiar();
                 personales.add(personalCalificado);
             }
             rs.close();
@@ -160,6 +201,11 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setFechaDeNacimiento(rs.getDate("fechaNacimiento").toString());
                 personalCalificado.setGenero(rs.getString("genero"));
                 personalCalificado.setCorreo(rs.getString("correo"));
+                personalCalificado.setImagen(rs.getString("imagen"));
+                //personalCalificado.setBiografia(rs.getString("biografia"));
+                IDaoInformacion infoDao = (IDaoInformacion) informacionDao;
+                infoDao.consultarPorPersonal(personalCalificado);
+                personalCalificado.limpiar();
             }
             rs.close();
             pat.close();
@@ -180,7 +226,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         try {
 
             String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
-                    + "where pc.correo = \"" + correo + "\"  and p.contraseña = sha(\"" + contraseña + "\");";
+                    + "where p.correo = \"" + correo + "\"  and p.contraseña = sha(\"" + contraseña + "\");";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
@@ -195,6 +241,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personal.setGenero(rs.getString("genero"));
                 personal.setCorreo(rs.getString("correo"));
                 personal.setToken(rs.getString("token"));
+                //personal.setBiografia(rs.getString("biografia"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);

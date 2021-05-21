@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.controlador;
 
 import java.io.IOException;
@@ -24,7 +19,7 @@ import usa.modelo.dto.Cita;
 import usa.modelo.dao.IDaoEstudiante;
 import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
-import usa.modelo.dto.PersonalCalificado;
+import usa.observer.ObservadorCita;
 import usa.utils.Utils;
 
 /**
@@ -45,15 +40,15 @@ public class CitaServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         System.out.println(request);
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = null;
-        String tipo = request.getParameter("tipo");
+        JSONArray arreglo =null;
+        String tipo=request.getParameter("tipo");
         String token = request.getHeader("token");
-        if (tipo != null) {
-            if (tipo.equals("getPerca")) {
-                String fecha = request.getHeader("fecha");
-                String hora = request.getHeader("hora");
-                System.out.println("---> " + fecha + " - " + hora);
-                LinkedList<Cita> perca = dao.percaCita(fecha, hora);
+        if(tipo != null){
+            if(tipo.equals("getPerca")){
+                String fecha=request.getHeader("fecha");
+                String hora=request.getHeader("hora");
+                System.out.println("---> " + fecha + " - "+ hora);
+                LinkedList<Cita> perca = dao.percaCita(fecha,hora);
                 respuesta.put("tipo", "ok");
                 respuesta.put("perca", perca);
                 respuesta.put("tipo", "ok");
@@ -104,13 +99,16 @@ public class CitaServlet extends HttpServlet {
         String id = String.valueOf(data.getInt("id"));
         Cita cita = dao.consultar(id);
         Estudiante e = estudianteDao.consultarPorToken(token);
-        if (cita != null && e != null) {
+        if(cita!=null && e!=null){
+            ObservadorCita observador = new ObservadorCita(cita);
             cita.setIdEstudiante(e.getDocumento());
             cita.setEstado(2);
-            respuesta.put("tipo", "ok");
-            respuesta.put("mensaje", "Estudiante registrado en la cita");
-        } else {
-            respuesta.put("tipo", "error");
+            if(dao.actualizar(cita)){
+                respuesta.put("tipo","ok");
+                respuesta.put("mensaje", "Estudiante registrado en la cita");
+            } 
+        }else{
+            respuesta.put("tipo","error");
             respuesta.put("mensaje", "Ese estudiante o cita no existe");
         }
         out.print(respuesta.toString());
@@ -126,6 +124,7 @@ public class CitaServlet extends HttpServlet {
         Cita citaActualizar = (Cita) dao.consultar(id);
         if (citaActualizar != null) {
             IDaoCita daocita = (IDaoCita) dao;
+            ObservadorCita observador = new ObservadorCita(citaActualizar);
             citaActualizar.setEstado(json.getInt("estado"));
             if (json.getInt("estado") == 3 || json.getInt("estado") == 7) {
                 citaActualizar.setMotivo(json.getString("motivo"));

@@ -3,11 +3,6 @@ package usa.utils;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import javax.servlet.http.HttpServletRequest;
-import usa.strategy.Contexto;
-import usa.strategy.MailConfirmacionCita;
-import usa.strategy.MailConfirmacionEstudiante;
-import usa.strategy.MailConfirmacionInstitucion;
-import usa.strategy.MailConfirmacionPersonal;
 
 /**
  * Clase de utilidades. Contiene métodos estáticos para hacer tareas
@@ -96,36 +91,13 @@ public class Utils {
     public static String crearCodigoCurso() {
         return GeneradorCodigos.getCodigo("N-M", 6);
     }
-
+    
     /**
-     * Método que permite enviar un correo a un tipo de persona.
+     * Método que permite crear un codigo de recuperación de contraseña
      *
-     * @param tipoCorreo
-     * @param correo
+     * @return un codigo
      */
-    public static void enviarCorreoA(String tipoCorreo, String correo) {
-        Contexto contexto = null;
-        if (tipoCorreo.equals("confirmacionEstudiante")) {
-            contexto = new Contexto(new MailConfirmacionEstudiante(correo));
-        } else if (tipoCorreo.equals("confirmacionPersonal")) {
-            contexto = new Contexto(new MailConfirmacionPersonal(correo));
-        } else if (tipoCorreo.equals("confirmacionInstitucion")) {
-            contexto = new Contexto(new MailConfirmacionInstitucion(correo));
-        }
-        contexto.enviarCorreo();
-    }    
-    /**
-     * Método que permite enviar un correo a un tipo de persona.
-     *
-     * @param tipoCorreo
-     * @param correo
-     * @param contenido
-     */
-    public static void enviarCorreoA(String tipoCorreo, String correo,String contenido) {
-        Contexto contexto = null;
-        if(tipoCorreo.equals("confirmacionCita")){
-            contexto = new Contexto(new MailConfirmacionCita(correo,"Confirmación de cita",contenido));
-        }
-        contexto.enviarCorreo();
+    public static String crearCodigoRecuperacion() {
+        return GeneradorCodigos.getCodigo("N-M-m", 7);
     }
 }

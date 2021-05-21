@@ -23,7 +23,7 @@
  
  $(document).ready(function () {
 	 if (getCookie("tipoUsuario") !== "2") {
-		 alert("No autorizado");
+		 //alert("No autorizado");
 		 //window.location.assign("index.html");
 		 $('#cerrarConexion').popup();
 	 }
@@ -76,8 +76,10 @@
 			 let sala = buscarSalaEnAtencion(obj.numeroSala);
 			 sala.mensajes = obj.conversacion;
 			 salaElegida = obj.numeroSala;
+			 sala.estudiante=obj.estudiante
 			 aparecerChat(obj.estudiante.primerNombre + " " + obj.estudiante.primerApellido);
- 
+			 agregarInformacion()
+			 
 		 } else if (obj.tipo === "escribiendoEstudiante") {
 			 pintarEscribiendo(obj.numeroSala);
 		 }
@@ -148,7 +150,7 @@
  
  
  /**
-  * Mensaje dirigido al
+  * Mensaje dirigido al estudiante
   * @param {string} mensaje 
   */
  function decirleAEstudiante(mensaje) {
@@ -326,6 +328,7 @@
 	 $("#" + id).click(function () {
 		 salaElegida = id;
 		 aparecerChat(nombre);
+		 agregarInformacion();
 	 });
  }
  
@@ -454,12 +457,11 @@
 		 } else {
 			 pintarMensajeDePersonalAEstudiante(mensaje,false);
 		 }
- 
- 
 	 }
+	 $("#mensajes").animate({ scrollTop: $("#mensajes").height() * (($("#mensajes").children()).length) });
  }
  /**
-  * 
+  * Mensaje que pinta la notificación de escritura a un estudiante. 
   * @param {*} numeroSalaMensaje 
   */
  function pintarEscribiendo(numeroSalaMensaje) {
@@ -473,7 +475,10 @@
 		 }, 1000)
 	 }
  }
- 
+
+ /**
+  * Función que termina la sesión de chat con un estudiante.
+  */
  function cerrarConexionConEstudiante(){
 	 let obj= {
 		 tipo:"cerrar conexion",
@@ -483,4 +488,47 @@
 	 $("#Enviarmensaje").val("Ha terminado de conversar con este estudiante");
 	 $("#Enviarmensaje").prop("readonly", true);
 	 $("body").off("keyup");
+ }
+
+/**
+ * Función que agrega información de la persona seleccionada en el chat.
+ * Calcula la edad de la persona a partir de su fecha de nacimiento
+ * Muestra una imagen dependiendo su género
+ * Lo demás viene del servidor
+ */
+ function agregarInformacion(){
+
+	
+	
+	let sala = buscarSalaEnAtencion(salaElegida);
+	const date1 = new Date();
+	const date2 = new Date(sala.estudiante.fechaDeNacimiento);
+	const diffTime = Math.abs(date2 - date1);
+	const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+	let edad = parseInt(diffDays/365.25);
+	let genero=sala.estudiante.genero;
+	let img="";
+	if(genero==="masculino"){
+		img+='<img src="https://image.freepik.com/vector-gratis/feliz-lindo-estudiante-nino-nino-libro-lapiz_97632-2528.jpg">'
+	}else if (genero==="femenino"){
+		img+='<img src="https://image.freepik.com/vector-gratis/estudiante-dibujos-animados-divertido-leyendo-libro_353337-236.jpg">'
+	}else{
+		img+='<img src="https://img2.freepng.es/20171218/ddc/question-mark-png-5a381257a89243.6425987715136241516905.jpg">'
+	}
+	let contenido = `<div class="item">
+						${img}
+						<div class="content">
+							<a class="header">${sala.estudiante.primerNombre} ${sala.estudiante.primerApellido}</a>
+							<div class="description">
+								<b>Nombre completo: </b> ${sala.estudiante.primerNombre} ${sala.estudiante.segundoNombre} ${sala.estudiante.primerApellido} ${sala.estudiante.segundoApellido} <br>
+								<b>Edad: </b> ${edad} años <br>
+								<b>Grado: </b> ${sala.estudiante.clasificacion}<br>
+								<b>Institución: </b> ${sala.estudiante.institucion} <br>
+								<b>Género: </b> ${genero}
+								<br>
+							</div>
+						</div>
+					</div>`
+	$("#informacion").empty();
+	$("#informacion").append(contenido);
  }

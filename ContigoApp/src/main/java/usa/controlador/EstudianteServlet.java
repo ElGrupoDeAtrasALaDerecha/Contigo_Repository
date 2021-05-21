@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
+import usa.adapter.CorreoInscripcion;
+import usa.adapter.CorreoProxy;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.EstudianteDao;
@@ -81,7 +83,8 @@ public class EstudianteServlet extends HttpServlet {
             if (dao.crear(estudiante)) {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Estudiante creado");
-                Utils.enviarCorreoA("confirmacionEstudiante", estudiante.getCorreo());
+                CorreoProxy proxy = new CorreoProxy(new CorreoInscripcion("estudiante"));
+                proxy.enviarCorreo(mensaje);
             } else {
                 json.put("tipo", "error");
                 json.put("mensaje", "Error al crear estudiante");

@@ -108,3 +108,9 @@ insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,9,"2021-0
 
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,9,"2021-05-07",1,"https://meet.google.com/snf-yxio-tdp");
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-05-07",1,"https://meet.google.com/snf-yxio-tdp");
+
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-05-11",1,"https://meet.google.com/snf-yxio-tdp");
+
+call insertarBiografia("1000853623","Hola, soy inge");
+call insertarExperiencia("1000853623","Tutor","Tutor autónomo de cálculo");
+call insertarCertificado("1000853623","Comunicación asertiva","Miami me lo confirmó");

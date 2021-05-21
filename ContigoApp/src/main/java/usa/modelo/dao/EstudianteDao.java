@@ -132,6 +132,7 @@ public class EstudianteDao implements IDaoEstudiante {
                 estudiante.setFechaDeNacimiento(rs.getDate("p.fechaNacimiento").toString());
                 estudiante.setGenero(rs.getString("p.genero"));
                 estudiante.setCorreo(rs.getString("correo"));
+                estudiante.setGrado(rs.getString("GRADO_codigo"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
