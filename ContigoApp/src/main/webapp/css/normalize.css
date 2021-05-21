@@ -12,8 +12,16 @@
 *,*:before, *:after{ 
   /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
   box-sizing: border-box;
+  color: var(--text);
+  font-family: 'Open Sans', sans-serif;
   margin: 0 0;
   padding: 0 0;
+}
+.brd, #brd{
+  border: 1px solid red;
+}
+.img-over-color{
+  background-color: rgba(52, 52, 52, 0.65);
 }
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 

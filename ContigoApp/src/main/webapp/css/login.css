@@ -1,66 +1,80 @@
-*,*:before, *:after{ 
-    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
-    margin: 0 0;
-    padding: 0 0;
-}
-::-webkit-scrollbar {
-    display: none;
-}
-#bk-color{
-    background-color: #8c8e9154;
-    height: 100vh;
-    width: 100%;
-
-}
-#cover, #cover2{
-    background-image: url(../img/ImagenA.jpg);
+.img-bk1,.img-bk2,.img-bk3{
     background-position: center center;
-    background-size: cover;
-    height: 100vh;
-    padding: 0 0;
+    background-size: cover;    
 }
-#cover2{
-    background-image: url(../img/school.jpg);
+.img-bk1{
+    background-image: url(../img/inst.jpg);
 }
-
-.box, .data{
-    display: grid;
-    place-items: center;
+.img-bk2{
+    background-image: url(../img/estudiante.jpg);
 }
-.title{
+.img-bk3{
+    background-image: url(../img/personal.jpg);
+}
+nav a{
+    color: white;
+}
+.img-over-color{
+    padding-bottom: 10%;
+}
+.img-over-color .box-1{
+    border: 1px solid var(--light);
+    border-radius: 15px;
+    background-color: white;
+    margin: auto;
+    padding-bottom: 3%;
+    width: 50%;
+}
+.logo h1{
+    margin: 2%;
+}
+.logo p, .inputs{
     text-align: center;
 }
-.title h1{
-    color: #2f2f2f;
-    font-family: 'Kaushan Script';
-    font-size: 40px;
-    margin: 7px 0;
-}
-.data{
-    margin: 10% auto;
-    padding: auto 0;
+.inputs, .login-btns{
+    margin: auto;
+    padding-bottom: 5%;
     width: 70%;
 }
-.inputs,.login-btns{
-    margin: 10% 0;
-    width: 100%;
-}
-.inputs input{
+.form-control{
     border: none;
-    border-bottom: 1px solid #ced4da;
+    border-bottom: 1px solid var(--light);
 }
-.center{
-    text-align: center;
+.get-psw a{
+    color: var(--text);
+    font-weight: 300;
     text-decoration: none;
 }
-.center a{
-    color: #2f2f2f  !important;
+.login-btns{
+    text-align: center;
 }
 .login-btns button{
-    width: 90%;
+    width: 100%;
 }
-.brd{
-    border: solid 1px rgb(0, 255, 55);
+nav{
+    display: flex;
+    padding: 2% 0 7% 2%;
+}
+nav a{
+    text-decoration: none;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 20px;
+}
+nav a:hover{
+    color: var(--light);
+}
+ion-icon {
+    color: white;
+    font-size: 20px;
+    padding-top: 5px;
+}
+.users{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 3%;
+    width: 100%;
+}
+.users a{
+    padding-right: 5%;
 }
