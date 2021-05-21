@@ -24,7 +24,7 @@ let monthNames = [
   var historialCitas;
   
   $(document).ready(function () {
-    cargarCitas();
+    cargarCitasPersonal();
   });
   
   let currentDate = new Date(); //fecha del pc como ref
@@ -237,5 +237,21 @@ let monthNames = [
   
  
   
-
+  function cargarCitasPersonal(){
+    $.ajax({
+      url: "Cita?tipo=historialEstudiante",
+      type: "GET",
+      dataType: "json",
+      contentType: "JSON application/json charset=utf-8",
+      beforeSend: function () { },
+      success: function (response) {
+        if (response.tipo === "ok") {
+          citasP = response.citasP;
+          console.log(response.citasP)
+        }
+      },
+      complete: function (result) { },
+      error: function (result) { },
+    });
+  }
   

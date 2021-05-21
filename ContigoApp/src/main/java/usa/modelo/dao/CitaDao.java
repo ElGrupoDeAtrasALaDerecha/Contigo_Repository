@@ -242,7 +242,7 @@ public class CitaDao implements IDaoCita {
     public LinkedList<Cita> listarCitasPersonal(String id) {
         LinkedList<Cita> citasPersonal = new LinkedList();
         try {
-            String sql = "select p.primerNombre, p.primerApellido , es.PERSONA_documento,ci.*\n"
+            String sql = "select p.primerNombre,p.segundoNombre, p.primerApellido ,P.segundoApellido, es.PERSONA_documento,ci.*\n"
                     + "       from persona as p inner join ESTUDIANTE as es \n"
                     + "       on es.PERSONA_documento = p.documento\n"
                     + "	   inner join cita as ci on ci.ESTUDIANTE_PERSONA_documento = es.PERSONA_documento \n"
@@ -252,7 +252,7 @@ public class CitaDao implements IDaoCita {
             result = pat.executeQuery();
             while (result.next()) {
                 Cita cita = new Cita();
-                cita.setNombre_estudiante(result.getString("primerNombre") + result.getString("segundoNombre") + result.getString("primerApellido") + result.getString("segundoApellido"));
+                cita.setNombre_estudiante(result.getString("primerNombre") +" "+ result.getString("segundoNombre") +" "+  result.getString("primerApellido") +" "+  result.getString("segundoApellido"));
                 cita.setId(result.getInt("id"));
                 cita.setIdAgenda(result.getInt("AGENDA_id"));
                 cita.setIdEstudiante(result.getString("ESTUDIANTE_PERSONA_documento"));
