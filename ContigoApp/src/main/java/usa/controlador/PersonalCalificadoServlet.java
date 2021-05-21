@@ -1,4 +1,3 @@
-
 package usa.controlador;
 
 import java.io.IOException;
@@ -22,12 +21,15 @@ import usa.utils.Utils;
  *
  * @author Santiago Pérez
  */
-@WebServlet(name="PersonalCalificadoServlet", urlPatterns={"/PersonalCalificado"})
+@WebServlet(name = "PersonalCalificadoServlet", urlPatterns = {"/PersonalCalificado"})
 public class PersonalCalificadoServlet extends HttpServlet {
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
+
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
     IDao dao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
-    /** 
+
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -37,14 +39,18 @@ public class PersonalCalificadoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
-        respuesta.put("tipo", "ok");
-        respuesta.put("personales",new JSONArray(Utils.toJson(dao.listarTodos())));
-        PrintWriter out = response.getWriter();
-        out.print(respuesta.toString());   
-    } 
+        String token = request.getHeader("token");
+        if (token != null) {
+            respuesta.put("tipo", "ok");
+            respuesta.put("personales", new JSONArray(Utils.toJson(dao.listarTodos())));
+            PrintWriter out = response.getWriter();
+            out.print(respuesta.toString());
+        }
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -56,61 +62,62 @@ public class PersonalCalificadoServlet extends HttpServlet {
         String parametros = Utils.readParams(request);
         PersonalCalificado personal = (PersonalCalificado) Utils.fromJson(parametros, PersonalCalificado.class);
         JSONObject respuesta = new JSONObject();
-        if (dao.consultar(personal.getDocumento())!=null){
-            respuesta.put("tipo","error");
-            respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");
-        }else{
-            if(dao.crear(personal)){
-                respuesta.put("tipo","ok");
-                respuesta.put("mensaje","Usuario registrado satisfactoriamente");
+        if (dao.consultar(personal.getDocumento()) != null) {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "Ya existe un usuario con el correo o número de documento ingresado");
+        } else {
+            if (dao.crear(personal)) {
+                respuesta.put("tipo", "ok");
+                respuesta.put("mensaje", "Usuario registrado satisfactoriamente");
                 //Aquí se envía la verificación
                 CorreoProxy proxy = new CorreoProxy(new CorreoInscripcion("personalCalificado"));
                 proxy.enviarCorreo(personal.getCorreo());
-            }else{
-                respuesta.put("tipo","error");
-                respuesta.put("mensaje","Ya existe un usuario con el correo o número de documento ingresado");
+            } else {
+                respuesta.put("tipo", "error");
+                respuesta.put("mensaje", "Ya existe un usuario con el correo o número de documento ingresado");
             }
         }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }
 //
+
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         
+
     }
+
     /**
-     * 
+     *
      * @param request
      * @param response
      * @throws ServletException
-     * @throws IOException 
+     * @throws IOException
      */
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String parametros = Utils.readParams(request);
-        String documento=request.getParameter("document");
+        String documento = request.getParameter("document");
         PersonalCalificado personal = (PersonalCalificado) Utils.fromJson(parametros, PersonalCalificado.class);
         JSONObject respuesta = new JSONObject();
-        if (dao.consultar(personal.getDocumento())==null){
-            respuesta.put("tipo","error");
-            respuesta.put("mensaje","No existe ningún usuario con ese documento");
-        }else{
-            if(dao.actualizar(personal)){
-                respuesta.put("tipo","ok");
-                respuesta.put("mensaje","Usuario actualizado satisfactoriamente");
+        if (dao.consultar(personal.getDocumento()) == null) {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No existe ningún usuario con ese documento");
+        } else {
+            if (dao.actualizar(personal)) {
+                respuesta.put("tipo", "ok");
+                respuesta.put("mensaje", "Usuario actualizado satisfactoriamente");
                 //Aquí se envía la verificación
-            }else{
-                respuesta.put("tipo","error");
-                respuesta.put("mensaje","Ya existe un usuario con ese nombre documento");
+            } else {
+                respuesta.put("tipo", "error");
+                respuesta.put("mensaje", "Ya existe un usuario con ese nombre documento");
             }
         }
     }
 
-    
-    
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

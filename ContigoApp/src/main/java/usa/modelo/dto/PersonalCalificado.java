@@ -11,8 +11,6 @@ public class PersonalCalificado extends Persona implements IInformacion {
 
     private String imagen;
 
-    private String biografia;
-
     private LinkedList<IInformacion> info;
 
     public String getImagen() {
@@ -21,14 +19,6 @@ public class PersonalCalificado extends Persona implements IInformacion {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }
-
-    public String getBiografia() {
-        return biografia;
-    }
-
-    public void setBiografia(String biografia) {
-        this.biografia = biografia;
     }
 
     @Override

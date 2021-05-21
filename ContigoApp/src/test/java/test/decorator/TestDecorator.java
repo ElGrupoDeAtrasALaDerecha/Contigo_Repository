@@ -6,6 +6,7 @@ import usa.modelo.dto.decorador.Biografia;
 import usa.modelo.dto.decorador.Especialidad;
 import usa.modelo.dto.decorador.Experiencia;
 import usa.modelo.dto.decorador.IInformacion;
+import usa.modelo.dto.decorador.RedSocial;
 import usa.utils.Utils;
 
 public class TestDecorator {
@@ -24,6 +25,10 @@ public class TestDecorator {
         p = new Experiencia(p);
         ((Experiencia)p).setCargo("Monitor");
         ((Experiencia)p).setDetalles("Monitor de cálculo");
+        
+        p = new RedSocial(p);
+        ((RedSocial)p).setAlias("@Pepataquiva");
+        ((RedSocial)p).setNombre("Instagram"); 
         
         p = new Experiencia(p);
         ((Experiencia)p).setCargo("Monitor");

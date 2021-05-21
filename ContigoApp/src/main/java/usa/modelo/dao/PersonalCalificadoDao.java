@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
 import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
@@ -18,7 +20,8 @@ import usa.utils.Utils;
  * @since 2021-03-16
  */
 public class PersonalCalificadoDao implements IPersonalCalificadoDao {
-
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+    IDao informacionDao = (IDao) factoryDao.obtener("InformacionDao");
     /**
      * Método que permite crear personal calificado. Obtiene los datos de un
      * objeto y los establece en la base de datos
@@ -82,6 +85,9 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setToken(rs.getString("token"));
                 personalCalificado.setImagen(rs.getString("imagen"));
                 //personalCalificado.setBiografia(rs.getString("biografia"));
+                IDaoInformacion infoDao = (IDaoInformacion) informacionDao;
+                infoDao.consultarPorPersonal(personalCalificado);
+                personalCalificado.limpiar();
             }
             rs.close();
             pat.close();
@@ -160,6 +166,9 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 //personalCalificado.setToken(rs.getString("token"));
                 personalCalificado.setImagen(rs.getString("imagen"));
                 //personalCalificado.setBiografia(rs.getString("biografia"));
+                IDaoInformacion infoDao = (IDaoInformacion) informacionDao;
+                infoDao.consultarPorPersonal(personalCalificado);
+                personalCalificado.limpiar();
                 personales.add(personalCalificado);
             }
             rs.close();
@@ -194,6 +203,9 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setCorreo(rs.getString("correo"));
                 personalCalificado.setImagen(rs.getString("imagen"));
                 //personalCalificado.setBiografia(rs.getString("biografia"));
+                IDaoInformacion infoDao = (IDaoInformacion) informacionDao;
+                infoDao.consultarPorPersonal(personalCalificado);
+                personalCalificado.limpiar();
             }
             rs.close();
             pat.close();
