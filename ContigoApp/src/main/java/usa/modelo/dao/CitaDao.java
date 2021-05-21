@@ -12,10 +12,8 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.JSONObject;
 import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Cita;
-import usa.modelo.dto.PersonalCalificado;
 import usa.observer.ObservadorCita;
 
 /**
@@ -80,10 +78,10 @@ public class CitaDao implements IDaoCita {
     public boolean actualizar(Cita cita) {
         try {
             String sql = "update cita\n"
-                    + "set ESTUDIANTE_PERSONA_documento = \""+cita.getIdEstudiante()+"\"\n,"
-                    + "estado="+cita.getEstado()+", "
-                    + "motivo=\""+cita.getMotivo()+"\" "
-                    + "where id="+cita.getId()+",;";
+                    + "set ESTUDIANTE_PERSONA_documento = \"" + cita.getIdEstudiante() + "\"\n,"
+                    + "estado=" + cita.getEstado() + ", "
+                    + "motivo=\"" + cita.getMotivo() + "\" "
+                    + "where id=" + cita.getId() + ",;";
             pat = conn.prepareStatement(sql);
             pat.execute();
             pat.close();
@@ -240,4 +238,37 @@ public class CitaDao implements IDaoCita {
         }
         return perca;
     }
+
+    public LinkedList<Cita> listarCitasPersonal(String id) {
+        LinkedList<Cita> citasPersonal = new LinkedList();
+        try {
+            String sql = "select p.primerNombre, p.primerApellido , es.PERSONA_documento,ci.*\n"
+                    + "       from persona as p inner join ESTUDIANTE as es \n"
+                    + "       on es.PERSONA_documento = p.documento\n"
+                    + "	   inner join cita as ci on ci.ESTUDIANTE_PERSONA_documento = es.PERSONA_documento \n"
+                    + "       inner join agenda as a on a.id=ci.AGENDA_id\n"
+                    + "		where PERSONAL_PERSONA_documento='" + id + "\";";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            while (result.next()) {
+                Cita cita = new Cita();
+                cita.setNombre_estudiante(result.getString("primerNombre") + result.getString("segundoNombre") + result.getString("primerApellido") + result.getString("segundoApellido"));
+                cita.setId(result.getInt("id"));
+                cita.setIdAgenda(result.getInt("AGENDA_id"));
+                cita.setIdEstudiante(result.getString("ESTUDIANTE_PERSONA_documento"));
+                cita.setHoraInicio(result.getInt("horaInicio"));
+                cita.setFecha(result.getString("fecha"));
+                cita.setEstado(result.getInt("estado"));
+                cita.setLugar(result.getString("lugar"));
+                cita.setMotivo(result.getString("motivo"));
+                cita.setMotivo(result.getString("recomendaciones"));
+                citasPersonal.add(cita);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return citasPersonal;
+    }
+
 }

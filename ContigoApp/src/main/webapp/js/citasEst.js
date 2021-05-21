@@ -26,6 +26,7 @@ var motivo;
 
 $(document).ready(function () {
   cargarCitas();
+  //obtenerMotivos();
 });
 
 let currentDate = new Date(); //fecha del pc como ref
@@ -289,7 +290,7 @@ function llenarDiv(cita) {
     `<p>Fecha: ${cita.fecha} </p>` +
     `<p>Hora: ${cita.hora}:00</p>` +
     `<p>Personal calificado: ${cita.personal} </p>` +
-    `<p>Motivo: ${motivo} </p>` +
+    `<p>Motivo: ${cita.motivo} </p>` +
     `<div class="ui buttons">
         <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
         <div class="or"></div>
@@ -406,10 +407,12 @@ function listarPerca(perca) {
 }
 // Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
+  detectarCambioMotivo()
   var cita = {
     fecha: fecha,
     hora: $("#horas2 option:selected").val(),
-    personal: $('input:radio[name=percaD]:checked').val()
+    personal: $('input:radio[name=percaD]:checked').val(),
+    motivo : motivo
   };
   citaS = cita
   llenarDiv(cita)
@@ -424,7 +427,8 @@ function agendarCita(cita, personal) {
     console.log(cita)
   }
   var obj = {
-    id: cita.idc
+    id: cita.idc,
+    motivo : motivo
   }
   solicitarCita(obj);
 }
@@ -490,3 +494,41 @@ $(function () {
 
 
 
+function obtenerMotivos() {
+  $.ajax({
+    url: "Motivo",
+    type: "GET",
+    dataType: "json",
+    contentType: "JSON application/json charset=utf-8",
+    beforeSend: function () { },
+    success: function (response) {
+      if (response.tipo === "ok") {
+        motivos = response.motivos;
+        console.log(response.motivos)
+        llenarSelectMotivos(motivos)
+      }
+    },
+    complete: function (result) { },
+    error: function (result) { },
+  });
+}
+
+
+function llenarSelectMotivos(motivos) {
+  for (var i = 0; i < motivos.length; i++) {
+    $("#motivoSelect").append($("<option>", {
+      value: motivos[i].motivo,
+      text: motivos[i].motivo
+    }));
+  }
+}
+
+
+function detectarCambioMotivo() {
+  let str = document.getElementById("MotivoOtros");
+  if (str.value.trim() === ""){
+  }
+  else{
+    motivo = $("#MotivoOtros").val()
+  }
+}

@@ -24,6 +24,7 @@ public class Cita extends Subject{
     private String id_perca;
     private String nombre_perca;
     private String imagen;
+    private String nombre_estudiante;
 
     public Cita() {
     }
@@ -115,6 +116,13 @@ public class Cita extends Subject{
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
-    
-    
+
+    public String getNombre_estudiante() {
+        return nombre_estudiante;
+    }
+
+    public void setNombre_estudiante(String nombre_estudiante) {
+        this.nombre_estudiante = nombre_estudiante;
+    }
+     
 }
