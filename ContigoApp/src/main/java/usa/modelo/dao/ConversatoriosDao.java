@@ -156,7 +156,26 @@ public class ConversatoriosDao implements IDaoConversatorios {
 
     @Override
     public Conversatorio consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Conversatorio conver = null;
+        try {
+            String sql = "select * from CONVERSATORIO where id = " + id;
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                conver = new Conversatorio();
+                conver.setId(rs.getInt("id"));
+                conver.setOrador(rs.getString("PERSONAL_PERSONA_documento"));
+                conver.setTitulo(rs.getString("titulo"));
+                conver.setCronograma(rs.getString("cronograma"));
+                conver.setImagen(rs.getString("imagen"));
+                conver.setDescripcion(rs.getString("descripcion"));
+                conver.setLugar(rs.getString("lugar"));
+                conver.setInfografia(rs.getString("infografia"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return conver;
     }
 
     @Override
@@ -225,6 +244,38 @@ public class ConversatoriosDao implements IDaoConversatorios {
        return datos ;
     
     
+    }
+
+    @Override
+    public boolean eliminarRegistroEstu(String idConversatorio, String idEstudiante) {
+       try {
+            String sql = "delete from ESTUDIANTE_has_CONVERSATORIO where CONVERSATORIO_id= " + idConversatorio +" and ESTUDIANTE_PERSONA_documento="+idEstudiante;
+            pat = conn.prepareStatement(sql);
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public EstudianteConversatorio consultarEstConversatorio(String idConversatorio, String idEstudiante) {
+        EstudianteConversatorio conver = null;
+        try {
+            String sql = "select * from ESTUDIANTE_has_CONVERSATORIO where CONVERSATORIO_id = " + idConversatorio + " and ESTUDIANTE_PERSONA_documento="+idEstudiante+";";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                conver = new EstudianteConversatorio();
+                conver.setIdConversatorio(rs.getInt("CONVERSATORIO_id"));
+                conver.setIdEstudiante(rs.getString("ESTUDIANTE_PERSONA_documento"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return conver;
     }
     
 }

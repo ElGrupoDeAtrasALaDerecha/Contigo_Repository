@@ -20,6 +20,8 @@ public interface IDaoConversatorios extends IDao<Conversatorio> {
     int crearConver(Conversatorio conver);
     int crearClasi(String con, int resultado);
     boolean registrarEstuConver(EstudianteConversatorio estu);
+    boolean eliminarRegistroEstu(String idConversatorio, String idEstudiante);
+    EstudianteConversatorio consultarEstConversatorio(String idConversatorio, String idEstudiante);
     LinkedList <JSONArray> consultarPorGrado(String grado);
     LinkedList <JSONArray> consultarPorInstitucion(String institucion);
 }

@@ -293,7 +293,7 @@ function llenarDiv(cita) {
     `<p>Personal calificado: ${cita.personal} </p>` +
     `<div class="ui buttons">
         <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
-        <div class="or"></div>
+        <div class="o"></div>
         <button id="btnConfirmarC" class="ui blue button">Confirmar cita</button>
         </div>`;
   $("#divEmergente").append(divTexto);

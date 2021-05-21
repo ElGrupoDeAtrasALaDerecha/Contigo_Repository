@@ -48,14 +48,13 @@ function llenarDiv(array, oradordiv) {
         `<p>Cronograma: ${array.cronograma} </p>` +
         `<div class="ui buttons">
         <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
-        <div class="or"></div>
+        <div class="o"></div>
         <button id="btnConfirmarC" class="ui blue button">Confirmar cita</button>
         </div>`;
     $("#divEmergente").append(divTexto);
 
     $("#btnCancelarC").click(function () {
-        contCanc++;
-        console.log(contCanc);
+        cancelarRegistro();
         document.querySelector(".modal.is-visible").classList.remove(isVisible);
         limpiarDiv();
         return false;
@@ -517,6 +516,30 @@ function crearConversatorio(personal) {
 }
 
 
+function cancelarRegistro() {
+    console.log(conversatorio.id)
+    $.ajax({
+        url: "REstudianteConversatorio?id=" + parseInt(idConversatorio)+"&idEstudiante="+ documento,
+        type: "DELETE",
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            if (result.tipo == "error") {
+                toastr.error(result.mensaje)
+            } else {
+                toastr.success(result.mensaje)
+            }
+        }, complete: function (result) {
+            console.log(result)
+        }, error: function (result) {
+            console.log(result)
+        }
+    });
+}
+
+
+
 function registrarEstudiante() {
 
     console.log(conversatorio.id)
@@ -534,13 +557,13 @@ function registrarEstudiante() {
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
-            console.log(result)
-            if (result != "error") {
+            if (result.tipo == "error") {
+                toastr.error(result.mensaje)
             } else {
-                console.log("error");
+                toastr.success(result.mensaje)
             }
         }, complete: function (result) {
-
+            console.log(result)
         }, error: function (result) {
             console.log(result)
         }
