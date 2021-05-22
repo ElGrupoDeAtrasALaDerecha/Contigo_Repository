@@ -103,3 +103,17 @@ values(_documento);
 insert into RED_SOCIAL(INFORMACION_id,nombre,link,alias) 
 values ((select id from INFORMACION order by id desc limit 1),_nombre,_link,_alias);
 end $$
+
+
+delimiter $$
+create procedure insertarCertificado(
+  _documento VARCHAR(20),
+  _tipoCertificacion VARCHAR(90),
+  _soporte VARCHAR(200)
+)
+begin
+insert into INFORMACION(PERSONAL_PERSONA_documento)
+values(_documento);
+insert into CERTIFICADO(INFORMACION_id,tipoCertificacion,soporte) 
+values ((select id from INFORMACION order by id desc limit 1),_tipoCertificacion,_soporte);
+end $$
