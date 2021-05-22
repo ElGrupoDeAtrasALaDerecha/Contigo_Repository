@@ -452,14 +452,14 @@ function obtenerHistorial() {
       token: getCookie("token"),
     },
     contentType: "JSON application/json charset=utf-8",
-    beforeSend: function () { },
+    beforeSend: function () {},
     success: function (response) {
       if (response.tipo === "ok") {
         historialCitas = response.citas;
       }
     },
-    complete: function (result) { },
-    error: function (result) { },
+    complete: function (result) {},
+    error: function (result) {},
   });
 }
 

@@ -256,7 +256,7 @@ public class CitaDao implements IDaoCita {
                     + "       on es.PERSONA_documento = p.documento\n"
                     + "	   inner join cita as ci on ci.ESTUDIANTE_PERSONA_documento = es.PERSONA_documento \n"
                     + "       inner join agenda as a on a.id=ci.AGENDA_id\n"
-                    + "		where PERSONAL_PERSONA_documento='" + id + "\";";
+                    + "		where PERSONAL_PERSONA_documento=\"" + id + "\";";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while (result.next()) {
