@@ -8,4 +8,5 @@ import usa.modelo.dto.Historia;
  */
 public interface IHistoriasDao extends IDao<Historia>{
     int crearClasi(String con, int resultado);
+    int crearhistoria(Historia his);
 }

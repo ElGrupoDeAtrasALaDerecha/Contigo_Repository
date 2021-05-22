@@ -1,7 +1,7 @@
 var n = 0;
 var historia;
 var situaciones;
-var l=0;
+var l = 0;
 
 window.onload = function obtenerhisotia() {
     var text;
@@ -318,7 +318,7 @@ function desabilitarBoton(c){
         byeDelete.setAttribute('disabled',"");
     }
     if(c===1){
-        byeAdd.removeAttribute('disabled',"");
+        byeAdd.removeAttribute('disabled',"false");
         byeEdit.setAttribute('disabled',"");
         console.log("ESTOY EN EL IF")
     }

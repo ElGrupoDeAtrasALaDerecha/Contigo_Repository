@@ -79,7 +79,7 @@ function crearHistoria() {
         dataType: "json",
         data: JSON.stringify(informacion),
         headers:{
-            token:getCookie("token")
+            token:getCookie("token"),
         },
         
         contentType: "JSON application/json charset=utf-8",

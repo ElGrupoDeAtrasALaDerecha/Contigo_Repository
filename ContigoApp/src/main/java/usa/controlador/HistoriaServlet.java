@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.IHistoriasDao;
 import usa.modelo.dto.Historia;
 import usa.modelo.dto.Situacion;
 import usa.utils.Utils;
@@ -45,7 +46,7 @@ public class HistoriaServlet extends HttpServlet {
         String id = request.getParameter("id");
         if (id != null) {
             Historia historia = (Historia) dao.consultar(id);
-            respuesta.put("historia",new JSONObject(Utils.toJson(historia)));
+            respuesta.put("historia", new JSONObject(Utils.toJson(historia)));
         } else {
             respuesta.put("tipo", "ok");
             respuesta.put("historias", new JSONArray(Utils.toJson(dao.listarTodos())));
@@ -73,12 +74,17 @@ public class HistoriaServlet extends HttpServlet {
         String token = request.getHeader("token");
         System.out.println(mensaje);
         Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
-        
+        IHistoriasDao daoHis = (IHistoriasDao) dao;
+        int idhis = daoHis.crearhistoria(historia);
         if (dao.crear(historia)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Historia creada");
             json.put("idHistoria", historia.getId());
-             String arregloClasificaciones[]=historia.getClasificacion();
+            String arregloClasificaciones[] = historia.getClasificacion();
+            System.out.println("------------------>"+historia.getClasificacion());
+            for (int i = 0; i < arregloClasificaciones.length; i++) {
+                daoHis.crearClasi(arregloClasificaciones[i], historia.getId());
+            }
             Situacion situacion = new Situacion();
             situacion.setIdHistoria(historia.getId());
             situacion.setTitulo("");
@@ -94,8 +100,7 @@ public class HistoriaServlet extends HttpServlet {
     /**
      * Returns a short description of the servlet.
      *
-     * @return a String containing servlet description
-     * funcionaaaaaa
+     * @return a String containing servlet description funcionaaaaaa
      */
     @Override
     public String getServletInfo() {
