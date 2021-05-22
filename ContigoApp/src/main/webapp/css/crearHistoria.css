@@ -232,3 +232,22 @@ h1{
 .credencial{
     width: 450px;
 }
+.tutorial{
+    background: rgba(0,0,0,.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Container-tutorial{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 60%;
+    background:rgba(255,255,255,1) ;
+}
+.tutorial-title{
+
+}
+.explicacion{
+    margin-left: 30px;
+    margin-right: 30px;
+}

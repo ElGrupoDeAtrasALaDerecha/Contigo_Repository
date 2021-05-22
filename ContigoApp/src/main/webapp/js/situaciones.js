@@ -1,6 +1,7 @@
 var n = 0;
 var historia;
 var situaciones;
+var l=0;
 
 window.onload = function obtenerhisotia() {
     var text;
@@ -28,9 +29,13 @@ window.onload = function obtenerhisotia() {
         }
 
     });
-
+    tutorial();
+    desabilitarBoton(l);
 }
 
+function tutorial(){
+    let texto='';
+}
 
 function mas() {
     n = n + 1;
@@ -171,6 +176,7 @@ function crear(id) {
     });
 
     $(".actualizarSituacion").click(function (e) {
+        l=l+1;
         var titulo = $("#titulo").val();
         var descripcion = $("#descripcion").val();
         var situacionActualizada = {
@@ -182,6 +188,7 @@ function crear(id) {
         console.log(situacionActualizada);
         console.log(header)
         registrar(situacionActualizada, "PUT", header);
+        
     });
 }
 
@@ -252,7 +259,7 @@ function registrar(obj, metodo, header) {
             }
         },
         complete: function (result) {
-
+            desabilitarBoton(l);
         },
         error: function (result) {
             console.log(result);
@@ -301,7 +308,22 @@ function validarHistoria(nodo) {
 
 }
 
-
+function desabilitarBoton(c){
+    let byeAdd=document.querySelector('.btn.btn-primary.btn-block.btn-add');
+    let byeEdit=document.querySelector('.btn.btn-success.btn-block.btn-edit');
+    let byeDelete=document.querySelector('.btn.btn-danger.btn-block.btn-delete');
+    
+    if(c===0){
+        byeAdd.setAttribute('disabled',"");
+        byeDelete.setAttribute('disabled',"");
+    }
+    if(c===1){
+        byeAdd.removeAttribute('disabled',"");
+        byeEdit.setAttribute('disabled',"");
+        console.log("ESTOY EN EL IF")
+    }
+    
+}
 /*
 
      */
