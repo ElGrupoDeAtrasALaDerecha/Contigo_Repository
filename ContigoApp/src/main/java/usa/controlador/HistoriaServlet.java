@@ -59,7 +59,7 @@ public class HistoriaServlet extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     *
+     *kbdsfkhbfshdfhd funciona maldición quiero avanzar 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -75,13 +75,11 @@ public class HistoriaServlet extends HttpServlet {
         System.out.println(mensaje);
         Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
         IHistoriasDao daoHis = (IHistoriasDao) dao;
-        int idhis = daoHis.crearhistoria(historia);
         if (dao.crear(historia)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Historia creada");
             json.put("idHistoria", historia.getId());
             String arregloClasificaciones[] = historia.getClasificacion();
-            System.out.println("------------------>"+historia.getClasificacion());
             for (int i = 0; i < arregloClasificaciones.length; i++) {
                 daoHis.crearClasi(arregloClasificaciones[i], historia.getId());
             }

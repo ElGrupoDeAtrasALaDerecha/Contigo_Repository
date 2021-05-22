@@ -14,7 +14,7 @@ window.onload = function obtenerhisotia() {
                 console.log(result);
                 historia = result.historia;
                 console.log(getCookie("idHistoria"))
-                document.getElementById('tituloHistoria').innerHTML = historia.titulo;
+                //document.getElementById('tituloHistoria').innerHTML = historia.titulo;
             } else {
                 console.log("error");
             }
@@ -30,11 +30,11 @@ window.onload = function obtenerhisotia() {
 
     });
     tutorial();
-    desabilitarBoton(l);
+    desabilitarBoton();
 }
 
-function tutorial(){
-    let texto='';
+function tutorial() {
+    let texto = '';
 }
 
 function mas() {
@@ -176,7 +176,7 @@ function crear(id) {
     });
 
     $(".actualizarSituacion").click(function (e) {
-        l=l+1;
+        l = l + 1;
         var titulo = $("#titulo").val();
         var descripcion = $("#descripcion").val();
         var situacionActualizada = {
@@ -188,7 +188,7 @@ function crear(id) {
         console.log(situacionActualizada);
         console.log(header)
         registrar(situacionActualizada, "PUT", header);
-        
+
     });
 }
 
@@ -274,7 +274,25 @@ function eliminar() {
     n = 0;
 }
 
+function desabilitarBoton(){
+    
+    let byeAdd = $(".btn.btn-primary.btn-block.btn-add");
+    let byeEdit = $('.btn.btn-success.btn-block.btn-edit');
+    let byeDelete = $('.btn.btn-danger.btn-block.btn-delete');
+   
+    if (l === 0) {
+        console.log('estou en el if 1')
+        $(byeAdd).css("visibility", "hidden");
+        $(byeDelete).css("visibility", "hidden")
+    }
 
+    if (l === 1) {
+        /*byeAdd.removeAttribute('disabled', "false");
+        byeEdit.setAttribute('disabled', "");
+        console.log("ESTOY EN EL IF")*/
+    }
+
+}
 
 function validarHistoria(nodo) {
     if (nodo === undefined) {
@@ -308,22 +326,6 @@ function validarHistoria(nodo) {
 
 }
 
-function desabilitarBoton(c){
-    let byeAdd=document.querySelector('.btn.btn-primary.btn-block.btn-add');
-    let byeEdit=document.querySelector('.btn.btn-success.btn-block.btn-edit');
-    let byeDelete=document.querySelector('.btn.btn-danger.btn-block.btn-delete');
-    
-    if(c===0){
-        byeAdd.setAttribute('disabled',"");
-        byeDelete.setAttribute('disabled',"");
-    }
-    if(c===1){
-        byeAdd.removeAttribute('disabled',"false");
-        byeEdit.setAttribute('disabled',"");
-        console.log("ESTOY EN EL IF")
-    }
-    
-}
-/*
+function desabilitarBoton2(){
 
-     */
+}
