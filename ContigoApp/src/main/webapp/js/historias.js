@@ -1,11 +1,12 @@
 $(document).ready(function () {
-    usuario = parseInt(getCookie("tipoUsuario"));
-    token = parseInt(getCookie("token"));
-    documento = parseInt(getCookie("documento"));
+    usuario = getCookie("tipoUsuario");
+    token = getCookie("token");
+    if(usuario!=="2"||token===undefined){
+        alert("No autorizado");
+        window.location.assign("index.html");
+    }
     $('.ui.dropdown').dropdown();
-    console.log(documento);
-    console.log(usuario);
-    console.log(token);
+    $('#crearHistoria').prop('disabled',true);
 });
 
 
@@ -36,6 +37,10 @@ imageUploader.addEventListener('change', (e) => {
         processData: false,
         contentType: false,
         beforeSend: function () {
+            let txt=`<div class="ui active inverted dimmer">
+            <div class="ui indeterminate text loader">Cargando imagen</div>
+          </div>`;
+            $(".espacioImagen").append(txt);
         },
         success: function (result, textStatus, request) {
             informacion = result
@@ -47,6 +52,8 @@ imageUploader.addEventListener('change', (e) => {
             }
         },
         complete: function (result) {
+            $('.ui.active.inverted.dimmer').remove();
+            $('#crearHistoria').prop('disabled',false);
         },
         error: function (result) {
         }

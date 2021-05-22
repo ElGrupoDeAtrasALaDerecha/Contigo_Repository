@@ -72,6 +72,12 @@ public class HistoriaServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         String mensaje = Utils.readParams(request);
         String token = request.getHeader("token");
+        if(token==null){
+            json.put("tipo", "error");
+            json.put("mensaje", "No autorizado");
+            out.print(json.toString());
+            return;
+        }
         System.out.println(mensaje);
         Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
         IHistoriasDao daoHis = (IHistoriasDao) dao;
