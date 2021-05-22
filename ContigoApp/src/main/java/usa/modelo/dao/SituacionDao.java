@@ -10,6 +10,8 @@ import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Arbol;
 import usa.modelo.dto.Final;
 import usa.modelo.dto.Situacion;
+import usa.modelo.dto.decorador.media.IComponente;
+import usa.modelo.dto.decorador.media.Video;
 
 /**
  * Clase de objetos de acceso a datos de las situaciones
@@ -110,7 +112,7 @@ public class SituacionDao implements ISituacionDao{
             ResultSet rs = pat.executeQuery();
             int i = 0;
             while (rs.next()) {
-                Situacion situacion = new Situacion();
+                IComponente situacion = new Situacion();
                 situacion.setId(rs.getInt("id"));
                 situacion.setIdHistoria(rs.getInt("HISTORIA_idHistoria"));
                 situacion.setPredecesor(rs.getInt("SITUACION_id"));

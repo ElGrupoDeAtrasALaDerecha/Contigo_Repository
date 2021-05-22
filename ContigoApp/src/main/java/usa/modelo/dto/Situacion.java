@@ -1,6 +1,7 @@
 package usa.modelo.dto;
 
 import java.util.LinkedList;
+import usa.modelo.dto.decorador.media.IComponente;
 
 /**
  * Clase de situaciones
@@ -8,9 +9,9 @@ import java.util.LinkedList;
  */
 public class Situacion extends Componente{
     
-    private LinkedList<Componente> opciones;
+    private LinkedList<IComponente> opciones;
  
-    public void agregarOpcion(Componente componente){
+    public void agregarOpcion(IComponente componente){
         opciones.add(componente);
     }
     
@@ -18,11 +19,11 @@ public class Situacion extends Componente{
         opciones = new LinkedList();
     }
     
-    public LinkedList<Componente> getOpciones() {
+    public LinkedList<IComponente> getOpciones() {
         return opciones;
     }
 
-    public void setOpciones(LinkedList<Componente> opciones) {
+    public void setOpciones(LinkedList<IComponente> opciones) {
         this.opciones = opciones;
     }
 }
