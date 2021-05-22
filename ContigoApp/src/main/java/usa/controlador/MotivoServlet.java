@@ -36,6 +36,7 @@ public class MotivoServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
         JSONArray motivos = new JSONArray(Utils.toJson(dao.listarTodos()));
+        System.out.println("peticion motivos");
         json.put("tipo","ok");
         json.put("motivos", motivos);//
         out.print(json.toString());

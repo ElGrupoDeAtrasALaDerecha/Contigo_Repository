@@ -25,6 +25,7 @@ public class Cita extends Subject{
     private String nombre_perca;
     private String imagen;
     private String nombre_estudiante;
+    private PersonalCalificado personal;
 
     public Cita() {
     }
@@ -123,6 +124,14 @@ public class Cita extends Subject{
 
     public void setNombre_estudiante(String nombre_estudiante) {
         this.nombre_estudiante = nombre_estudiante;
+    }
+
+    public PersonalCalificado getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(PersonalCalificado personal) {
+        this.personal = personal;
     }
      
 }

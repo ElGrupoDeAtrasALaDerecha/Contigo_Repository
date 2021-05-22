@@ -239,7 +239,7 @@ let monthNames = [
   
   function cargarCitasPersonal(){
     $.ajax({
-      url: "Cita?tipo=historialEstudiante",
+      url: "Cita?tipo=listarCitasPersonal",
       type: "GET",
       dataType: "json",
       contentType: "JSON application/json charset=utf-8",

@@ -23,10 +23,11 @@ var horasdisponibles = [];
 var fecha;
 var historialCitas;
 var motivo;
+var motivos;
 
 $(document).ready(function () {
   cargarCitas();
-  //obtenerMotivos();
+  obtenerMotivos();
 });
 
 let currentDate = new Date(); //fecha del pc como ref
@@ -307,7 +308,7 @@ function llenarDiv(cita) {
   });
 
   $("#btnConfirmarC").click(function () {
-    agendarCita(citaS,personal)
+    agendarCita(citaS, personal)
   });
 }
 
@@ -336,7 +337,6 @@ function cargarHorasSelect(horasdisponibles) {
       "</option>";
     $("#horas2").append(horasSelect2);
   }
-  selectMotivo()
 }
 
 $("#horas2").click(function percaHora() {
@@ -402,8 +402,18 @@ function listarPerca(perca) {
   listaPersonal.style.display = "block";
   $("#perca").empty()
   for (let index = 0; index < perca.length; index++) {
-    $("#perca").append('<div class="item"> <img src="' + perca[index].imagen + '"> <input type="radio" id="' + perca[index].id_perca + '" name="percaD" value="' + perca[index].nombre_perca + '"> <label for="' + perca[index].id_perca + '"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>')
+    let texto = `<div class="item"> 
+    <img class ="biografiapersonal" src="${perca[index].imagen}" data-content="${perca[index].personal.info[0].biografia}"> 
+    <input type="radio" id="${perca[index].id_perca}" name="percaD" value=" ${perca[index].nombre_perca}" >
+     <label for="${perca[index].id_perca} "> 
+     <div class="content"> 
+     <a id="personalCalificadoLista" class="header" href="#"> ${perca[index].nombre_perca}  </a> 
+     </div> </label> </div>`
+    $("#perca").append(texto)
   }
+  $('.biografiapersonal')
+    .popup()
+    ;
 }
 // Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
@@ -412,7 +422,7 @@ $("#btnAgenddamiento").click(function getDatos() {
     fecha: fecha,
     hora: $("#horas2 option:selected").val(),
     personal: $('input:radio[name=percaD]:checked').val(),
-    motivo : motivo
+    motivo: motivo
   };
   citaS = cita
   llenarDiv(cita)
@@ -428,7 +438,7 @@ function agendarCita(cita, personal) {
   }
   var obj = {
     id: cita.idc,
-    motivo : motivo
+    motivo: motivo
   }
   solicitarCita(obj);
 }
@@ -526,9 +536,9 @@ function llenarSelectMotivos(motivos) {
 
 function detectarCambioMotivo() {
   let str = document.getElementById("MotivoOtros");
-  if (str.value.trim() === ""){
+  if (str.value.trim() === "") {
   }
-  else{
+  else {
     motivo = $("#MotivoOtros").val()
   }
 }
