@@ -115,7 +115,20 @@ document.getElementById('hablar').addEventListener("click", () => {
     decir(texto)
 });
 function decir(texto) {
-    speechSynthesis.speak(new SpeechSynthesisUtterance(texto));
+    //speechSynthesis.speak(new SpeechSynthesisUtterance(texto));
+
+    speechSynthesis.onvoiceschanged = () => {
+         
+        const synth = speechSynthesis
+        const voices = synth.getVoices()
+        console.log(text)
+        const utterThis = new SpeechSynthesisUtterance(texto)
+        utterThis.voice = voices.find(v => v.name === 'Jorge')
+        utterThis.volume = 1
+        utterThis.pitch = 0
+        utterThis.rate = 1
+        synth.speak(utterThis)
+      }
 }
 
 function borrarSituacion(){
