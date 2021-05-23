@@ -75,7 +75,16 @@ public class HistoriaDao implements IHistoriasDao {
 
     @Override
     public boolean eliminar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "delete from CLASIFICACION_has_HISTORIA where Historia_idHistoria="+id+";";
+            pat = conn.prepareStatement(sql);
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
