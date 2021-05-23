@@ -170,6 +170,7 @@ function crear(id) {
     });
 */
     $(".crearFinal").click(function (e) {
+        l = 3;// variable de tutorial
         var titulo = $("#titulo").val();
         var descripcion = $("#descripcion").val();
         var obj = {
@@ -181,10 +182,12 @@ function crear(id) {
         }
         console.log(obj)
         registrar(obj, "POST", "final");
+        eliminar();
     });
 
     $(".actualizarSituacion").click(function (e) {
         l = 1;// variable de tutorial
+        
         var titulo = $("#titulo").val();
         var descripcion = $("#descripcion").val();
         var situacionActualizada = {
@@ -197,11 +200,12 @@ function crear(id) {
         console.log(header)
         registrar(situacionActualizada, "PUT", header);
         desabilitarBoton();
+        eliminar();
     });
 }
 
 function eliminarSituacion(id) {
-    l = 3;// variable de tutorial
+    l = 4;// variable de tutorial
     let situacion = buscarNodo(parseInt(id));
     if (situacion.opciones !== undefined) {
         header = "situacion"
@@ -316,11 +320,18 @@ function validarHistoria(nodo) {
     return true;
 
 }
-function salirTutotial(){
-    enTutorial = false;
-    let divorganigrama = $("#organigrama");
+function salirTutotial(){`
+enTutorial = false;`
+    let  cuadro= `<div class="full">
+    <div>
+      <div id="organigrama"></div>
+      <div id="ventana"></div>
+    </div>
+  </div>`
+    
+    let divorganigrama = $(".tutorial");
     divorganigrama.remove();
-    $('#general').prepend(divorganigrama);
+    $('#general').prepend(cuadro);
 
 }
 
