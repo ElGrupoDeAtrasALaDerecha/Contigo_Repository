@@ -84,14 +84,14 @@ function ocultarBotones() {
 
 
 
-function verHistoria(){
+function verHistoria() {
     for (let i = 0; i < listaHistorias.length; i++) {
         let historia = listaHistorias[i];
         $("#" + historia.id).click(function () {
             setCookie("idHistoria", historia.id, 0.1);
-             window.location.assign("decisiones.html");
+            window.location.assign("decisiones.html");
         })
-        
+
     }
 }
 
@@ -99,7 +99,10 @@ function verHistoria(){
 function redirigirEdit() {
     for (let index = 0; index < listaHistorias.length; index++) {
         let historia = listaHistorias[index];
-        setCookie("idHistoria", historia.id, 0.1)
-        $(location).attr('href', 'situaciones.html?id=' + getCookie("idHistoria"));
+        $("#" + historia.id).click(function () {
+            setCookie("idHistoria", historia.id, 0.1)
+            $(location).attr('href', 'situaciones.html?id=' + getCookie("idHistoria"));
+        })
+
     }
 }
