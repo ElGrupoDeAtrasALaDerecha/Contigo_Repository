@@ -89,6 +89,7 @@ function pintarSituacion(nodo){
             <aside id="contenedor_dsc">
                 <p>${nodo.texto}</p>
             </aside>
+            
             <section id="contenedor_esc">
                 <ul id="esc">
                 ${txtOpciones}
