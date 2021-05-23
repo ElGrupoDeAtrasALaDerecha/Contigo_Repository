@@ -61,10 +61,7 @@
   .dates{
     width: 100%;
   }
-  .dates, button:active {
-      /*background-color: rgb(200, 211, 245);
-     box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(209, 209, 255);*/
-  }
+ 
   #calendarioCompleto{
       width: 100%;
       position:left;
