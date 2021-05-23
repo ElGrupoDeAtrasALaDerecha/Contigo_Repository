@@ -1,16 +1,16 @@
 var listaHistorias;
 var usu;
 
-$(document).ready(function(){
+$(document).ready(function () {
     cargarListaDeHistorias();
     usu = parseInt(getCookie("tipoUsuario"));
     if (usu !== 2) {
         document.getElementById('btnCrear').style.display = 'none';
-        
+
     }
 });
 
-function cargarListaDeHistorias(){
+function cargarListaDeHistorias() {
     $.ajax({
         url: "Historia",
         type: "GET",
@@ -21,28 +21,28 @@ function cargarListaDeHistorias(){
         success: function (response) {
             if (response.tipo === "ok") {
                 console.log(response);
-                listaHistorias=response.historias;
+                listaHistorias = response.historias;
                 pintarHistorias();
             }
-            
+
         }, complete: function (result) {
             //ocultarBotones();
         }, error: function (result) {
             alert("Error interno")
         }
     });
-    
+
 }
 
-function pintarHistorias(){
+function pintarHistorias() {
     for (let i = 0; i < listaHistorias.length; i++) {
-        let historia =listaHistorias[i];
-        let txt=`
+        let historia = listaHistorias[i];
+        let txt = `
                     <div id="${historia.id}" class="item">
                     <div id="opacityImg" class="opacityImg">
                         <div id="OpcBotones" class="OpcBotones">
-                            <a id="OpcBotonesEdita" class="OpcBotonesVer">Ver</a>
-                            <a class="OpcBotonesEditar">Editar</a>
+                            <a id="OpcBotonesVer" class="OpcBotonesVer" onClick="verHistoria()">Ver</a>
+                            <a id="editar" class="OpcBotonesEditar" onclick="redirigirEdit()">Editar</a>
                         </div>
                         <div id="bottom" class="bottom" >
                             <a  class="textTitle">${historia.titulo}
@@ -52,31 +52,54 @@ function pintarHistorias(){
                         <div>
                     </div>
         `
-        
+
         $("#contenedorHistorias").append(txt);
-        $("#"+historia.id).css('background-image', 'url(' + historia.urlImagen + ')');
-        $("#"+historia.id).click(function(){
-            setCookie("idHistoria",historia.id,0.1);
-            window.location.assign("decisiones.html");
-        })
+        $("#" + historia.id).css('background-image', 'url(' + historia.urlImagen + ')');
+        /*$("#" + historia.id).click(function () {
+            setCookie("idHistoria", historia.id, 0.1);
+             window.location.assign("decisiones.html");
+        })*/
         ocultarBotones();
     }
-    
+
 }
-   
-function ocultarBotones(){
+
+function ocultarBotones() {
     usu = parseInt(getCookie("tipoUsuario"));
     if (usu !== 2) {
         let OpcBotones = document.getElementsByClassName('OpcBotones');
         let opacityImg = document.getElementsByClassName('opacityImg');
         let bottom = document.getElementsByClassName('bottom');
         for (let index = 0; index < OpcBotones.length; index++) {
-            OpcBotones[index].style.display="none";
+            OpcBotones[index].style.display = "none";
             opacityImg[index].style.alignItems = 'Flex-end'
             bottom[index].style.display = 'block';
 
-            
+
         }
         console.log("Holi")
+    }
+}
+
+
+
+
+function verHistoria(){
+    for (let i = 0; i < listaHistorias.length; i++) {
+        let historia = listaHistorias[i];
+        $("#" + historia.id).click(function () {
+            setCookie("idHistoria", historia.id, 0.1);
+             window.location.assign("decisiones.html");
+        })
+        
+    }
+}
+
+
+function redirigirEdit() {
+    for (let index = 0; index < listaHistorias.length; index++) {
+        let historia = listaHistorias[index];
+        setCookie("idHistoria", historia.id, 0.1)
+        $(location).attr('href', 'situaciones.html?id=' + getCookie("idHistoria"));
     }
 }
