@@ -140,4 +140,33 @@ public class InstitucionDao implements IDao<Institucion> {
         }
         return inst;
     } 
+    
+    public Institucion consultarPorId(String id){
+        Institucion ins = null;
+        try {
+            String sql = "select * from institucion where id =\""+ id+"\"";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();    
+            while(result.next()){
+                ins = new Institucion();
+                ins.setId(result.getInt("id"));
+                ins.setIdMunicipio(result.getInt("MUNICIPIO_id"));
+                //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
+                ins.setNombre(result.getString("nombre"));
+                ins.setCorreo(result.getString("correo"));
+                ins.setDireccion(result.getString("direccion"));
+                ins.setTipoInstitucion(result.getBoolean("tipoInstitucion"));
+                //boolean calen = result.getBoolean("calendario"); //falta en front
+                ins.setBarrio(result.getString("barrio"));
+                ins.setTelefono(result.getString("telefono"));
+                ins.setContraseña(result.getString("contraseña"));
+                ins.setPagina(result.getString("web")); 
+            }
+            result.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ins;
+    }
 }

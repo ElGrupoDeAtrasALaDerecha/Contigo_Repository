@@ -13,6 +13,8 @@ public class Producer {
             fabrica=new FactoryDao();
         }else if (param.equals("BD")){
             fabrica=new ConnectionFactory();
+        }else if (param.equals("INFO")){
+            fabrica= new InformacionFactory();
         }
         return fabrica;
     }

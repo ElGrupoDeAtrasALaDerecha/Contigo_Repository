@@ -31,19 +31,7 @@ import usa.utils.Utils;
 @WebServlet(name = "AgendaServlet", urlPatterns = {"/Agenda"})
 public class AgendaServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-    }
+    
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
     IDao dao = (IDao) factoryDao.obtener("AgendaDao");
@@ -53,7 +41,7 @@ public class AgendaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     @Override

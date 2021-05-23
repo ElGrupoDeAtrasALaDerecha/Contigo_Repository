@@ -22,9 +22,12 @@ var listCitas;
 var horasdisponibles = [];
 var fecha;
 var historialCitas;
+var motivo;
+var motivos;
 
 $(document).ready(function () {
   cargarCitas();
+  obtenerMotivos();
 });
 
 let currentDate = new Date(); //fecha del pc como ref
@@ -297,7 +300,6 @@ function llenarDiv(cita) {
   $("#divEmergente").append(divTexto);
 
   $("#btnCancelarC").click(function () {
-    alert("Ha hecho click sobre el boton");
     contCanc++;
     console.log(contCanc);
     document.querySelector(".modal.is-visible").classList.remove(isVisible);
@@ -306,7 +308,6 @@ function llenarDiv(cita) {
   });
 
   $("#btnConfirmarC").click(function () {
-    alert("Hola!")
     agendarCita(citaS, personal)
   });
 }
@@ -316,9 +317,11 @@ function limpiarDiv() {
   $("#divEmergente").empty();
 }
 
+
 /**********************************************LISTA */
 function cargarHorasSelect(horasdisponibles) {
   var m = "";
+  $("#horas2").empty();
   for (var i = 0; i < horasdisponibles.length; i++) {
     if (horasdisponibles[i] > 11) {
       m = " :00 pm";
@@ -334,7 +337,6 @@ function cargarHorasSelect(horasdisponibles) {
       "</option>";
     $("#horas2").append(horasSelect2);
   }
-  selectMotivo()
 }
 
 $("#horas2").click(function percaHora() {
@@ -400,15 +402,27 @@ function listarPerca(perca) {
   listaPersonal.style.display = "block";
   $("#perca").empty()
   for (let index = 0; index < perca.length; index++) {
-    $("#perca").append('<div class="item"> <img src="' + perca[index].imagen + '"> <input type="radio" id="' + perca[index].id_perca + '" name="percaD" value="' + perca[index].nombre_perca + '"> <label for="' + perca[index].id_perca + '"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>')
+    let texto = `<div class="item"> 
+    <img class ="biografiapersonal" src="${perca[index].imagen}" data-content="${perca[index].personal.info[0].biografia}"> 
+    <input type="radio" id="${perca[index].id_perca}" name="percaD" value=" ${perca[index].nombre_perca}" >
+     <label for="${perca[index].id_perca} "> 
+     <div class="content"> 
+     <a id="personalCalificadoLista" class="header" href="#"> ${perca[index].nombre_perca}  </a> 
+     </div> </label> </div>`
+    $("#perca").append(texto)
   }
+  $('.biografiapersonal')
+    .popup()
+    ;
 }
 // Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
+  detectarCambioMotivo()
   var cita = {
     fecha: fecha,
     hora: $("#horas2 option:selected").val(),
-    personal: $('input:radio[name=percaD]:checked').val()
+    personal: $('input:radio[name=percaD]:checked').val(),
+    motivo: motivo
   };
   citaS = cita
   llenarDiv(cita)
@@ -423,7 +437,8 @@ function agendarCita(cita, personal) {
     console.log(cita)
   }
   var obj = {
-    id: cita.idc
+    id: cita.idc,
+    motivo: motivo
   }
   solicitarCita(obj);
 }
@@ -437,14 +452,14 @@ function obtenerHistorial() {
       token: getCookie("token"),
     },
     contentType: "JSON application/json charset=utf-8",
-    beforeSend: function () { },
+    beforeSend: function () {},
     success: function (response) {
       if (response.tipo === "ok") {
         historialCitas = response.citas;
       }
     },
-    complete: function (result) { },
-    error: function (result) { },
+    complete: function (result) {},
+    error: function (result) {},
   });
 }
 
@@ -474,11 +489,56 @@ function solicitarCita(obj) {
 
 $(function () {
   $("#motivoSelect").change(function () {
-    console.log("entro")
     if ($(this).val() === "1") {
       textAreaMotivo.style.display = "block";
+      motivo = $("#MotivoOtros").val()
+      console.log(motivo)
     } else {
       textAreaMotivo.style.display = "none";
+      motivo = $("#motivoSelect").val()
+      document.getElementById("MotivoOtros").value = "";
+      console.log(motivo)
     }
   });
 });
+
+
+
+function obtenerMotivos() {
+  $.ajax({
+    url: "Motivo",
+    type: "GET",
+    dataType: "json",
+    contentType: "JSON application/json charset=utf-8",
+    beforeSend: function () { },
+    success: function (response) {
+      if (response.tipo === "ok") {
+        motivos = response.motivos;
+        console.log(response.motivos)
+        llenarSelectMotivos(motivos)
+      }
+    },
+    complete: function (result) { },
+    error: function (result) { },
+  });
+}
+
+
+function llenarSelectMotivos(motivos) {
+  for (var i = 0; i < motivos.length; i++) {
+    $("#motivoSelect").append($("<option>", {
+      value: motivos[i].motivo,
+      text: motivos[i].motivo
+    }));
+  }
+}
+
+
+function detectarCambioMotivo() {
+  let str = document.getElementById("MotivoOtros");
+  if (str.value.trim() === "") {
+  }
+  else {
+    motivo = $("#MotivoOtros").val()
+  }
+}

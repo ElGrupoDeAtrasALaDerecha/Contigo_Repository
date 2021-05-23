@@ -7,7 +7,6 @@ package usa.modelo.dao;
 
 import java.util.LinkedList;
 import usa.modelo.dto.Cita;
-import usa.modelo.dto.PersonalCalificado;
 
 /**
  *
@@ -26,4 +25,7 @@ public interface IDaoCita extends IDao<Cita> {
     LinkedList<Cita> listarHistorial(String documento);
 
     LinkedList<Cita> percaCita(String fecha, String hora);
+
+    LinkedList<Cita> listarCitasPersonal(String id);
+
 }

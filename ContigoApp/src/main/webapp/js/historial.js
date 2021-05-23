@@ -63,8 +63,7 @@ function mostrarHistorial(historialCita) {
         if (historialCita[i].estado === 1) {
             texto += '<div id="estado" class="ui blue inverted segment">Cita sin Asignar</div>'
         } else if (historialCita[i].estado === 2) {
-            texto += `<div id="estado" class="ui green inverted segment">Cita Asignada 
-            <div class="ui right floated button cancelar">Cancelar cita</div></div>`
+            texto += '<div id="estado" class="ui green inverted segment">Cita Asignada</div> '
         } else if (historialCita[i].estado === 3) {
             texto += '<div id="estado" class="ui grey inverted segment">Cita Asistida</div>'
         } else if (historialCita[i].estado === 4) {
