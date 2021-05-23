@@ -100,7 +100,17 @@ public class HistoriaServlet extends HttpServlet {
         }
         out.print(json.toString());
     }
-
+    
+    
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       response.setContentType("application/json;charset=UTF-8");
+        JSONObject json = new JSONObject();
+        String mensaje = Utils.readParams(request);
+    }
+    
+    
+    
     /**
      * Returns a short description of the servlet.
      *

@@ -1,7 +1,7 @@
 var n = 0;
 var historia;
 var situaciones;
-var l = 0;
+
 
 window.onload = function obtenerhisotia() {
     var text;
@@ -15,6 +15,7 @@ window.onload = function obtenerhisotia() {
                 historia = result.historia;
                 console.log(getCookie("idHistoria"))
                 //document.getElementById('tituloHistoria').innerHTML = historia.titulo;
+                
             } else {
                 console.log("error");
             }
@@ -31,7 +32,14 @@ window.onload = function obtenerhisotia() {
     });
     tutorial();
     desabilitarBoton();
+
+
 }
+
+
+$(document).ready(function () {
+
+});
 
 function tutorial() {
     let texto = '';
@@ -176,7 +184,7 @@ function crear(id) {
     });
 
     $(".actualizarSituacion").click(function (e) {
-        l = l + 1;
+        l = 1;// variable de tutorial
         var titulo = $("#titulo").val();
         var descripcion = $("#descripcion").val();
         var situacionActualizada = {
@@ -188,11 +196,12 @@ function crear(id) {
         console.log(situacionActualizada);
         console.log(header)
         registrar(situacionActualizada, "PUT", header);
-
+        desabilitarBoton();
     });
 }
 
 function eliminarSituacion(id) {
+    l = 3;// variable de tutorial
     let situacion = buscarNodo(parseInt(id));
     if (situacion.opciones !== undefined) {
         header = "situacion"
@@ -220,7 +229,7 @@ function eliminarSituacion(id) {
             }
         },
         complete: function (result) {
-
+            salirTutotial();
         },
         error: function (result) {
             console.log(result);
@@ -259,7 +268,7 @@ function registrar(obj, metodo, header) {
             }
         },
         complete: function (result) {
-            desabilitarBoton(l);
+            // desabilitarBoton();
         },
         error: function (result) {
             console.log(result);
@@ -274,25 +283,7 @@ function eliminar() {
     n = 0;
 }
 
-function desabilitarBoton(){
-    
-    let byeAdd = $(".btn.btn-primary.btn-block.btn-add");
-    let byeEdit = $('.btn.btn-success.btn-block.btn-edit');
-    let byeDelete = $('.btn.btn-danger.btn-block.btn-delete');
-   
-    if (l === 0) {
-        console.log('estou en el if 1')
-        $(byeAdd).css("visibility", "hidden");
-        $(byeDelete).css("visibility", "hidden")
-    }
 
-    if (l === 1) {
-        /*byeAdd.removeAttribute('disabled', "false");
-        byeEdit.setAttribute('disabled', "");
-        console.log("ESTOY EN EL IF")*/
-    }
-
-}
 
 function validarHistoria(nodo) {
     if (nodo === undefined) {
@@ -325,7 +316,11 @@ function validarHistoria(nodo) {
     return true;
 
 }
-
-function desabilitarBoton2(){
+function salirTutotial(){
+    enTutorial = false;
+    let divorganigrama = $("#organigrama");
+    divorganigrama.remove();
+    $('#general').prepend(divorganigrama);
 
 }
+
