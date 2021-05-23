@@ -1,22 +1,22 @@
-var c=1;
+var c = 1;
 
 var arbol;
 var idHistoria;
-$(document).ready(function(){
-    idHistoria=getCookie("idHistoria");
+$(document).ready(function () {
+    idHistoria = getCookie("idHistoria");
     cargarHistoria()
     cargarSituacion()
 });
-function cargarHistoria(){
+function cargarHistoria() {
     $.ajax({
-        url: "Historia?id="+idHistoria,
+        url: "Historia?id=" + idHistoria,
         type: "GET",
         beforeSend: function () {
         },
         success: function (result) {
             $("#contenedor").css(
                 'background-image', 'url(' + result.historia.urlImagen + ')'
-            );   
+            );
         },
         complete: function (result) {
         },
@@ -24,15 +24,15 @@ function cargarHistoria(){
         }
     });
 }
-function cargarSituacion(){
+function cargarSituacion() {
     $.ajax({
-        url: "Situacion?id="+idHistoria,
+        url: "Situacion?id=" + idHistoria,
         type: "GET",
         beforeSend: function () {
         },
         success: function (result) {
-            arbol=result.situaciones
-            pintarSituacion(arbol.primerNodo);    
+            arbol = result.situaciones
+            pintarSituacion(arbol.primerNodo);
         },
         complete: function (result) {
         },
@@ -48,23 +48,23 @@ function cargarSituacion(){
  * @param {situacion} nodo 
  * @returns Un objeto situación o final
  */
-function buscarNodo(id,nodo){
-    if(nodo===undefined){
-        nodo=arbol.primerNodo;
+function buscarNodo(id, nodo) {
+    if (nodo === undefined) {
+        nodo = arbol.primerNodo;
     }
-    if(nodo.id===id){
+    if (nodo.id === id) {
         return nodo;
-    }else{
-        let opciones=nodo.opciones;
-        if(opciones!==undefined){
+    } else {
+        let opciones = nodo.opciones;
+        if (opciones !== undefined) {
             for (let i = 0; i < opciones.length; i++) {
-                let opcion=opciones[i];
-                if(opcion.id===id){
+                let opcion = opciones[i];
+                if (opcion.id === id) {
                     return opcion;
-                }else{
-                    if(opcion.opciones!==undefined&&opcion.opciones.length>0){
-                        let nodoEncontrado=buscarNodo(id,opcion);
-                        if(nodoEncontrado!==undefined){
+                } else {
+                    if (opcion.opciones !== undefined && opcion.opciones.length > 0) {
+                        let nodoEncontrado = buscarNodo(id, opcion);
+                        if (nodoEncontrado !== undefined) {
                             return nodoEncontrado;
                         }
                     }
@@ -75,15 +75,15 @@ function buscarNodo(id,nodo){
 }
 
 var texto;
-function pintarSituacion(nodo){
+function pintarSituacion(nodo) {
     texto = nodo.texto;
-    let opciones=nodo.opciones;
-    let txtOpciones="";
+    let opciones = nodo.opciones;
+    let txtOpciones = "";
     for (let i = 0; i < opciones.length; i++) {
-        let opcion= opciones[i];
-        txtOpciones+='<li><a id="'+opcion.id+'" class="opcion">'+opcion.titulo+'</a></li>';
+        let opcion = opciones[i];
+        txtOpciones += '<li><a id="' + opcion.id + '" class="opcion">' + opcion.titulo + '</a></li>';
     }
-    let txt=
+    let txt =
         `<h2>${nodo.titulo}</h2>
         <div id="${nodo.id}">
             <aside id="contenedor_dsc">
@@ -98,13 +98,13 @@ function pintarSituacion(nodo){
         </div>
         `
     $("#color_bk").append(txt);
-    $(".opcion").click(function(){
-        let id=$(this).prop("id");
-        let nodoNuevo=buscarNodo(parseInt(id),nodo);
+    $(".opcion").click(function () {
+        let id = $(this).prop("id");
+        let nodoNuevo = buscarNodo(parseInt(id), nodo);
         borrarSituacion();
-        if(nodoNuevo.opciones!==undefined){
+        if (nodoNuevo.opciones !== undefined) {
             pintarSituacion(nodoNuevo);
-        }else{
+        } else {
             pintarFinal(nodoNuevo);
         }
     });
@@ -118,15 +118,15 @@ function decir(texto) {
     speechSynthesis.speak(new SpeechSynthesisUtterance(texto));
 }
 
-function borrarSituacion(){
-    $("#color_bk").hide('fast','swing');
+function borrarSituacion() {
+    $("#color_bk").hide('fast', 'swing');
     $("#color_bk").empty();
-    $("#color_bk").show('slow','swing');
+    $("#color_bk").show('slow', 'swing');
 }
 
-function pintarFinal(nodo){
-    let txt=
-    `<h2>${nodo.titulo}</h2>
+function pintarFinal(nodo) {
+    let txt =
+        `<h2>${nodo.titulo}</h2>
     <div id="${nodo.id}">
         <aside id="contenedor_dsc">
             <p>${nodo.texto}
@@ -141,6 +141,6 @@ function pintarFinal(nodo){
         </section>
         <div style="clear: both"></div>
     </div>`
-    
+
     $("#color_bk").append(txt);
 }

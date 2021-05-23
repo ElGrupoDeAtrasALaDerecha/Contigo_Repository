@@ -23,6 +23,10 @@ function cargarListaDeHistorias() {
                 console.log(response);
                 listaHistorias = response.historias;
                 pintarHistorias();
+                if (usu === 3) {
+                    let btnasignar = $(".OpcBotonesEditar");
+                    $(btnasignar).text('Asignar');
+                }
             }
 
         }, complete: function (result) {
@@ -66,7 +70,7 @@ function pintarHistorias() {
 
 function ocultarBotones() {
     usu = parseInt(getCookie("tipoUsuario"));
-    if (usu !== 2) {
+    if (usu === 1) {
         let OpcBotones = document.getElementsByClassName('OpcBotones');
         let opacityImg = document.getElementsByClassName('opacityImg');
         let bottom = document.getElementsByClassName('bottom');
@@ -85,24 +89,50 @@ function ocultarBotones() {
 
 
 function verHistoria() {
-    for (let i = 0; i < listaHistorias.length; i++) {
-        let historia = listaHistorias[i];
-        $("#" + historia.id).click(function () {
-            setCookie("idHistoria", historia.id, 0.1);
-            window.location.assign("decisiones.html");
-        })
+    usu = parseInt(getCookie("tipoUsuario"));
+    if (usu === 2) {
+        for (let i = 0; i < listaHistorias.length; i++) {
+            let historia = listaHistorias[i];
+            $("#" + historia.id).click(function () {
+                setCookie("idHistoria", historia.id, 0.1);
+                window.location.assign("decisiones.html");
+            })
+
+        }
+    }
+
+    if (usu === 3) {
+
+        for (let i = 0; i < listaHistorias.length; i++) {
+            let historia = listaHistorias[i];
+            $("#" + historia.id).click(function () {
+                setCookie("idHistoria", historia.id, 0.1);
+                window.location.assign("decisiones.html");
+            })
+
+        }
 
     }
+
 }
 
 
 function redirigirEdit() {
-    for (let index = 0; index < listaHistorias.length; index++) {
-        let historia = listaHistorias[index];
-        $("#" + historia.id).click(function () {
-            setCookie("idHistoria", historia.id, 0.1)
-            $(location).attr('href', 'situaciones.html?id=' + getCookie("idHistoria"));
-        })
+    usu = parseInt(getCookie("tipoUsuario"));
+    if (usu === 2) {
+        for (let index = 0; index < listaHistorias.length; index++) {
+            let historia = listaHistorias[index];
+            $("#" + historia.id).click(function () {
+                setCookie("idHistoria", historia.id, 0.1)
+                $(location).attr('href', 'situaciones.html?id=' + getCookie("idHistoria"));
+            })
 
+        }
     }
+
+    if (usu === 3) {
+        console.log('wenas')
+    }
+
+
 }
