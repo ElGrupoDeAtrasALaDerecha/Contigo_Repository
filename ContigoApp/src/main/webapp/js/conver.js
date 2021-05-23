@@ -293,7 +293,7 @@ function TraerOrador(conver, orador) {
         }
     });
 }
-
+var btnRegistrar = document.getElementById("btnRegistrarEstu");
 
 function colocarInfo(array, orador, personal) {
     for (var i = 0; i < personal.length; i++) {
@@ -344,11 +344,9 @@ function colocarInfo(array, orador, personal) {
         '<p> </p>' +
         '<h3><span></span> </h3>'
     if (usuario === 1) {
-        var btnRegistrar = document.getElementById("btnRegistrarEstu");
         btnRegistrar.style.display = "block"
-        text += '<button id="btnRegistrarEstu"  class="banner-button" onclick="divConfRegistro();">Registrarse</button>'
+        //text += '<button id="btnRegistrarEstu"  class="banner-button" onclick="divConfRegistro();">Registrarse</button>'
     } else if (usuario === 2) {
-        var btnRegistrar = document.getElementById("btnRegistrarEstu");
        btnRegistrar.style.display = "none"
         text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
     }

@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <h2>Creación de Conversatorios</h2>
+    <h2 id ="tituloPagina">Creación de Conversatorios</h2>
     <form class="needs-validation" novalidate>
         <div id="contenedor">
             <section id="contenedor_cc">
@@ -123,28 +123,3 @@
 
 
 
-
-<script type="text/javascript">
-    $("ui.dropdown").dropdown();
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                        console.log("HOLIIIII")
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>
