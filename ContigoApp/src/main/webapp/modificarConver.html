@@ -6,10 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
+
     <link rel="stylesheet" href="css/navfooter.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/crear.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+
     <!-- Minified CRONOGRAMA CSS -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
@@ -19,15 +22,16 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/template.js"></script>
     <title>Contigo</title>
 </head>
 
 <body>
-    <h2 id ="tituloPagina">Creación de Conversatorios</h2>
+    <h2>Creación de Conversatorios</h2>
     <form class="needs-validation" novalidate>
         <div id="contenedor">
             <section id="contenedor_cc">
@@ -38,6 +42,7 @@
                     <div class="invalid-feedback">
                         Inserta el titulo
                     </div>
+
 
                     <textarea type="text" class="credencial" id="Descripcion" placeholder="Descripcion del conversatorio"
                         name="des_cnv" required></textarea>
@@ -70,7 +75,7 @@
                 <p>Selecciona los cursos a los cuales va dirigido este conversatorio:</p>
                     <div id="cursos" class="credencial">
                         <select id="grados" name="grados" multiple="" class="ui search fluid dropdown">
-                          
+                            <option value="">Grados</option>
                             <option value="1">Transición</option>
                             <option value="2">Primero</option>
                             <option value="3">Segundo</option>
@@ -108,7 +113,7 @@
             </section>
         </div>
         <div class="contenedor_credencial">
-            <button id="btnCrear" class="btn" type="submit">Crear Conversatorio</button>
+            <button id="btnCrear" class="btn" type="submit">Actualizar Conversatorio</button>
         </div>
     </form>
 
@@ -117,11 +122,33 @@
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
 <script src="js/funciones.js"></script>
 <script src="js/modificarConver.js"></script>
 
 
 
 
+<script type="text/javascript">
+    $("ui.dropdown").dropdown();
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
 
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        console.log("HOLIIIII")
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>

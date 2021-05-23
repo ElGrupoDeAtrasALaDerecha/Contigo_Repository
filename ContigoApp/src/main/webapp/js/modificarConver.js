@@ -75,7 +75,7 @@ imageUploader2.addEventListener('change', (e) => {
 });
 
 // Inicio de la pagina, caraga de datos
-var id ="";
+var id = "";
 var conversatorio;
 
 $(document).ready(function () {
@@ -86,13 +86,13 @@ $(document).ready(function () {
     $('.ui.dropdown').dropdown();
     console.log(id);
     if (id !== "") {
-        
+
         btnActualizar = document.getElementById("btnCrear");
         btnActualizar.innerText = "Actualizar"
         btnActualizar.setAttribute("id", "btnActualizar");
         document.getElementById("tituloPagina").innerText = "Actualizar Conversatorio"
         $.ajax({
-            url: "Conversatorio",
+            url: "Conversatorio?id=" + id,
             type: "GET",
             dataType: "json",
             contentType: "JSON application/json charset=utf-8",
@@ -101,56 +101,61 @@ $(document).ready(function () {
             success: function (result, textStatus, request) {
                 console.log(result)
                 conversatorios = result.conversatorios;
+                var clasificacion = result.clasificacion
                 for (var i = 0; i < conversatorios.length; i++) {
-                        if (conversatorios[i].id === parseInt(id)) {
-                            conversatorio = conversatorios[i];
-                        }
+                    if (conversatorios[i].id === parseInt(id)) {
+                        conversatorio = conversatorios[i];
+                    }
                 }
                 console.log(conversatorio)
                 $("#Texto").val(conversatorio.titulo);
                 $("#Descripcion").val(conversatorio.descripcion);
-                $("#Lugar").val(conversatorio.lugar) 
-                $("#cronograma").val (conversatorio.cronograma)
-                $("#linkImagen").val(conversatorio.imagen)
-                $("#linkInfografia").val(conversatorio.infografia)
+                $("#Lugar").val(conversatorio.lugar)
+                $("#cronograma").val(conversatorio.cronograma)
+                img = conversatorio.imagen
+                infogra = conversatorio.infografia
 
-                console.log($("#linkImagen").val())
-       
+                var text = ""
+
+                for (var i = 0; i < clasificacion.length; i++) {
+                    console.log("hola")
+                    text += '<a class="ui label transition visible" data-value="' + clasificacion[i].id + '" style="display: inline-block !important;">' + clasificacion[i].grado + '<i class="delete icon"></i></a>'
+                    $("#grados").val(clasificacion[i].id)
+
+                }
+                $(".ui.search.fluid.dropdown.selection.multiple").append(text);
+
+
+
             }, complete: function (result) {
-    
+
             }, error: function (result) {
                 console.log(result)
             }
         });
 
-        
-        /*
-        $("#Descripcion").val() = conversatorio.descripcion
-        $("#cronograma").val() = conversatorio.cronograma
-        $("#Lugar").val() = conversatorio.lugar
-        $("#linkImagen").val() = conversatorio.imagen
-        $("#linkInfografia").val() = conversatorio.infografia
-*/
 
         $("#btnActualizar").on("click", function (e) {
             console.log("Actualizando")
             e.preventDefault();
             if ($("#Texto").val() == "" || $("#Descripcion").val() == "" || $("#cronograma").val() == "" || $("#Lugar").val() == "" || $("#linkImagen").val() == "" || $("#linkInfografia").val() == "" || $("#grados").val() == "") {
+                toastr.error("Complete los campos")
             } else {
                 ActualizarConverOrador();
             }
         });
-        
-    }else if(id === ""){
+
+    } else if (id === "") {
         $("#btnCrear").on("click", function (e) {
             console.log("Creando")
             e.preventDefault();
             if ($("#Texto").val() == "" || $("#Descripcion").val() == "" || $("#cronograma").val() == "" || $("#Lugar").val() == "" || $("#linkImagen").val() == "" || $("#linkInfografia").val() == "" || $("#grados").val() == "") {
+                toastr.error("Complete los campos")
             } else {
                 CrearConverOrador();
             }
         });
-        
+
     }
 });
 
@@ -208,7 +213,7 @@ function ActualizarConverOrador() {
 
 
 
-function crearConversatorio(personal,metodo) {
+function crearConversatorio(personal, metodo) {
     var documento;
     console.log(getCookie("token"));
     for (var i = 0; i < personal.length; i++) {
@@ -221,11 +226,18 @@ function crearConversatorio(personal,metodo) {
     descripcion = $("#Descripcion").val();
     cronograma = $("#cronograma").val();
     lugar = $("#Lugar").val();
-    infografia = $("#linkInfografia").val();
-    clasifica = $("#grados").val();
 
+
+    console.log(img)
+    console.log(infogra)
+
+    clasifica = $("#grados").val();
+    console.log(clasifica)
+    if (metodo === "POST") {
+        id = 0;
+    }
     informacion = {
-        id:id,
+        id: id,
         orador: documento,
         titulo: titulo,
         descripcion: descripcion,
@@ -248,17 +260,33 @@ function crearConversatorio(personal,metodo) {
         },
         success: function (result, textStatus, request) {
             console.log(result);
-            if (result != "error") {
+            if (result.tipo == "error") {
                 console.log(result);
+                toastr.error(result.mensaje)
+                
             } else {
-                console.log("error");
+                toastr.success(result.mensaje)
+                if(metodo == "POST"){
+                    setTimeout(function () {
+                        window.location.href = "Conversatorios.html"; 
+                     }, 2000); 
+               
+                }else{
+                    setTimeout(function () {
+                        window.location.href = "Conversatorio_unico.html"; 
+                     }, 2000);  
+                }
+       
+           
             }
         },
         complete: function (result) {
+           
         },
         error: function (result) {
         }
     });
 
 }
+
 

@@ -19,8 +19,10 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.FactoryDao;
 import usa.factory.Producer;
+import usa.modelo.dao.ConversatoriosDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoConversatorios;
+import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.Conversatorio;
 import usa.utils.Utils;
 
@@ -53,8 +55,20 @@ public class ConversatorioServlet extends HttpServlet {
         System.out.println(request);
         JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+        String id = request.getParameter("id");
+        ConversatoriosDao daoConver = (ConversatoriosDao) factoryDao.obtener("ConversatoriosDao");
+         Gson gson = new Gson();
         respuesta.put("tipo", "ok");
         respuesta.put("conversatorios", arreglo);
+  
+        if(id != null){
+            LinkedList<Clasificacion> clasificaciones = daoConver.consultarClasificacionConver(Integer.parseInt(id));
+             JSONArray arreglo2 = new JSONArray();
+             for (Clasificacion i : clasificaciones) {
+                arreglo2.put(new JSONObject(gson.toJson(i, Clasificacion.class)));
+            }
+            respuesta.put("clasificacion", arreglo2);
+        }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
 

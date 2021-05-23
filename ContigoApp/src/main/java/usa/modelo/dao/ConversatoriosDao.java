@@ -100,6 +100,29 @@ public class ConversatoriosDao implements IDaoConversatorios {
         return clasificaciones;
     }
 
+    public LinkedList<Clasificacion> consultarClasificacionConver(int id) {
+        LinkedList<Clasificacion> clasificaciones = new LinkedList();
+        try {
+            String sql = "select c.* from clasificacion as c\n"
+                    + "inner join CLASIFICACION_has_CONVERSATORIO as cc on cc.CLASIFICACION_id=c.id\n"
+                    + "inner join CONVERSATORIO as co on co.id=cc.CONVERSATORIO_id\n"
+                    + "where co.id =\"" + id + "\";";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+
+            while (rs.next()) {
+                Clasificacion clasi = new Clasificacion();
+                clasi.setId(rs.getInt("id"));
+                clasi.setGrado(rs.getString("grado"));
+                clasificaciones.add(clasi);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return clasificaciones;
+    }
+
     @Override
     public LinkedList<Conversatorio> listarTodos() {
         LinkedList<Conversatorio> conversatorios = new LinkedList();
@@ -163,12 +186,11 @@ public class ConversatoriosDao implements IDaoConversatorios {
             pat.setInt(8, t.getId());
             pat.execute();
             pat.close();
-            String sql2 = "delete from CLASIFICACION_has_CONVERSATORIO where conversatorio_id ="+ t.getId()+";";
+            String sql2 = "delete from CLASIFICACION_has_CONVERSATORIO where conversatorio_id =" + t.getId() + ";";
             pat = conn.prepareStatement(sql2);
             pat.execute();
             pat.close();
-            
-            
+
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);

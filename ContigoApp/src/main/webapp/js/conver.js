@@ -41,15 +41,15 @@ var contCanc = 0;
 
 function llenarDiv(array, oradordiv) {
     divTexto =
-        `<p>DATOS DE SU CITA: </p>` +
+        `<p>DATOS DEL CONVERSATORIO: </p>` +
         `<p>Conversatorio: ${array.titulo} </p>` +
         `<p>Orador: ${oradordiv.primerNombre} ${oradordiv.primerApellido} </p>` +
         `<p>Lugar: ${array.lugar} </p>` +
         `<p>Cronograma: ${array.cronograma} </p>` +
         `<div class="ui buttons">
-        <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
+        <button id="btnCancelarC" class="ui button">Cancelar registro</button>
         <div class="o"></div>
-        <button id="btnConfirmarC" class="ui blue button">Confirmar cita</button>
+        <button id="btnConfirmarC" class="ui blue button">Confirmar registro</button>
         </div>`;
     $("#divEmergente").append(divTexto);
 
