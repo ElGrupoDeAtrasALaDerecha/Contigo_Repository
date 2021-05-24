@@ -294,7 +294,12 @@ function TraerOrador(conver, orador) {
     });
 }
 var btnRegistrar = document.getElementById("btnRegistrarEstu");
-
+/**
+ * 
+ * @param {*} array 
+ * @param {*} orador 
+ * @param {*} personal 
+ */
 function colocarInfo(array, orador, personal) {
     for (var i = 0; i < personal.length; i++) {
         if (personal[i].documento === orador) {

@@ -3,5 +3,5 @@
 /ContigoApp/target/
 /ContigoApp/bin/
 /ContigoApp/.settings/
-/ContigoApp/src/main/java/usa/modelo/dao/Conexion.java
+/ContigoApp/src/main/java/usa/bd/
 /ContigoApp/nbproject/
