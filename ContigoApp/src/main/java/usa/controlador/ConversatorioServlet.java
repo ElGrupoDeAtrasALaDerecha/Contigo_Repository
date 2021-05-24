@@ -52,6 +52,7 @@ public class ConversatorioServlet extends HttpServlet {
         respuesta.put("tipo", "ok");
         respuesta.put("conversatorios", arreglo);
         if(id != null){
+            
             LinkedList<Clasificacion> clasificaciones = daoConver.consultarClasificacionConver(Integer.parseInt(id));
              JSONArray arreglo2 = new JSONArray();
              for (Clasificacion i : clasificaciones) {
