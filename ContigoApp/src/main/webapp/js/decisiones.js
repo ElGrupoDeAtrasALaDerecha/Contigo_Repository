@@ -4,6 +4,13 @@ var arbol;
 var idHistoria;
 $(document).ready(function () {
     idHistoria = getCookie("idHistoria");
+    if(idHistoria===""){
+        idHistoria = params.get("idHistoria");
+        if(idHistoria===""){
+            alert("inválido");
+            window.location.assign("index.html");
+        }
+    }
     cargarHistoria()
     cargarSituacion()
 });

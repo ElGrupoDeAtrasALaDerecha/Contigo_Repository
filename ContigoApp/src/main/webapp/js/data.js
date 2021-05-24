@@ -4,8 +4,24 @@ var byeEdit ;
 var byeDelete ;
 var byeFinal;
 var enTutorial = true;
+const params = new URLSearchParams(window.location.search)
+var idHistoria;
 var l = 0; // variable de tutorial
 $(document).ready(function () {
+    idHistoria = getCookie("idHistoria");
+    if(idHistoria===""){
+        idHistoria = params.get("idHistoria");
+        if(idHistoria===""){
+            alert("inválido");
+            window.location.assign("index.html");
+        }
+        
+        salirTutotial();
+  
+    }else{
+        tutorial();
+        desabilitarBoton();
+    }
 crearData();
 })
 
@@ -79,7 +95,7 @@ function desabilitarBoton(){
 
 function crearData(){
 $.ajax({
-    url: "Situacion?id=" + getCookie("idHistoria"),
+    url: "Situacion?id=" + parseInt(idHistoria),
     type: "GET",
     dataType: "json",
     success: function (result, textStatus, request) {

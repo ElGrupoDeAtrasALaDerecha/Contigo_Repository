@@ -174,6 +174,9 @@ function CrearConverOrador() {
     $.ajax({
         url: "PersonalCalificado",
         type: "GET",
+        headers:{
+            token:getCookie("token")
+        },
         dataType: "json",
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {
@@ -198,6 +201,9 @@ function ActualizarConverOrador() {
     $.ajax({
         url: "PersonalCalificado",
         type: "GET",
+        headers:{
+            token:getCookie("token")
+        },
         dataType: "json",
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {

@@ -180,6 +180,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.limpiar();
                 //personalCalificado.setDocumento(null);
                 personales.add(personalCalificado);
+                
             }
             rs.close();
             pat.close();

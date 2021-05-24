@@ -125,8 +125,8 @@ function redirigirEdit() {
         for (let index = 0; index < listaHistorias.length; index++) {
             let historia = listaHistorias[index];
             $("#" + historia.id).click(function () {
-                setCookie("idHistoria", historia.id, 0.1)
-                $(location).attr('href', 'situaciones.html?id=' + getCookie("idHistoria"));
+                delete_cookie("idHistoria")
+                $(location).attr('href', 'situaciones.html?idHistoria=' + historia.id);
             })
 
         }

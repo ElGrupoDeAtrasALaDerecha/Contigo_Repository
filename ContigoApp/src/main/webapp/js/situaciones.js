@@ -4,36 +4,29 @@ var situaciones;
 
 
 window.onload = function obtenerhisotia() {
-    var text;
+
+   
     $.ajax({
-        url: "Historia?id=" + getCookie("idHistoria"),
+        url: "Historia?id=" + idHistoria,
         type: "GET",
         dataType: "json",
         success: function (result, textStatus, request) {
             if (result != "error") {
                 console.log(result);
                 historia = result.historia;
-                console.log(getCookie("idHistoria"))
-                //document.getElementById('tituloHistoria').innerHTML = historia.titulo;
-                
+                //document.getElementById('tituloHistoria').innerHTML = historia.titulo; 
             } else {
                 console.log("error");
             }
-
         },
         complete: function (result) {
-
-
         },
         error: function (result) {
 
         }
 
     });
-    tutorial();
-    desabilitarBoton();
-
-
+   
 }
 
 
@@ -225,6 +218,7 @@ function eliminarSituacion(id) {
         success: function (result, textStatus, request) {
             if (result.tipo != "error") {
                 console.log(result)
+
                 toastr.success(result.mensaje)
                 crearData();
             } else {
@@ -233,7 +227,9 @@ function eliminarSituacion(id) {
             }
         },
         complete: function (result) {
-            salirTutotial();
+            if(enTutorial){
+                salirTutotial();
+            }
         },
         error: function (result) {
             console.log(result);
@@ -320,8 +316,8 @@ function validarHistoria(nodo) {
     return true;
 
 }
-function salirTutotial(){`
-enTutorial = false;`
+function salirTutotial(){
+enTutorial = false;
     let  cuadro= `<div class="full">
     <div>
       <div id="organigrama"></div>
