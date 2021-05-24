@@ -1,6 +1,77 @@
 var usuario
 var token
 var documento
+
+/*******************************************DIV EMERGENTE************************************************* */
+const openEls = document.querySelectorAll("[data-open]");
+const closeEls = document.querySelectorAll("[data-close]");
+const isVisible = "is-visible";
+for (const el of openEls) {
+    el.addEventListener("click", function () {
+        const modalId = this.dataset.open;
+        console.log(modalId)
+        document.getElementById(modalId).classList.add(isVisible);
+    });
+}
+
+for (const el of closeEls) {
+    el.addEventListener("click", function () {
+        this.parentElement.parentElement.parentElement.classList.remove(isVisible);
+    });
+}
+
+document.addEventListener("click", (e) => {
+    if (e.target == document.querySelector(".modal.is-visible")) {
+        document.querySelector(".modal.is-visible").classList.remove(isVisible);
+        limpiarDiv();
+    }
+});
+
+document.addEventListener("keyup", (e) => {
+    // if we press the ESC
+    if (e.key == "Escape" && document.querySelector(".modal.is-visible")) {
+        document.querySelector(".modal.is-visible").classList.remove(isVisible);
+        limpiarDiv();
+    }
+});
+/************************************************DIV EMERGENTE******************** */
+var divTexto = document.getElementById("divEmergente");
+var contConf = 0;
+var contCanc = 0;
+
+function llenarDiv(array, oradordiv) {
+    divTexto =
+        `<p>DATOS DEL CONVERSATORIO: </p>` +
+        `<p>Conversatorio: ${array.titulo} </p>` +
+        `<p>Orador: ${oradordiv.primerNombre} ${oradordiv.primerApellido} </p>` +
+        `<p>Lugar: ${array.lugar} </p>` +
+        `<p>Cronograma: ${array.cronograma} </p>` +
+        `<div class="ui buttons">
+        <button id="btnCancelarC" class="ui button">Cancelar registro</button>
+        <div class="o"></div>
+        <button id="btnConfirmarC" class="ui blue button">Confirmar registro</button>
+        </div>`;
+    $("#divEmergente").append(divTexto);
+
+    $("#btnCancelarC").click(function () {
+        cancelarRegistro();
+        document.querySelector(".modal.is-visible").classList.remove(isVisible);
+        limpiarDiv();
+        return false;
+    });
+
+    $("#btnConfirmarC").click(function () {
+        registrarEstudiante();
+    });
+}
+
+
+function limpiarDiv() {
+    $("#divEmergente").empty();
+}
+
+/* Inico de la pagina y carga de los elementos*/
+
 $(document).ready(function () {
 
     usuario = parseInt(getCookie("tipoUsuario"));
@@ -30,7 +101,7 @@ $(document).ready(function () {
                     console.log("error");
                 }
             }, complete: function (result) {
-               
+
             }, error: function (result) {
                 console.log(result)
             }
@@ -38,6 +109,8 @@ $(document).ready(function () {
     }
 
 });
+
+/* Se hace un llamado general a los grados*/
 
 function LlamarGrado() {
 
@@ -56,13 +129,14 @@ function LlamarGrado() {
                 console.log("error");
             }
         }, complete: function (result) {
-           
+
         }, error: function (result) {
             console.log(result)
         }
     });
 }
 
+/* Hacemos el llamado de los estudiente por el documento */
 
 function LlamarEstudiante(grado) {
 
@@ -90,12 +164,14 @@ function LlamarEstudiante(grado) {
                 console.log("error");
             }
         }, complete: function (result) {
-           
+
         }, error: function (result) {
             console.log(result)
         }
     });
 }
+
+
 
 function LlamarClasi(clasi) {
     informacion = {
@@ -119,7 +195,7 @@ function LlamarClasi(clasi) {
             }
         },
         complete: function (result) {
-          
+
         },
         error: function (result) {
             console.log(result);
@@ -151,7 +227,7 @@ function LlamarConver(arregloConver) {
             listarConver(converEstudiante);
 
         }, complete: function (result) {
-        
+
         }, error: function (result) {
             console.log(result)
         }
@@ -189,6 +265,7 @@ function listarConver(conversatorio) {
 
     $("#btnAgregar").on("click", function () {
         window.location.assign("crear_cnv.html")
+        setCookie("idConversatorio", "", 0.5);
     });
 };
 var conversatorio
@@ -216,11 +293,14 @@ function TraerOrador(conver, orador) {
         }
     });
 }
+var btnRegistrar = document.getElementById("btnRegistrarEstu");
+
 function colocarInfo(array, orador, personal) {
     for (var i = 0; i < personal.length; i++) {
         if (personal[i].documento === orador) {
+            var oradordiv = personal[i];
             text = '<br>' +
-                '<img src="'+personal[i].imagen +'" class="imgRedonda">' +
+                '<img src="' + personal[i].imagen + '" class="imgRedonda">' +
                 '<br> Orador:' +
                 '<center>' +
                 '<h2>' +
@@ -262,155 +342,61 @@ function colocarInfo(array, orador, personal) {
         '<br>' +
         '</h2>' +
         '<p> </p>' +
-        '<h3><span></span> </h3>'+
-    '<button id="btnRegistrarEstu" class="banner-button" onclick="registrarEstudiante();">Registrarse</button>'
+        '<h3><span></span> </h3>'
+    if (usuario === 1) {
+        btnRegistrar.style.display = "block"
+        //text += '<button id="btnRegistrarEstu"  class="banner-button" onclick="divConfRegistro();">Registrarse</button>'
+    } else if (usuario === 2) {
+       btnRegistrar.style.display = "none"
+        text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
+    }else if (usuario === 3) {
+        btnRegistrar.style.display = "none"
+         text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
+     }
     $("#titulo").append(text);
-
     document.getElementById("banner2").style.background = "url(" + array.imagen + ") repeat";
 
-
+    $("#btnRegistrarEstu").click(function () {
+        llenarDiv(array, oradordiv);
+    })
 }
 
-$("#btnCrear").on("click", function (e) {
-    e.preventDefault();
-    if ($("#Texto").val() == "" || $("#Descripcion").val() == "" || $("#cronograma").val() == "" || $("#Lugar").val() == "" || $("#linkImagen").val() == "" || $("#linkInfografia").val() == "" || $("#grados").val() == "") {
-
-    } else {
-        CrearConverOrador();
-
-    }
-});
 
 
-
-function CrearConverOrador() {
+function cancelarRegistro() {
+    console.log(conversatorio.id)
     $.ajax({
-        url: "PersonalCalificado",
-        type: "GET",
-        dataType: "json",
+        url: "REstudianteConversatorio?id=" + parseInt(idConversatorio)+"&idEstudiante="+ documento,
+        type: "DELETE",
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
-            personal = result.personales;
-            crearConversatorio(personal)
-            if (result != "error") {
-                console.log(result);
+            if (result.tipo == "error") {
+                toastr.error(result.mensaje)
             } else {
-                console.log("error");
+                toastr.success(result.mensaje)
             }
         }, complete: function (result) {
-
+            console.log(result)
         }, error: function (result) {
+            console.log(result)
         }
     });
 }
 
 
-const imageUploader = document.getElementById('img-uploader');
-const imageUploader2 = document.getElementById('img-uploader2');
 
+function registrarEstudiante() {
 
-const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/miguel26697/image/upload';
-const CLOUDINARY_UPLOAD_PRESET = 'wmruximj';
-var ima
-var inforgra
-
-imageUploader.addEventListener('change', (e) => {
-    console.log(e)
-    e.preventDefault();
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-
-    $.ajax({
-        url: CLOUDINARY_URL,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        beforeSend: function () {
-        },
-        success: function (result, textStatus, request) {
-            informacion = result
-            img = informacion.url;
-            if (result != "error") {
-                console.log(result);
-            } else {
-                console.log("error");
-            }
-        },
-        complete: function (result) {
-        },
-        error: function (result) {
-        }
-    });
-});
-
-imageUploader2.addEventListener('change', (e) => {
-    console.log(e)
-    e.preventDefault();
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-
-    $.ajax({
-        url: CLOUDINARY_URL,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        beforeSend: function () {
-        },
-        success: function (result, textStatus, request) {
-            informacion = result
-            infogra = informacion.url;
-            if (result != "error") {
-                console.log(result);
-            } else {
-                console.log("error");
-            }
-        },
-        complete: function (result) {
-        },
-        error: function (result) {
-        }
-    });
-});
-
-function crearConversatorio(personal) {
-    var documento;
-    console.log(getCookie("token"));
-    for (var i = 0; i < personal.length; i++) {
-        if (getCookie("token") == personal[i].token) {
-            documento = personal[i].documento
-        }
-    }
-
-    titulo = $("#Texto").val();
-    descripcion = $("#Descripcion").val();
-    cronograma = $("#cronograma").val();
-    lugar = $("#Lugar").val();
-    infografia = $("#linkInfografia").val();
-    clasifica = $("#grados").val();
-
+    console.log(conversatorio.id)
+    idConversatorio = conversatorio.id
     informacion = {
-        orador: documento,
-        titulo: titulo,
-        descripcion: descripcion,
-        cronograma: cronograma,
-        lugar: lugar,
-        imagen: img,
-        infografia: infogra,
-        clasificacion: clasifica
-
+        idConversatorio: idConversatorio,
+        idEstudiante: documento,
     };
-
-    console.log(informacion);
     $.ajax({
-        url: "Conversatorio",
+        url: "REstudianteConversatorio",
         type: "POST",
         dataType: "json",
         data: JSON.stringify(informacion),
@@ -418,51 +404,28 @@ function crearConversatorio(personal) {
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
-            console.log(result);
-            alert("Conversatorio Creado")
-            window.location.assign("Conversatorios.html");
-            if (result != "error") {
-                console.log(result);
+            if (result.tipo == "error") {
+                toastr.error(result.mensaje)
             } else {
-                console.log("error");
+                toastr.success(result.mensaje)
             }
-        },
-        complete: function (result) {
-        },
-        error: function (result) {
+        }, complete: function (result) {
+            console.log(result)
+        }, error: function (result) {
+            console.log(result)
         }
     });
+}
+
+function ModificarConversatorio() {
+    setCookie("idConversatorio",conversatorio.id , 0.3);
+    window.location.assign("crear_cnv.html")
 
 }
 
 
-function registrarEstudiante(){
-console.log(conversatorio.id)
-idConversatorio=conversatorio.id
-informacion = {
-    idConversatorio: idConversatorio,
-    idEstudiante: documento,
-};
-$.ajax({
-    url: "REstudianteConversatorio",
-    type: "POST",
-    dataType: "json",
-    data: JSON.stringify(informacion),
-    contentType: "JSON application/json charset=utf-8",
-    beforeSend: function () {
-    },
-    success: function (result, textStatus, request) {
-        console.log(result)
-        if (result != "error") {
-        } else {
-            console.log("error");
-        }
-    }, complete: function (result) {
-       
-    }, error: function (result) {
-        console.log(result)
-    }
-});
-}
+
+
+
 
 

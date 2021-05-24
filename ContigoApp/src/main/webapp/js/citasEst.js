@@ -252,6 +252,7 @@ function ListaPersonalC(e) {
 const openEls = document.querySelectorAll("[data-open]");
 const closeEls = document.querySelectorAll("[data-close]");
 const isVisible = "is-visible";
+console.log(openEls)
 for (const el of openEls) {
   el.addEventListener("click", function () {
     const modalId = this.dataset.open;
@@ -283,6 +284,7 @@ document.addEventListener("keyup", (e) => {
 var divTexto = document.getElementById("divEmergente");
 var contConf = 0;
 var contCanc = 0;
+
 function llenarDiv(cita) {
   divTexto =
     `<p>DATOS DE SU CITA: </p>` +
@@ -291,7 +293,7 @@ function llenarDiv(cita) {
     `<p>Personal calificado: ${cita.personal} </p>` +
     `<div class="ui buttons">
         <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
-        <div class="or"></div>
+        <div class="o"></div>
         <button id="btnConfirmarC" class="ui blue button">Confirmar cita</button>
         </div>`;
   $("#divEmergente").append(divTexto);

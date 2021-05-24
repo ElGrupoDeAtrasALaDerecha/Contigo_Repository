@@ -96,8 +96,36 @@ public class REstudianteConversatorio extends HttpServlet {
                 respuesta.put("mensaje", "El estudiante fue registrado en el conversatorio");
             } else {
                 respuesta.put("tipo", "error");
-                respuesta.put("mensaje", "Error al registrar el estudiante");
+                respuesta.put("mensaje", "Ya esta registrado en el conversatorio");
             }
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+    }
+    
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        String parametros = Utils.readParams(request);
+        System.out.println(parametros);
+        String id = request.getParameter("id");
+        String idEstudiante = request.getParameter("idEstudiante");
+        JSONObject respuesta = new JSONObject();
+        IDaoConversatorios daoConver=(IDaoConversatorios)dao;
+        System.out.println(id+"  "+idEstudiante);
+        EstudianteConversatorio estuEliminar = (EstudianteConversatorio) daoConver.consultarEstConversatorio(id,idEstudiante);
+        if (estuEliminar  != null) {
+            if (daoConver.eliminarRegistroEstu(id,idEstudiante)) {
+                respuesta.put("tipo", "ok");
+                respuesta.put("mensaje", "Registro eliminado");
+            } else {
+                respuesta.put("tipo", "error");
+                respuesta.put("mensaje", "No se puede eliminar el registro");
+            }
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No esta registrado en el conversatorio");
+        }
+      
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }

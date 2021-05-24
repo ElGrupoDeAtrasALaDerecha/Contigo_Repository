@@ -100,6 +100,29 @@ public class ConversatoriosDao implements IDaoConversatorios {
         return clasificaciones;
     }
 
+    public LinkedList<Clasificacion> consultarClasificacionConver(int id) {
+        LinkedList<Clasificacion> clasificaciones = new LinkedList();
+        try {
+            String sql = "select c.* from clasificacion as c\n"
+                    + "inner join CLASIFICACION_has_CONVERSATORIO as cc on cc.CLASIFICACION_id=c.id\n"
+                    + "inner join CONVERSATORIO as co on co.id=cc.CONVERSATORIO_id\n"
+                    + "where co.id =\"" + id + "\";";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+
+            while (rs.next()) {
+                Clasificacion clasi = new Clasificacion();
+                clasi.setId(rs.getInt("id"));
+                clasi.setGrado(rs.getString("grado"));
+                clasificaciones.add(clasi);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return clasificaciones;
+    }
+
     @Override
     public LinkedList<Conversatorio> listarTodos() {
         LinkedList<Conversatorio> conversatorios = new LinkedList();
@@ -126,7 +149,6 @@ public class ConversatoriosDao implements IDaoConversatorios {
         return conversatorios;
     }
 
-
     @Override
     public boolean registrarEstuConver(EstudianteConversatorio estuconver) {
         try {
@@ -151,12 +173,53 @@ public class ConversatoriosDao implements IDaoConversatorios {
 
     @Override
     public boolean actualizar(Conversatorio t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "UPDATE conversatorio SET PERSONAL_PERSONA_documento = ?,titulo= ?,cronograma = ? ,imagen = ?,descripcion = ?,lugar=?,infografia=? WHERE id=?";
+            pat = conn.prepareStatement(sql);
+            pat.setString(1, t.getOrador());
+            pat.setString(2, t.getTitulo());
+            pat.setString(3, t.getCronograma());
+            pat.setString(4, t.getImagen());
+            pat.setString(5, t.getDescripcion());
+            pat.setString(6, t.getLugar());
+            pat.setString(7, t.getInfografia());
+            pat.setInt(8, t.getId());
+            pat.execute();
+            pat.close();
+            String sql2 = "delete from CLASIFICACION_has_CONVERSATORIO where conversatorio_id =" + t.getId() + ";";
+            pat = conn.prepareStatement(sql2);
+            pat.execute();
+            pat.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public Conversatorio consultar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conversatorio conver = null;
+        try {
+            String sql = "select * from CONVERSATORIO where id = " + id;
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                conver = new Conversatorio();
+                conver.setId(rs.getInt("id"));
+                conver.setOrador(rs.getString("PERSONAL_PERSONA_documento"));
+                conver.setTitulo(rs.getString("titulo"));
+                conver.setCronograma(rs.getString("cronograma"));
+                conver.setImagen(rs.getString("imagen"));
+                conver.setDescripcion(rs.getString("descripcion"));
+                conver.setLugar(rs.getString("lugar"));
+                conver.setInfografia(rs.getString("infografia"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return conver;
     }
 
     @Override
@@ -165,66 +228,97 @@ public class ConversatoriosDao implements IDaoConversatorios {
     }
 
     @Override
-    public  LinkedList <JSONArray> consultarPorGrado(String grado) { 
-         LinkedList <JSONArray> datos = null;
+    public LinkedList<JSONArray> consultarPorGrado(String grado) {
+        LinkedList<JSONArray> datos = null;
         try {
-            String sql = "select C.titulo, count(EC.ESTUDIANTE_PERSONA_documento) as Inscritos from  ESTUDIANTE_has_CONVERSATORIO as EC\n" +
-                         "inner join estudiante as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n" +
-                         "inner join grado as G on E.GRADO_codigo = G.codigo\n" +
-                         "right join conversatorio as C on EC.CONVERSATORIO_id = C.id \n" +
-                         "where G.codigo = \'"+grado+"\' \n" +
-                         "group by C.id\n" +
-                         "order by Inscritos desc\n" +
-                         "limit 5";
+            String sql = "select C.titulo, count(EC.ESTUDIANTE_PERSONA_documento) as Inscritos from  ESTUDIANTE_has_CONVERSATORIO as EC\n"
+                    + "inner join estudiante as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n"
+                    + "inner join grado as G on E.GRADO_codigo = G.codigo\n"
+                    + "right join conversatorio as C on EC.CONVERSATORIO_id = C.id \n"
+                    + "where G.codigo = \'" + grado + "\' \n"
+                    + "group by C.id\n"
+                    + "order by Inscritos desc\n"
+                    + "limit 5";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
-            datos = new  LinkedList();
+            datos = new LinkedList();
             datos.add(new JSONArray());
             datos.add(new JSONArray());
-            int i=0;
+            int i = 0;
             while (rs.next()) {
-               datos.get(0).put(rs.getString("titulo"));
-               datos.get(1).put(rs.getString("Inscritos"));
-               i ++;
+                datos.get(0).put(rs.getString("titulo"));
+                datos.get(1).put(rs.getString("Inscritos"));
+                i++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-       return datos ;
+        return datos;
     }
 
     @Override
-    public  LinkedList <JSONArray> consultarPorInstitucion(String institucion) {
-         LinkedList <JSONArray> datos = null;
+    public LinkedList<JSONArray> consultarPorInstitucion(String institucion) {
+        LinkedList<JSONArray> datos = null;
         try {
-            String sql = "select C.titulo, count(EC.ESTUDIANTE_PERSONA_documento) as Inscritos from  ESTUDIANTE_has_CONVERSATORIO as EC\n" +
-                            "right join conversatorio as C on EC.CONVERSATORIO_id = C.id \n" +
-                            "inner join estudiante as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n" +
-                            "inner join grado as G on E.GRADO_codigo = G.codigo\n" +
-                            "inner join institucion as I on G.INSTITUCION_id = I.id\n" +
-                            "where I.id = "+institucion+" \n"+
-                            "group by C.id\n" +
-                            "order by Inscritos desc\n" +
-                            "limit 5";
+            String sql = "select C.titulo, count(EC.ESTUDIANTE_PERSONA_documento) as Inscritos from  ESTUDIANTE_has_CONVERSATORIO as EC\n"
+                    + "right join conversatorio as C on EC.CONVERSATORIO_id = C.id \n"
+                    + "inner join estudiante as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n"
+                    + "inner join grado as G on E.GRADO_codigo = G.codigo\n"
+                    + "inner join institucion as I on G.INSTITUCION_id = I.id\n"
+                    + "where I.id = " + institucion + " \n"
+                    + "group by C.id\n"
+                    + "order by Inscritos desc\n"
+                    + "limit 5";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
-            datos = new  LinkedList();
+            datos = new LinkedList();
             datos.add(new JSONArray());
             datos.add(new JSONArray());
-            int i=0;
+            int i = 0;
             while (rs.next()) {
-               datos.get(0).put(rs.getString("titulo"));
-               datos.get(1).put(rs.getString("Inscritos"));
-               i ++;
+                datos.get(0).put(rs.getString("titulo"));
+                datos.get(1).put(rs.getString("Inscritos"));
+                i++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-       return datos ;
-    
-    
+        return datos;
+
     }
-    
+
+    @Override
+    public boolean eliminarRegistroEstu(String idConversatorio, String idEstudiante) {
+        try {
+            String sql = "delete from ESTUDIANTE_has_CONVERSATORIO where CONVERSATORIO_id= " + idConversatorio + " and ESTUDIANTE_PERSONA_documento=" + idEstudiante;
+            pat = conn.prepareStatement(sql);
+            pat.execute();
+            pat.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public EstudianteConversatorio consultarEstConversatorio(String idConversatorio, String idEstudiante) {
+        EstudianteConversatorio conver = null;
+        try {
+            String sql = "select * from ESTUDIANTE_has_CONVERSATORIO where CONVERSATORIO_id = " + idConversatorio + " and ESTUDIANTE_PERSONA_documento=" + idEstudiante + ";";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                conver = new EstudianteConversatorio();
+                conver.setIdConversatorio(rs.getInt("CONVERSATORIO_id"));
+                conver.setIdEstudiante(rs.getString("ESTUDIANTE_PERSONA_documento"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return conver;
+    }
+
 }
