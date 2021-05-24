@@ -22,9 +22,12 @@ var listCitas;
 var horasdisponibles = [];
 var fecha;
 var historialCitas;
+var motivo;
+var motivos;
 
 $(document).ready(function () {
   cargarCitas();
+  obtenerMotivos();
 });
 
 let currentDate = new Date(); //fecha del pc como ref
@@ -56,14 +59,15 @@ var btnCitasAgendada = document.getElementById("btnCitasAgendada");
 btnCitasAgendada.style.display = "block";
 listaPersonal.style.display = "none";
 horas.style.display = "none";
+var textAreaMotivo = document.getElementById("textAreaMotivo");
+textAreaMotivo.style.display = "none";
 
 function escribirMeses(month) {
   if (month < 4) {
     for (let i = inicioDia(); i > 0; i--) {
       dates.innerHTML += `<div class="date item ">
-            <button id="${
-              obtenerDias(monthNumber - 1) - (i - 1)
-            }" class="ui inverted  disabled basic button">
+            <button id="${obtenerDias(monthNumber - 1) - (i - 1)
+        }" class="ui inverted  disabled basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
@@ -79,9 +83,8 @@ function escribirMeses(month) {
   if (month === 4) {
     for (let i = inicioDia(); i > 0; i--) {
       dates.innerHTML += `<div class="date item ">
-            <button id="${
-              obtenerDias(monthNumber - 1) - (i - 1)
-            }" class="ui  inverted  disabled  basic button">
+            <button id="${obtenerDias(monthNumber - 1) - (i - 1)
+        }" class="ui  inverted  disabled  basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
@@ -110,9 +113,8 @@ function escribirMeses(month) {
   } else if (month > 3) {
     for (let i = inicioDia(); i > 0; i--) {
       dates.innerHTML += `<div class="date item ">
-            <button id="${
-              obtenerDias(monthNumber - 1) - (i - 1)
-            }" class="ui inverted blue basic button">
+            <button id="${obtenerDias(monthNumber - 1) - (i - 1)
+        }" class="ui inverted blue basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
@@ -291,6 +293,7 @@ function llenarDiv(cita) {
     `<p>Fecha: ${cita.fecha} </p>` +
     `<p>Hora: ${cita.hora}:00</p>` +
     `<p>Personal calificado: ${cita.personal} </p>` +
+    `<p>Motivo: ${cita.motivo} </p>` +
     `<div class="ui buttons">
         <button id="btnCancelarC" class="ui button">Cancelar Cita</button>
         <div class="o"></div>
@@ -307,7 +310,7 @@ function llenarDiv(cita) {
   });
 
   $("#btnConfirmarC").click(function () {
-    agendarCita(citaS,personal)
+    agendarCita(citaS, personal)
   });
 }
 
@@ -347,30 +350,30 @@ $("#horas2").click(function percaHora() {
   getPerca(cita)
 });
 
-var citaDelDia ;
+var citaDelDia;
 
-function getPerca(cita) {    
-    $.ajax({
-      url: "Cita?tipo=getPerca",
-      type: "GET",
-      dataType: "json",
-      headers: {
-        fecha: cita.fecha,
-        hora: cita.hora
-      },
-      contentType: "JSON application/json charset=utf-8",
-      beforeSend: function () {},
-      success: function (response) {
-        if (response.tipo === "ok") {
-            citaDelDia = response.perca;
-            console.log(response)
-            listarPerca(response.perca)
-        }
-      },
-      complete: function (result) {},
-      error: function (result) {},
-    });   
-  }
+function getPerca(cita) {
+  $.ajax({
+    url: "Cita?tipo=getPerca",
+    type: "GET",
+    dataType: "json",
+    headers: {
+      fecha: cita.fecha,
+      hora: cita.hora
+    },
+    contentType: "JSON application/json charset=utf-8",
+    beforeSend: function () { },
+    success: function (response) {
+      if (response.tipo === "ok") {
+        citaDelDia = response.perca;
+        console.log(response)
+        listarPerca(response.perca)
+      }
+    },
+    complete: function (result) { },
+    error: function (result) { },
+  });
+}
 
 function cargarCitas() {
   $.ajax({
@@ -378,16 +381,16 @@ function cargarCitas() {
     type: "GET",
     dataType: "json",
     contentType: "JSON application/json charset=utf-8",
-    beforeSend: function () {},
+    beforeSend: function () { },
     success: function (response) {
       if (response.tipo === "ok") {
         listCitas = response.citas;
         console.log(response.citas);
-      }else{
+      } else {
         console.log("falla")
       }
     },
-    complete: function (result) {},
+    complete: function (result) { },
     error: function (result) {
       alert("Error interno");
     },
@@ -396,23 +399,35 @@ function cargarCitas() {
 var personal
 var citaS
 function listarPerca(perca) {
-    console.log(perca)
-    personal = perca
-    listaPersonal.style.display = "block";
-    $("#perca").empty()
-    for (let index = 0; index < perca.length; index++) {
-        $("#perca").append('<div class="item"> <img src="'+ perca[index].imagen+'"> <input type="radio" id="' + perca[index].id_perca +'" name="percaD" value="' + perca[index].nombre_perca + '"> <label for="' + perca[index].id_perca +'"> <div class="content"> <a id="personalCalificadoLista" class="header" href="#">' + perca[index].nombre_perca + '</a> </div> </label> </div>') 
-    }
+  console.log(perca)
+  personal = perca
+  listaPersonal.style.display = "block";
+  $("#perca").empty()
+  for (let index = 0; index < perca.length; index++) {
+    let texto = `<div class="item"> 
+    <img class ="biografiapersonal" src="${perca[index].imagen}" data-content="${perca[index].personal.info[0].biografia}"> 
+    <input type="radio" id="${perca[index].id_perca}" name="percaD" value=" ${perca[index].nombre_perca}" >
+     <label for="${perca[index].id_perca} "> 
+     <div class="content"> 
+     <a id="personalCalificadoLista" class="header" href="#"> ${perca[index].nombre_perca}  </a> 
+     </div> </label> </div>`
+    $("#perca").append(texto)
+  }
+  $('.biografiapersonal')
+    .popup()
+    ;
 }
 // Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
-    var cita = {
-        fecha: fecha,
-        hora: $("#horas2 option:selected").val(),
-        personal: $('input:radio[name=percaD]:checked').val()
-    };
-    citaS = cita
-    llenarDiv(cita)
+  detectarCambioMotivo()
+  var cita = {
+    fecha: fecha,
+    hora: $("#horas2 option:selected").val(),
+    personal: $('input:radio[name=percaD]:checked').val(),
+    motivo: motivo
+  };
+  citaS = cita
+  llenarDiv(cita)
 })
 
 function agendarCita(cita, personal) {
@@ -423,8 +438,9 @@ function agendarCita(cita, personal) {
     }
     console.log(cita)
   }
-  var obj={
-        id:cita.idc
+  var obj = {
+    id: cita.idc,
+    motivo: motivo
   }
   solicitarCita(obj);
 }
@@ -449,7 +465,7 @@ function obtenerHistorial() {
   });
 }
 
-function solicitarCita(obj){
+function solicitarCita(obj) {
   $.ajax({
     url: "Cita",
     type: "POST",
@@ -459,16 +475,72 @@ function solicitarCita(obj){
     },
     data: JSON.stringify(obj),
     contentType: "JSON application/json charset=utf-8",
-    beforeSend: function () {},
+    beforeSend: function () { },
     success: function (response) {
-      if(response.tipo==="ok"){
-          alert("Cita asignada correctamente\n Se recomienda estar con diez minutos de anticipación en la cita")
-          window.location.assign("opciones.html");
+      if (response.tipo === "ok") {
+        alert("Cita asignada correctamente\n Se recomienda estar con diez minutos de anticipación en la cita")
+        window.location.assign("opciones.html");
       }
     },
-    complete: function (result) {},
+    complete: function (result) { },
     error: function (result) {
-        console.log(result);
+      console.log(result);
     },
   });
+}
+
+$(function () {
+  $("#motivoSelect").change(function () {
+    if ($(this).val() === "1") {
+      textAreaMotivo.style.display = "block";
+      motivo = $("#MotivoOtros").val()
+      console.log(motivo)
+    } else {
+      textAreaMotivo.style.display = "none";
+      motivo = $("#motivoSelect").val()
+      document.getElementById("MotivoOtros").value = "";
+      console.log(motivo)
+    }
+  });
+});
+
+
+
+function obtenerMotivos() {
+  $.ajax({
+    url: "Motivo",
+    type: "GET",
+    dataType: "json",
+    contentType: "JSON application/json charset=utf-8",
+    beforeSend: function () { },
+    success: function (response) {
+      if (response.tipo === "ok") {
+        motivos = response.motivos;
+        console.log(response.motivos)
+        llenarSelectMotivos(motivos)
+      }
+    },
+    complete: function (result) { },
+    error: function (result) { },
+  });
+}
+
+
+function llenarSelectMotivos(motivos) {
+  for (var i = 0; i < motivos.length; i++) {
+    $("#motivoSelect").append($("<option>", {
+      value: motivos[i].motivo,
+      text: motivos[i].motivo
+    }));
+  }
+}
+
+
+function detectarCambioMotivo() {
+  let str = document.getElementById("MotivoOtros");
+  if (str.value.trim() === "") {
+  }
+  else {
+    motivo = $("#MotivoOtros").val()
+  }
 }

@@ -17,7 +17,9 @@ import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDaoCita;
 import usa.modelo.dto.Cita;
 import usa.modelo.dao.IDaoEstudiante;
+import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
+import usa.modelo.dto.PersonalCalificado;
 import usa.observer.ObservadorCita;
 import usa.utils.Utils;
 
@@ -30,8 +32,8 @@ public class CitaServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
     CitaDao dao = (CitaDao) factoryDao.obtener("CitaDao");
-    EstudianteDao estudianteDao=(EstudianteDao)factoryDao.obtener("EstudianteDao");
-
+    EstudianteDao estudianteDao = (EstudianteDao) factoryDao.obtener("EstudianteDao");
+    PersonalCalificadoDao personalDao = (PersonalCalificadoDao) factoryDao.obtener("PersonalCalificadoDao");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,20 +41,20 @@ public class CitaServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         System.out.println(request);
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo =null;
-        String tipo=request.getParameter("tipo");
+        JSONArray arreglo = null;
+        String tipo = request.getParameter("tipo");
         String token = request.getHeader("token");
-        if(tipo != null){
-            if(tipo.equals("getPerca")){
-                String fecha=request.getHeader("fecha");
-                String hora=request.getHeader("hora");
-                System.out.println("---> " + fecha + " - "+ hora);
-                LinkedList<Cita> perca = dao.percaCita(fecha,hora);
+        if (tipo != null) {
+            if (tipo.equals("getPerca")) {
+                String fecha = request.getHeader("fecha");
+                String hora = request.getHeader("hora");
+                System.out.println("---> " + fecha + " - " + hora);
+                LinkedList<Cita> perca = dao.percaCita(fecha, hora);
                 respuesta.put("tipo", "ok");
                 respuesta.put("perca", perca);
                 respuesta.put("tipo", "ok");
             }
-             if (tipo.equals("historialEstudiante")) {
+            if (tipo.equals("historialEstudiante")) {
                 IDaoEstudiante daoEstudiante = (IDaoEstudiante) factoryDao.obtener("EstudianteDao");
                 Estudiante estudiante = daoEstudiante.consultarPorToken(token);
                 if (estudiante != null) {
@@ -62,15 +64,26 @@ public class CitaServlet extends HttpServlet {
                     respuesta.put("tipo", "error");
                 }
             }
-            
-        }else {
-           // if (token != null) {
-                respuesta.put("tipo", "ok");
-                arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+
+            if (tipo.equals("listarCitasPersonal")) {
+                PersonalCalificado personal = personalDao.consultarPorToken(token);
+                if (personal != null) {
+                    respuesta.put("tipo", "ok");
+                    LinkedList<Cita> citasP = dao.listarCitasPersonal(personal.getDocumento());
+                    respuesta.put("citasP", citasP);
+                } else {
+                    respuesta.put("tipo", "error");
+                }
+            }
+
+        } else {
+            // if (token != null) {
+            respuesta.put("tipo", "ok");
+            arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
             //}
         }
-        
-        respuesta.put("citas", arreglo);  
+
+        respuesta.put("citas", arreglo);
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
 
@@ -84,22 +97,24 @@ public class CitaServlet extends HttpServlet {
         JSONObject respuesta = new JSONObject();
         String token = request.getHeader("token");
         String id = String.valueOf(data.getInt("id"));
+        String motivo = data.getString("motivo");
         Cita cita = dao.consultar(id);
         Estudiante e = estudianteDao.consultarPorToken(token);
-        if(cita!=null && e!=null){
+        if (cita != null && e != null) {
             ObservadorCita observador = new ObservadorCita(cita);
             cita.setIdEstudiante(e.getDocumento());
             cita.setEstado(2);
-            if(dao.actualizar(cita)){
-                respuesta.put("tipo","ok");
+            cita.setMotivo(motivo);
+            if (dao.actualizar(cita)) {
+                respuesta.put("tipo", "ok");
                 respuesta.put("mensaje", "Estudiante registrado en la cita");
-            } 
-        }else{
-            respuesta.put("tipo","error");
+            }
+        } else {
+            respuesta.put("tipo", "error");
             respuesta.put("mensaje", "Ese estudiante o cita no existe");
         }
-        out.print(respuesta.toString());        
-        
+        out.print(respuesta.toString());
+
     }
 
     @Override
@@ -132,6 +147,4 @@ public class CitaServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    
-
 }
