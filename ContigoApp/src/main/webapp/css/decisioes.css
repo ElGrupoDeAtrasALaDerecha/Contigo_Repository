@@ -78,7 +78,10 @@ p{
     display: none;
 
 }
-
+.ui .button{
+    position: relative;
+    padding:  200px;
+}
 
 
 
