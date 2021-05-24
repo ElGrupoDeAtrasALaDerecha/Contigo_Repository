@@ -178,7 +178,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 IInformacion informacion = infoDao.consultarPorPersonal(personalCalificado);
                 informacion.agregarInformacion();
                 personalCalificado.limpiar();
-                personalCalificado.setDocumento(null);
+                //personalCalificado.setDocumento(null);
                 personales.add(personalCalificado);
             }
             rs.close();

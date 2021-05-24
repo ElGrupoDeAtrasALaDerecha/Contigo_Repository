@@ -88,6 +88,9 @@ $(document).ready(function () {
             url: "Conversatorio",
             type: "GET",
             dataType: "json",
+            headers:{
+                token:getCookie("token")
+            },
             contentType: "JSON application/json charset=utf-8",
             beforeSend: function () {
             },
@@ -276,10 +279,13 @@ function TraerOrador(conver, orador) {
         type: "GET",
         dataType: "json",
         contentType: "JSON application/json charset=utf-8",
+        headers:{
+            token:getCookie("token")
+        },
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
-            console.log(result)
+            debugger;
             personal = result.personales;
             colocarInfo(conver, orador, personal)
             if (result != "error") {
@@ -288,12 +294,13 @@ function TraerOrador(conver, orador) {
                 console.log("error");
             }
         }, complete: function (result) {
-
+            debugger;
         }, error: function (result) {
         }
     });
 }
 var btnRegistrar = document.getElementById("btnRegistrarEstu");
+var oradordiv;
 /**
  * 
  * @param {*} array 
@@ -303,7 +310,12 @@ var btnRegistrar = document.getElementById("btnRegistrarEstu");
 function colocarInfo(array, orador, personal) {
     for (var i = 0; i < personal.length; i++) {
         if (personal[i].documento === orador) {
-            var oradordiv = personal[i];
+            let bio = buscarBiografia(personal[i]);
+            let txtBio="";
+            if(bio===undefined){
+                txtBio=bio;
+            }
+            oradordiv = personal[i];
             text = '<br>' +
                 '<img src="' + personal[i].imagen + '" class="imgRedonda">' +
                 '<br> Orador:' +
@@ -314,9 +326,10 @@ function colocarInfo(array, orador, personal) {
                 '</h2>' +
                 '</center>' +
                 '<br>' +
-                '<p></p>' +
+                `<p> ${txtBio}</p>` +
                 '<br>'
             $("#orador").append(text);
+            break;
         }
     }
     text = '<br>' +
@@ -430,7 +443,12 @@ function ModificarConversatorio() {
 
 
 
-
-
+/**
+ * Método que permite buscar la biografía de un personal
+ * @param {personal} personal 
+ */
+function buscarBiografia(personal){
+    let info;
+}
 
 

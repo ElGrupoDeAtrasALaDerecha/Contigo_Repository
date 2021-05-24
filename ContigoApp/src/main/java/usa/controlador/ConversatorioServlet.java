@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,15 +49,13 @@ public class ConversatorioServlet extends HttpServlet {
         JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
         String id = request.getParameter("id");
         ConversatoriosDao daoConver = (ConversatoriosDao) factoryDao.obtener("ConversatoriosDao");
-         Gson gson = new Gson();
         respuesta.put("tipo", "ok");
         respuesta.put("conversatorios", arreglo);
-  
         if(id != null){
             LinkedList<Clasificacion> clasificaciones = daoConver.consultarClasificacionConver(Integer.parseInt(id));
              JSONArray arreglo2 = new JSONArray();
              for (Clasificacion i : clasificaciones) {
-                arreglo2.put(new JSONObject(gson.toJson(i, Clasificacion.class)));
+                arreglo2.put(new JSONObject(Utils.toJson(i)));
             }
             respuesta.put("clasificacion", arreglo2);
         }

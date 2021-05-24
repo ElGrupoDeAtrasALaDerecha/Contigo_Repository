@@ -19,7 +19,7 @@ import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**
- *
+ * Servlet de personal calificado
  * @author Santiago Pérez
  */
 @WebServlet(name = "PersonalCalificadoServlet", urlPatterns = {"/PersonalCalificado"})
@@ -41,6 +41,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
         String token = request.getHeader("token");
+        System.out.println(token);
         PrintWriter out = response.getWriter();
         if (request.getParameter("tipo") != null) {
             String tipo = request.getParameter("tipo");
@@ -103,7 +104,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
     }
 
     /**
-     *
+     * Método doPut
      * @param request
      * @param response
      * @throws ServletException
