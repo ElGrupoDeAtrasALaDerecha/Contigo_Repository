@@ -16,8 +16,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
+import usa.modelo.dao.ConversatoriosDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoConversatorios;
+import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.Conversatorio;
 import usa.utils.Utils;
 
@@ -49,8 +51,20 @@ public class ConversatorioServlet extends HttpServlet {
         System.out.println(request);
         JSONObject respuesta = new JSONObject();
         JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+        String id = request.getParameter("id");
+        ConversatoriosDao daoConver = (ConversatoriosDao) factoryDao.obtener("ConversatoriosDao");
+         Gson gson = new Gson();
         respuesta.put("tipo", "ok");
         respuesta.put("conversatorios", arreglo);
+  
+        if(id != null){
+            LinkedList<Clasificacion> clasificaciones = daoConver.consultarClasificacionConver(Integer.parseInt(id));
+             JSONArray arreglo2 = new JSONArray();
+             for (Clasificacion i : clasificaciones) {
+                arreglo2.put(new JSONObject(gson.toJson(i, Clasificacion.class)));
+            }
+            respuesta.put("clasificacion", arreglo2);
+        }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
 
@@ -100,7 +114,41 @@ public class ConversatorioServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
+        resp.setContentType("application/json;charset=UTF-8");
+        String parametros = Utils.readParams(req);
+        Conversatorio conver = (Conversatorio) Utils.fromJson(parametros, Conversatorio.class);
+        IDaoConversatorios daoConver=(IDaoConversatorios)dao;
+        JSONObject respuesta = new JSONObject();
+        Conversatorio conversatorioAActualizar = (Conversatorio) daoConver.consultar(String.valueOf(conver.getId()));
+        if (conversatorioAActualizar != null) {
+            conversatorioAActualizar.setOrador(conver.getOrador());
+            conversatorioAActualizar.setTitulo(conver.getTitulo());
+            conversatorioAActualizar.setDescripcion(conver.getCronograma());
+            conversatorioAActualizar.setImagen(conver.getImagen());
+            conversatorioAActualizar.setDescripcion(conver.getDescripcion());
+            conversatorioAActualizar.setLugar(conver.getLugar());
+            conversatorioAActualizar.setInfografia(conver.getInfografia());
+   
+            if (daoConver.actualizar(conversatorioAActualizar)) {
+                String arregloClasificaciones[]=conver.getClasificacion();
+                for (int i = 0; i < arregloClasificaciones.length; i++) {
+                daoConver.crearClasi(arregloClasificaciones[i],conver.getId());
+                }
+                respuesta.put("tipo", "ok");
+                respuesta.put("mensaje", "Conversatorio Actualizado");
+             
+            } else {
+                respuesta.put("tipo", "error");
+                respuesta.put("mensaje", "Error al actualizar el conversatorio");
+            }
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "No existe el conversatorio");
+        }
+       
+
+        PrintWriter out = resp.getWriter();
+        out.print(respuesta.toString());
     }
 
     /**
