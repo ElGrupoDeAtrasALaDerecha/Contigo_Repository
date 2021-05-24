@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.IHistoriasDao;
 import usa.modelo.dto.Historia;
 import usa.modelo.dto.Situacion;
 import usa.utils.Utils;
@@ -45,7 +46,7 @@ public class HistoriaServlet extends HttpServlet {
         String id = request.getParameter("id");
         if (id != null) {
             Historia historia = (Historia) dao.consultar(id);
-            respuesta.put("historia",new JSONObject(Utils.toJson(historia)));
+            respuesta.put("historia", new JSONObject(Utils.toJson(historia)));
         } else {
             respuesta.put("tipo", "ok");
             respuesta.put("historias", new JSONArray(Utils.toJson(dao.listarTodos())));
@@ -57,7 +58,8 @@ public class HistoriaServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method. kbdsfkhbfshdfhd funciona
+     * maldición quiero avanzar
      *
      * @param request servlet request
      * @param response servlet response
@@ -71,12 +73,23 @@ public class HistoriaServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         String mensaje = Utils.readParams(request);
         String token = request.getHeader("token");
+        if (token == null) {
+            json.put("tipo", "error");
+            json.put("mensaje", "No autorizado");
+            out.print(json.toString());
+            return;
+        }
         System.out.println(mensaje);
         Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
+        IHistoriasDao daoHis = (IHistoriasDao) dao;
         if (dao.crear(historia)) {
             json.put("tipo", "ok");
             json.put("mensaje", "Historia creada");
             json.put("idHistoria", historia.getId());
+            String arregloClasificaciones[] = historia.getClasificacion();
+            for (int i = 0; i < arregloClasificaciones.length; i++) {
+                daoHis.crearClasi(arregloClasificaciones[i], historia.getId());
+            }
             Situacion situacion = new Situacion();
             situacion.setIdHistoria(historia.getId());
             situacion.setTitulo("");
@@ -89,11 +102,50 @@ public class HistoriaServlet extends HttpServlet {
         out.print(json.toString());
     }
 
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        JSONObject json = new JSONObject();
+        String mensaje = Utils.readParams(request);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        JSONObject respuesta = new JSONObject();
+        IHistoriasDao daoHis = (IHistoriasDao) dao;
+        String id = request.getHeader("id");
+        String clasificaciones  = request.getHeader("clasificacion");
+        String [] vect = clasificaciones.split(",");
+        if (id != null) {
+            Historia historia = (Historia) dao.consultar(id);
+            if (historia != null) {
+                if (dao.eliminar(String.valueOf(String.valueOf(id)))) {
+                    String arregloClasificaciones[] = vect;
+                    for (int i = 0; i < arregloClasificaciones.length; i++) {
+                        daoHis.crearClasi(arregloClasificaciones[i], historia.getId());
+                    }
+                    respuesta.put("tipo", "ok");
+                    respuesta.put("mensaje", "Grados Actualizados");
+                } else {
+                    respuesta.put("tipo", "error");
+                    respuesta.put("mensaje", "Error al eliminar el final");
+                }
+            }
+        } else {
+            respuesta.put("tipo", "ok");
+            respuesta.put("historias", new JSONArray(Utils.toJson(dao.listarTodos())));
+        }
+
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
+
+    }
+
     /**
      * Returns a short description of the servlet.
      *
-     * @return a String containing servlet description
-     * funcionaaaaaa
+     * @return a String containing servlet description funcionaaaaaa
      */
     @Override
     public String getServletInfo() {

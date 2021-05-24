@@ -1,16 +1,19 @@
+$(document).ready(function () {
+    usuario = getCookie("tipoUsuario");
+    token = getCookie("token");
+    if(usuario!=="2"||token===undefined){
+        alert("No autorizado");
+        window.location.assign("index.html");
+    }
+    $('.ui.dropdown').dropdown();
+    $('#crearHistoria').prop('disabled',true);
+});
+
+
 $("#img-uploader").change(function(){
     filename=this.files[0].filename
     console.log(filename);
 })
-
-$(document).ready(function () {
-    usuario = parseInt(getCookie("tipoUsuario"));
-    token = parseInt(getCookie("token"));
-    documento = parseInt(getCookie("documento"));
-    console.log(documento);
-    console.log(usuario);
-    console.log(token);
-});
 
 
 const imageUploader = document.getElementById('img-uploader');
@@ -34,6 +37,10 @@ imageUploader.addEventListener('change', (e) => {
         processData: false,
         contentType: false,
         beforeSend: function () {
+            let txt=`<div class="ui active inverted dimmer">
+            <div class="ui indeterminate text loader">Cargando imagen</div>
+          </div>`;
+            $(".espacioImagen").append(txt);
         },
         success: function (result, textStatus, request) {
             informacion = result
@@ -45,6 +52,8 @@ imageUploader.addEventListener('change', (e) => {
             }
         },
         complete: function (result) {
+            $('.ui.active.inverted.dimmer').remove();
+            $('#crearHistoria').prop('disabled',false);
         },
         error: function (result) {
         }
@@ -59,12 +68,14 @@ function crearHistoria() {
 
     nombre = $("#Nombre").val();
     descripcion = $("#Descripcion").val();
+    clasifica = $("#grados").val();
 
     informacion = {
         documentoCreador: "1000853623",
         titulo: nombre,
         descripcion: descripcion,
         urlImagen: img,
+        clasificacion: clasifica
     };
 
 
@@ -75,7 +86,7 @@ function crearHistoria() {
         dataType: "json",
         data: JSON.stringify(informacion),
         headers:{
-            token:getCookie("token")
+            token:getCookie("token"),
         },
         
         contentType: "JSON application/json charset=utf-8",
@@ -99,6 +110,31 @@ function crearHistoria() {
 
 }
 
-
+function actualizarGradosHistorias(){
+    clasifica = $("#grados").val();
+    $.ajax({
+        url: "Historia",
+        type: "DELETE",
+        headers:{
+            id:getCookie("idHistoria"),
+            clasificacion: clasifica
+        },
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            console.log(result);
+            if (result != "error") {
+                console.log('siiiii funciono')
+            } else {
+                console.log("error");
+            }
+        },
+        complete: function (result) {
+        },
+        error: function (result) {
+        }
+    });
+}
 
 

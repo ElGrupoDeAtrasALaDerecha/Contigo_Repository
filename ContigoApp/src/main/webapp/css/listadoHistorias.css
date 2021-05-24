@@ -46,6 +46,40 @@ h1 {
   background-size: 100%;
   align-items: Flex-end;
 }
+.OpcBotones{
+  display: none;
+  opacity: 1;
+}
+.opacityImg{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: Flex-end;
+}
+.opacityImg:hover{
+  background-color: rgb(40, 44, 52, 0.5);
+  align-items: center;
+  justify-content: center;
+}
+
+.OpcBotonesEditar{
+  background: rgb(19, 155, 19);
+  padding: 9px 15px 9px 15px;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+.OpcBotonesVer{
+  background: rgb(60, 38, 184);
+  padding: 9px 15px 9px 15px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.opacityImg:hover .OpcBotones{
+  display: block;
+}
+.opacityImg:hover  .bottom{
+  display: none;
+}
 .bottom {
   background-color: rgb(48, 68, 92, 0.8);
   height: 35%;

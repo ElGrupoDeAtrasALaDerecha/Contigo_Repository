@@ -1,6 +1,8 @@
 var n = 0;
 var historia;
 var situaciones;
+
+
 window.onload = function obtenerhisotia() {
     var text;
     $.ajax({
@@ -12,7 +14,8 @@ window.onload = function obtenerhisotia() {
                 console.log(result);
                 historia = result.historia;
                 console.log(getCookie("idHistoria"))
-                document.getElementById('tituloHistoria').innerHTML = historia.titulo;
+                //document.getElementById('tituloHistoria').innerHTML = historia.titulo;
+                
             } else {
                 console.log("error");
             }
@@ -27,9 +30,20 @@ window.onload = function obtenerhisotia() {
         }
 
     });
+    tutorial();
+    desabilitarBoton();
+
 
 }
 
+
+$(document).ready(function () {
+
+});
+
+function tutorial() {
+    let texto = '';
+}
 
 function mas() {
     n = n + 1;
@@ -88,12 +102,12 @@ function crear(id) {
     var header
     let situacion = buscarNodo(parseInt(id));
     console.log(situacion)
-    let textoAdicional =""
-    if(situacion.opciones !== undefined){
+    let textoAdicional = ""
+    if (situacion.opciones !== undefined) {
         textoAdicional += '  <input type="submit"  class="btn-final crearFinal" value="Establecer final">';
-        header="situacion"
-    }else{
-        header="final"
+        header = "situacion"
+    } else {
+        header = "final"
     }
     let txt = '<div class="overlay active" id="overlay">' +
         '<div class="popup active" id="popup">' +
@@ -156,20 +170,24 @@ function crear(id) {
     });
 */
     $(".crearFinal").click(function (e) {
+        l = 3;// variable de tutorial
         var titulo = $("#titulo").val();
         var descripcion = $("#descripcion").val();
         var obj = {
             texto: descripcion,
             titulo: titulo,
             predecesor: situacion.predecesor,
-            id:parseInt(id)
+            id: parseInt(id)
 
         }
         console.log(obj)
         registrar(obj, "POST", "final");
+        eliminar();
     });
 
     $(".actualizarSituacion").click(function (e) {
+        l = 1;// variable de tutorial
+        
         var titulo = $("#titulo").val();
         var descripcion = $("#descripcion").val();
         var situacionActualizada = {
@@ -181,19 +199,22 @@ function crear(id) {
         console.log(situacionActualizada);
         console.log(header)
         registrar(situacionActualizada, "PUT", header);
+        desabilitarBoton();
+        eliminar();
     });
 }
 
-function eliminarSituacion(id){
+function eliminarSituacion(id) {
+    l = 4;// variable de tutorial
     let situacion = buscarNodo(parseInt(id));
-    if(situacion.opciones !== undefined){
-        header="situacion"
-    }else{
-        header="final"
+    if (situacion.opciones !== undefined) {
+        header = "situacion"
+    } else {
+        header = "final"
     }
 
     $.ajax({
-        url: "Situacion?id=" +parseInt(id),
+        url: "Situacion?id=" + parseInt(id),
         type: "DELETE",
         headers: {
             tipo: header
@@ -212,7 +233,7 @@ function eliminarSituacion(id){
             }
         },
         complete: function (result) {
-
+            salirTutotial();
         },
         error: function (result) {
             console.log(result);
@@ -244,14 +265,14 @@ function registrar(obj, metodo, header) {
                 console.log(result)
                 toastr.success(result.mensaje)
                 crearData();
-            
+
             } else {
                 console.log(result)
                 toastr.error(result.mensaje)
             }
         },
         complete: function (result) {
-
+            // desabilitarBoton();
         },
         error: function (result) {
             console.log(result);
@@ -267,4 +288,50 @@ function eliminar() {
 }
 
 
+
+function validarHistoria(nodo) {
+    if (nodo === undefined) {
+        nodo = data;
+    }
+    let opciones = nodo.opciones;
+    if (opciones !== undefined) {
+        if (opciones.length === 0) {
+            console.log('si servi');
+            return false;
+        }
+        for (let i = 0; i < opciones.length; i++) {
+            var opcion = opciones[i];
+            if (!validarHistoria(opcion)) {
+
+                let obj = {
+                    texto: opcion.texto,
+                    titulo: opcion.titulo,
+                    predecesor: opcion.predecesor,
+                    id: parseInt(opcion.id)
+                }
+                console.log(obj);
+                registrar(obj, "POST", "final");
+
+                return false;
+            }
+        }
+    }
+
+    return true;
+
+}
+function salirTutotial(){`
+enTutorial = false;`
+    let  cuadro= `<div class="full">
+    <div>
+      <div id="organigrama"></div>
+      <div id="ventana"></div>
+    </div>
+  </div>`
+    
+    let divorganigrama = $(".tutorial");
+    divorganigrama.remove();
+    $('#general').prepend(cuadro);
+
+}
 

@@ -2,24 +2,21 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contigo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/jquery.orgchart.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">     
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">     
+    <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">        
+    <link rel="stylesheet" href="css/navfooter.css">     
+    <link rel="stylesheet" href="css/normalize.css">     
+    <link rel="stylesheet" href="css/crearHistoria.css">     
+    <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
-    <link rel="stylesheet" href="css/Registro.css">
-    <link rel="stylesheet" href="css/crearHistoria.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap"
-        rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">     
+    <!-- Minified CRONOGRAMA CSS -->     
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 </head>
 
 <body>
@@ -28,51 +25,68 @@
             <h1>Crear historia</h1>
 
             <div class="Container1">
-                
+
                 <div id="Espacios" class="item">
-                    <input type="text"
-                        id="Nombre" class="Texto" placeholder="Nombre de la historia" name="Nombre">
+                    <input type="text" id="Nombre" class="Texto" placeholder="Nombre de la historia" name="Nombre">
                 </div>
                 <div id="Espacios">
-                    <textarea name="comentarios" id="Descripcion" class="Texto" rows="5" cols="30" placeholder="Descripción"></textarea>
-                    
+                    <textarea name="comentarios" id="Descripcion" class="Texto" rows="5" cols="30"
+                        placeholder="Descripción"></textarea>
+
                 </div>
-                <div id="Espacios">
-                    
-                    <label class="label1 Texto" for="img-uploader"> Subir imagen de la historia <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                      </svg>
-                      <p class="file-name"></p>
+                <div id="" class="espacioImagen">
+
+                    <label class="label1 Texto" for="img-uploader"> Subir imagen de la historia <svg
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-upload" viewBox="0 0 16 16">
+                            <path
+                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                            <path
+                                d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+                        </svg>
+                        <p class="file-name"></p>
                     </label>
-                    <input type="file" class="img-uploader"  id="img-uploader" min="0" max="5"  style="visibility:hidden;" name="opcionesInicio">
+                    <input type="file" class="img-uploader" id="img-uploader" min="0" max="5" style="visibility:hidden;"
+                        name="opcionesInicio">
                 </div>
-                
+
+                <div id="Espacios">
+
+                    <div id="cursos" class="credencial ">
+                        <select id="grados" name="grados" multiple="" class="ui search fluid dropdown ">
+                            <option value="1">Transición</option>
+                            <option value="2">Primero</option>
+                            <option value="3">Segundo</option>
+                            <option value="4">Tercero</option>
+                            <option value="5">Cuarto</option>
+                            <option value="6">Quinto</option>
+                            <option value="7">Sexto</option>
+                            <option value="8">Séptimo</option>
+                            <option value="9">Octavo</option>
+                            <option value="10">Noveno</option>
+                            <option value="11">Décimo</option>
+                            <option value="12">Once</option> |
+                        </select>
+                    </div>
+                </div>
                 <div id="boton">
                     <a>
-                    <input  type="button" class="Button" id="crearHistoria" value="Crear historia">
+                        <input type="button" class="Button" id="crearHistoria" value="Crear historia">
                     </a>
                 </div>
 
             </div>
-
-            
             <br>
         </div>
-
-
     </div>
 
 
-  
-    <script src="js/js_componentes/bootstrap.min.js"></script>
-    <script src="js/historias.js"></script>
-    <script src="js/situaciones.js"></script>
-    <script src="js/funciones.js"></script>
-    <script src="js/popup.js"></script>
-    <script src="js/img.js"></script>
-    <script src="js/template.js"></script>
-    
-</body>
-
+</body> 
+<script src="js/template.js"></script> 
 </html>
+<script src="js/funciones.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+<script src="js/historias.js"></script>   
+<script src="js/img.js"></script>         
+

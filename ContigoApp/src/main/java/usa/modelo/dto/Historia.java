@@ -11,6 +11,15 @@ public class Historia {
     private String descripcion;
     private String documentoCreador;
     private String urlImagen;
+    private String clasificacion [] ;
+
+    public String[] getClasificacion() {
+        return clasificacion;
+    }
+
+    public void setClasificacion(String[] clasificacion) {
+        this.clasificacion = clasificacion;
+    }
 
     public int getId() {
         return id;

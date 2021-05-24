@@ -38,6 +38,7 @@ public class Conexion extends IConexionBD{
     /**
      * Método de que permite obtener la conexión con la base de datos
      * @return la conexión con la base de datos
+..
      */
     @Override
     public Connection tomarConexion() {
