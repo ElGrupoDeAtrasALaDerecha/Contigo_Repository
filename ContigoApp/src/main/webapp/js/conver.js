@@ -285,7 +285,6 @@ function TraerOrador(conver, orador) {
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
-            debugger;
             personal = result.personales;
             colocarInfo(conver, orador, personal)
             if (result != "error") {
@@ -294,7 +293,6 @@ function TraerOrador(conver, orador) {
                 console.log("error");
             }
         }, complete: function (result) {
-            debugger;
         }, error: function (result) {
         }
     });
