@@ -349,7 +349,10 @@ function colocarInfo(array, orador, personal) {
     } else if (usuario === 2) {
        btnRegistrar.style.display = "none"
         text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
-    }
+    }else if (usuario === 3) {
+        btnRegistrar.style.display = "none"
+         text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
+     }
     $("#titulo").append(text);
     document.getElementById("banner2").style.background = "url(" + array.imagen + ") repeat";
 

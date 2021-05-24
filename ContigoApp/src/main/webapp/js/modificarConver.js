@@ -9,7 +9,7 @@ const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/miguel26697/image/upload
 const CLOUDINARY_UPLOAD_PRESET = 'wmruximj';
 var img
 var infogra
-
+var documento;
 imageUploader.addEventListener('change', (e) => {
     console.log(e)
     e.preventDefault();
@@ -114,9 +114,17 @@ $(document).ready(function () {
                 $("#cronograma").val(conversatorio.cronograma)
                 img = conversatorio.imagen
                 infogra = conversatorio.infografia
+                documento = conversatorio.orador
 
                 var text = ""
-
+                if ( usuario === 3){
+                   document.getElementById("Texto").disabled = true;
+                   document.getElementById("Descripcion").disabled = true;
+                   document.getElementById("Lugar").disabled = true;
+                   document.getElementById("cronograma").disabled = true;
+                   document.getElementById("img-uploader").disabled = true;
+                   document.getElementById("img-uploader2").disabled = true;
+                }
                 for (var i = 0; i < clasificacion.length; i++) {
                     console.log("hola")
                     text += '<a class="ui label transition visible" data-value="' + clasificacion[i].id + '" style="display: inline-block !important;">' + clasificacion[i].grado + '<i class="delete icon"></i></a>'
@@ -214,7 +222,6 @@ function ActualizarConverOrador() {
 
 
 function crearConversatorio(personal, metodo) {
-    var documento;
     console.log(getCookie("token"));
     for (var i = 0; i < personal.length; i++) {
         if (getCookie("token") == personal[i].token) {
