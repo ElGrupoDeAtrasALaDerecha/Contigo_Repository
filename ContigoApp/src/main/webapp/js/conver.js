@@ -310,7 +310,7 @@ function colocarInfo(array, orador, personal) {
         if (personal[i].documento === orador) {
             let bio = buscarBiografia(personal[i]);
             let txtBio="";
-            if(bio===undefined){
+            if(bio!==undefined){
                 txtBio=bio;
             }
             oradordiv = personal[i];
@@ -446,7 +446,15 @@ function ModificarConversatorio() {
  * @param {personal} personal 
  */
 function buscarBiografia(personal){
-    let info;
+    let info=personal.info;
+    if(info!==undefined){
+        for (let i = 0; i < info.length; i++) {
+            if(info[i].hasOwnProperty("biografia"))
+            return info[i].biografia;
+        }
+    }else{
+        return undefined;
+    }
 }
 
 
