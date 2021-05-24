@@ -4,126 +4,73 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
-    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
-    <link rel="stylesheet" href="css/normalize.css">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <!-- CDNs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <!-- style sheets -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/storyset.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/login.css">
     <title>Contigo</title>
 </head>
 <body>
-    <div class="row">
-        <div class="col " id="cover">
-            <!-- Imagen -->
-            <div  id="bk-color">
-
-            </div>
-        </div>
-        <section class="col box">
-            <div class="data">
-                <div class="title ">
-                    <h1>Contigo</h1>
+    <div class="img-bk2">   
+        <div class="img-over-color">
+            <nav>
+                <div class="back">
+                    <a href="index.html">
+                        <ion-icon name="chevron-back-outline"></ion-icon>
+                        Inicio
+                    </a>
+                </div>
+                <div class="users">
+                    <a href="login_inst.html">Institución</a>
+                    <a href="login_perca.html">Personal</a>
+                </div>
+            </nav> 
+            <div class="row box-1">
+                <div class="logo">
+                    <h1 class="title">Contigo</h1>
                     <p>Incondicionalmente contigo</p>
                 </div>
                 <div class="inputs">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="documento" placeholder=" ">
                         <label for="documento">Número de documento:</label>
-                      </div>
-                      <div class="form-floating mb-4">
+                    </div>
+                    <div class="form-floating mb-4">
                         <input type="password" class="form-control" id="contraseña" placeholder=" ">
                         <label for="contraseña">Contraseña:</label>
-                      </div>
-                      <div class="center">
+                    </div>
+                    <div class="get-psw">
                         <a href="#">¿Olvidaste tu contraseña?</a>
-                      </div>
+                    </div>
                 </div>
                 <div class="login-btns">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn btn-primary" id="ing_est">Ingresar</button>
+                            <button type="button" class="btn btn-outline-primary" id="sigin">Registrarse</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-outline-primary" id="sigin">Registrarse</button>
+                            <button type="button" class="btn btn-primary" id="ing_est">Ingresar</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
-    <footer id="footer">
-        <div id="superior">
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="#">Contacto</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Ayuda</a></li>
-            </ul>
-            <hr>
-        </div>
-        <table id="table-footer">
-            <tr>
-                <td id="Columna-footer">
-                    <div id="PrimeraColumna">
-                        <div>
-                            <span ><a href="index.html"><h2 id="contigo2">Contigo</h2></a></span>
-                        </div>
-                        <div id="iconos">
-                            <a href="#"><img class="facebook" src="Iconos/facebook.png"></a>
-                            <a href="#"><img class="instagram" src="Iconos/instagram.png"></a>
-                            <a href="#"><img class="linkedin" src="Iconos/linkedin.png"></a>
-                            <a href="#"><img class="youtube" src="Iconos/youtube.png"></a>
-                        </div>
-                    </div>
-                </td>
-                <td id="Columna-footer">
-                    <div id="SegundaColumna">
-                        <div>
-                            <span id="bold">Empresa</span>
-                        </div>
-                        <div>
-                            <span><a href="#">Terminos & Condiciones</a></span>
-                        </div>
-                        <div>
-                            <span><a href="#">Política de Privacidad</a></span>
-                        </div>
-                        <div>
-                            <span><a href="#">FAQS</a></span>
-                        </div>
-                        <div>
-                            <span><a href="ingresoPerca.html">Equipo</a></span>
-                        </div>
-                    </div>
-                </td>
-                <td id="Columna-footer">
-                    <div id="TercerColumna">
-                        <div>
-                            <span id="bold">About</span>
-                        </div>
-                        <div>
-                            <span><a href="#">Equipo</a></span>
-                        </div>
-                        <div>
-                            <span><a href="#">Blog</a></span>
-                        </div>
-                        <div>
-                            <span><a href="#">Contacto</a></span>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-        <div id="Inferior">
-            <div>
-                <span>Copyright © 2021 Contigo. Creado por El Grupo De Atrás A La Derecha</span>
-            </div>
-        </div>
-    </footer>
+    <footer></footer>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 </body>
 </html>
+<script src="js/footer.js"></script>
 <script src="js/funciones.js"></script>
 <script src="js/ingresa.js"></script>

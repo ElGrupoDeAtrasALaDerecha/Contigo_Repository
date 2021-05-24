@@ -1,176 +1,150 @@
-*,*:before, *:after{ 
-    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
-    box-sizing: border-box;
-    margin: 0 0;
-    padding: 0 0;
-}
-#menu{
-    display: none;
-}
-.navbar{
-    /* border: solid green 1px; */
-    background-color: transparent !important;
-    position: absolute;
-    width: 100%;
-}
-.navbar-nav{
-    margin: 0  auto;
-}
-.nav-link{
-    color: rgb(201, 201, 201) !important;
-    font-size: 18px !important;
-}
-.nav-link:hover{
-    color: white !important;
-}
-#contenedor{
-    background-image: url(../img/bk.png);
-    background-position: center center;
-    background-size: cover;
-    margin-bottom: 5%;
-}
-.bk_color{
-    background-color: #34343486;
-    min-height: 50vh;
-
-}
-h1{
-    color: white;
-    font-family: 'Kaushan Script';
-    font-size: 150px;
-    padding: 10% 0 5%;
-    text-align: center;
-    width: 100%;
-}
-#slogan{
-    color: white;
-    font-family: 'Open Sans', sans-serif;
-    font-style: italic;
-    font-size: 24px;
-    margin: 0 auto;
-    text-align: center;
-    width: 80%;
-}
-#box_btn{
-    text-align: center;
-    margin: 0  auto;
-    padding: 5% 0 10%;
-    width: 80%;
-}
-
-.btn-outline-dark{
-    border: 1px solid white;
-    border-radius: 10px;
-    color: white;
+/* Menú de registor e ingreso  */
+.btn-group .btn{
+    background-color: white;
+    border: none;
+    color: var(--primary);
     font-family: 'Open Sans', sans-serif;
     font-size: 18px;
+    font-weight: 600;
+    margin-right: 1%;
+}
+nav{
+    display: flex;
+    justify-content: flex-end;
+    padding: 2% 2%;
+}
+.dropdown-toggle::after{
+    color: var(--primary);
+}
+
+/*Banner de presentación  */
+#presentacion{
+    display: flex;
+    justify-content: center;
+}
+#presentacion h1{
+    font-size: 90px;
+}
+#presentacion .box-1,#presentacion .box-2{
+    width: 50%;
+}
+#presentacion .box-1{
+    /* padding-top: 3%; */
+    text-align: center;
+}
+#presentacion .box-1 p{
+    font-size: 20px;
     font-style: italic;
-    padding: 1% 3%;
-    width: 100%;
+    margin: 0 auto;
+    width: 70%;
 }
-.btn-outline-dark:hover{
-    background-color: #343434b9;
-    border-color: #fafafab9 ;
+#presentacion .box-1 button{
+    font-size: 20px;
+    margin-top: 7%;
+    width: 40%;
 }
-#space{
-    border: none;
-    pointer-events: none;
-    width: 5%;
+#presentacion .box-2{
+    margin: -3% 0;
+    padding: 0 0;
 }
-.see{
-    border: 1px solid red ;
+/* Banner servicios */
+#servicios{
+    background-color: var(--bk);
+    padding: 2% 10%;
 }
-#box_servicios{
-    color: #343434;
-    margin: 25% 20%;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    width: 80%;
+#servicios .col-2{
+    width: 15%;
+    text-align: right;
 }
-h2{
-    font-size: 38px;
-    letter-spacing: 5px;
-    padding-bottom: 7%;
+#servicios .row{
+    margin-top: 5%;
 }
-.row{
-    width: 100%;
+#servicios h2{
+    font-size: 50px;
+    font-weight: normal;
+    letter-spacing: 9px;
+    
 }
-#des_serv, #valor, #box_subs{
-    font-family: 'Open Sans', sans-serif;
+#servicios h3{
+    font-size: 30px;
     font-style: italic;
-    padding: 5% 1%;
+    margin-bottom: 2%;
 }
-#valor{
-    margin: 5% 0;
-}
-h3{
-    font-weight: bolder;
+#servicios p{
+    font-style: italic;
 }
 .img_serv{
     /* border: 1px solid red ; */
     height: auto;
-    width: 80%;
+    width: 40%;
 }
-.col-9{
-    padding-left: 10%;
+/* Banner inscribete */
+#inscribete{
+    padding: 3% 10%;
 }
-#valor{
-    background-color: #222831;
-    color: white;
-    font-weight: lighter;
+#inscribete h2{
+    font-size: 40px;
+    margin-bottom: 5%;
+}
+#inscribete p{
+    font-size: 20px;
+    font-style: italic;
+}
+#inscribete button{
+    width: 60%;
+}
+#inscribete img{
+    margin: 0 auto;
+    width: 70%;
+}
+#inscribete .img{
     text-align: center;
 }
-#box_subs{
-    font-style: normal;
-    margin: 0  auto;
-    min-height: 80vh;
-    width: 90%;
-}
-#box_subs hr{
-    background-color: #222831;
-    margin: 0 0 3%;
-    width: 15%;
-}
-#box_subs div {
-    /* border: 1px solid red ; */
-    text-align: center;
-}
-#box_subs button{
-    border-radius: 10px;
-    width: 30%;
-    margin: auto;
-}
-#about_us{
+
+/* Banner about */
+#about{
     background-image: url(../img/team.jpg);
     background-position: center center;
     background-size: cover;
     color: white;
     font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    text-align: center;
 }
-#about_us .row{
-    padding: 0 0 3% 10%;
+#about a{
+    text-decoration: none;
 }
-#about_us h2{
-    color: white;
+#about-cbk{
+    padding: 3% 0 7%
+}
+#about h2{
+    color:white ;
     font-family: 'Kaushan Script',cursive;
     font-size: 65px;
-    letter-spacing: normal;
-    padding-top: 5% ;
     text-align: center;
 }
-#about_us p{
+.our{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#people{
+    padding-top: 3%;
+    text-align: center;
+    width: 80%;
+}
+#about p{
     margin: 0 0;
 }
-#about_us a{
+#about a{
     color: rgb(207, 207, 207);
     font-style: italic;
 }
-#about_us a:hover{
+#about a:hover{
     color: white;
 }
-#about_us .row + .row{
+#about .row + .row{
     margin-top: 3%;
+}
+.pic-team{
+    height: auto;
+    width: 60%;
 }
