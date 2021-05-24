@@ -45,8 +45,10 @@ function pintarHistorias() {
                     <div id="${historia.id}" class="item">
                     <div id="opacityImg" class="opacityImg">
                         <div id="OpcBotones" class="OpcBotones">
-                            <a id="OpcBotonesVer" class="OpcBotonesVer" onClick="verHistoria()">Ver</a>
-                            <a id="editar" class="OpcBotonesEditar" onclick="redirigirEdit()">Editar</a>
+                            <a id="OpcBotonesVer" class="OpcBotonesVer" onClick="verHistoria()">
+                            <ion-icon name="eye"></ion-icon> <span class="Ver">Ver</span></a>
+                            <a id="editar" class="OpcBotonesEditar" onclick="redirigirEdit()">
+                            <ion-icon name="create"></ion-icon> Editar</a>
                         </div>
                         <div id="bottom" class="bottom" >
                             <a  class="textTitle">${historia.titulo}
