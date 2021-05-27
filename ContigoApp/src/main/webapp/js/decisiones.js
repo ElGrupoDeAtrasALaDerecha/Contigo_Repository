@@ -2,6 +2,8 @@ var c = 1;
 
 var arbol;
 var idHistoria;
+const params = new URLSearchParams(window.location.search)
+var idHistoria;
 $(document).ready(function () {
     idHistoria = getCookie("idHistoria");
     if(idHistoria===""){
@@ -10,9 +12,10 @@ $(document).ready(function () {
             alert("inválido");
             window.location.assign("index.html");
         }
-    }
+        
     cargarHistoria()
     cargarSituacion()
+    }
 });
 function cargarHistoria() {
     $.ajax({
