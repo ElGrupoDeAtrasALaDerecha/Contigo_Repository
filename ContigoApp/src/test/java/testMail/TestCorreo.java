@@ -1,8 +1,5 @@
 package testMail;
 
-import usa.adapter.CorreoConversatorio;
-import usa.adapter.CorreoInscripcion;
-import usa.adapter.CorreoProxy;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;

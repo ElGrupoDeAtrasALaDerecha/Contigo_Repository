@@ -2,7 +2,6 @@ package usa.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,47 +16,51 @@ import usa.modelo.dao.EstadisticasBtnPanicoDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoConversatorios;
 import usa.modelo.dao.IGradoDao;
-import usa.modelo.dto.EstadisticasBtnPanico;
-import usa.utils.Utils;
-/**/
+
 /**
+ * Servlet de estadísticas.
  *
- * @author
  */
 @WebServlet(name = "EstadisticasServlet", urlPatterns = {"/Estadisticas"})
 public class EstadisticasServlet extends HttpServlet {
 
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
 
+    /**
+     * Método doGet
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            response.setContentType("application/json;charset=UTF-8");
-            JSONObject json = new JSONObject();
-            String parametro = request.getParameter("tipoConsulta");
-            if(parametro.equals("PorGrado")){
-                IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
-                String grado = request.getParameter("grado");
-                IDaoConversatorios daoConversatorio= (IDaoConversatorios)dao;
-                LinkedList<JSONArray> arreglos = daoConversatorio.consultarPorGrado(grado);
-                JSONObject conversatorios = new JSONObject();
-                conversatorios.put("titulos",arreglos.get(0));
-                conversatorios.put("inscritos",arreglos.get(1));
-                dao = (IDao)factoryDao.obtener("GradoDao");
-                IGradoDao gradoDao= (IGradoDao)dao;
-                JSONObject boton = new JSONObject();
-                JSONArray arregloEP = gradoDao.consultarBtnPorGrado(grado);
-                boton.put("datos",arregloEP);
-                json.put("conversatorios", conversatorios);
-                json.put("boton", boton);
-                PrintWriter out = response.getWriter();
-                out.print(json.toString());
-             }else if(parametro.equals("PorEstudiante")){
-                 
-                PrintWriter out = response.getWriter();
-                out.print(json.toString());
-             }                       
-            else if (parametro.equals("ClicksPorGrado")) {
+        response.setContentType("application/json;charset=UTF-8");
+        JSONObject json = new JSONObject();
+        String parametro = request.getParameter("tipoConsulta");
+        if (parametro.equals("PorGrado")) { //Consulta de estadísticas por grado
+            IDao dao = (IDao) factoryDao.obtener("ConversatoriosDao");
+            String grado = request.getParameter("grado");
+            IDaoConversatorios daoConversatorio = (IDaoConversatorios) dao;
+            LinkedList<JSONArray> arreglos = daoConversatorio.consultarPorGrado(grado);
+            JSONObject conversatorios = new JSONObject();
+            conversatorios.put("titulos", arreglos.get(0));
+            conversatorios.put("inscritos", arreglos.get(1));
+            dao = (IDao) factoryDao.obtener("GradoDao");
+            IGradoDao gradoDao = (IGradoDao) dao;
+            JSONObject boton = new JSONObject();
+            JSONArray arregloEP = gradoDao.consultarBtnPorGrado(grado);
+            boton.put("datos", arregloEP);
+            json.put("conversatorios", conversatorios);
+            json.put("boton", boton);
+            PrintWriter out = response.getWriter();
+            out.print(json.toString());
+        } else if (parametro.equals("PorEstudiante")) { //Consulta de estadísticas por estudiante
+
+            PrintWriter out = response.getWriter();
+            out.print(json.toString());
+        } else if (parametro.equals("ClicksPorGrado")) {
             IDao dao = (IDao) factoryDao.obtener("EstadisticasBtnPanicoDao");
             EstadisticasBtnPanicoDao estdao = (EstadisticasBtnPanicoDao) dao;
             LinkedList<JSONArray> estadisticas = estdao.listarClicksPorGrado();
@@ -67,12 +70,6 @@ public class EstadisticasServlet extends HttpServlet {
             out.print(json.toString());
 
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 
     @Override
