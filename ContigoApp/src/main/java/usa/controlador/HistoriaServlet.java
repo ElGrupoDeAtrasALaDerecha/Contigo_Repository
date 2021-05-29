@@ -13,7 +13,9 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IHistoriasDao;
+import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.Historia;
+import usa.modelo.dto.PersonalCalificado;
 import usa.modelo.dto.Situacion;
 import usa.utils.Utils;
 
@@ -79,8 +81,11 @@ public class HistoriaServlet extends HttpServlet {
             out.print(json.toString());
             return;
         }
+        IPersonalCalificadoDao personalDao = (IPersonalCalificadoDao) personalCalificadoDao;
+        PersonalCalificado personal = personalDao.consultarPorToken(token);
         System.out.println(mensaje);
         Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
+        historia.setDocumentoCreador(personal.getDocumento());
         IHistoriasDao daoHis = (IHistoriasDao) dao;
         if (dao.crear(historia)) {
             json.put("tipo", "ok");

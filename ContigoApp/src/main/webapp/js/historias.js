@@ -1,17 +1,17 @@
 $(document).ready(function () {
     usuario = getCookie("tipoUsuario");
     token = getCookie("token");
-    if(usuario!=="2"||token===undefined){
+    if (usuario !== "2" || token === undefined) {
         alert("No autorizado");
         window.location.assign("index.html");
     }
     $('.ui.dropdown').dropdown();
-    $('#crearHistoria').prop('disabled',true);
+    $('#crearHistoria').prop('disabled', true);
 });
 
 
-$("#img-uploader").change(function(){
-    filename=this.files[0].filename
+$("#img-uploader").change(function () {
+    filename = this.files[0].filename
     console.log(filename);
 })
 
@@ -37,7 +37,7 @@ imageUploader.addEventListener('change', (e) => {
         processData: false,
         contentType: false,
         beforeSend: function () {
-            let txt=`<div class="ui active inverted dimmer">
+            let txt = `<div class="ui active inverted dimmer">
             <div class="ui indeterminate text loader">Cargando imagen</div>
           </div>`;
             $(".espacioImagen").append(txt);
@@ -53,7 +53,7 @@ imageUploader.addEventListener('change', (e) => {
         },
         complete: function (result) {
             $('.ui.active.inverted.dimmer').remove();
-            $('#crearHistoria').prop('disabled',false);
+            $('#crearHistoria').prop('disabled', false);
         },
         error: function (result) {
         }
@@ -61,7 +61,7 @@ imageUploader.addEventListener('change', (e) => {
 });
 
 
-$("#crearHistoria").click(function(){
+$("#crearHistoria").click(function () {
     crearHistoria();
 })
 function crearHistoria() {
@@ -71,7 +71,6 @@ function crearHistoria() {
     clasifica = $("#grados").val();
 
     informacion = {
-        documentoCreador: "1000853623",
         titulo: nombre,
         descripcion: descripcion,
         urlImagen: img,
@@ -85,10 +84,10 @@ function crearHistoria() {
         type: "POST",
         dataType: "json",
         data: JSON.stringify(informacion),
-        headers:{
-            token:getCookie("token"),
+        headers: {
+            token: getCookie("token"),
         },
-        
+
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {
         },
@@ -96,8 +95,8 @@ function crearHistoria() {
             console.log(result);
             if (result != "error") {
                 console.log(result);
-                setCookie('idHistoria',result.idHistoria, 0.1)
-                $(location).attr('href', 'situaciones.html?id='+getCookie("idHistoria"));
+                setCookie('idHistoria', result.idHistoria, 0.1)
+                $(location).attr('href', 'situaciones.html?id=' + getCookie("idHistoria"));
             } else {
                 console.log("error");
             }
@@ -110,13 +109,13 @@ function crearHistoria() {
 
 }
 
-function actualizarGradosHistorias(){
+function actualizarGradosHistorias() {
     clasifica = $("#grados").val();
     $.ajax({
         url: "Historia",
         type: "DELETE",
-        headers:{
-            id:getCookie("idHistoria"),
+        headers: {
+            id: getCookie("idHistoria"),
             clasificacion: clasifica
         },
         contentType: "JSON application/json charset=utf-8",

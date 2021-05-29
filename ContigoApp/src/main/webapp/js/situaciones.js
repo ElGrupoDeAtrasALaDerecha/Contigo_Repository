@@ -3,37 +3,6 @@ var historia;
 var situaciones;
 
 
-window.onload = function obtenerhisotia() {
-
-
-    $.ajax({
-        url: "Historia?id=" + idHistoria,
-        type: "GET",
-        dataType: "json",
-        success: function (result, textStatus, request) {
-            if (result != "error") {
-                console.log(result);
-                historia = result.historia;
-                //document.getElementById('tituloHistoria').innerHTML = historia.titulo; 
-            } else {
-                console.log("error");
-            }
-        },
-        complete: function (result) {
-        },
-        error: function (result) {
-
-        }
-
-    });
-
-}
-
-
-$(document).ready(function () {
-
-});
-
 function tutorial() {
     let texto = '';
 }
@@ -305,17 +274,12 @@ function validarHistoria(nodo) {
 }
 
 function salirTutotial() {
+    delete_cookie('idHistoria');
     enTutorial = false;
-    let cuadro = `<div class="full">
-    <div>
-      <div id="organigrama"></div>
-      <div id="ventana"></div>
-    </div>
-  </div>`
-
-    let divorganigrama = $(".tutorial");
-    divorganigrama.remove();
-    $('#general').prepend(cuadro);
+    let divorganigrama = $(".full");
+    let divtutorial = $(".tutorial");
+    divtutorial.remove();
+    $('#general').prepend(divorganigrama);
 
 }
 
@@ -325,7 +289,7 @@ $("#validar").click(function () {
     }
 });
 
-$("#guardar").click(function(){
+$("#guardar").click(function () {
     establecerFinales();
 });
 
@@ -341,7 +305,7 @@ function establecerFinales(nodo) {
                 establecerFinales(opcion);
             }
         } else {
-            if(nodo !== data){
+            if (nodo !== data) {
                 let obj = {
                     texto: nodo.texto,
                     titulo: nodo.titulo,
@@ -350,11 +314,11 @@ function establecerFinales(nodo) {
                 }
                 console.log(obj);
                 registrar(obj, "POST", "final");
-            }else{
+            } else {
                 toastr.warning('No se puede establecer la situacion inicial como final')
-                
+
             }
-            
+
         }
     }
 }
