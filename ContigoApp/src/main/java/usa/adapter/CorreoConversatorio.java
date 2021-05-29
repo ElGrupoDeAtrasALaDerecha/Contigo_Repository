@@ -31,10 +31,7 @@ public class CorreoConversatorio extends Email {
     @Override
     public void enviarCorreo(String receptor) {
         AbstractFactory factoryDao = Producer.getFabrica("DAO");
-        IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
-
-        Estudiante e = (Estudiante) dao.consultar(estudianteTieneConversatorio.getIdEstudiante());
-        dao = (IDao) factoryDao.obtener("ConversatorioDao");
+        IDao dao =(IDao) factoryDao.obtener("ConversatorioDao");
         Conversatorio c = (Conversatorio) dao.consultar(String.valueOf(estudianteTieneConversatorio.getIdConversatorio()));
         dao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
         PersonalCalificado p = (PersonalCalificado) dao.consultar(c.getOrador());
