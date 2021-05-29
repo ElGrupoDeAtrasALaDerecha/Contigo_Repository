@@ -1,0 +1,82 @@
+:root{
+    --primary:#407bff;
+    --secondary:#203e80;
+    --light: #ced4da;
+    --light2: #c5d7ff;
+    --succ: #3bd884;
+    --warn: #ffc107;
+    --error: #f64747;
+    --text: #253036;
+    --bk: #ebebeb;
+    --textForm:#444444;
+}
+*,*:before, *:after{ 
+    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
+    box-sizing: border-box;
+    color: var(--textForm);
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 0;
+    padding: 0 0;
+}
+*{
+    background-color: #ffffff;
+}
+.logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.logo--contigo{
+    font-family: 'Kaushan Script', cursive;
+    font-size: 69px;
+}
+.logo--lema{
+    font-size: 20px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+    border: 1px var(--light) solid;
+    border-radius: 17px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+}
+.container--datos{
+    display: flex;
+    flex-direction: row;
+    flex: 1 0;
+    justify-content: center;
+    margin-left: 6%;
+}
+.back{
+    margin-top: 24px;
+    width: 100px;
+}
+.back a{
+    color: #444444;
+    text-decoration: none;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 20px;
+}
+.back a:hover{
+    color: var(--light);
+}
+.container--text{
+    font-size: 25px;
+    margin-top: 28px;
+    margin-left: 6%;
+}
+.datos{
+    
+}
+.box1Table{
+    display: flex;
+    flex-direction: row;
+}
+.img--side{
+    width: 90%;
+}
