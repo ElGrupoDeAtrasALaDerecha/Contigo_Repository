@@ -22,7 +22,7 @@ public class CorreoConversatorio extends Email {
     @Override
     public void enviarCorreo(String receptor) {
         try {
-            String motivo="";
+            String motivo = "";
             if (estudianteTieneConversatorio.getEstado() == 1) {
                 cuerpo = "<!DOCTYPE html>\n"
                         + "<html lang=\"es\">\n"
@@ -64,6 +64,7 @@ public class CorreoConversatorio extends Email {
                         + "                                </div>\n"
                         + "                                <div class=\"description\">\n"
                         + "                                    <p>Especialista en dar consejos</p>\n"
+                        + "                                    <p>PhD en ser buen amigo</p>\n"
                         + "                                </div>\n"
                         + "                                <div class=\"extra\">\n"
                         + "                                    <b>Lugar: </b> \n"
@@ -100,7 +101,7 @@ public class CorreoConversatorio extends Email {
                         + "\n"
                         + "\n"
                         + "</html>";
-                motivo="Confirmación de inscripción";
+                motivo = "Confirmación de inscripción";
             }
             Correo.enviarCorreo(receptor, motivo, cuerpo);
         } catch (IOException | MessagingException ex) {
