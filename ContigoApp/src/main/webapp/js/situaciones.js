@@ -5,7 +5,7 @@ var situaciones;
 
 window.onload = function obtenerhisotia() {
 
-   
+
     $.ajax({
         url: "Historia?id=" + idHistoria,
         type: "GET",
@@ -26,7 +26,7 @@ window.onload = function obtenerhisotia() {
         }
 
     });
-   
+
 }
 
 
@@ -180,7 +180,7 @@ function crear(id) {
 
     $(".actualizarSituacion").click(function (e) {
         l = 1;// variable de tutorial
-        
+
         var titulo = $("#titulo").val();
         var descripcion = $("#descripcion").val();
         var situacionActualizada = {
@@ -227,7 +227,7 @@ function eliminarSituacion(id) {
             }
         },
         complete: function (result) {
-            if(enTutorial){
+            if (enTutorial) {
                 salirTutotial();
             }
         },
@@ -292,42 +292,68 @@ function validarHistoria(nodo) {
     let opciones = nodo.opciones;
     if (opciones !== undefined) {
         if (opciones.length === 0) {
-            console.log('si servi');
             return false;
         }
         for (let i = 0; i < opciones.length; i++) {
             var opcion = opciones[i];
             if (!validarHistoria(opcion)) {
-
-                let obj = {
-                    texto: opcion.texto,
-                    titulo: opcion.titulo,
-                    predecesor: opcion.predecesor,
-                    id: parseInt(opcion.id)
-                }
-                console.log(obj);
-                registrar(obj, "POST", "final");
-
                 return false;
             }
         }
     }
-
     return true;
-
 }
-function salirTutotial(){
-enTutorial = false;
-    let  cuadro= `<div class="full">
+
+function salirTutotial() {
+    enTutorial = false;
+    let cuadro = `<div class="full">
     <div>
       <div id="organigrama"></div>
       <div id="ventana"></div>
     </div>
   </div>`
-    
+
     let divorganigrama = $(".tutorial");
     divorganigrama.remove();
     $('#general').prepend(cuadro);
 
 }
 
+$("#validar").click(function () {
+    if (!validarHistoria()) {
+        toastr.error('Hay situaciones sin finales')
+    }
+});
+
+$("#guardar").click(function(){
+    establecerFinales();
+});
+
+function establecerFinales(nodo) {
+    if (nodo === undefined) {
+        nodo = data;
+    }
+    let opciones = nodo.opciones;
+    if (opciones !== undefined) {
+        if (opciones.length !== 0) {
+            for (let i = 0; i < opciones.length; i++) {
+                let opcion = opciones[i];
+                establecerFinales(opcion);
+            }
+        } else {
+            if(nodo !== data){
+                let obj = {
+                    texto: nodo.texto,
+                    titulo: nodo.titulo,
+                    predecesor: nodo.predecesor,
+                    id: parseInt(nodo.id)
+                }
+                console.log(obj);
+                registrar(obj, "POST", "final");
+            }else{
+                toastr.error('No se puede establecer la situacion inicial como final')
+            }
+            
+        }
+    }
+}
