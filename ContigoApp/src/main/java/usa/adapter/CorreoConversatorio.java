@@ -4,7 +4,16 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
+import usa.factory.AbstractFactory;
+import usa.factory.Producer;
+import usa.modelo.dao.IDao;
+import usa.modelo.dto.Conversatorio;
+import usa.modelo.dto.Estudiante;
 import usa.modelo.dto.EstudianteConversatorio;
+import usa.modelo.dto.PersonalCalificado;
+import usa.modelo.dto.decorador.Biografia;
+import usa.modelo.dto.decorador.Especialidad;
+import usa.modelo.dto.decorador.IInformacion;
 import usa.utils.Correo;
 
 /**
@@ -21,24 +30,32 @@ public class CorreoConversatorio extends Email {
 
     @Override
     public void enviarCorreo(String receptor) {
+        AbstractFactory factoryDao = Producer.getFabrica("DAO");
+        IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
+
+        Estudiante e = (Estudiante) dao.consultar(estudianteTieneConversatorio.getIdEstudiante());
+        dao = (IDao) factoryDao.obtener("ConversatorioDao");
+        Conversatorio c = (Conversatorio) dao.consultar(String.valueOf(estudianteTieneConversatorio.getIdConversatorio()));
+        dao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
+        PersonalCalificado p = (PersonalCalificado) dao.consultar(c.getOrador());
+        
+        
         try {
             String motivo = "";
             if (estudianteTieneConversatorio.getEstado() == 1) {
-                cuerpo = "<!DOCTYPE html>\n"
-                        + "<html lang=\"es\">\n"
-                        + "\n"
-                        + "<head>\n"
-                        + "    <meta charset=\"utf-8\">\n"
-                        + "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-                        + "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css\">\n"
-                        + "    \n"
-                        + "    <link href=\"https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap\" rel=\"stylesheet\">\n"
-                        + "    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">\n"
-                        + "    <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">\n"
-                        + "    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\n"
-                        + "    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js\"></script>\n"
-                        + "</head>\n"
-                        + "\n"
+                String infoAdicional="";
+                for (IInformacion info : p.getInfo()) {
+                    if(info instanceof Biografia){
+                        Biografia b = (Biografia) info;
+                        infoAdicional+="<p> <b>"
+                                + "Biografía: </b> "+b.getBiografia()+"</p>";
+                    }else if(info instanceof Especialidad){
+                        Especialidad esp = (Especialidad) info;
+                        infoAdicional +="<p><b>"
+                                + "Especialidad: </b> "+esp.getEspecialidad()+"</p>";
+                    }
+                }
+                cuerpo = ""
                         + "<body>\n"
                         + "\n"
                         + "    <div class=\"ui grid\">\n"
@@ -55,26 +72,18 @@ public class CorreoConversatorio extends Email {
                         + "                    <div class=\"ui items\">\n"
                         + "                        <div class=\"item\">\n"
                         + "                            <div class=\"image\">\n"
-                        + "                                <img src=\"https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg\">\n"
+                        //+ "                                <img src=\""+p.getImagen()+">\n"
                         + "                            </div>\n"
                         + "                            <div class=\"content\">\n"
-                        + "                                <a class=\"header\">Inteligencia Emocional</a>\n"
+                        + "                                <a class=\"header\">"+c.getTitulo()+"</a>\n"
                         + "                                <div class=\"meta\">\n"
-                        + "                                    <span>Por <a>Pedro Pataquiva</a></span>\n"
+                        + "                                    <span>Por <a>"+p.getPrimerNombre()+" "+p.getPrimerApellido()+"</a></span>\n"
                         + "                                </div>\n"
                         + "                                <div class=\"description\">\n"
-                        + "                                    <p>Especialista en dar consejos</p>\n"
-                        + "                                    <p>PhD en ser buen amigo</p>\n"
+                        + "                                    "+infoAdicional
                         + "                                </div>\n"
                         + "                                <div class=\"extra\">\n"
-                        + "                                    <b>Lugar: </b> \n"
-                        + "                                    Reunión de zoom:\n"
-                        + "                                    \n"
-                        + "                                    <a href=\"https://zoom.us/j/2743259095?pwd=Ny9oTzVBb1I2R0k3OFE1N3BrVVJmZz09\n"
-                        + "                                    \">Click aquí</a> <br>                                     \n"
-                        + "                                    ID de reunión: 274 325 9095 <br>\n"
-                        + "                                    \n"
-                        + "                                    Contraseña: 2xzJwe\n"
+                        + "                                    <b>Lugar: </b> "+c.getLugar()
                         + "                                </div>\n"
                         + "                            </div>\n"
                         + "                        </div>\n"
@@ -102,6 +111,15 @@ public class CorreoConversatorio extends Email {
                         + "\n"
                         + "</html>";
                 motivo = "Confirmación de inscripción";
+            } else if (estudianteTieneConversatorio.getEstado() == 2) {
+                cuerpo = "<body>\n"
+                        + "\n"
+                        + "    <h1>Usted ha cancelado el registro al conversatorio: "+c.getTitulo()+"</h1>\n"
+                        + "    \n"
+                        + "    <h3>Si cree que se trate de un error, comuníquese con nosotros.</h3>\n"
+                        + "\n"
+                        + "</body>";
+                motivo = "Cancelación de inscripción";
             }
             Correo.enviarCorreo(receptor, motivo, cuerpo);
         } catch (IOException | MessagingException ex) {

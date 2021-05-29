@@ -22,7 +22,7 @@ public class TestCorreo {
         dao= (IDao) factoryDao.obtener("EstudianteDao");
         e=(Estudiante) dao.consultar(estudianteTieneConversatorio.getIdEstudiante());
         ObservadorEstudianteConversatorio observador = new ObservadorEstudianteConversatorio(estudianteTieneConversatorio);
-        estudianteTieneConversatorio.setEstado(1);
+        estudianteTieneConversatorio.setEstado(2);
         
     }
 }
