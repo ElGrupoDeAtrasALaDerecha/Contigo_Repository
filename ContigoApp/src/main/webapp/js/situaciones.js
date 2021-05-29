@@ -351,8 +351,7 @@ function establecerFinales(nodo) {
                 console.log(obj);
                 registrar(obj, "POST", "final");
             }else{
-                toastr.error('No se puede establecer la situacion inicial como final')
-                
+                toastr.warning('No se puede establecer la situacion inicial como final')
             }
             
         }
