@@ -352,6 +352,7 @@ function establecerFinales(nodo) {
                 registrar(obj, "POST", "final");
             }else{
                 toastr.warning('No se puede establecer la situacion inicial como final')
+                
             }
             
         }
