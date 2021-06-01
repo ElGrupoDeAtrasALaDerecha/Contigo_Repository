@@ -11,18 +11,17 @@ import usa.modelo.dto.Institucion;
 import java.sql.*;
 
 /**
- *
- * @author santi
+ * Clase de objeto de acceso a datos de las intituciones
+ * @author Santiago Cáceres y Santiago Pérez
  */
-public class InstitucionDao implements IDao<Institucion> {
-/**/
+public class InstitucionDao implements IInstitucionDao {
     PreparedStatement pat;
     Statement stmt; 	            
     ResultSet result;
     /**
-     * 
-     * @param ins
-     * @return 
+     * Método que permite registrar los datos de una institución
+     * @param ins que es un objeto con los datos de una institución
+     * @return verdadero si se crea y falso si no
      */
     @Override
     public boolean crear(Institucion ins) {
@@ -93,6 +92,11 @@ public class InstitucionDao implements IDao<Institucion> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Método que permite listar todas las intituciones registradas.
+     * Se realiza una consulta a la base de datos y los guarda en un objeto LinkedList
+     * @return una lista con las instituciones registradas
+     */
     @Override
     public LinkedList<Institucion> listarTodos() {
         LinkedList<Institucion> instituciones = new LinkedList<Institucion>();
@@ -169,4 +173,37 @@ public class InstitucionDao implements IDao<Institucion> {
         }
         return ins;
     }
+
+    @Override
+    public Institucion consultarPorCorreo(String correo) {
+        Institucion institucion = null;
+        try {
+            String sql = "select * from institucion where correo = \"" + correo +");";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            if(result.next()){
+                institucion = new Institucion();
+                institucion.setId(result.getInt("id"));
+                institucion.setIdMunicipio(result.getInt("MUNICIPIO_id"));
+                //int meto_pago = result.getInt("METODO_PAGO_id");//falta en el fornt 
+                institucion.setNombre(result.getString("nombre"));
+                institucion.setCorreo(result.getString("correo"));
+                institucion.setDireccion(result.getString("direccion"));
+                institucion.setTipoInstitucion(result.getBoolean("tipoInstitucion"));
+                //boolean calen = result.getBoolean("calendario"); //falta en front
+                institucion.setBarrio(result.getString("barrio"));
+                institucion.setTelefono(result.getString("telefono"));
+                institucion.setContraseña(result.getString("contraseña"));
+                institucion.setPagina(result.getString("web")); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return institucion;
+    }
+
+    
+    
+    
+    
 }

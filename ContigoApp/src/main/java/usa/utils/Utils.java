@@ -98,7 +98,7 @@ public class Utils {
      * @return un codigo
      */
     public static String crearCodigoRecuperacion() {
-        return GeneradorCodigos.getCodigo("N-M-m", 7);
+        return GeneradorCodigos.getCodigo("N-M-m", 13);
     }
     
     /**

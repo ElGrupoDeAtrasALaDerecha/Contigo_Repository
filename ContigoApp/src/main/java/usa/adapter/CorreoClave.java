@@ -1,25 +1,28 @@
 package usa.adapter;
 
-import usa.modelo.dao.IDao;
+import usa.modelo.dto.Institucion;
+import usa.modelo.dto.Persona;
 
 /**
  * @author Valeria Bermúdez, Laura Blanco, Santiago Cáceres, Camila Fernández,
  * Andrés López, Natalia Montenegro, Santiago Pérez y Miguel Rippe
  */
 public class CorreoClave {
-    private String codigo;
-    private IDao daoCodigoRec;
-    
-    public String generarLink(String codigo){
-        return "ContigoApp/Recuperar?code="+codigo;
+
+    private final String codigo;
+    private final Object o;
+
+    public CorreoClave(String codigo, Object o) {
+        this.codigo = codigo;
+        this.o = o;
     }
-    /**
-     * Método que valida códigos
-     * @param correo
-     * @return verdadero si no existe un código y falso si ya se solicitó
-     */
-    public boolean validarCodigoExistente(String correo){
-        //Aquí se 
-        return true;
+
+    public String generarLink() {
+        if (o instanceof Persona) {
+            return "http://localhost:8080/ContigoApp/recuperarContraseñaPersona.html?codigo=" + codigo;
+        } else if (o instanceof Institucion) {
+            return "http://localhost:8080/ContigoApp/recuperarContraseñaInstitucion.html?codigo=" + codigo;
+        }
+        return "";
     }
 }
