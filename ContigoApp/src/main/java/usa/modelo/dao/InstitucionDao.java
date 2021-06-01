@@ -178,7 +178,7 @@ public class InstitucionDao implements IInstitucionDao {
     public Institucion consultarPorCorreo(String correo) {
         Institucion institucion = null;
         try {
-            String sql = "select * from institucion where correo = \"" + correo +");";
+            String sql = "select * from institucion where correo = \"" + correo +"\";";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             if(result.next()){

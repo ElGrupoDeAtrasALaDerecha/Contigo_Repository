@@ -29,7 +29,7 @@ where institucion_id=1;
 
 update peticion_contrasena_persona 
 set valido=false
-where persona_documento="1000853623";
+where persona_documento="1000853623" and valido=true;
 
 update persona as p 
 set p.contraseña=sha("password")

@@ -25,6 +25,8 @@ import usa.utils.Utils;
  * Servlet para recuperación de contraseña para instituciones
  *
  * @author Santiago Pérez
+ * @version 1.0
+ * @since 2021-05-31
  */
 @WebServlet(name = "RecuperarContraseña", urlPatterns = {"/Password"})
 public class RecuperarContraseñaServlet extends HttpServlet {

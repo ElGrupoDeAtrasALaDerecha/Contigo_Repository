@@ -16,13 +16,11 @@ public class CorreoClave {
         this.codigo = codigo;
         this.o = o;
     }
-
+    /**
+     * Método que genera el link de recuperación de contraseña
+     * @return un string con el link de recuperación de contraseña
+     */
     public String generarLink() {
-        if (o instanceof Persona) {
-            return "http://localhost:8080/ContigoApp/recuperarContraseñaPersona.html?codigo=" + codigo;
-        } else if (o instanceof Institucion) {
-            return "http://localhost:8080/ContigoApp/recuperarContraseñaInstitucion.html?codigo=" + codigo;
-        }
-        return "";
+        return "http://localhost:8080/ContigoApp/recuperarContraseña.html?codigo=" + codigo;
     }
 }

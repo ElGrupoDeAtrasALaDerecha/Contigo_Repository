@@ -87,7 +87,7 @@ public class RecuperacionDao implements IRecuperacionDao {
         PreparedStatement pat;
         String sql = "update peticion_contrasena_persona \n"
                 + "set valido=false\n"
-                + "where persona_documento=\"" + persona.getDocumento() + "\" ans valido=true;";
+                + "where persona_documento=\"" + persona.getDocumento() + "\" and valido=true;";
         try {
             pat = conn.prepareStatement(sql);
             pat.executeUpdate();
