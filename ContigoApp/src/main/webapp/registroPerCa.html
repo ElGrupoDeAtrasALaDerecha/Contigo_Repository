@@ -49,74 +49,99 @@
         <h3 class="container--text">Regístrate para brindar un gran apoyo</h3>
         <section class="container--datos">
             <div id="Datos">
-                
+
                 <form action="">
                     <section id="table-datos">
                         <div class="box1Table">
                             <div class="box1--section1">
-                                <div id="Espacios">
-                                    <input type="text" id="primerNombre" class="Texto" placeholder="Primer nombre"
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control Texto" id="primerNombre" placeholder=" "
                                         name="PrimerNombre" required>
+                                    <label for="contraseña" class="label">Primer nombre:</label>
                                 </div>
-                                <div id="Espacios">
-                                    <input type="text" id="primerApellido" class="Texto" placeholder="Primer apellido"
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control Texto" id="primerApellido" placeholder=" "
                                         name="PrimerApellido" required>
+                                    <label for="contraseña" class="label">Primer apellido:</label>
                                 </div>
-                                <div id="Espacios">
-                                    <input type="text" id="documento" class="Texto" placeholder="C.C" name="C.C" required>
-                                </div>
-                                <div id="Espacios">
-                                    <input type="date" id="fecha" class="Texto" placeholder="Fecha de nacimiento: dd/MM/AAAA"
-                                        name="FechaNacimiento" required>
-                                </div>
-                                <div id="Espacios">
-                                    <input type="password" id="contraseña" class="Texto" placeholder="Contraseña"
-                                        name="password" required>
+                                <div class="Container--Documento">
+                                    <div>
+                                        <select id="tipoDocumento" class="TipoDocumento Texto3">
+                                            <option value="Tipo">Tipo</option>
+                                            <option value="C.C">C.C</option>
+                                        </select>
+                                    </div>
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control Texto2" id="documento" placeholder=" "
+                                        name="C.C" required>
+                                    <label for="contraseña" class="label">Número de identificación:</label>
                                 </div>
                             </div>
+                                <div class="form-floating mb-4">
+                                    <input type="date" class="form-control Texto" id="fecha" placeholder=" "
+                                        name="FechaNacimiento" required>
+                                    <label for="contraseña" class="label">Fecha de nacimiento:</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input type="password" class="form-control Texto" id="contraseña" placeholder=" "
+                                        name="password">
+                                    <label for="contraseña" class="label">Contraseña:</label>
+                                </div>
+
+                            </div>
                             <div class="box1--section2">
-                                <div id="Espacios">
-                                    <input type="text" id="segundoNombre" class="Texto" placeholder="Segundo nombre"
+                                <div class="form-floating mb-4">
+                                    <input type="text" id="segundoNombre" class="form-control Texto" placeholder=" "
                                         name="SegundoNombre">
+                                    <label for="contraseña" class="label">Segundo nombre:</label>
                                 </div>
-                                <div id="Espacios">
-                                    <input type="text" id="segundoApellido" class="Texto" placeholder="Segundo apellido"
-                                        name="SegundoApellido" required>
+                                <div class="form-floating mb-4">
+                                    <input type="text" id="segundoApellido" class="form-control Texto" placeholder=" "
+                                        name="SegundoApellido">
+                                    <label for="contraseña" class="label">Segundo apellido:</label>
                                 </div>
-                                <div id="Espacios">
-                                    <input type="email" id="correo" class="Texto" placeholder="Correo electrónico"
-                                        name="CorreoElectronico" required>
+                                <div class="form-floating mb-4">
+                                    <input type="email" id="correo" class="form-control Texto" placeholder=" "
+                                        name="SegundoApellido" name="CorreoElectronico" required>
+                                    <label for="contraseña" class="label">Correo electrónico:</label>
                                 </div>
                                 
+
+
+
+
+
+
+
                                 <div id="Espacios">
-                                    <p>Subir imagen de perfil</p>
-                                    <input type="file" id="img-uploader" min="0" max="5" class="Texto">
+                                    <input type="file" class="img-uploader form-control Texto" id="img-uploader" min="0" max="5" name="opcionesInicio">
                                 </div>
-                                <div id="Espacios">
-                                    <input type="password" id="Confirmarcontraseña" class="Texto" placeholder="Confirmar contraseña"
-                                        name="password" required>
+                                <div class="form-floating mb-4">
+                                    <input type="password" class="form-control Texto" id="contraseña" placeholder=" ">
+                                    <label for="contraseña" class="label">Confirmar contraseña:</label>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </section>
-                    <p>Usa 8 o más caracteres con una combinación de letras, números y símbolos
-                    </p>
+                    <p class="parametro">Usa 8 o más caracteres con una combinación de letras, números y símbolos</p>
                     <div id="boton">
-                        <input type="submit" id="Button2" value="Crear usuario" name="CrearUsuario">
+                        <input type="submit" id="Button2" class="buttonRegistrarme" value="Registrarme"
+                            name="CrearUsuario">
                     </div>
                 </form>
             </div>
-            <div>
+            <div class="img--container">
                 <img src="img/Ok-rafiki.png" class="img--side">
             </div>
         </section>
     </container>
-
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
     <script src="js/js_componentes/jquery.min.js"></script>
     <script src="js/funciones.js"></script>
     <script src="js/registroPerca.js"></script>
     <script src="js/js_componentes/bootstrap.min.js"></script>
+    <script src="js/img.js"></script>
     <!--<script src="js/template.js"></script>-->
 </body>
 

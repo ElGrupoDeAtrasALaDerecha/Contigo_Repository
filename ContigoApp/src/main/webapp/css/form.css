@@ -43,6 +43,7 @@
     border: 1px var(--light) solid;
     border-radius: 17px;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    margin-bottom: 80px;
 }
 .container--datos{
     display: flex;
@@ -70,13 +71,80 @@
     margin-top: 28px;
     margin-left: 6%;
 }
-.datos{
-    
-}
 .box1Table{
     display: flex;
     flex-direction: row;
 }
 .img--side{
     width: 90%;
+    margin-top: 10%;
+}
+ion-icon {
+    font-size: 20px;
+    padding-top: 5px;
+    padding-left: 15px;
+}
+.Texto{
+    border: 1px var(--light) solid;
+    margin-top: 20px;
+    width: 250px;
+    margin-right: 20px;
+    padding-left: 16px;
+    border-radius: 4px;
+    color: var(--textForm);
+}
+.label{
+    width: 100%;
+    height: 100px;
+}
+.Container--Documento{
+    display: flex;
+    flex-direction: row;
+}
+.Texto2{
+    border: 1px var(--light) solid;
+    margin-top: 20px;
+    width: 180px;
+    margin-right: 20px;
+    padding-left: 16px;
+    border-radius: 0px 4px 4px 0px;
+    color: var(--textForm);
+}
+.Texto3{
+    border: 1px var(--light) solid;
+    margin-top: 20px;
+    width: 70px;
+    padding-left: 10px;
+    border-radius: 4px 0px 0px 4px;
+    color: var(--textForm);
+    height: 58px;
+}
+.parametro{
+    font-size: 13px;
+    color: #707070;
+}
+.buttonRegistrarme{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 250px;
+    border-radius: 4px;
+    margin-bottom: 68px;
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+}
+.label{
+    background-color: transparent;
+}
+.box1--section1{
+width: 100%;
+}
+.label1{
+    cursor: pointer; 
+}
+#boton{
+    display: flex;
+    width: 100%;
+    Flex-direction: row-reverse;
+    padding-right: 20px;
 }
