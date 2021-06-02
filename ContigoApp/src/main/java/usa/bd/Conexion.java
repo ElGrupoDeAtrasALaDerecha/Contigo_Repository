@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Clase de conexión con la base de datos. funciona polx 
+ * Clase de conexión con la base de datos.
  * @author Santiago Pérez
  */
 
@@ -19,7 +19,6 @@ public class Conexion extends IConexionBD{
     private static Connection con = null;
     /**
      * Constructor privado de la clase conexión
-     * 
      * 
      */
     private Conexion() {
