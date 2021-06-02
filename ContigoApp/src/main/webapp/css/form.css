@@ -39,7 +39,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 70%;
+    width: 75%;
     border: 1px var(--light) solid;
     border-radius: 17px;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
@@ -100,26 +100,34 @@ input[type=number]::-webkit-inner-spin-button {
     width: 100%;
     height: 100px;
 }
+.label2{
+    font-family: 'Open Sans', sans-serif;
+    background-color: transparent;
+    width: 100%;
+    font-size: 13.5px;;
+}
 .Container--Documento{
     display: flex;
     flex-direction: row;
 }
 .Texto2{
     border: 1px var(--light) solid;
-    margin-top: 20px;
     width: 180px;
     margin-right: 20px;
-    padding-left: 16px;
     border-radius: 0px 4px 4px 0px;
     color: var(--textForm);
 }
 .Texto3{
     border: 1px var(--light) solid;
-    margin-top: 20px;
     width: 70px;
     padding-left: 10px;
     border-radius: 4px 0px 0px 4px;
     color: var(--textForm);
+    height: 58px;
+}
+.especial{
+    display: flex;
+    flex-direction: row;
     height: 58px;
 }
 .parametro{
@@ -144,10 +152,16 @@ width: 100%;
 }
 .label1{
     cursor: pointer; 
+    background-color: transparent;
 }
 #boton{
     display: flex;
     width: 100%;
     Flex-direction: row-reverse;
     padding-right: 20px;
+}
+.img--container{
+    display: flex;
+    max-width: 450px;
+    align-items: center;
 }
