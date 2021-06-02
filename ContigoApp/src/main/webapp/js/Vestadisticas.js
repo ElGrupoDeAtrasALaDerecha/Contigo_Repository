@@ -9,9 +9,8 @@ var grados;
 var estudiante
 var listaEstudiantes = document.getElementById('ListaEstudiantes');;
 var arregloEstudiantes;
+var arregloGrados;
 var codigoGrado = [];
-
-graficas.style.display = "none"
 
 $('.ui.dropdown')
     .dropdown();
@@ -60,7 +59,6 @@ function listarGrados() {
             for (let index = 0; index < response.clasificaciones.length; index++) {
                 codigoGrado[index]= response.clasificaciones.codigo;                
             }
-            llenarSelectGrados(arregloGrados);
         },
         error: function (response) {
             console.log("Error en la petición GET")
@@ -83,12 +81,6 @@ $("#btnGerarE").on("click", function () {
     graficas.style.display = "block"
 });
 
-$("#gradosSlt").on("click", function () {
-    graficas.style.display = "block"
-    let codigoGrado = document.getElementById('gradosSlt').value
-    solicitarDatosGrafica(codigoGrado);
-    consultarInformacion()
-});
 
 function solicitarDatosGrafica(codigoGrado){
     $.ajax({
@@ -96,7 +88,6 @@ function solicitarDatosGrafica(codigoGrado){
         method: 'GET',
         dataType: 'json',
         success: function (response) {
-            arregloGrados = response.clasificaciones;
             //console.log(response)
             GraficaTorta(response.boton.datos);
             graficaTopGrados(response.conversatorios)
@@ -108,7 +99,7 @@ function solicitarDatosGrafica(codigoGrado){
     }) 
 }
 
-//=========================================== Gráficas ============================================================
+//=========================================== Gráficas de grados ============================================================
 
 function GraficaTorta(data) {
     var oilCanvas = document.getElementById("usoChat");
@@ -116,8 +107,8 @@ function GraficaTorta(data) {
     Chart.defaults.global.defaultFontSize = 18;
     var oilData = {
         labels: [
-            "no usaron el boton",
-            "Si usaron el boton "
+            "No usaron el botón",
+            "Sí usaron el botón "
         ],
         datasets: [
             {
@@ -435,3 +426,74 @@ function crearHistograma(gradosHistograma) {
 
 
 }
+
+
+$(".seleccionGrafica").click(function () {
+    if(this.id==="porGrado"){
+        let vistaGraficaPorGrado = `<div class="col-lg-3 d-flex">
+                        <!--<button class="btn btn-primary w-100 align-self-center" id="print">
+                            Descargar gráficas 
+                            <i class=" ml-2 icon ion-md-print"></i> 
+                        </button>-->
+                        </div>
+                        <div class="row mt-4 w-100">
+                        <div class="col" id="inputs">
+                            <div class="form-floating w-50 box-center">
+                                <select class="form-select pb-1" id="gradosSlt">
+                                    <option value="" disabled selected>Selecciona un grado</option>
+                                </select>
+                                <label for="gradosSlt">Grado</label>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div id="Graficas" class="ui grid my-3">
+                        <div class="ui row">
+                            <div class="ui five wide column">
+                            </div>
+                            <div class="ui four wide column">
+                            </div>
+                        </div>
+                        <div class="ui row">
+                            <div class="ui one wide column">
+                            </div>
+                            <div class="ui fourteen wide column">
+                                <div class="ui stackable two column grid">
+                                    <div class="column">
+                                        <canvas id="clickDia" class="tamaño"></canvas>
+                                    </div>
+                                    <div class="column">
+                                        <canvas id="clickGrado" class="tamaño"></canvas>
+                                    </div>
+                                    <div class="column">
+                                        <canvas id="GraficasTOPgrados" class="tamaño"></canvas>
+                                    </div>
+                                    <div class="column">
+                                        <canvas id="usoChat" class="tamaño"></canvas>
+                                    </div>
+                                    <div class="column">
+                                        <canvas id="cantidadEstudiantes" class="tamaño"></canvas>
+                                    </div>
+                                    <div class="column">
+                                        <canvas id="cantidadEstudiantes" class="tamaño"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui one wide column">
+                            </div>
+                        </div>
+                        </div>`
+        $("#contenidoGraficas").empty();
+        $("#contenidoGraficas").append(vistaGraficaPorGrado);
+        llenarSelectGrados(arregloGrados);
+        $("#gradosSlt").on("click", function () {
+            let codigoGrado = document.getElementById('gradosSlt').value
+            solicitarDatosGrafica(codigoGrado);
+            consultarInformacion()
+        });
+    }else if(this.id==="porEstudiante"){
+        $("#contenidoGraficas").empty();
+        let vistaGraficaEstudiante=``
+    }
+    
+});

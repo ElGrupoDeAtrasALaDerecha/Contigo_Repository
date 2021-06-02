@@ -60,6 +60,8 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico> {
             while (result.next()) {
                 est.fechas.add(result.getString("fecha"));
             }
+            result.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,6 +113,8 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico> {
                 listaClicks.get(0).put(rs.getString("grado"));
                 listaClicks.get(1).put(rs.getString("Clicks"));
             }
+            rs.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }

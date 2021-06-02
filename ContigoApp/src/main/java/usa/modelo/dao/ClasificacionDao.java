@@ -23,7 +23,11 @@ public class ClasificacionDao implements IDao<Clasificacion> {
     public boolean crear(Clasificacion t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    /**
+     * Método que permite consultar una clasificación de un grado a partir de su id o su nombre de grado
+     * @param txt que es el valor que permite realizar la consulta
+     * @return un objeto con una clasificación o nulo si no lo encuentra
+     */
     @Override
     public Clasificacion consultar(String txt) {
         Clasificacion clasf = new Clasificacion();
@@ -58,6 +62,10 @@ public class ClasificacionDao implements IDao<Clasificacion> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Método que permite listar todas las clasificaciones de grados
+     * @return una lista con las clasificaciones
+     */
     @Override
     public LinkedList<Clasificacion> listarTodos() {
         LinkedList<Clasificacion> lista = new LinkedList();
@@ -74,6 +82,8 @@ public class ClasificacionDao implements IDao<Clasificacion> {
                 lista.add(clasf);
                 
             }
+            result.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -144,7 +144,7 @@ public class InstitucionDao implements IInstitucionDao {
         }
         return inst;
     } 
-    
+    @Override
     public Institucion consultarPorId(String id){
         Institucion ins = null;
         try {
@@ -200,10 +200,7 @@ public class InstitucionDao implements IInstitucionDao {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return institucion;
+        
     }
 
-    
-    
-    
-    
 }

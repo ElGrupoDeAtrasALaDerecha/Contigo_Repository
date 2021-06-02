@@ -8,4 +8,5 @@ import usa.modelo.dto.Institucion;
  */
 public interface IInstitucionDao extends IDao<Institucion>{
     public Institucion consultarPorCorreo(String correo);
+    public Institucion consultarPorId(String id);
 }
