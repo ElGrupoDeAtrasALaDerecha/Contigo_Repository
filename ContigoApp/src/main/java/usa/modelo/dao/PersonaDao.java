@@ -60,6 +60,7 @@ public class PersonaDao implements IPersonaDao{
                 p.setSegundoApellido(result.getString("segundoApellido"));
                 p.setFechaDeNacimiento(result.getString("fechaNacimiento"));
                 p.setGenero(result.getString("genero"));
+                p.setCorreo(result.getString("correo"));
             }
             result.close();
             pat.close();

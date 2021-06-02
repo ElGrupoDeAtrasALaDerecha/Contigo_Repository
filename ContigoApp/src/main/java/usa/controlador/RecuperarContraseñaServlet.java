@@ -76,6 +76,7 @@ public class RecuperarContraseñaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
         JSONObject json = new JSONObject(Utils.readParams(request));
         String correo = json.getString("correo");
 
@@ -111,6 +112,7 @@ public class RecuperarContraseñaServlet extends HttpServlet {
         }
         out.print(json.toString());
         if(proxy!=null){
+            System.out.println("el correo es: "+ correo);
             proxy.enviarCorreo(correo);
         }
                 

@@ -5,7 +5,7 @@ $(document).ready(function () {
 $("#recuperarContra").click(function (e) {
     pintarModal();
 });
-
+var correo;
 function pintarModal(){
     let elModal = `
     <div id="modalContra" class="ui tiny modal">
@@ -21,7 +21,7 @@ function pintarModal(){
                 </div>
                 <div class="ui field">
                     <label for="correo">Correo electrónico:</label>
-                    <input type="email" class="credencial" id="correo" placeholder="Correo" name="correo" required>
+                    <input type="email" class="credencial" id="correoRecuperacion" placeholder="Correo" name="correo" required>
                 </div>
                 <div class="actions">
                     <div class="ui two fields">
@@ -43,7 +43,7 @@ function pintarModal(){
     ;
     $("#btnRecuperar").click(function (e) {
         e.preventDefault()
-        let correo = $("#correo").val();
+        correo = $("#correoRecuperacion").val();
         recuperarContraseña(correo);
     });
     $("#btnCancelarRecuperacion").click(function (e) {

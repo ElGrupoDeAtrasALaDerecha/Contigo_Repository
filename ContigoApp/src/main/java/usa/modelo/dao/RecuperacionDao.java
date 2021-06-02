@@ -229,7 +229,7 @@ public class RecuperacionDao implements IRecuperacionDao {
     public boolean validarCodigoRecuperacion(String codigo) {
         try {
             String sql = "select institucion_id from peticion_contrasena_institucion \n"
-                    + "where codigo=\"" + codigo + "\";";
+                    + "where codigo=\"" + codigo + "\" and valido=true;";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             if (rs.next()) {
@@ -240,7 +240,7 @@ public class RecuperacionDao implements IRecuperacionDao {
                 rs.close();
                 pat.close();
                 sql = "select persona_documento from peticion_contrasena_persona \n"
-                        + "where codigo=\"" + codigo + "\";";
+                        + "where codigo=\"" + codigo + "\" and valido=true;";
                 pat = conn.prepareStatement(sql);
                 rs = pat.executeQuery();
                 if (rs.next()) {
