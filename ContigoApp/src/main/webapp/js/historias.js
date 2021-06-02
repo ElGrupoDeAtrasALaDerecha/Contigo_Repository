@@ -6,7 +6,7 @@ $(document).ready(function () {
         window.location.assign("index.html");
     }
     $('.ui.dropdown').dropdown();
-    $('#crearHistoria').prop('disabled', true);
+    //$('#crearHistoria').prop('disabled', true);
 });
 
 
@@ -54,6 +54,7 @@ imageUploader.addEventListener('change', (e) => {
         complete: function (result) {
             $('.ui.active.inverted.dimmer').remove();
             $('#crearHistoria').prop('disabled', false);
+            document.getElementsByClassName("item espacioImagen")[0].removeAttribute('data-error')
         },
         error: function (result) {
         }
@@ -62,8 +63,9 @@ imageUploader.addEventListener('change', (e) => {
 
 
 $("#crearHistoria").click(function () {
-    crearHistoria();
-})
+    validarCampos();
+});
+
 function crearHistoria() {
 
     nombre = $("#Nombre").val();
@@ -136,4 +138,46 @@ function actualizarGradosHistorias() {
     });
 }
 
+function BorrarTexto() {
+    document.querySelectorAll('.item[data-error] .Texto').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+}
 
+function validarCampos() {
+    let nom = $("#Nombre").val();
+    let des = $("#Descripcion").val();
+    let img = $("#img-uploader").val();
+    let clasifi = $("#grados").val();
+
+    if (nom == "" || des == "" || img == "" || clasifi.length == 0) {
+        if (nom == "") {
+            document.getElementsByClassName("item")[0].setAttribute('data-error', 'Campo Obligatorio')
+            toastr.warning('No se ha agragado un nombre para la historia');
+            BorrarTexto();
+        }
+        if (des == "") {
+            document.getElementsByClassName("item des")[0].setAttribute('data-error', 'Campo Obligatorio')
+            toastr.warning('No se ha agregado una descripción a la historia');
+            BorrarTexto();
+        }
+        if (img == "") {
+            document.getElementsByClassName("item espacioImagen")[0].setAttribute('data-error', 'Campo Obligatorio')
+            toastr.warning('No se ha agregado una imagen a la historia');
+        }
+        if (clasifi.length == 0) {
+            document.getElementsByClassName("item credencial")[0].setAttribute('data-error', 'Campo Obligatorio')
+            toastr.warning('No se asignado cursos a la historia');
+
+        }
+    } else {
+        crearHistoria();
+    }
+}
+
+$("#cursos").click(function () {
+    let grados = $("#grados").val();
+    if (grados.length !== 0) {
+        document.getElementsByClassName("item credencial")[0].removeAttribute('data-error')
+    }
+});

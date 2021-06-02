@@ -251,3 +251,15 @@ h1{
     margin-left: 30px;
     margin-right: 30px;
 }
+
+.item[data-error] .Texto{
+    border-color: red;
+    color: red;
+    
+}
+
+.item[data-error] .ui.search.fluid.dropdown{
+    border-color: red;
+    color: red;
+}
+
