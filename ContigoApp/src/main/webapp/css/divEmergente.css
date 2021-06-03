@@ -27,6 +27,12 @@
   margin-left: 45%;  
 }
 
+#btnCancelarC{
+  margin-top: 2%;
+  display: inline-block;
+  margin-left: 42%;  
+}
+
 /*.open-modal {
   font-weight: inherit;
   font-size: 20px;
