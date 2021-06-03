@@ -49,32 +49,35 @@
         <section class="container--datos">
             <div id="Datos">
                 <section id="table-datos">
+                    <div class="form-floating mb-4 especial">
+                        <input type="text" class="form-control Texto" id="nombre" placeholder=" "
+                        name="NombreDeLaInstitucion">
+                        <label for="contraseña" class="label">Nombre de la institución:</label>
+                    </div>
                     <div class="box1Table">
+                        
                         <div class="box1--section1">
                             <div class="form-floating mb-4">
-                                <select class="select-css form-control Texto" name="Departamento" id="departamento">
+                                <select class=" TipoDocumento form-select Texto" name="Departamento" id="departamento"
+                                    aria-label="Floating label select example">
                                     <option value="">Departamento</option>
                                 </select>
-                                <label for="contraseña" class="label">Departamento:</label>
+                                <label for="floatingSelect" class="bg label">Departamento:</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <select class="select-css form-control Texto" name="Municipio" id="municipio">
+                                <select class="TipoDocumento form-select Texto" name="Municipio" id="municipio">
                                     <option value="">Municipio</option>
                                 </select>
-                                <label for="contraseña" class="label">Municipio:</label>
+                                <label for="contraseña" class="label bg">Municipio:</label>
                             </div>
+                            
                             <div class="form-floating mb-4">
-                                <input type="text" class="form-control Texto" id="nombre" placeholder=" "
-                                name="NombreDeLaInstitucion">
-                                <label for="contraseña" class="label">Nombre de la institución:</label>
-                            </div>
-                            <div class="form-floating mb-4">
-                                <select class="select-css form-control Texto" name="Sector" id="sector">
+                                <select class="TipoDocumento form-select Texto" name="Sector" id="sector">
                                     <option>Sector</option>
                                     <option value="0">Público</option>
                                     <option value="1">Privado</option>
                                 </select>
-                                <label for="contraseña" class="label">Sector:</label>
+                                <label for="contraseña" class="label bg">Sector:</label>
                             </div>
                             <div class="form-floating mb-4">
                                 <input type="text" class="form-control Texto" id="direccion" placeholder=" "
@@ -104,12 +107,12 @@
                                 <label for="contraseña" class="label">Página Web:</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <select class="select-css form-control Texto" name="Calendario" id="Calendario">
+                                <select class="TipoDocumento form-select Texto" name="Calendario" id="Calendario">
                                     <option>Calendario</option>
                                     <option value="0">A</option>
                                     <option value="1">B</option>
                                 </select>
-                                <label for="contraseña" class="label">Calendario:</label>
+                                <label for="contraseña" class="label bg">Calendario:</label>
                             </div>
                             <div class="form-floating mb-4">
                                 <input type="text" class="form-control Texto" id="barrio" placeholder=" "
