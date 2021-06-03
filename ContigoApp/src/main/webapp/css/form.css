@@ -114,14 +114,14 @@ input[type=number]::-webkit-inner-spin-button {
 }
 .Texto2{
     border: 1px var(--light) solid;
-    width: 430px;
+    width: 330px;
     margin-right: 20px;
     border-radius: 0px 4px 4px 0px;
     color: var(--textForm);
 }
 .Texto3{
     border: 1px var(--light) solid;
-    width: 100px;
+    width: 200px;
     padding-left: 10px;
     border-radius: 4px 0px 0px 4px;
     color: var(--textForm);

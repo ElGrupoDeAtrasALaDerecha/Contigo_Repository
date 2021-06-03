@@ -4,7 +4,7 @@ const imageUploader = document.getElementById('img-uploader');
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/miguel26697/image/upload';
 const CLOUDINARY_UPLOAD_PRESET = 'wmruximj';
 var img
-
+var identificaciones;
 imageUploader.addEventListener('change', (e) => {
     console.log(e)
     e.preventDefault();
@@ -46,6 +46,7 @@ $("#Button2").click(function () {
 })
 
 function crearPerca() {
+    tipodocu = $("#tipoDocumento").val();
     documento = $("#documento").val();
     primerNombre = $("#primerNombre").val();
     primerApellido = $("#primerApellido").val();
@@ -54,12 +55,12 @@ function crearPerca() {
     segundoNombre = $("#segundoNombre").val();
     segundoApellido = $("#segundoApellido").val();
     contraseña = $("#contraseña").val();
-    genero = "femenino"
+    genero = $("#Genero").val();
 
 
     informacion = {
         documento: documento,
-        tipoDocumento: "1",
+        tipoDocumento: tipodocu,
         primerNombre: primerNombre,
         primerApellido: primerApellido,
         correo: correo,
@@ -73,6 +74,7 @@ function crearPerca() {
 
 
     console.log(informacion);
+    
     $.ajax({
         url: "PersonalCalificado",
         type: "POST",
@@ -96,7 +98,7 @@ function crearPerca() {
         error: function (result) {
         }
     });
-
+    
 }
 
 function validar() {
@@ -108,13 +110,14 @@ function validar() {
     let sApellido = $("#segundoApellido").val();
     let con = $("#contraseña").val();
     let conficontra = $("#contraseña2").val();
-    let gen = "femenino"
+    let gen = $("#Genero").val();
     let img = $("#img-uploader").val();
+    let tipo = $("#tipoDocumento").val();
     var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     var esValido = expReg.test(correo);
-    
 
-    if (doc == "" || pNombre == "" || pApellido == "" || correo == "" || fechaNacimiento == "" || sApellido == "" || con == "" || gen == "" || conficontra == "" || img == "") {
+
+    if (doc == "" || pNombre == "" || pApellido == "" || correo == "" || fechaNacimiento == "" || sApellido == "" || con == "" || gen == "" || conficontra == "" || img == "" || tipo == "Tipo" || gen == "Genero") {
 
         if (pNombre == "") {
             document.getElementsByClassName("item form-floating mb-4")[0].setAttribute('data-error', 'Campo Obligatorio')
@@ -161,7 +164,7 @@ function validar() {
         }
     } else if (con !== conficontra) {
         toastr.error('Las contraseñas no coinciden')
-    } else if (!esValido ) {
+    } else if (!esValido) {
         toastr.error('Correo no valido')
     } else {
         crearPerca();
@@ -192,4 +195,37 @@ $("#dv7").click(function () {
 });
 $("#dv9").click(function () {
     document.getElementsByClassName("item form-floating mb-4")[9].removeAttribute('data-error')
+});
+
+$(document).ready(function () {
+    $.ajax({
+        url: "TipoDocumento",
+        type: "GET",
+        dataType: "json",
+        success: function (result, textStatus, request) {
+            if (result != "error") {
+                console.log(result);
+                identificaciones = result.Identificaciones;
+                let tipos = '<option value ="' + identificaciones[0].id + '">' + identificaciones[0].tipo +
+                    '</option>'+
+                    '<option value ="' + identificaciones[2].id + '">' + identificaciones[2].tipo +
+                    '</option>'+
+                    '<option value ="' + identificaciones[3].id + '">' + identificaciones[3].tipo +
+                    '</option>';
+                $("#tipoDocumento").append(tipos);
+
+            } else {
+                console.log("error");
+            }
+
+        },
+        complete: function (result) {
+
+
+        },
+        error: function (result) {
+
+        }
+
+    });
 });
