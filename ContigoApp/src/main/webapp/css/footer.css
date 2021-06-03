@@ -12,6 +12,9 @@ footer a {
 footer a:hover{
     color: var(--primary);
 }
+footer p{
+    margin-bottom: 1rem !important;
+}
 .box-1{
     width: 30%;
 }
