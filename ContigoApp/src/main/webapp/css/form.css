@@ -227,3 +227,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #ffffff;
     border: 2px var(--primary) solid;
 }
+.container--text--lema{
+    font-size: 17px;
+    margin-left: 6%;
+    font-style: italic;
+}
