@@ -74,6 +74,7 @@
 .box1Table{
     display: flex;
     flex-direction: row;
+    margin-top: -20px;
 }
 .img--side{
     width: 90%;
@@ -100,11 +101,12 @@ input[type=number]::-webkit-inner-spin-button {
     width: 100%;
     height: 100px;
 }
+.bg{
+    background-color: transparent;
+}
 .label2{
-    font-family: 'Open Sans', sans-serif;
     background-color: transparent;
     width: 100%;
-    font-size: 13.5px;;
 }
 .Container--Documento{
     display: flex;
@@ -112,14 +114,14 @@ input[type=number]::-webkit-inner-spin-button {
 }
 .Texto2{
     border: 1px var(--light) solid;
-    width: 180px;
+    width: 430px;
     margin-right: 20px;
     border-radius: 0px 4px 4px 0px;
     color: var(--textForm);
 }
 .Texto3{
     border: 1px var(--light) solid;
-    width: 70px;
+    width: 100px;
     padding-left: 10px;
     border-radius: 4px 0px 0px 4px;
     color: var(--textForm);
@@ -129,6 +131,8 @@ input[type=number]::-webkit-inner-spin-button {
     display: flex;
     flex-direction: row;
     height: 58px;
+    width: 100%;
+    margin-top: 15px;
 }
 .parametro{
     font-size: 13px;
@@ -183,4 +187,16 @@ width: 100%;
 .item[data-error] .Texto3{
     border-color: red;
     color: red;
+}
+.logo--Upload{
+    margin-left: 26px;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url("Imagen/calendario\ \(1\).png");
+    width: 18px;
+    height: 20px;
+    border-width: thin;
 }
