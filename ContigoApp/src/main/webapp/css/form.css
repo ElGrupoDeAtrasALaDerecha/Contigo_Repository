@@ -127,6 +127,14 @@ input[type=number]::-webkit-inner-spin-button {
     color: var(--textForm);
     height: 58px;
 }
+.Texto4{
+    border: 1px var(--light) solid;
+    width: 550px;
+    padding-left: 10px;
+    border-radius: 4px 0px 0px 4px;
+    color: var(--textForm);
+    height: 58px;
+}
 .especial{
     display: flex;
     flex-direction: row;
