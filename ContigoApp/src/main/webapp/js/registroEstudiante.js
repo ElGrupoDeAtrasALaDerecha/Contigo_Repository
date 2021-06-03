@@ -221,7 +221,7 @@ function Siguiente(){
 </section>
 
 <div id="boton">
-    <input type="submit" id="Button2" class="buttonRegistrarme" value="Registrarme" name="CrearUsuario">
+    <input type="submit" id="Button2" class="buttonRegistrarme" value="Registrarme" name="CrearUsuario" onclick="Ingresar()">
 </div>
 </div>
 </div>`
