@@ -9,15 +9,20 @@
 	margin: 0px;
 }
 body {
-	font-family: 'Kaushan Script', cursive;;
 	src: url('letra.ttf');
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Kaushan Script', cursive;;
+	font-family: 'Kaushan Script', cursive;
 	src: url('letra.ttf');
 }
 a {
 	outline: none !important;
+}
+p{
+	font-size: 17px;
+}
+.toast-message {
+	font-size: 15px;
 }
 /*-----Banner-------*/
 .navbar-brand {
@@ -77,6 +82,7 @@ a {
 	border-radius: 25px 25px 25px 25px;
 	font-size: 15px;
 	margin-top: 50px;
+	font-family: 'Kaushan Script', cursive;
 	
 }
 /*-----Fondo de los botones Banner-------*/

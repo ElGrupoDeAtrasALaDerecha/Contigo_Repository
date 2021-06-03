@@ -48,11 +48,11 @@ var contCanc = 0;
 function llenarDiv(array, oradordiv) {
     limpiarDiv();
     divTexto =
-        `<p>DATOS DEL CONVERSATORIO: </p>` +
-        `<p>Conversatorio: ${array.titulo} </p>` +
-        `<p>Orador: ${oradordiv.primerNombre} ${oradordiv.primerApellido} </p>` +
-        `<p>Lugar: ${array.lugar} </p>` +
-        `<p>Cronograma: ${array.cronograma} </p>` +
+        `<p><b>DATOS DEL CONVERSATORIO </b></p>` +
+        `<p><b>Conversatorio:</b> ${array.titulo} </p>` +
+        `<p><b>Orador: </b> ${oradordiv.primerNombre} ${oradordiv.primerApellido} </p>` +
+        `<p><b>Lugar:</b> ${array.lugar} </p>` +
+        `<p><b>Cronograma:</b> ${array.cronograma} </p>` +
         `<div class="ui buttons">
         <button id="btnConfirmarC" class="ui blue button">Confirmar registro</button>
         </div>`;
