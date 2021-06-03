@@ -34,6 +34,7 @@ $(document).ready(function () {
         </nav>`
 
         $('body').prepend(menuSuperior)
+        $('body').append(`<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>`)
         $("#salir").click(function(){
             cerrarSesion();
         });
