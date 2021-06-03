@@ -165,3 +165,22 @@ width: 100%;
     max-width: 450px;
     align-items: center;
 }
+
+.toast-message{
+    background-color: transparent;
+}
+
+.item[data-error] .Texto{
+    border-color: red;
+    color: red;
+}
+
+.item[data-error] .Texto2{
+    border-color: red;
+    color: red;
+}
+
+.item[data-error] .Texto3{
+    border-color: red;
+    color: red;
+}

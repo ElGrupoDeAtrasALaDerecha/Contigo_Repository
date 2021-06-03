@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contigo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/css_components/bootstrap.min.css">
+    
+    <!--
+    <link rel="stylesheet" href="css/css_components/bootstrap.min.css">-->
     <!-- fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
@@ -24,12 +26,11 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- style sheets -->
     <link rel="stylesheet" href="css/form.css">
-    <!-- cloudflare -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+     <!-- cloudflare -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 </head>
 
 <body>
@@ -52,12 +53,12 @@
                 <section id="table-datos">
                     <div class="box1Table">
                         <div class="box1--section1">
-                            <div class="form-floating mb-4">
+                            <div class="item form-floating mb-4" id="dv0">
                                 <input type="text" class="form-control Texto" id="primerNombre" placeholder=" "
                                     name="PrimerNombre" required>
                                 <label for="contraseña" class="label">Primer nombre</label>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="item form-floating mb-4" id="dv1">
                                 <input type="text" class="form-control Texto" id="primerApellido" placeholder=" "
                                     name="PrimerApellido" required>
                                 <label for="contraseña" class="label">Primer apellido</label>
@@ -72,18 +73,18 @@
                                     </div>
                                     
                                 </div>
-                                <div class="form-floating mb-4">
-                                    <input type="text" class="form-control Texto2" id="documento" placeholder=" "
+                                <div class="item form-floating mb-4" id="dv2">
+                                    <input type="number" class="form-control Texto2" id="documento" placeholder=" "
                                         name="C.C" required>
                                     <label for="contraseña" class="label2">Número de identificación</label>
                                 </div>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="item form-floating mb-4" id="dv3">
                                 <input type="date" class="form-control Texto" id="fecha" placeholder=" "
                                     name="FechaNacimiento" required>
                                 <label for="contraseña" class="label">Fecha de nacimiento</label>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="item form-floating mb-4" id="dv4">
                                 <input type="password" class="form-control Texto" id="contraseña" placeholder=" "
                                     name="password">
                                 <label for="contraseña" class="label">Contraseña</label>
@@ -91,22 +92,22 @@
 
                         </div>
                         <div class="box1--section2">
-                            <div class="form-floating mb-4">
+                            <div class="item form-floating mb-4">
                                 <input type="text" id="segundoNombre" class="form-control Texto" placeholder=" "
                                     name="SegundoNombre">
                                 <label for="contraseña" class="label">Segundo nombre</label>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="item form-floating mb-4" id="dv6">
                                 <input type="text" id="segundoApellido" class="form-control Texto" placeholder=" "
                                     name="SegundoApellido">
                                 <label for="contraseña" class="label">Segundo apellido</label>
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="item form-floating mb-4" id="dv7">
                                 <input type="email" id="correo" class="form-control Texto" placeholder=" "
                                     name="SegundoApellido" name="CorreoElectronico" required>
                                 <label for="contraseña" class="label">Correo electrónico</label>
                             </div>
-                            <div class="form-floating mb-4 ">
+                            <div class="item form-floating mb-4" id="dv8">
                                 <div id="" class="form-control Texto">
                                     <label class="label1 file-name" for="img-uploader"> Selecciona una imagen <svg
                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -130,8 +131,8 @@
 
 
                             
-                            <div class="form-floating mb-4">
-                                <input type="password" class="form-control Texto" id="contraseña" placeholder=" ">
+                            <div class="item form-floating mb-4" id="dv9">
+                                <input type="password" class="form-control Texto" id="contraseña2" placeholder=" ">
                                 <label for="contraseña" class="label">Confirmar contraseña</label>
                             </div>
                         </div>
