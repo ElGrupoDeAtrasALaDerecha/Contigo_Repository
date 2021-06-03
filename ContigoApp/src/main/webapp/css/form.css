@@ -129,7 +129,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 .Texto4{
     border: 1px var(--light) solid;
-    width: 550px;
+    width: 520px;
     padding-left: 10px;
     border-radius: 4px 0px 0px 4px;
     color: var(--textForm);
@@ -207,4 +207,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 18px;
     height: 20px;
     border-width: thin;
+}
+.buttonSiguiente{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 250px;
+    border-radius: 4px;
+    margin-bottom: 68px;
+    color: var(--primary);
+    border: 2px var(--primary) solid;
+}
+.buttonSiguiente:hover{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 250px;
+    border-radius: 4px;
+    margin-bottom: 68px;
+    background-color: var(--primary);
+    color: #ffffff;
+    border: 2px var(--primary) solid;
 }

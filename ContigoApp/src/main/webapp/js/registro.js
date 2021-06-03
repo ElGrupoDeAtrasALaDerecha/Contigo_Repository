@@ -259,4 +259,47 @@ function Ingresar() {
         
     }
 }
-
+function Siguiente(){
+    let txt= `<div id="Datos">
+    <section id="table-datos">
+    <div class="form-floating mb-4 especial">
+	    <input type="text" class="form-control Texto4" id="web" placeholder=" "
+	    name="PaginaWeb" required>
+	    <label for="contraseña" class="label">Página Web:</label>
+    </div>
+    <div class="box1Table">
+        
+        <div class="box1--section1">
+            <div class="form-floating mb-4">
+                <input type="number" class="form-control Texto" id="telefono" placeholder=" "
+                name="Telefono" required>
+                <label for="contraseña" class="label">Numero de contacto:</label>
+            </div>
+            <div class="form-floating mb-4">
+	            <input type="password" class="form-control Texto" id="contra" placeholder=" "
+	            name="Contraseña" required>
+	            <label for="contraseña" class="label">Contraseña:</label>
+            </div>
+        </div>
+        <div class="box1--section2">
+            <div class="form-floating mb-4">
+                <input type="email" class="form-control Texto" id="correo" placeholder=" "
+                name="Correo" required>
+                <label for="contraseña" class="label">Correo:</label>
+            </div>
+            <div class="form-floating mb-4">
+	            <input type="password" class="form-control Texto" id="conficontra" placeholder=" "
+	            name="ConfirmarContraseña" required>
+	            <label for="contraseña" class="label">Confirmar contraseña:</label>
+            </div>
+        </div>
+    </div>
+</section>
+<p class="parametro">Usa 8 o más caracteres con una combinación de letras, números y símbolos</p>
+<div id="boton">
+    <input type="submit" id="Button2" class="buttonRegistrarme" value="Registrarme" name="CrearUsuario">
+</div>
+</div>
+</div>`
+    $("#Datos").replaceWith(txt);
+}

@@ -46,7 +46,7 @@
             <h2 class="logo--lema">Incondicionalmente contigo</h2>
         </section>
         <h3 class="container--text">Regístrate y potencia el desarrollo de tus estudiantes</h3>
-        <section class="container--datos">
+        <section class="container--datos" id="container--datos">
             <div id="Datos">
                 <section id="table-datos">
                     <div class="form-floating mb-4 especial">
@@ -65,13 +65,6 @@
                                 <label for="floatingSelect" class="bg label">Departamento:</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <select class="TipoDocumento form-select Texto" name="Municipio" id="municipio">
-                                    <option value="">Municipio</option>
-                                </select>
-                                <label for="contraseña" class="label bg">Municipio:</label>
-                            </div>
-                            
-                            <div class="form-floating mb-4">
                                 <select class="TipoDocumento form-select Texto" name="Sector" id="sector">
                                     <option>Sector</option>
                                     <option value="0">Público</option>
@@ -84,27 +77,13 @@
                                 name="Direccion" required>
                                 <label for="contraseña" class="label">Dirección:</label>
                             </div>
-                            <div class="form-floating mb-4">
-                                <input type="password" class="form-control Texto" id="contra" placeholder=" "
-                                name="Contraseña" required>
-                                <label for="contraseña" class="label">Contraseña:</label>
-                            </div>
                         </div>
                         <div class="box1--section2">
                             <div class="form-floating mb-4">
-                                <input type="number" class="form-control Texto" id="telefono" placeholder=" "
-                                name="Telefono" required>
-                                <label for="contraseña" class="label">Telefono:</label>
-                            </div>
-                            <div class="form-floating mb-4">
-                                <input type="email" class="form-control Texto" id="correo" placeholder=" "
-                                name="Correo" required>
-                                <label for="contraseña" class="label">Correo:</label>
-                            </div>
-                            <div class="form-floating mb-4">
-                                <input type="text" class="form-control Texto" id="web" placeholder=" "
-                                name="PaginaWeb" required>
-                                <label for="contraseña" class="label">Página Web:</label>
+                                <select class="TipoDocumento form-select Texto" name="Municipio" id="municipio">
+                                    <option value="">Municipio</option>
+                                </select>
+                                <label for="contraseña" class="label bg">Municipio:</label>
                             </div>
                             <div class="form-floating mb-4">
                                 <select class="TipoDocumento form-select Texto" name="Calendario" id="Calendario">
@@ -119,18 +98,13 @@
                                 name="Barrio">
                                 <label for="contraseña" class="label">Barrio:</label>
                             </div>
-                            <div class="form-floating mb-4">
-                                <input type="password" class="form-control Texto" id="conficontra" placeholder=" "
-                                name="ConfirmarContraseña" required>
-                                <label for="contraseña" class="label">Confirmar contraseña:</label>
-                            </div>
                         </div>
                     </div>
                 </section>
                 <p class="parametro">Usa 8 o más caracteres con una combinación de letras, números y símbolos</p>
                 <div id="boton">
-                    <input type="button" id="Button2" class="buttonRegistrarme" value="Registrarme" name="MetodoPago"
-                        onclick="Ingresar()">
+                    <input type="button" id="Button2" class="buttonSiguiente" value="Siguiente" name="MetodoPago"
+                        onclick="Siguiente()">
                 </div>
             </div>
             <div class="img--container">
