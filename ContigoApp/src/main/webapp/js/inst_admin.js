@@ -1,48 +1,4 @@
-const li = document.querySelectorAll('li')
-const item = document.querySelectorAll('.item')
-const item_content = document.querySelectorAll('.item-content')
-
-li.forEach( (items, i) => {
-  li[i].addEventListener('click',()=>{
-    item.forEach((element, i) => {
-      item[i].classList.remove('selected')
-    });
-    item[i].classList.add('selected')
-    item_content.forEach((element, i) => {
-      item_content[i].classList.add('hide')
-    });
-    item_content[i].classList.remove('hide')
-  })
-});
-
-// Sidebar conf
-$(document).ready(function () {
-  $("#m1").css("background-color", "#162997")
-  $(".m1").css("display", "block")
-  $(".m2").css("display", "none")
-  $(".m3").css("display", "none")
-  $(".m4").css("display", "none")
-})
-
-$(".d-block").click(function(){
-  var selected = '#'+($(this).attr('id'))
-  $(".selected").css("background-color", "#111B54")
-  $(selected).css("background-color", "#162997")
-  show(($(this).attr('id')))
-})
-
-function show(txt) {
-  $(".m1").css("display", "none")
-  $(".m2").css("display", "none")
-  $(".m3").css("display", "none")
-  $(".m4").css("display", "none")
-  $("."+txt).css("display", "block")
-  var selected = '#'+txt
-  $(selected).css("background-color", "#162997")
-}
-// 
-
-$('#grado_slect').click(function (e) {
+$('#grado_slect').click(function () {
   var gradoSelt = $('#grado_slect option:selected').val()
   var id_inst = getCookie("ID_Inst")
   var obj = {

@@ -2,13 +2,14 @@
     background-color: var(--secondary);
     color: white;
     height: 100vh;
-    transition: all 0.5 ease;
+    transition: all 0.5s ease-out;
     width: 4%;
 }
 .sidebar .link-name{
     display: none;
 }
 .sidebar.active{
+    transition: all 0.5s ease;
     width: 20%;
 }
 .sidebar.active  ul li .title-over{
@@ -94,7 +95,7 @@ ion-icon {
     border-radius: 7px;
     box-shadow: 0 5px 10px rgba(0, 0, 0,0.2) ;
     color: var(--text);
-    height: 5%;
+    height: 30px;
     left: 3%;
     margin-top: -15px;
     opacity: 0;
