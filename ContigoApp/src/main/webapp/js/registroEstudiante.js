@@ -59,7 +59,6 @@ function registrar_estudiante() {
         correo: correo
     };
     
-    
     $.ajax({
         url: "Estudiante",
         type: "POST",
@@ -73,12 +72,14 @@ function registrar_estudiante() {
             if (result.tipo != "error") {
                 console.log(result);
                 toastr.success('Estudiante creado con exito')
-                $(location).attr('href', 'ingresar.html');
+                $(location).attr('href', 'login_est.html');
 
             } else {
                 if (result.mensaje === "Error el estudiante ya esta registrado") {
                     console.log(result);
                     toastr.error('Error ya existe un estudiante registrado con este documento')
+                }else if(result.mensaje2 === "Error ese correo ya esta registrado"){
+                    toastr.error('Error ya existe un estudiante con ese correo')
                 } else {
                     console.log(result);
                     toastr.error('Código institucional erroneo')
@@ -88,15 +89,12 @@ function registrar_estudiante() {
         },
         complete: function (result) {
 
-
         },
         error: function (result) {
             console.log(result);
         }
 
     });
-
-     
 }
 
 
