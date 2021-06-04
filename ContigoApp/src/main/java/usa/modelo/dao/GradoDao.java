@@ -9,12 +9,14 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import usa.modelo.dto.Grado;
 import usa.modelo.dto.GradoClasf;
-import usa.utils.GeneradorCodigos;
+import usa.modelo.dto.Institucion;
 import usa.utils.Utils;
 
 /**
- *
- * @author Andrés C. López R.
+ * Clase de objeto de acceso a datos de los Grados
+ * @author Andrés C. López R. y Santiago Pérez
+ * @version 1.1
+ * @since 2021-06-03
  */
 public class GradoDao implements IGradoDao {
 
@@ -87,6 +89,7 @@ public class GradoDao implements IGradoDao {
         return grados;
     }
     
+    @Override
     public LinkedList<GradoClasf> listarGradosClasf() {
         LinkedList<GradoClasf> grados = new LinkedList<GradoClasf>();
         GradoClasf grado = null;
@@ -156,5 +159,28 @@ public class GradoDao implements IGradoDao {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return grado;
+    }
+
+    @Override
+    public LinkedList<Grado> consultarPorInstitucion(Institucion i) {
+        LinkedList <Grado> grados= new LinkedList();
+        try {
+            String sql= "select c.*, g.codigo from clasificacion c\n" +
+                    "inner join grado as g on g.CLASIFICACION_id=c.id\n" +
+                    "inner join institucion as i on i.id=INSTITUCION_id\n" +
+                    "where i.id="+i.getId()+";";
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while(rs.next()){
+                Grado grado = new Grado();
+                grado.setCodigo(rs.getString("codigo"));
+                grado.setGrado(rs.getString("grado"));
+                grado.setId(rs.getInt("id"));
+                grados.add(grado);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GradoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return grados;
     }
 }
