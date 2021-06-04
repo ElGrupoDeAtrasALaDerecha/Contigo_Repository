@@ -1,6 +1,6 @@
 var identificaciones;
 
-//porfi funciona quiero mimir :(
+//porfi funciona quiero mimir :( funciona
 
 window.onload = function tipos_id() {
     $.ajax({
