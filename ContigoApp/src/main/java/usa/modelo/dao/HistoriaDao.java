@@ -6,19 +6,22 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONObject;
 import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Historia;
 
 /**
+ * Clase de objeto de acceso a datos de las historias
  *
  * @author Miguel Rippe, Santiago Cáceres, Laura Blanco y Santiago Pérez
+ * @version 1.1
+ * @since 2021-06-03
  */
 public class HistoriaDao implements IHistoriasDao {
 
     PreparedStatement pat;
     ResultSet result;
 
-    
     @Override
     public boolean crear(Historia his) {
         try {
@@ -37,6 +40,7 @@ public class HistoriaDao implements IHistoriasDao {
             while (rs.next()) {
                 his.setId(rs.getInt("idHistoria"));
             }
+            rs.close();
             pat.close();
             return true;
         } catch (SQLException ex) {
@@ -47,12 +51,12 @@ public class HistoriaDao implements IHistoriasDao {
 
     @Override
     public Historia consultar(String id) {
-        Historia his = null ;
+        Historia his = null;
         try {
-            String sql = "select * from HISTORIA where idHistoria =\""+id+"\"";
+            String sql = "select * from HISTORIA where idHistoria =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
-            while(result.next()){
+            while (result.next()) {
                 his = new Historia();
                 his.setId(result.getInt("idHistoria"));
                 his.setDocumentoCreador(result.getString("PERSONAL_PERSONA_documento"));
@@ -64,7 +68,7 @@ public class HistoriaDao implements IHistoriasDao {
         } catch (SQLException ex) {
             Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return his;
     }
 
@@ -76,7 +80,7 @@ public class HistoriaDao implements IHistoriasDao {
     @Override
     public boolean eliminar(String id) {
         try {
-            String sql = "delete from CLASIFICACION_has_HISTORIA where Historia_idHistoria="+id+";";
+            String sql = "delete from CLASIFICACION_has_HISTORIA where Historia_idHistoria=" + id + ";";
             pat = conn.prepareStatement(sql);
             pat.execute();
             pat.close();
@@ -144,12 +148,40 @@ public class HistoriaDao implements IHistoriasDao {
             while (rs.next()) {
                 his.setId(rs.getInt("idHistoria"));
                 pat.close();
-                return 1;   
+                return 1;
             }
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+
+    @Override
+    public LinkedList<Historia> consultarHistoriasDeEstudiante(String documento) {
+        LinkedList<Historia> historias= new LinkedList();
+        try {
+            
+            String sql = "select h.* from estudiante_has_historia as eh\n" +
+                            "inner join estudiante as e on e.PERSONA_documento=eh.ESTUDIANTE_PERSONA_documento\n" +
+                            "inner join historia as h on h.idHistoria=eh.HISTORIA_idHistoria\n" +
+                            "where e.PERSONA_documento=\""+documento+"\";";
+            PreparedStatement pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
+                Historia historia = new Historia();
+                historia.setTitulo(rs.getString("titulo"));
+                historia.setId(rs.getInt("idHistoria"));
+                historia.setDocumentoCreador(rs.getString("PERSONAL_PERSONA_documento"));
+                historia.setDescripcion(rs.getString("descripcion"));
+                historia.setUrlImagen(rs.getString("urlImagen"));
+                historias.add(historia);
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return historias;
     }
 
 }
