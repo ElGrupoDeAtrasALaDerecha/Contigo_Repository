@@ -83,11 +83,12 @@ public class EstudianteServlet extends HttpServlet {
             if (dao.crear(estudiante)) {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Estudiante creado");
-                CorreoProxy proxy = new CorreoProxy(new CorreoInscripcion("estudiante"));
-                proxy.enviarCorreo(mensaje);
+                /*CorreoProxy proxy = new CorreoProxy(new CorreoInscripcion("estudiante"));
+                proxy.enviarCorreo(mensaje);*/
             } else {
                 json.put("tipo", "error");
                 json.put("mensaje", "Error al crear estudiante");
+                json.put("mensaje2","Error ese correo ya esta registrado");
             }
         }
         out.print(json.toString());
