@@ -168,10 +168,15 @@ function mueveReloj() {
 
 function pintarRespuesta(respuesta, down) {
 	let txt = `<div id="mns_tiempo_conti" class="mensaje-autor">
-	 <i class="bi bi-person"></i>
+	 
 	 <div class="flecha-izquierda"></div>
-	 <div id="" class="contenido"><b>${respuesta.emisor}: </b>${respuesta.mensaje}</div>
-	 <div id="tiempo-msn-conti" class="fecha">${mueveReloj()}</div>               
+	 <i class="bi bi-person"></i>
+	 <div id="" class="contenido">
+	 
+	 <b2>${respuesta.emisor}: </b2>${respuesta.mensaje}
+	 <div id="tiempo-msn-conti" class="fecha">${mueveReloj()}</div>  
+	 </div>
+	              
 	 </div>
 	 `
 	$("#mensajes").append(txt);
@@ -463,10 +468,12 @@ function mensajeDesdePersonalAlEstudiante() {
 function pintarMensajeDePersonalAEstudiante(mns, down) {
 	let mensaje = `
 		 <div id="mns_tiempo_usuario" class="mensaje-amigo">
-		 <div class="contenido"><b>${mns.emisor}: </b>${mns.mensaje} </div>
+		 <div class="contenido"><b>${mns.emisor}: </b>${mns.mensaje} 
+		 <div id="tiempo-msn-usuario" class="fecha">${mueveReloj()}</div>
+		 </div>
 		 <div class="flecha-derecha"></div>
 		 <i class="bi bi-person-fill"></i>
-		 <div id="tiempo-msn-usuario" class="fecha">${mueveReloj()}</div>
+		 
 		 </div>`
 	$("#mensajes").append(mensaje);
 	$('input[type="text"]').val('');
@@ -506,7 +513,7 @@ function pintarEscribiendo(numeroSalaMensaje) {
 		timeout = setTimeout(() => {
 			divEscribiendo.style.display = "none"
 			clearTimeout(timeout)
-		}, 1000)
+		}, 7000)
 	}
 }
 

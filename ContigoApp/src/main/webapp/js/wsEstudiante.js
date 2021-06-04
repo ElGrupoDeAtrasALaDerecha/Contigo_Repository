@@ -131,9 +131,12 @@ function pintarRespuesta(respuesta) {
 	let txtConti = `<div id="mns_tiempo_conti" class="mensaje-autor">
 	<div id="logoPC">
 	${txtImagen}
-	<div id="" class="contenido"><b>${respuesta.emisor}</b>: ${respuesta.mensaje}</div>
+	<div id="" class="contenido"><b>${respuesta.emisor}</b>: ${respuesta.mensaje}
+	<div id="tiempo-msn-conti" class="fecha">${mueveReloj()}</div> 
 	</div>
-	<div id="tiempo-msn-conti" class="fecha">${mueveReloj()}</div>               
+	
+	</div>
+	              
 	</div>
 	`
 	$("#mensajes").append(txtConti);
@@ -195,9 +198,11 @@ $("#btn_enviar_mns").click(function () {
 		decirleAConti(mns);
 		let mensaje = `
 					<div id="mns_tiempo_usuario" class="mensaje-amigo">
-					<div class="contenido"><b>Tú:</b> ${mns} </div>
-					<i id="iconP" class="bi bi-person-fill"></i>
+					<div class="contenido"><b>Tú:</b> ${mns} 
 					<div id="tiempo-msn-usuario" class="fecha">${mueveReloj()}</div>
+					</div>
+					<i id="iconP" class="bi bi-person-fill"></i>
+					
 					</div>`
 		$("#mensajes").append(mensaje);
 		$('input[type="text"]').val('');
@@ -233,7 +238,7 @@ function pintarEscribiendo() {
 	timeout = setTimeout(() => {
 		x.style.display = "none"
 		clearTimeout(timeout)
-	}, 1000)
+	}, 7000)
 }
 
 function pintarCierreConexion(mensaje) {

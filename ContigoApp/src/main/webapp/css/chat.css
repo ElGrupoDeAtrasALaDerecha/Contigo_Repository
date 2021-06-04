@@ -43,7 +43,6 @@ h1 {
 }
   /*-----mensajes-------*/
   #chat {
-    
     text-align:left;
     border:1px solid #000000;
     width: 100%;
@@ -82,17 +81,19 @@ h1 {
     overflow-y: scroll 
 }
 
-#chat #mensajes .mensaje-autor{
-    margin-bottom: 1%;
-    margin-top: 1%;
-    margin-right: 10%;
-}
 #logoPC{
 
     position: initial;
 }
 #pi{
     float:left;
+}
+
+#chat #mensajes .mensaje-autor{
+    margin-bottom: 1%;
+    margin-top: 1%;
+    margin-right: 10%;
+    
 }
 
 #chat #mensajes .mensaje-autor .contenido{
@@ -107,7 +108,8 @@ h1 {
     font-style: open sans;
     padding: 1%;
     vertical-align: top;
-    width: 75%;
+    width: 80%;
+    margin-left: 3%;
 }
 
 #chat #mensajes .mensaje-autor .fecha{
@@ -116,12 +118,14 @@ h1 {
     font-size: 90%;
     text-align: right;
     margin-top: 1%;
+
 }
 
 #chat #mensajes .mensaje-amigo{
     margin-bottom: 1%;
     margin-top: 1%;
-    margin-left: 20%;
+    text-align: right;
+    margin-right: 3%;
 }
 #iconP{
     text-align: right;
@@ -139,15 +143,16 @@ h1 {
     padding: 1%;
     vertical-align: top;
     width: 80%;
+    text-align: left;
 }
 #chat #mensajes .mensaje-amigo img, #chat #mensajes .mensaje-autor img{
     border-radius: 5%;
 }
 #chat #mensajes .mensaje-amigo .fecha{
-    color: #777;
+    color: rgb(255, 255, 255);
     font-style: italic;
     font-size: 90%;
-    text-align: left;
+    text-align: right;
     margin-top: 0%;
 }
 /*escribiendo*/
