@@ -5,21 +5,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Clase de conexión con la base de datos. funciona polx 
+ * Clase de conexión con la base de datos.
  * @author Santiago Pérez
  */
 
 public class Conexion extends IConexionBD{
     String bd = "contigoBD";
     String user= "root";
-    String password="1234";
+    String password="123456";
     String host="localhost";
     String port="3306";
     private final String url = "jdbc:mysql://"+host+":"+port+"/"+bd+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";
     private static Connection con = null;
     /**
      * Constructor privado de la clase conexión
-     * 
      * 
      */
     private Conexion() {

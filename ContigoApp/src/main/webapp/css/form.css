@@ -1,0 +1,239 @@
+:root{
+    --primary:#407bff;
+    --secondary:#203e80;
+    --light: #ced4da;
+    --light2: #c5d7ff;
+    --succ: #3bd884;
+    --warn: #ffc107;
+    --error: #f64747;
+    --text: #253036;
+    --bk: #ebebeb;
+    --textForm:#444444;
+}
+*,*:before, *:after{ 
+    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
+    box-sizing: border-box;
+    color: var(--textForm);
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 0;
+    padding: 0 0;
+}
+*{
+    background-color: #ffffff;
+}
+.logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.logo--contigo{
+    font-family: 'Kaushan Script', cursive;
+    font-size: 69px;
+}
+.logo--lema{
+    font-size: 20px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 75%;
+    border: 1px var(--light) solid;
+    border-radius: 17px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    margin-bottom: 80px;
+}
+.container--datos{
+    display: flex;
+    flex-direction: row;
+    flex: 1 0;
+    justify-content: center;
+    margin-left: 6%;
+}
+.back{
+    margin-top: 24px;
+    width: 100px;
+}
+.back a{
+    color: #444444;
+    text-decoration: none;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 20px;
+}
+.back a:hover{
+    color: var(--light);
+}
+.container--text{
+    font-size: 25px;
+    margin-top: 28px;
+    margin-left: 6%;
+}
+.box1Table{
+    display: flex;
+    flex-direction: row;
+    margin-top: -20px;
+}
+.img--side{
+    width: 90%;
+    margin-top: 10%;
+}
+ion-icon {
+    font-size: 20px;
+    padding-top: 5px;
+    padding-left: 15px;
+}
+.Texto{
+    border: 1px var(--light) solid;
+    margin-top: 20px;
+    width: 250px;
+    margin-right: 20px;
+    padding-left: 16px;
+    border-radius: 4px;
+    color: var(--textForm);
+}
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+.label{
+    width: 100%;
+    height: 100px;
+}
+.bg{
+    background-color: transparent;
+}
+.label2{
+    background-color: transparent;
+    width: 100%;
+}
+.Container--Documento{
+    display: flex;
+    flex-direction: row;
+}
+.Texto2{
+    border: 1px var(--light) solid;
+    width: 330px;
+    margin-right: 20px;
+    border-radius: 0px 4px 4px 0px;
+    color: var(--textForm);
+}
+.Texto3{
+    border: 1px var(--light) solid;
+    width: 200px;
+    padding-left: 10px;
+    border-radius: 4px 0px 0px 4px;
+    color: var(--textForm);
+    height: 58px;
+}
+.Texto4{
+    border: 1px var(--light) solid;
+    width: 520px;
+    padding-left: 10px;
+    border-radius: 4px 0px 0px 4px;
+    color: var(--textForm);
+    height: 58px;
+}
+.especial{
+    display: flex;
+    flex-direction: row;
+    height: 58px;
+    width: 100%;
+    margin-top: 15px;
+}
+.parametro{
+    font-size: 13px;
+    color: #707070;
+}
+.buttonRegistrarme{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 250px;
+    border-radius: 4px;
+    margin-bottom: 68px;
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+}
+.label{
+    background-color: transparent;
+}
+.box1--section1{
+width: 100%;
+}
+.label1{
+    cursor: pointer; 
+    background-color: transparent;
+}
+#boton{
+    display: flex;
+    width: 100%;
+    Flex-direction: row-reverse;
+    padding-right: 20px;
+}
+.img--container{
+    display: flex;
+    max-width: 450px;
+    align-items: center;
+}
+
+.toast-message{
+    background-color: transparent;
+}
+
+.item[data-error] .Texto{
+    border-color: red;
+    color: red;
+}
+
+.item[data-error] .Texto2{
+    border-color: red;
+    color: red;
+}
+
+.item[data-error] .Texto3{
+    border-color: red;
+    color: red;
+}
+
+.item[data-error] .Texto4{
+    border-color: red;
+    color: red;
+}
+.logo--Upload{
+    margin-left: 26px;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url("Imagen/calendario\ \(1\).png");
+    width: 18px;
+    height: 20px;
+    border-width: thin;
+}
+.buttonSiguiente{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 250px;
+    border-radius: 4px;
+    margin-bottom: 68px;
+    color: var(--primary);
+    border: 2px var(--primary) solid;
+}
+.buttonSiguiente:hover{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 250px;
+    border-radius: 4px;
+    margin-bottom: 68px;
+    background-color: var(--primary);
+    color: #ffffff;
+    border: 2px var(--primary) solid;
+}
+.container--text--lema{
+    font-size: 17px;
+    margin-left: 6%;
+    font-style: italic;
+}

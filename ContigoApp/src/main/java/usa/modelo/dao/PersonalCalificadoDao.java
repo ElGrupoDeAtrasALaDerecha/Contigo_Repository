@@ -89,11 +89,11 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
                 personalCalificado.setToken(rs.getString("token"));
                 personalCalificado.setImagen(rs.getString("imagen"));
                 //personalCalificado.setBiografia(rs.getString("biografia"));
-                IDaoInformacion infoDao = (IDaoInformacion) informacionDao;
-              IInformacion informacion = infoDao.consultarPorPersonal(personalCalificado);
+                /*IDaoInformacion infoDao = (IDaoInformacion) informacionDao;
+                IInformacion informacion = infoDao.consultarPorPersonal(personalCalificado);
                 informacion.agregarInformacion();
                 personalCalificado.limpiar();
-                personalCalificado.setDocumento(null);
+                personalCalificado.setDocumento(null);*/
             }
             rs.close();
             pat.close();

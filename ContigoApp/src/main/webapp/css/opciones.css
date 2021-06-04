@@ -1,56 +1,44 @@
-*,*:before, *:after{ 
-    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
-    box-sizing: border-box;
-    margin: 0 0;
-    padding: 0 0;
+body{
+    overflow-x: hidden;
+ }
+.col a{
+    text-decoration: none;
 }
-::-webkit-scrollbar {
-    display: none;
-}
-h2{
+.col h2{
     color: white;
     font-family: 'Kaushan Script';
-    font-size: 60px;
-    margin-bottom: 30%;
-    padding: 30% 0 3%;
+    font-size: 70px;
+    padding: 45% 0 5%;
     text-align: center;
-    font-weight: lighter;
 }
-#contenedor_op1{
-    /* border: solid green 1px; */
+#dsc, #citas, #cnv{
+    background-position: center center;
+    background-size: cover;
+    padding: 0 0;
+    text-align: center;
+}
+.img-over-color{
+    height: 100vh;
+}
+.img-over-color:hover{
+    background-color: rgba(37, 48, 54, 0.329);
+  }
+#dsc{
     background-image: url(../img/conv_bk.jpg);
-    background-position: center center;
-    background-size: cover;
-    float: left;
-    width: 50%;
-    
 }
-#cont1{
-    background-color: #3434349f;
-    padding-bottom: 10%;
+#citas{
+    background-image: url(../img/m5.jpg);
 }
-#contenedor_op2{
-    /* border: solid green 1px; */
-    background-image: url(../img/dcs_bk.jpg);
-    background-position: center center;
-    background-size: cover;
-    float: right;
-    width: 50%;
+#cnv{
+    background-image: url(../img/ImagenA.jpg);
 }
-#cont2{
-    background-color:  #2d4059af;
-    padding-bottom: 10%;
+.col p{
+    color: white;
+    font-size: 16px;
+    font-style: italic;
+    margin: 0 auto;
+    width: 70%;
 }
-h2 a:hover{
-    color: #fde9c9;
-}
-
-
-
-
-
-
-
 
 
 
