@@ -46,9 +46,11 @@ public class HistoriaServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
         String id = request.getParameter("id");
+        System.out.println(id);
         if (id != null) {
             Historia historia = (Historia) dao.consultar(id);
             respuesta.put("historia", new JSONObject(Utils.toJson(historia)));
+            System.out.println(id);
         } else {
             respuesta.put("tipo", "ok");
             respuesta.put("historias", new JSONArray(Utils.toJson(dao.listarTodos())));

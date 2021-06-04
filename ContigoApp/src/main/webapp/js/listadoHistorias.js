@@ -97,19 +97,18 @@ function verHistoria() {
             let historia = listaHistorias[i];
             $("#" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
-                window.location.assign("decisiones.html");
+                window.location.assign("decisiones.html?idHistoria="+historia.id);
             })
 
         }
     }
 
     if (usu === 3) {
-
         for (let i = 0; i < listaHistorias.length; i++) {
             let historia = listaHistorias[i];
             $("#" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
-                window.location.assign("decisiones.html");
+                window.location.assign("decisiones.html?idHistoria="+historia.id);
             })
 
         }
