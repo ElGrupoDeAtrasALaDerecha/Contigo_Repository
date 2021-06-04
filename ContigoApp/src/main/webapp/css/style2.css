@@ -23,7 +23,7 @@ p{
 }
 .toast-message {
 	font-size: 15px;
-	
+
 }
 /*-----Banner-------*/
 .navbar-brand {
@@ -42,6 +42,7 @@ p{
 	background-color: RGBA(0, 0, 0, 0.48);
 }
 /*-----Fondo de pagina principal-------*/
+
 .banner {
 	background-attachment: fixed;
 	background-color: #222831;
@@ -57,7 +58,7 @@ p{
 }
 
 .bg-overlay {
-	padding: 250px 0 220px;
+	padding: 60px 0 60px;
 	background-color: RGBA(34, 40, 49, 0.84);
 }
 
@@ -100,18 +101,11 @@ p{
 
 /*-----Banner 2-------*/
 .banner2 {
-	background-attachment: fixed;
-	background-color: #222831;
-	background-image: url();
-	background-repeat:repeat-x,  no-repeat;
-	background-size:cover;
-	min-width: 100%;
 	background-position: absolute;
 	color: #222831;
 	cursor: default;
 	text-align: center;
 	width:100% ;
-	height: auto;
 	float: left;
 }
 
@@ -158,6 +152,7 @@ p{
 	float: left;
 	width: 100%;
 }
+
 
 #Caja-texto{
 width: 100%;
@@ -212,35 +207,94 @@ img
 /*-----Agregar-------*/
 .contenidoV
 {
-	margin: 20px auto;
-	max-width: 900px;
-	background-color: #222831; 
-	height: 100%;
-	overflow: hidden;
+	display: flex;
+    justify-content: center;
+
 	
 }
 
 
-.block {
-	background-color: #222831;
-	width: 31.33%;
-	height: 70%;
+.block1 {
+	background-color: #ffffff;
+	margin-top: 10%;
+	width: 45%;
+	height: 60%;
 	float: left;
-	margin: 1%;
-	box-sizing:border-box;
-	color:rgba(255,255,255,1);
+	color:rgb(0, 0, 0);
     font-family: 'Open Sans', sans-serif;
 	font-size: 20px;
+	margin-left: 10%;
+}
+
+.block2{
+	margin-top: 10%;
+	background-color: #ffffff;
+	width: 30%;
+	height: 60%;
+	float: left;
+	color:rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+	font-size: 20px;
+}
+
+.block3{
+	background-color: #ffffff00;
+	width: 40%;
+	height: 60%;
+	position: absolute;
+	margin-top: 10%;
+	float: left;
+	color:rgb(0, 0, 0);
+    font-family: 'Open Sans', sans-serif;
+	font-size: 20px;
+}
+.oradorAling{
+	margin-top: -15%;
+	margin-left: 50%;
+	position: relative;
+
+}
+
+.oradorAling p{
+	font-family: OpenSans;
+  font-size: 25px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: italic;
+  line-height: 1.36;
+  letter-spacing: normal;
+}
+
+
+.imgRedonda {
+
+    width: 200px;
+    height: 200px;
+    border-radius:100px;
+    border:5px solid white;
+	display:block;
+
+}
+
+.divimg{
+	margin-left: 20%;
+	margin-right: 60%;
+	position: relative;
+	width: 200px;
+    height: 200px;
+
 }
 
 
 
 @media screen and (max-width:640px){
 
-.block
+
+.content
 {
-background-color: #222831;
-width: 47.9%;
+background-color: #1f157a;
+width: 100%;
+height: 100%;
 }
 
 .first-child{
@@ -256,14 +310,6 @@ width: 47.9%;
 }
 
 
-.imgRedonda {
-    width: 200px;
-    height: 200px;
-    border-radius:100px;
-    border:5px solid white;
-	display:block;
-	margin:auto;
-}
 
 /*-----Formulario mitad-------*/
 
@@ -278,3 +324,4 @@ width: 47.9%;
 }
 
 }
+

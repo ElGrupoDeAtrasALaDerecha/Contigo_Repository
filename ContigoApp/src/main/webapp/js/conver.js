@@ -310,43 +310,49 @@ function TraerOrador(conver, orador) {
 function colocarInfo(array, orador, personal) {
     for (var i = 0; i < personal.length; i++) {
         if (personal[i].documento === orador) {
-            let bio = buscarBiografia(personal[i]);
-            let txtBio = "";
+            var bio = buscarBiografia(personal[i]);
+            var txtBio = "";
             if (bio !== undefined) {
                 txtBio = bio;
             }
             oradordiv = personal[i];
             text = '<br>' +
+            '<div class= "divimg">'+
                 '<img src="' + personal[i].imagen + '" class="imgRedonda">' +
-                '<br> Orador:' +
-                '<center>' +
+                '</div>'+
                 '<h2>' +
-                '<span> ' + personal[i].primerNombre + ' ' + personal[i].primerApellido + '</span>' +
+                '<div class= "oradorAling">'+
+                '<span > ' + personal[i].primerNombre + ' ' + personal[i].primerApellido + '</span>' +
+                '<p> Orador </p>'
+                '</div>'
                 '<br>' +
-                '</h2>' +
-                '</center>' +
-                '<br>' +
-                `<p> ${txtBio}</p>` +
-                '<br>'
+                '</h2>' 
+              
+                
             $("#orador").append(text);
             break;
         }
     }
+    
     text = '<br>' +
-        'Descripcion:' +
-        '<br><br>' +
+        '<h2>Descripcion:</h2>' +
+        '<br>' +
         '<p>' + array.descripcion + '</p>' +
-        '<br><br>' +
-        'Lugar:' +
-        '<br><br>' +
+        '<br>' +
+        '<h2>Lugar:</h2>' +
+        '<br>' +
         '<p>' + array.lugar + '</p>' +
-        '<br><br>' +
-        'Cronograma:' +
-        '<br><br>' +
-        '<p>' + array.cronograma + '</p>' +
-        '<br><br><br><br><br><br><br><br>' +
-        '<br><br><br><br><br><br><br><br>' +
-        '<br><br><br><br>'
+        '<br>' +
+        '<h2>Cronograma:</h2>' +
+        '<br>' +
+        '<p>' + array.cronograma + '</p>'+
+        '<br>' +
+        '<h2>Orador:</h2>' +
+        '<br>' +
+        `<p>${txtBio}</p>`
+        
+
+    
 
     $("#cronograma").append(text);
 
