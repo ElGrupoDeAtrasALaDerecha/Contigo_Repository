@@ -8,6 +8,24 @@ set ESTUDIANTE_PERSONA_documento = "1000853624",
 estado=2
 where id=1;
 
+update cita
+set ESTUDIANTE_PERSONA_documento = "1000853624",
+estado=2
+where id=2;
+
+update cita
+set ESTUDIANTE_PERSONA_documento = "1000853624",
+estado=2
+where id=4;
+
+update cita
+set ESTUDIANTE_PERSONA_documento = "1000853624",
+estado=2
+where id=9;
+
+
+
+
 update personal as pc ,persona as p
 set p.primerNombre="Santiago",
 p.segundoNombre="",
