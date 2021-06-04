@@ -15,12 +15,11 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import usa.modelo.dto.EstadisticasBtnPanico;
 
-/**/
 /**
  *
  * @author Andrés
  */
-public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico> {
+public class EstadisticasBtnPanicoDao implements IEstadisticasBtnPanicoDao {
 
     PreparedStatement pat;
     Statement stmt;
@@ -112,6 +111,33 @@ public class EstadisticasBtnPanicoDao implements IDao<EstadisticasBtnPanico> {
             while (rs.next()) {
                 listaClicks.get(0).put(rs.getString("grado"));
                 listaClicks.get(1).put(rs.getString("Clicks"));
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaClicks;
+    }
+    
+    @Override
+    public LinkedList<JSONArray> clicksPorestudiante(String documento) {
+        LinkedList<JSONArray> listaClicks = new LinkedList<>();
+        try {
+            String sql = "select month(FECHA) as mes, count(eb.ESTUDIANTE_PERSONA_documento) as clicks from estadisticas_btnpanico as eb\n" +
+                        "inner join estudiante as e on eb.ESTUDIANTE_PERSONA_documento=e.PERSONA_documento\n" +
+                        "where e.PERSONA_documento=\""+documento+"\"\n" +
+                        "and \n" +
+                        "FECHA between LAST_DAY(DATE_SUB(NOW(), INTERVAL 6 MONTH)) and NOW()\n" +
+                        "group by month(FECHA)\n" +
+                        "order by month(FECHA) asc;";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            listaClicks.add(new JSONArray());
+            listaClicks.add(new JSONArray());
+            while (rs.next()) {
+                listaClicks.get(0).put(rs.getInt("mes"));
+                listaClicks.get(1).put(rs.getInt("clicks"));
             }
             rs.close();
             pat.close();
