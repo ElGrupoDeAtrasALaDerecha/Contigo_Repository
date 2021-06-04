@@ -51,6 +51,7 @@
     flex: 1 0;
     justify-content: center;
     margin-left: 6%;
+    margin-right: 6%;
 }
 .back{
     margin-top: 24px;
@@ -71,11 +72,13 @@
     margin-top: 28px;
     margin-left: 6%;
 }
-
+.container-1{
+    margin-top: 50px;
+}
 .box1Table{
     display: flex;
     flex-direction: row;
-    margin-top: -20px;
+    width: 100%;
 }
 .img--side{
     width: 90%;
@@ -89,7 +92,7 @@ ion-icon {
 .Texto{
     border: 1px var(--light) solid;
     margin-top: 20px;
-    width: 250px;
+    width: 100%;
     margin-right: 20px;
     padding-left: 16px;
     border-radius: 4px;
@@ -98,7 +101,7 @@ ion-icon {
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-.label{
+.labelF{
     width: 100%;
     height: 100px;
 }
@@ -112,21 +115,6 @@ input[type=number]::-webkit-inner-spin-button {
 .Container--Documento{
     display: flex;
     flex-direction: row;
-}
-.Texto2{
-    border: 1px var(--light) solid;
-    width: 330px;
-    margin-right: 20px;
-    border-radius: 0px 4px 4px 0px;
-    color: var(--textForm);
-}
-.Texto3{
-    border: 1px var(--light) solid;
-    width: 200px;
-    padding-left: 10px;
-    border-radius: 4px 0px 0px 4px;
-    color: var(--textForm);
-    height: 58px;
 }
 .Texto4{
     border: 1px var(--light) solid;
@@ -150,18 +138,23 @@ input[type=number]::-webkit-inner-spin-button {
 .buttonRegistrarme{
     padding-top: 9px;
     padding-bottom: 9px;
-    width: 250px;
+    width: 47%;
     border-radius: 4px;
     margin-bottom: 68px;
     background-color: var(--primary);
     color: #ffffff;
     border: none;
 }
-.label{
+.labelF{
     background-color: transparent;
 }
 .box1--section1{
 width: 100%;
+margin-right: 12px;
+}
+.box1--section2{
+    width: 100%;
+    margin-left: 12px;
 }
 .label1{
     cursor: pointer; 
@@ -214,10 +207,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 20px;
     border-width: thin;
 }
+.buttonRegistrarme:hover{
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 47%;
+    border-radius: 4px;
+    margin-bottom: 68px;
+    color: var(--primary);
+    border: 2px var(--primary) solid;
+    background-color: #ffffff;
+}
 .buttonSiguiente{
     padding-top: 9px;
     padding-bottom: 9px;
-    width: 250px;
+    width: 47%;
     border-radius: 4px;
     margin-bottom: 68px;
     color: var(--primary);
@@ -226,7 +229,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .buttonSiguiente:hover{
     padding-top: 9px;
     padding-bottom: 9px;
-    width: 250px;
+    width: 47%;
     border-radius: 4px;
     margin-bottom: 68px;
     background-color: var(--primary);
@@ -240,3 +243,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 
+
+/*Crear conversatorio*/
+.container--text--blue{
+    color: var(--secondary);
+    font-size: 25px;
+    margin-top: 28px;
+    margin-left: 6%;
+}
+.container--form{
+    display: flex;
+    flex-direction: column;
+}
+.BotonesCnv{
+    display: flex;
+    flex-direction: row;
+    Justify-content: Space-between;
+}

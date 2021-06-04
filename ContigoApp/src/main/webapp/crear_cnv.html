@@ -3,136 +3,109 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contigo</title>
-    <!-- fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
-        rel="stylesheet">
-    <!-- CDNs -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-        crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-    <!-- style sheets -->
-    <link rel="stylesheet" href="css/form.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <!-- cloudflare -->
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- jquery -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
 
+    <link rel="stylesheet" href="css/FormCrearConversatorio.css">
+    
 
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
 
+    <!-- Minified CRONOGRAMA CSS -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Contigo</title>
 </head>
 
 <body>
-    <h2 id ="tituloPagina">Creación de Conversatorios</h2>
-    <form class="needs-validation" novalidate>
-        <div id="contenedor">
-            <section id="contenedor_cc">
-
-                <div class="contenedor_credencial">
-                    <input type="text" class="credencial" id="Texto" placeholder="Título del conversatorio"
-                        name="tlt_cnv" required>
-                    <div class="invalid-feedback">
-                        Inserta el titulo
+    <div class="container-1">
+        <h3 class="container--text--blue">Creación de conversatorios</h3>
+        <section class="container--datos">
+            <div class="box1Table">
+                <div class="box1--section1">
+                    <div class="item form-floating mb-4">
+                        <input type="text" id="Texto" class="form-control Texto" placeholder=" ">
+                        <label for="contraseña" class="labelF">Título del conversatorio</label>
                     </div>
-
-                    <textarea type="text" class="credencial" id="Descripcion" placeholder="Descripcion del conversatorio"
-                        name="des_cnv" required></textarea>
-                    <div class="invalid-feedback">
-                        Inserta la descripcion
+                    <div class="item form-floating mb-4">
+                        <input type="text" id="Descripcion" class="form-control Texto" placeholder=" ">
+                        <label for="contraseña" class="labelF">Descripción</label>
                     </div>
-
-                    <input type="text" class="credencial" id="Lugar" placeholder="Lugar" name="tlt_cnv">
-                    <div class="invalid-feedback">
-                        Inserta el lugar
+                    <div class="item form-floating mb-4">
+                        <input type="text" id="Lugar" class="form-control Texto" placeholder=" ">
+                        <label for="contraseña" class="labelF">Lugar</label>
                     </div>
-
-                    <br>
-                    <p>Subir imagen de portada referente al conversatorio</p>
-                    <div >
-                            <input type="file" id="img-uploader" class="credencial" >
+                    <div class="item form-floating mb-4" id="dv8">
+                        <div id="" class="form-control Texto">
+                            <label class="label1 file-name" for="img-uploader"> Selecciona una imagen</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#707070"
+                                class="bi bi-upload logo--Upload" viewBox="0 0 16 16">
+                                <path
+                                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                <path
+                                    d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+                            </svg>
+                            <input type="file" class="img-uploader" id="img-uploader" min="0" max="5"
+                                style="visibility:hidden;" name="opcionesInicio">
+                        </div>
+                        <label for="contraseña" class="labelF">Portada del conversatorio</label>
                     </div>
-                    <br>
-                    <p>Subir imagen de la infografía referente al conversatorio</p>
-                    <div>
-                            <input type="file" id="img-uploader2" class="credencial">
-                    </div>
-                    
                 </div>
-
-            </section>
-
-            <section id="contenedor_conv">
-
-                <p>Selecciona los cursos a los cuales va dirigido este conversatorio:</p>
-                    <div id="cursos" class="credencial">
-                        <select id="grados" name="grados" multiple="" class="ui search fluid dropdown">
-                          
-                            <option value="1">Transición</option>
-                            <option value="2">Primero</option>
-                            <option value="3">Segundo</option>
-                            <option value="4">Tercero</option>
-                            <option value="5">Cuarto</option>
-                            <option value="6">Quinto</option>
-                            <option value="7">Sexto</option>
-                            <option value="8">Séptimo</option>
-                            <option value="9">Octavo</option>
-                            <option value="10">Noveno</option>
-                            <option value="11">Décimo</option>
-                            <option value="12">Once</option>
-                            <option value="13">Docente</option>
-                        </select>
-
-                    </div>
-                    <br>
-
-                    <p>Selecciona el dia y la hora en el cual sera presentado este conversatorio</p>
+                <div class="box1--section2">
                     
-                <div class="input-group date" id="cronograma2" data-target-input="nearest">
+                    <div class="item form-floating mb-4" id="dv11">
+                            <select id="grados" name="grados" multiple="" class="ui search fluid dropdown form-select Texto ">
+                                <option value="1">Transición</option>
+                                <option value="2">Primero</option>
+                                <option value="3">Segundo</option>
+                                <option value="4">Tercero</option>
+                                <option value="5">Cuarto</option>
+                                <option value="6">Quinto</option>
+                                <option value="7">Sexto</option>
+                                <option value="8">Séptimo</option>
+                                <option value="9">Octavo</option>
+                                <option value="10">Noveno</option>
+                                <option value="11">Décimo</option>
+                                <option value="12">Once</option> |
+                            </select>
+                            <label for="contraseña" class="labelF">Cursos</label>
+                        
+                    </div>
+                    <div class="item form-floating mb-4" id="dv3">
+                        <input type="date" class="form-control Texto label1" id="cronograma" placeholder=" "
+                            name="FechaNacimiento" required>
+                        <label for="contraseña" class="labelF">Fecha del conversatorio</label>
+                    </div>
+                    <div class="BotonesCnv">
+                        
+                            <input type="button" id="Cancelar" class="buttonSiguiente" value="Cancelar">
+                        
+                            <input type="submit" id="btnCrear" class="buttonRegistrarme" value="Crear">
+                        
+                    </div>
 
-                        <input  type="text" class="credencial" id="cronograma" placeholder="Cronograma" data-target="#cronograma2" required>
-                            <div class="invalid-feedback">
-                                Completa los campos de cronograma
-                            </div>
-
-                            <div class="input-group-append" data-target="#cronograma2" data-toggle="datetimepicker">
-                                <div class="calendar"><i class="fa fa-calendar fa-4x"></i></div>
-                            </div>
                 </div>
-
-            
-                
-            </section>
-        </div>
-        <div class="contenedor_credencial">
-            <button id="btnCrear" class="btn" type="submit">Crear Conversatorio</button>
-        </div>
-    </form>
+            </div>
+        </section>
+    </div>
+    <footer></footer>
 
 </body>
 
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="js/funciones.js"></script>
-<script src="js/footer.js"></script>
 <script src="js/modificarConver.js"></script>
-
-
-
-
-
