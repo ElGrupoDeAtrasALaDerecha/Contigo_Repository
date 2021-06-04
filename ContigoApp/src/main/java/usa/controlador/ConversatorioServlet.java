@@ -15,8 +15,10 @@ import usa.factory.Producer;
 import usa.modelo.dao.ConversatoriosDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IDaoConversatorios;
+import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.Conversatorio;
+import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**
@@ -30,6 +32,7 @@ public class ConversatorioServlet extends HttpServlet {
     
     AbstractFactory factoryDao=Producer.getFabrica("DAO");
     IDao dao = (IDao)factoryDao.obtener("ConversatoriosDao");
+    IPersonalCalificadoDao daoPersonal = (IPersonalCalificadoDao) factoryDao.obtener("PersonalCalificadoDao");
 
 
     /**
@@ -80,6 +83,9 @@ public class ConversatorioServlet extends HttpServlet {
         System.out.println(parametros);
         Conversatorio conver = (Conversatorio) Utils.fromJson(parametros, Conversatorio.class);
         IDaoConversatorios daoConver=(IDaoConversatorios)dao;
+        String token = request.getHeader("token");
+        PersonalCalificado p = daoPersonal.consultarPorToken(token);
+        conver.setOrador(p.getDocumento());
         JSONObject respuesta = new JSONObject();
         int resultado = daoConver.crearConver(conver);
        

@@ -130,6 +130,7 @@ function LlamarGrado() {
         success: function (result, textStatus, request) {
             grado = result.Grados;
             LlamarEstudiante(grado);
+            console.log(result)
             if (result != "error") {
             } else {
                 console.log("error");
@@ -247,6 +248,7 @@ function listarConver(conversatorio) {
             '<div id="Caja-texto">' +
             '<img src="' + conversatorio[i].imagen + '" class="img-portafolio">' +
             '<div class="textoSobre-img">' + conversatorio[i].titulo +
+            '<p>'+ conversatorio[i].descripcion + '</p>'+
             '</div>' +
             '</div>' +
             '</div>';
