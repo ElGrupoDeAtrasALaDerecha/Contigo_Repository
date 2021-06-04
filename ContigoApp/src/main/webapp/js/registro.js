@@ -5,6 +5,18 @@ var ca = null;
 var sec = null;
 var idpago = 1;
 
+var departamento;
+var munici;
+var nombre;
+var sector;
+var dire;
+var ba;
+var Calendario;
+var telefono;
+var correo;
+var web;
+var contra;
+var conficontra;
 
 
 window.onload = function depas() {
@@ -39,18 +51,8 @@ window.onload = function depas() {
 }
 
 function registrar_institucion() {
-    municipio = $("#municipio").val();
-    nom = $("#nombre").val();
-    sector = $("#sector").val();
-    direccion = $("#direccion").val();
-    barrio = $("#barrio").val();
-    tel = $("#telefono").val();
-    correo = $("#correo").val();
-    pagw = $("#web").val();
-    contra = $("#contra").val();
-    calen = $("#Calendario").val();
-
-    if (calen == 0) {
+   
+    if (Calendario == 0) {
         ca = false;
     } else {
         ca = true;
@@ -62,25 +64,21 @@ function registrar_institucion() {
         sec = true;
     }
 
-    if (municipio == "") {
-        toastr.warning('Por favor escoja un municipio')
-    }
-
-
     informacion = {
-        idMunicipio: parseInt(municipio, 10),
-        nombre: nom,
+        idMunicipio: parseInt(munici, 10),
+        nombre: nombre,
         tipoInstitucion: sec,
-        direccion: direccion,
-        barrio: barrio,
-        telefono: tel,
+        direccion: dire,
+        barrio: ba,
+        telefono: telefono,
         correo: correo,
-        pagina: pagw,
+        pagina: web,
         contraseña: contra,
         calendario: ca,
         METODO_PAGO_id: idpago
     };
-
+    console.log(informacion)
+    
     $.ajax({
         url: "Institucion",
         type: "POST",
@@ -93,16 +91,16 @@ function registrar_institucion() {
             if (result.tipo != "error") {
                 console.log(result);
                 toastr.success('Institcución creada con exito')
-                $(location).attr('href', 'ingresar.html');
+                $(location).attr('href', 'login_est.html');
             } else {
                 if (result.mensaje === "Ya existe una institucion con este nombre") {
                     console.log(result);
-                    toastr.error('Institución ya registrada')    
+                    toastr.error('Institución ya registrada')
                 } else {
                     console.log(result);
                     toastr.error('Error al registrar la institución')
                 }
-                
+
             }
 
         },
@@ -165,7 +163,7 @@ function llenarMunicipios(municipiosAPintar) {
     let m = '<option value="">Municipio</option>';
     let txt = '';
     for (let i = 0; i < municipiosAPintar.length; i++) {
-        if(i==0){
+        if (i == 0) {
             $('#municipio').append(m);
         }
         txt = '<option value ="' + municipiosAPintar[i].id + '">' + municipiosAPintar[i].nombre +
@@ -174,95 +172,70 @@ function llenarMunicipios(municipiosAPintar) {
     };
 
 }
+
 function BorrarTexto() {
-    document.querySelectorAll('.Espacios[data-error] .Texto').forEach(inpEl => {
+    document.querySelectorAll('.item[data-error] .Texto4').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+
+    document.querySelectorAll('.item[data-error] .Texto').forEach(inpEl => {
         inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
     })
 }
 
-function Ingresar() {
+function validar_uno() {
     departamento = document.getElementById("departamento").value;
-    municipio = document.getElementById("municipio").value;
+    munici = document.getElementById("municipio").value;
     nombre = document.getElementById("nombre").value;
     sector = document.getElementById("sector").value;
-    direccion = document.getElementById("direccion").value;
-    barrio = document.getElementById("barrio").value;
-    telefono = document.getElementById("telefono").value;
-    correo = document.getElementById("correo").value;
-    web = document.getElementById("web").value;
+    dire = document.getElementById("direccion").value;
+    ba = document.getElementById("barrio").value;
     Calendario = document.getElementById("Calendario").value;
-    contra = document.getElementById("contra").value;
-    conficontra = document.getElementById("conficontra").value;
-    var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-    var esValido = expReg.test(correo);
 
+    if (departamento == "" || munici == "" || nombre == "" || sector == "Sector" || dire == "" || ba == "" || Calendario == "") {
 
-    
-
-    if (departamento == "Departamentos" || municipio == "Municipio" || nombre == "" || sector == "Sector" || direccion == "" || barrio == "" || telefono == "" || correo == "" || Calendario == "" || contra == "" || conficontra == "") {
-        if (departamento == "") {
-            document.getElementsByClassName("Espacios dep")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }
         if (nombre == "") {
-            document.getElementsByClassName("Espacios nom")[0].setAttribute("data-error", "Campo obligatorio");
+            document.getElementsByClassName("item form-floating mb-4")[0].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese el nombre de la instiución')
             BorrarTexto();
         }
+
+        if (departamento == "") {
+            document.getElementsByClassName("item form-floating mb-4")[1].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor seleccione un departamento')
+        }
+
         if (sector == "Sector") {
-            document.getElementsByClassName("Espacios sec")[0].setAttribute("data-error", "Campo obligatorio");
+            document.getElementsByClassName("item form-floating mb-4")[2].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor seleccione un sector')
+        }
+        if (dire == "") {
+            document.getElementsByClassName("item form-floating mb-4")[3].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese una dirección')
             BorrarTexto();
         }
-        if (direccion == "") {
-            document.getElementsByClassName("Espacios dir")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }
-        if (municipio == "") {
-            document.getElementsByClassName("Espacios mun")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }
-        if (barrio == "") {
-            document.getElementsByClassName("Espacios bar")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }
-        if (telefono == "") {
-            document.getElementsByClassName("Espacios Tel")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }
-        if (correo == "") {
-            document.getElementsByClassName("Espacios cor")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
+        if (munici == "") {
+            document.getElementsByClassName("item form-floating mb-4")[4].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor seleccione un municipio')
         }
         if (Calendario == "Calendario") {
-            document.getElementsByClassName("Espacios cal")[0].setAttribute("data-error", "Campo obligatorio");
+            document.getElementsByClassName("item form-floating mb-4")[5].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor seleccione el calendario de la instiución')
+        }
+        if (ba == "") {
+            document.getElementsByClassName("item form-floating mb-4")[6].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese un barrio')
             BorrarTexto();
         }
-        if (contra == "") {
-            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }else if(contra.length<=8){
-            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
-            BorrarTexto();
-        }
-        if (conficontra == "") {
-            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }else if(conficontra.length<=8){
-            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
-            BorrarTexto();
-        }
-    } else if (contra != conficontra) {
-        toastr.warning('Las contraseñas no coinciden')
-    } else if (esValido != true) {
-       toastr.error('Correo no valido')
     } else {
-        registrar_institucion();
-        
+        Siguiente();
     }
 }
-function Siguiente(){
-    let txt= `<div id="Datos">
+
+function Siguiente() {
+    let txt = `<div id="Datos">
     <section id="table-datos">
-    <div class="form-floating mb-4 especial">
+    <div class="item form-floating mb-4 especial">
 	    <input type="text" class="form-control Texto4" id="web" placeholder=" "
 	    name="PaginaWeb" required>
 	    <label for="contraseña" class="label">Página Web:</label>
@@ -270,36 +243,98 @@ function Siguiente(){
     <div class="box1Table">
         
         <div class="box1--section1">
-            <div class="form-floating mb-4">
+            <div class="item form-floating mb-4">
                 <input type="number" class="form-control Texto" id="telefono" placeholder=" "
                 name="Telefono" required>
-                <label for="contraseña" class="label">Numero de contacto:</label>
+                <label for="contraseña" class="label">Numero de contacto</label>
             </div>
-            <div class="form-floating mb-4">
+            <div class="item form-floating mb-4">
 	            <input type="password" class="form-control Texto" id="contra" placeholder=" "
 	            name="Contraseña" required>
-	            <label for="contraseña" class="label">Contraseña:</label>
+	            <label for="contraseña" class="label">Contraseña</label>
             </div>
         </div>
         <div class="box1--section2">
-            <div class="form-floating mb-4">
+            <div class="item form-floating mb-4">
                 <input type="email" class="form-control Texto" id="correo" placeholder=" "
                 name="Correo" required>
-                <label for="contraseña" class="label">Correo:</label>
+                <label for="contraseña" class="label">Correo</label>
             </div>
-            <div class="form-floating mb-4">
+            <div class="item form-floating mb-4">
 	            <input type="password" class="form-control Texto" id="conficontra" placeholder=" "
 	            name="ConfirmarContraseña" required>
-	            <label for="contraseña" class="label">Confirmar contraseña:</label>
+	            <label for="contraseña" class="label">Confirmar contraseña</label>
             </div>
         </div>
     </div>
 </section>
 <p class="parametro">Usa 8 o más caracteres con una combinación de letras, números y símbolos</p>
 <div id="boton">
-    <input type="submit" id="Button2" class="buttonRegistrarme" value="Registrarme" name="CrearUsuario">
+    <input type="submit" id="Button3" class="buttonRegistrarme" value="Registrarme" name="CrearUsuario" onclick="validar_dos()">
 </div>
 </div>
 </div>`
     $("#Datos").replaceWith(txt);
 }
+
+$("#Button2").click(function () {
+    validar_uno();
+});
+
+$("#departamento").click(function () {
+    document.getElementsByClassName("item form-floating mb-4")[1].removeAttribute('data-error')
+});
+$("#sector").click(function () {
+    document.getElementsByClassName("item form-floating mb-4")[2].removeAttribute('data-error')
+});
+$("#municipio").click(function () {
+    document.getElementsByClassName("item form-floating mb-4")[4].removeAttribute('data-error')
+});
+$("#Calendario").click(function () {
+    document.getElementsByClassName("item form-floating mb-4")[5].removeAttribute('data-error')
+});
+
+function validar_dos() {
+    telefono = document.getElementById("telefono").value;
+    correo = document.getElementById("correo").value;
+    web = document.getElementById("web").value;
+    contra = document.getElementById("contra").value;
+    conficontra = document.getElementById("conficontra").value;
+    var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    var esValido = expReg.test(correo);
+
+
+    if (telefono == "" || correo == "" || contra == "Sector" || conficontra == "") {
+
+        if (telefono == "") {
+            document.getElementsByClassName("item form-floating mb-4")[1].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese un número de contacto')
+            BorrarTexto();
+        }
+        if (contra == "" ) {
+            document.getElementsByClassName("item form-floating mb-4")[2].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese una contraseña')
+            BorrarTexto();
+        }
+        if (correo == "") {
+            document.getElementsByClassName("item form-floating mb-4")[3].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese un correo')
+            BorrarTexto();
+        }
+        if (conficontra == "") {
+            document.getElementsByClassName("item form-floating mb-4")[4].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese la confirmación de la contraseña')
+            BorrarTexto();
+        }
+        if (conficontra.length < 8 || contra.length < 8) {
+            toastr.warning('La contraseña debe tener minimo 8 caracteres')
+        }
+    } else if (contra !== conficontra) {
+        toastr.error('Las contraseñas no coinciden')
+    } else if (!esValido) {
+        toastr.error('El correo no valido')
+    } else {
+        registrar_institucion();
+    }
+}
+

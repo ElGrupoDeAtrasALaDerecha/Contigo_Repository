@@ -196,6 +196,11 @@ width: 100%;
     border-color: red;
     color: red;
 }
+
+.item[data-error] .Texto4{
+    border-color: red;
+    color: red;
+}
 .logo--Upload{
     margin-left: 26px;
 }
