@@ -51,13 +51,16 @@ function selects() {
 
 function listarGrados() {
     $.ajax({
-        url: 'ClasificacionServlet',
+        url: 'Grado?id='+getCookie("ID_Inst"),
         method: 'GET',
         dataType: 'json',
+        headers:{
+            token:getCookie("ID_Inst")
+        },
         success: function (response) {
             arregloGrados = response.clasificaciones;
-            for (let index = 0; index < response.clasificaciones.length; index++) {
-                codigoGrado[index]= response.clasificaciones.codigo;                
+            for (let i= 0; i < response.clasificaciones.length; i++) {
+                codigoGrado[i]= response.clasificaciones[i].codigo;                
             }
         },
         error: function (response) {
@@ -492,8 +495,7 @@ $(".seleccionGrafica").click(function () {
             consultarInformacion()
         });
     }else if(this.id==="porEstudiante"){
-        $("#contenidoGraficas").empty();
-        let vistaGraficaEstudiante=``
+    agregarFuncionesDeGraficasDeEstudiantes()
     }
     
 });
