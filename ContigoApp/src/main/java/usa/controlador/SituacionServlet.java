@@ -11,9 +11,12 @@ import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.IHistoriasDao;
+import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dao.ISituacionDao;
 import usa.modelo.dto.Final;
 import usa.modelo.dto.Historia;
+import usa.modelo.dto.PersonalCalificado;
 import usa.modelo.dto.Situacion;
 import usa.utils.Utils;
 
@@ -30,7 +33,7 @@ public class SituacionServlet extends HttpServlet {
     IDao dao = (IDao) factoryDao.obtener("SituacionDao");
     IDao daoHistorias = (IDao) factoryDao.obtener("HistoriaDao");
     IDao daoFinal = (IDao) factoryDao.obtener("FinalDao");
-
+     IDao personalCalificadoDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -46,12 +49,18 @@ public class SituacionServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         ISituacionDao daoSituacion = (ISituacionDao) dao;
         String id = request.getParameter("id");
+        String token = request.getHeader("token");
         JSONObject respuesta = new JSONObject();
         Historia historia = (Historia) daoHistorias.consultar(id);
+        IHistoriasDao daoHis = (IHistoriasDao) daoHistorias;
+        IPersonalCalificadoDao personalDao = (IPersonalCalificadoDao) personalCalificadoDao;
+        PersonalCalificado personal = personalDao.consultarPorToken(token);
+        
         if (historia != null) {
             JSONObject arreglo = new JSONObject(Utils.toJson(daoSituacion.consultarPorHistoria(Integer.parseInt(id))));
             respuesta.put("tipo", "ok");
             respuesta.put("situaciones", arreglo);
+            respuesta.put("tieneHistoria",daoHis.tieneHistorias(personal.getDocumento()));
         } else {
             respuesta.put("tipo", "error");
             respuesta.put("mensaje", "No existe esa historia aa aa");

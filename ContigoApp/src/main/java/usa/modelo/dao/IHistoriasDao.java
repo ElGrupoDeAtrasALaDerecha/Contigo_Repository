@@ -13,4 +13,5 @@ public interface IHistoriasDao extends IDao<Historia>{
     int crearClasi(String con, int resultado);
     int crearhistoria(Historia his);
     LinkedList<Historia> consultarHistoriasDeEstudiante(String documento);
+    boolean tieneHistorias(String documento);
 }

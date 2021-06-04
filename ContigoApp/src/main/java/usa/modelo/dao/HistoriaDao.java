@@ -183,5 +183,24 @@ public class HistoriaDao implements IHistoriasDao {
         }
         return historias;
     }
+    public boolean tieneHistorias(String documento) {
+        boolean tieneHistoria = false;
+        try {
+            String sql = "select count(*)>1 as tieneHistoria from HISTORIA \n"
+                    + "where PERSONAL_PERSONA_documento =\"" + documento + "\"";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            if(result.next()){
+                tieneHistoria = result.getBoolean("tieneHistoria");
+            }
+            result.close();
+            pat.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return tieneHistoria;
+    }
 
 }
