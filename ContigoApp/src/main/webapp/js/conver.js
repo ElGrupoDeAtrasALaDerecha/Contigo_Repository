@@ -268,6 +268,7 @@ function listarConver(conversatorio) {
     for (var i = 0; i < conversatorio.length; i++) {
         if (parseInt(conversatorio[i].id) === parseInt(getCookie("idcar"))) {
             TraerOrador(conversatorio[i], conversatorio[i].orador);
+            orador = conversatorio[i].orador
         }
     }
 
@@ -380,10 +381,16 @@ function colocarInfo(array, orador, personal) {
     }
     $("#titulo").append(text);
     document.getElementById("banner2").style.background = "url(" + array.imagen + ") repeat";
+    function llenar(){
 
+    }
     $("#btnRegistrarEstu").click(function () {
+        console.log("hola")
         llenarDiv(array, oradordiv);
     })
+}
+function llenar(){
+    llenarDiv(conversatorio, oradordiv);
 }
 
 /* Registro del estudiante en el conversatorio */
@@ -403,6 +410,7 @@ function confimarSiEstaRegistrado(){
                 btnRegistrar.setAttribute("id", "btnRegistrarEstu");
                 btnRegistrar.removeAttribute("onClick", "cancelarRegistro();");
                 btnRegistrar.setAttribute("data-open", "modal1")
+                btnRegistrar.setAttribute("onClick", "llenar();");
                 
             } else {
                 btnRegistrar.innerText = "Cancelar Registro"
