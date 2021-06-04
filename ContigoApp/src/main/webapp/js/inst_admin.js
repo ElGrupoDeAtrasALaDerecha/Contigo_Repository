@@ -1,3 +1,20 @@
+const li = document.querySelectorAll('li')
+const item = document.querySelectorAll('.item')
+const item_content = document.querySelectorAll('.item-content')
+
+li.forEach( (items, i) => {
+  li[i].addEventListener('click',()=>{
+    item.forEach((element, i) => {
+      item[i].classList.remove('selected')
+    });
+    item[i].classList.add('selected')
+    item_content.forEach((element, i) => {
+      item_content[i].classList.add('hide')
+    });
+    item_content[i].classList.remove('hide')
+  })
+});
+
 // Sidebar conf
 $(document).ready(function () {
   $("#m1").css("background-color", "#162997")
