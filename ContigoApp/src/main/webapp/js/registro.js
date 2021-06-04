@@ -304,7 +304,7 @@ function validar_dos() {
     var esValido = expReg.test(correo);
 
 
-    if (telefono == "" || correo == "" || contra == "Sector" || conficontra == "") {
+    if (telefono == "" || correo == "" || contra == "" || conficontra == "" ||  conficontra < 8 || contra < 8 ) {
 
         if (telefono == "") {
             document.getElementsByClassName("item form-floating mb-4")[1].setAttribute("data-error", "Campo obligatorio");
