@@ -243,7 +243,7 @@ function pintarInformacionEstudiante(datos){
         data: {
             labels: mesesCitas,
             datasets: [{
-                label: 'Citas solicitadas previamente',
+                label: 'Citas solicitadas en los últimos 6 meses',
                 data: citas.citas,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -266,13 +266,14 @@ function pintarInformacionEstudiante(datos){
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        callback: function(value) {if (value % 1 === 0) {return value;}}
                     }
                 }]
             },
             title: {
                 display: true,
-                text: 'Numero de citas en el tiempo'
+                text: 'Citas solicitadas en los últimos 6 meses'
             },
             layout: {
                 padding: {

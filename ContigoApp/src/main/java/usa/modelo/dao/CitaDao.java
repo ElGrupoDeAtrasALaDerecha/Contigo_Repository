@@ -288,15 +288,33 @@ public class CitaDao implements IDaoCita {
     public JSONObject ultimasCitasEstudiante(String documento) {
         JSONObject datos = null;
         try {
-            String sql = "select month(fecha) as mes, count(e.PERSONA_documento) as citas\n"
-                    + "from cita as c\n"
-                    + "left join estudiante as e on e.PERSONA_documento=c.ESTUDIANTE_PERSONA_documento\n"
-                    + "inner join persona as p on p.documento=e.PERSONA_documento\n"
-                    + "where p.documento=\""+documento+"\" \n"
-                    + "and \n"
-                    + "c.fecha between LAST_DAY(DATE_SUB(NOW(), INTERVAL 6 MONTH)) and NOW()\n"
-                    + "group by month(fecha)\n"
-                    + "order by fecha asc;   ";
+            String sql = "select t2.mes,coalesce(t1.citas,0) as citas from (\n" +
+                            "select month(fecha) as mes, count(e.PERSONA_documento) as citas\n" +
+                            "from cita as c\n" +
+                            "left join estudiante as e on e.PERSONA_documento=c.ESTUDIANTE_PERSONA_documento\n" +
+                            "inner join persona as p on p.documento=e.PERSONA_documento\n" +
+                            "where p.documento=\""+documento+"\" \n" +
+                            "and \n" +
+                            "c.fecha between LAST_DAY(DATE_SUB(NOW(), INTERVAL 6 MONTH)) and NOW()\n" +
+                            "group by month(fecha)\n" +
+                            "order by fecha asc) as t1\n" +
+                            "right outer join  (select month(q.dia) as mes from (\n" +
+                            "SELECT\n" +
+                            "    DATE_ADD(LAST_DAY(DATE_SUB(NOW(), INTERVAL 5 MONTH)), INTERVAL t.n DAY) as dia\n" +
+                            "FROM (\n" +
+                            "    SELECT \n" +
+                            "        a.N + b.N * 10 + c.N * 100 AS n\n" +
+                            "    FROM\n" +
+                            "        (SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) a\n" +
+                            "       ,(SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) b\n" +
+                            "       ,(SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7) c\n" +
+                            "    ORDER BY n\n" +
+                            ") t   \n" +
+                            "WHERE\n" +
+                            "    t.n <= TIMESTAMPDIFF(DAY, LAST_DAY(DATE_SUB(NOW(), INTERVAL 5 MONTH)) , NOW() )) as q\n" +
+                            "group by month(q.dia)\n" +
+                            "order by q.dia) as t2\n" +
+                            "on t1.mes=t2.mes; ";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             datos = new JSONObject();
