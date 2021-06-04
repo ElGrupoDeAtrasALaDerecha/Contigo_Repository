@@ -1,44 +1,50 @@
-/*Menu*/
 nav{
-    color:rgba(255,255,255,1);
-    font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
-    position: absolute;
-    width: 100%;
+    border-bottom: 1px solid var(--bk);
 }
-#logo{
-    margin: 0 0 0 2%;
+nav a{
+    text-decoration: none;
 }
-#contigo-1{
-    float: left;
+.navbar-brand{
     font-family: 'Kaushan Script';
-    font-size: 50px;
-    font-weight: lighter;
-
-
+    font-size: 35px;
 }
-#cont_op{
-    float: flex;
-    padding-top: 1%;
-    text-align: center;
+.minav{
+    display: flex;
+    justify-content: center;
     width: 100%;
 }
-nav ul{
-    list-style:none;
-    margin: 0 auto;
-    padding-left: 14%;
-    width: 50%;
+.navitems{
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
 }
-nav ul::after{
-    content: '';
-    display: block;
-    clear: both;
+.navbar-nav li a{
+    color: var(--text) !important;
 }
-#menu ul li{
-    float: left;
-    padding: 0% 5%;
+nav li {
+    padding-right: 5%;
 }
-nav ul li a:hover{
-    border-bottom: solid 2px #fde9c9;
-    border-radius: 5%;
+nav a, .navitems a, .log-out a{
+    color: var(--text);
+    text-decoration: none;
+}
+nav a:hover, .navitems a:hover, .navbar-nav li a:hover, .log-out a{
+    color: var(--primary) !important;
+}
+.log-out{
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    margin-right: 5%;
+
+}
+ion-icon{
+    color: var(--primary);
+    font-size: 30px;
+    padding: 1px 0 0 10px;
+    --ionicon-stroke-width: 35px;
+}
+.btn-home button{
+    border: none;
 }

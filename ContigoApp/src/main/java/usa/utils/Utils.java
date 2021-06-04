@@ -86,7 +86,7 @@ public class Utils {
     /**
      * Método que permite crear un codigo de curso con numeros y mayusculas.
      *
-     * @return un codigo
+     * @return un codigo de curso
      */
     public static String crearCodigoCurso() {
         return GeneradorCodigos.getCodigo("N-M", 6);
@@ -95,10 +95,10 @@ public class Utils {
     /**
      * Método que permite crear un codigo de recuperación de contraseña
      *
-     * @return un codigo
+     * @return un codigo de recuperación de contraseña
      */
     public static String crearCodigoRecuperacion() {
-        return GeneradorCodigos.getCodigo("N-M-m", 7);
+        return GeneradorCodigos.getCodigo("N-M-m", 13);
     }
     
     /**
