@@ -12,16 +12,20 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import static usa.modelo.dao.IDao.conn;
 import usa.modelo.dto.Cita;
 import usa.modelo.dto.PersonalCalificado;
-import usa.observer.ObservadorCita;
 
 /**
+ * Clase de objeto de acceso a datos de las citas
  *
- * @author Valeria
+ * @author Valeria Bermúdez, Santiago Pérez
+ * @version 1.1
+ * @since 2021-06-03
  */
 public class CitaDao implements IDaoCita {
 
@@ -238,8 +242,8 @@ public class CitaDao implements IDaoCita {
                 System.out.println("###" + result.getInt("AGENDA_id") + result.getInt("id"));
                 perca.add(cita);
             }
-            for(Cita cita:perca){
-                PersonalCalificado p =dao.consultar(cita.getId_perca());
+            for (Cita cita : perca) {
+                PersonalCalificado p = dao.consultar(cita.getId_perca());
                 cita.setPersonal(p);
             }
         } catch (SQLException ex) {
@@ -278,6 +282,38 @@ public class CitaDao implements IDaoCita {
         }
 
         return citasPersonal;
+    }
+
+    @Override
+    public JSONObject ultimasCitasEstudiante(String documento) {
+        JSONObject datos = null;
+        try {
+            String sql = "select month(fecha) as mes, count(e.PERSONA_documento) as citas\n"
+                    + "from cita as c\n"
+                    + "left join estudiante as e on e.PERSONA_documento=c.ESTUDIANTE_PERSONA_documento\n"
+                    + "inner join persona as p on p.documento=e.PERSONA_documento\n"
+                    + "where p.documento=\""+documento+"\" \n"
+                    + "and \n"
+                    + "c.fecha between LAST_DAY(DATE_SUB(NOW(), INTERVAL 6 MONTH)) and NOW()\n"
+                    + "group by month(fecha)\n"
+                    + "order by fecha asc;   ";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            datos = new JSONObject();
+            JSONArray meses = new JSONArray();
+            JSONArray citas = new JSONArray();
+            while (rs.next()) {
+                meses.put(rs.getInt("mes"));
+                citas.put(rs.getInt("citas"));
+            }
+            datos.put("meses",meses);
+            datos.put("citas",citas);
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CitaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return datos;
     }
 
 }

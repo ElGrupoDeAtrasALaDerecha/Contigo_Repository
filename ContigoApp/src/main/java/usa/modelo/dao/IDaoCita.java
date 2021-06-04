@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.modelo.dao;
 
 import java.util.LinkedList;
+import org.json.JSONObject;
 import usa.modelo.dto.Cita;
 
 /**
- *
- * @author Valeria
+ * Interfaz de objeto de acceso a datos de las citas
+ * @author Valeria Bermúdez y Santiago Pérez
+ * @version 1.1
+ * @since 2021-06-03
  */
 public interface IDaoCita extends IDao<Cita> {
 
@@ -27,5 +25,6 @@ public interface IDaoCita extends IDao<Cita> {
     LinkedList<Cita> percaCita(String fecha, String hora);
 
     LinkedList<Cita> listarCitasPersonal(String id);
-
+    
+    JSONObject ultimasCitasEstudiante(String documento);
 }
