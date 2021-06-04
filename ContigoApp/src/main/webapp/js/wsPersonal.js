@@ -561,11 +561,11 @@ function agregarInformacion() {
 						<div class="content">
 							<a class="header">${sala.estudiante.primerNombre} ${sala.estudiante.primerApellido}</a>
 							<div class="description">
-								<b>Nombre completo: </b> ${sala.estudiante.primerNombre} ${sala.estudiante.segundoNombre} ${sala.estudiante.primerApellido} ${sala.estudiante.segundoApellido} <br>
-								<b>Edad: </b> ${edad} años <br>
-								<b>Grado: </b> ${sala.estudiante.clasificacion}<br>
-								<b>Institución: </b> ${sala.estudiante.institucion} <br>
-								<b>Género: </b> ${genero}
+								<b2>Nombre completo: </b2> ${sala.estudiante.primerNombre} ${sala.estudiante.segundoNombre} ${sala.estudiante.primerApellido} ${sala.estudiante.segundoApellido} <br>
+								<b2>Edad: </b2> ${edad} años <br>
+								<b2>Grado: </b2> ${sala.estudiante.clasificacion}<br>
+								<b2>Institución: </b2> ${sala.estudiante.institucion} <br>
+								<b2>Género: </b2> ${genero}
 								<br>
 							</div>
 						</div>
