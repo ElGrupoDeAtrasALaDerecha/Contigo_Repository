@@ -83,3 +83,4 @@ function limpiarInput(){
     document.getElementById("fecha").value = "";
     document.getElementById("fecha2").value = "";
 }
+

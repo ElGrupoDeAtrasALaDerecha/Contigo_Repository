@@ -28,6 +28,7 @@ var motivos;
 $(document).ready(function () {
   cargarCitas();
   obtenerMotivos();
+  traerPersonal();
 });
 
 let currentDate = new Date(); //fecha del pc como ref
@@ -133,12 +134,8 @@ function escribirMeses(month) {
     contador++;
     mes = month + 1;
     fecha = currentYear + "-" + mes + "-" + $(this).attr("id");
-    console.log(fecha);
-    console.log(contador);
     horas.style.display = "block";
-
     variable = $(this).attr("id");
-    console.log(variable);
     var mes = month + 1;
     if (mes < 10 && variable > 10) {
       fecha = currentYear + "-" + 0 + mes + "-" + variable;
@@ -541,4 +538,25 @@ function detectarCambioMotivo() {
   else {
     motivo = $("#MotivoOtros").val()
   }
+}
+
+
+function traerPersonal() {
+  $.ajax({
+    url: "PersonalCalificado",
+    type: "GET",
+    dataType: "json",
+    headers: {
+      token: getCookie("token"),
+    },
+    contentType: "JSON application/json charset=utf-8",
+    beforeSend: function () { },
+    success: function (response) {
+      if (response.tipo === "ok") {
+        console.log(response)
+      }
+    },
+    complete: function (result) { },
+    error: function (result) { },
+  });
 }
