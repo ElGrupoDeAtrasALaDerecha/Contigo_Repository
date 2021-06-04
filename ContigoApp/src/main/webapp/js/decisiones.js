@@ -127,12 +127,10 @@ document.getElementById('hablar').addEventListener("click", () => {
 });
 function decir(texto) {
     //speechSynthesis.speak(new SpeechSynthesisUtterance(texto));
-
     speechSynthesis.onvoiceschanged = () => {
-         
         const synth = speechSynthesis
         const voices = synth.getVoices()
-        console.log(text)
+        console.log(texto)
         const utterThis = new SpeechSynthesisUtterance(texto)
         utterThis.voice = voices.find(v => v.name === 'Jorge')
         utterThis.volume = 1
