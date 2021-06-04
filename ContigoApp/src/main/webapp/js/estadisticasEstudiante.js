@@ -88,7 +88,6 @@ function pintarEstudiantesEnSelect({estudiantes}) {
     $("#selectEstudiante").change(function () {
         let documentoEstudiante = $("#selectEstudiante").val();
         $("#informacionEstudiante").empty();
-        console.log(documentoEstudiante)
         agregarInformacionEstudiante(documentoEstudiante);
     })
 }
@@ -106,7 +105,6 @@ function agregarInformacionEstudiante(documento){
         },
         success: function (response) {
             pintarInformacionEstudiante(response.datos)
-            console.log(response.datos)
         },
         error: function (response) {
 
