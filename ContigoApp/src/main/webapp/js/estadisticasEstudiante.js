@@ -1,4 +1,7 @@
 var estudiantes;
+/**
+ * Función que agrega la ventana principal de las gráficas individuales del estudiante
+ */
 function agregarFuncionesDeGraficasDeEstudiantes() {
     $("#contenidoGraficas").empty();
 
@@ -35,13 +38,11 @@ function agregarFuncionesDeGraficasDeEstudiantes() {
         let txt =`<option value="${grado.codigo}">${grado.grado}</option>`
         $("#selectGrado").append(txt);
     }
-
-
-    
-
     $("#selectGrado").change(function () {
+        $("#informacionEstudiante").empty();
         let codigoGrado = $("#selectGrado").val();
         $("#selectEstudiante").empty();
+        $("#selectEstudiante").off("change");
         agregarEstudiantesEnSelect(codigoGrado);
     })
 
@@ -111,14 +112,17 @@ function agregarInformacionEstudiante(documento){
         }
     })
 }
-var clicksEstudiante;
 
+/**
+ * Función que pinta la información del estudiante en la vista de consulta individual de estudiante
+ * @param {*} datos 
+ */
 function pintarInformacionEstudiante(datos){
     let estudiante= datos.estudiante;
     let citas = datos.citas;
     let historias=datos.historias;
     
-    clicksEstudiante = datos.presion;
+    let clicksEstudiante = datos.presion;
     let edad = calcularEdad(estudiante.fechaDeNacimiento);
     let listadoHistorias=""
     for (let i = 0; i < historias.length; i++) {
