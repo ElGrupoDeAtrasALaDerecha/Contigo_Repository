@@ -241,6 +241,7 @@ function pintarEscribiendo() {
 	}, 7000)
 }
 
+
 function pintarCierreConexion(mensaje) {
 	conexionTerminada = true;
 	pintarRespuesta(mensaje);
