@@ -21,6 +21,12 @@
 *{
     background-color: #ffffff;
 }
+.container--text--blue{
+    color: var(--secondary);
+    font-size: 25px;
+    margin-top: 28px;
+    margin-left: 6%;
+}
 .logo{
     display: flex;
     flex-direction: column;
@@ -144,6 +150,7 @@ input[type=number]::-webkit-inner-spin-button {
     background-color: var(--primary);
     color: #ffffff;
     border: none;
+    height: 52px;
 }
 .labelF{
     background-color: transparent;
@@ -225,6 +232,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-bottom: 68px;
     color: var(--primary);
     border: 2px var(--primary) solid;
+    height: 52px;
 }
 .buttonSiguiente:hover{
     padding-top: 9px;
@@ -242,15 +250,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-style: italic;
 }
 
-
-
-/*Crear conversatorio*/
-.container--text--blue{
-    color: var(--secondary);
-    font-size: 25px;
-    margin-top: 28px;
-    margin-left: 6%;
-}
 .container--form{
     display: flex;
     flex-direction: column;
@@ -259,4 +258,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display: flex;
     flex-direction: row;
     Justify-content: Space-between;
+}
+.ui .label .transition .visible{
+    margin-top: 15px;
 }
