@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-    let txt = `<button id="btnAyuda" class="red inverted circular massive ui icon button"  data-content="¿Necesitas ayuda?">
+    let txt = `<button id="btnAyuda" class="red inverted circular massive ui icon button"  data-content="¿Quieres hablar?">
                 <i class="icon heartbeat"></i>
             </button>`
     $("body").append(txt);

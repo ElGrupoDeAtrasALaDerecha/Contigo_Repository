@@ -1,102 +1,98 @@
 
 $(document).ready(function () {
-const footer = `<div id="footer">
-                    <div id="superior">
-                        <ul>
-                            <li><a href="#" class="menuFooter">Inicio</a></li>
-                            <li><a href="Conversatorios.html" class="menuFooter">Conversatorios</a></li>
-                            <li><a href="listadoHistorias.html" class="menuFooter">Decisiones</a></li>
-                            <li><a href="citas.html" class="menuFooter">Citas</a></li>
-                            <li><a href="#" class="menuFooter">Ayuda</a></li>
-                            
-                        </ul>
-                        <hr>
-                    </div>
-                    <table id="table-footer">
-                        <tr>
-                            <td id="Columna-footer">
-                                <div id="PrimeraColumna">
-                                    <div>
-                                        <span id="contigo2"><a href="#">Contigo</a></span>
-                                    </div>
-                                    <div id="iconos">
-                                        <a href="#"><img class="facebook" src="Iconos/facebook.png"></a>
-                                        <a href="#"><img class="instagram" src="Iconos/instagram.png"></a>
-                                        <a href="#"><img class="linkedin" src="Iconos/linkedin.png"></a>
-                                        <a href="#"><img class="youtube" src="Iconos/youtube.png"></a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="Columna-footer">
-                                <div id="SegundaColumna">
-                                    <div>
-                                        <span id="bold">Empresa</span>
-                                    </div>
-                                    <div>
-                                        <span><a href="#">Terminos & Condiciones</a></span>
-                                    </div>
-                                    <div>
-                                        <span><a href="#">Política de Privacidad</a></span>
-                                    </div>
-                                    <div>
-                                        <span><a href="#">FAQS</a></span>
-                                    </div>
-                                    <div>
-                                        <span><a href="ingresoPerca.html">Equipo</a></span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="Columna-footer">
-                                <div id="TercerColumna">
-                                    <div>
-                                        <span id="bold">About</span>
-                                    </div>
-                                    <div>
-                                        <span><a href="#">Equipo</a></span>
-                                    </div>
-                                    <div>
-                                        <span><a href="#">Blog</a></span>
-                                    </div>
-                                    <div>
-                                        <span><a href="#">Contacto</a></span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <div id="Inferior">
-                        <div>
-                            <span>Copyright © 2021 Contigo. Creado por El Grupo De Atrás A La Derecha</span>
+    const menuSuperior = `
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="opciones.html">Contigo</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="minav">
+                        <div class="navitems">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="listadoHistorias.html">Decisiones</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="citas.html">Citas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="Conversatorios.html">Conversatorios</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    </div>`
+                    <a href="index.html">
+                        <div class="log-out" id="salir">
+                            Salir
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </nav>`
 
-        const menuSuperior = `<div id="menu">
-                            <ul>
-                                <li><a id="contigo-1" href="index.html">Contigo</a></li>
-                                <div id="up">
-                                    <li><a href="opciones.html">Inicio</a></li>
-                                    <li><a href="Conversatorios.html">Conversatorios</a></li>
-                                    <li><a href="listadoHistorias.html">Decisiones</a></li>
-                                    <li><a href="citas.html" class="menuFooter">Citas</a></li>
-                                    <li><a href="#">Ayuda</a></li>
-                                 
-                                    <li style="float:right;"><div id="salir"><a>Salir</a></div></li>
-                                </div>
-                            </ul>
-                            </div>`
+    $('body').prepend(menuSuperior)
 
-        $('body').prepend(menuSuperior)
-        $('body').append(footer)
-        $("#salir").click(function(){
-cerrarSesion();
-});
-        })
+    const footer =  `
+    <div class="box-1">
+        <div class="logo">
+            <a href="#"><p class="title">Contigo</p></a>
+        </div>
+        <div class="box-11">
+            <div class="icon">    
+                <a href="#"><img class="sepia" src="Iconos/facebook.png" alt=""></a>
+            </div>
+            <div class="icon">
+                <a href="#"><img class="sepia" src="Iconos/instagram.png"></a>
+            </div>
+            <div class="icon">
+                <a href="#"><img class="sepia" src="Iconos/linkedin.png"></a>
+            </div>
+            <div class="icon">
+                <a href="#"><img class="sepia" src="Iconos/youtube.png"></a>
+            </div>
+        </div>
+        <div class="row">
+            <img id="lines" src="img/lines.png" alt="">
+        </div>
+    </div>
+    <div class="box-2">
+        <div class="rxw">
+            <div class="coll">
+                <a href="#"><p class="option">Servicios</p></a> 
+                <a href="#"><p class="item">Conversatorios</p></a> 
+                <a href="#"><p class="item">Historias de decisión</p></a> 
+                <a href="#"><p class="item">Chat privado</p></a> 
+                <a href="#"><p class="item">Citas de ayuda</p></a> 
+            </div>
+            <div class="coll">
+                <a href="#"><p class="option">About</p></a> 
+                <a href="#"><p class="item">Desarrolladores</p></a> 
+                <a href="#"><p class="item">Personal calificado</p></a> 
+                <a href="#"><p class="item">Contacto</p></a> 
+            </div>
+            <div class="coll">
+                <a href="#"><p class="option">Soporte</p></a> 
+                <a href="#"><p class="item">Términos & Condiciones</p></a> 
+                <a href="#"><p class="item">Política de Privacidad</p></a> 
+                <a href="#"><p class="item">Preguntas frecuentes</p></a> 
+            </div>
+        </div>
+        <p class="item" id="copyright">Copyright © 2021 Contigo. Creado por El Grupo De Atrás A La Derecha</p>
+    </div>
+    `
+    $('footer').append(footer)
+    $('body').append(`<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>`)
+    $("#salir").click(function(){
+        cerrarSesion();
+    });
+})
 
-        function cerrarSesion() {
-        delete_cookie("token");
-                delete_cookie("tipoUsuario");
-                delete_cookie("documento");
-                window.location.assign("index.html");
-                }
+function cerrarSesion() {
+    delete_cookie("token");
+    delete_cookie("tipoUsuario");
+    delete_cookie("documento");
+    window.location.assign("index.html");
+}
