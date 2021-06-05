@@ -24,6 +24,11 @@ h2{
     right: 0;
     padding: 15px 10px 0 0;
 }
+#tabla_grados{
+    /* margin: auto; */
+    border: 1px solid var(--light);
+    width: 65%;
+}
 .ds{
     background-color: white !important;
 }
@@ -34,3 +39,4 @@ h2{
 #print-list ion-icon{
    padding-left: 10px;
 }
+

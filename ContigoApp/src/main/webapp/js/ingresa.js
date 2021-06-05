@@ -54,11 +54,11 @@ function loginInstitucion(obj) {
         data: JSON.stringify(obj),
         contentType: 'JSON application/json charset=utf-8',
         success: function (response) {
+            console.log(response);
+            // console.log("!!");
             if (response.tipo === "ok") {
-                //console.log(response);
                 setCookie("ID_Inst", response.ID, 0.3);
                 setCookie("tipoUsuario", 3, 0.5)
-                // console.log(response.mensaje)
                 $(location).attr('href', 'admin_inst.html');
             }else{
                 console.log(response.mensaje);

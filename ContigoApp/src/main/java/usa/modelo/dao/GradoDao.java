@@ -29,6 +29,7 @@ public class GradoDao implements IGradoDao {
                 pat.setInt(2, grado.getClasificacion_id());
                 pat.setInt(3, grado.getInstitucion_id());
                 pat.execute();
+                //grado = consultar(String.valueOf(grado.getClasificacion_id()));
                 return true;
             } catch (SQLException ex) {
                 Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);

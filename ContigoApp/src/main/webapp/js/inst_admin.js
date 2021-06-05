@@ -1,13 +1,15 @@
-$('#grado_slect').click(function () {
-  var gradoSelt = $('#grado_slect option:selected').val()
-  var id_inst = getCookie("ID_Inst")
-  var obj = {
+$('.grado_slect').click(function () {
+  let gradoSelt = $('.grado_slect option:selected').val()
+  let id_inst = getCookie("ID_Inst")
+  const obj = {
     clasificacion_id: gradoSelt,
     institucion_id: id_inst
   }
   // console.log(obj)
-  crearGrado(obj)
-  listarGrados ()
+  if(gradoSelt != 0){
+    crearGrado(obj)
+    listarGrados ()
+  }
 })
 /**
  * Función login
@@ -77,9 +79,11 @@ function listaDeGrados(serverMsj) {
 }
 
 function setCodigo (serverMsj) {
+  console.log(serverMsj)
   if(serverMsj.codigo){
-    document.getElementById('grado_code').value = serverMsj.codigo
+    document.querySelector('.ds').value = serverMsj.codigo
   }
+  listarGrados ()
 }
 
 function setCurso(data) {
@@ -90,4 +94,27 @@ function setCurso(data) {
     solicitarDatosGrafica(codigoGrado);
     consultarInformacion()
 }
+$('.toCopy').click(function copyToClipboard() {
+  var aux = document.createElement("input");
+  aux.setAttribute("value", $("#cdg").val());
+  document.body.appendChild(aux);
+  aux.select();
+  if (document.execCommand("copy")){
+    toastr.success('¡Copiado!')
+  } else {
+    toastr.error('¡Erro al copiar!')
+  }
+  document.body.removeChild(aux);
+})
 
+$('#print').click(function () {
+  const print = document.getElementById("output").innerHTML
+  console.log(print)
+  w = window.open()
+  w.document.write(print)
+  w.document.write('<style>.table{text-align: center; border: 2px solid #ced4da; font-size: 20px;} .table th, .table td{padding-left: 10px; border-top: 1px solid #ced4da;} .table td{padding-top: 10px; }</style>')
+  w.document.close(); 
+  w.focus(); 
+	w.print();
+	w.close();
+})

@@ -11,6 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- style sheets -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/sidebar.css">
@@ -74,8 +76,8 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-floating">
-                        <select class="form-select pb-1" id="floatingSelect grado_slect" aria-label="Floating label select example">
-                            <option value="" disabled selected>Selecciona un grado</option> 
+                        <select class="form-select pb-1 grado_slect" id="floatingSelect" aria-label="Grado">
+                            <option value="0" disabled selected>Selecciona un grado</option> 
                             <option value="1">Trasnsición</option>
                             <option value="2">Primero</option>
                             <option value="3">Segundo</option>
@@ -94,9 +96,9 @@
                     </div>
                 </div>
                 <div class="col-md">
-                    <div class="form-floating">
-                        <input type="text"  class="form-control ds" id="floatingInputGrid" placeholder=" " disabled>
-                        <label for="floatingInputGrid">Código del grado</ion-icon></label>
+                    <div class="form-floating toCopy">
+                        <input type="text"  class="form-control ds" id="cdg" placeholder=" " value="" disabled >
+                        <label for="cdg">Código del grado</ion-icon></label>
                         <ion-icon name="copy-outline" class="copy">
                     </div>
                  </div>
@@ -113,16 +115,28 @@
                         <tbody></tbody>
                     </table>
                 </div>
-                <div class="col-3" id="print-list">
-                    <button class=" btn btn-primary w-100" id="print"> <span>Descargar lista </span><ion-icon name="print" class=""></ion-icon></button>
-                </div>
             </div>
     
     
         </div>
-        <div class="item-content px-1 py-3 hide" id="op2"></div>
-        <div class="item-content px-1 py-3 hide" id="op3"></div>
-        <div class="item-content px-1 py-3 hide" id="op4"></div>
+        <div class="item-content px-1 py-3 hide" id="op2">
+            <div class="row">
+                <h2 class="item-tlt">Próximamente Op 2</h2>
+                <p class="item-dsc">Descripción del módulo</p>
+            </div>
+        </div>
+        <div class="item-content px-1 py-3 hide" id="op3">
+            <div class="row">
+                <h2 class="item-tlt">Próximamente Op3</h2>
+                <p class="item-dsc">Descripción del módulo</p>
+            </div>
+        </div>
+        <div class="item-content px-1 py-3 hide" id="op4">
+            <div class="row">
+                <h2 class="item-tlt">Próximamente Op 4</h2>
+                <p class="item-dsc">Descripción del módulo</p>
+            </div>
+        </div>
     </div>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 </body>
