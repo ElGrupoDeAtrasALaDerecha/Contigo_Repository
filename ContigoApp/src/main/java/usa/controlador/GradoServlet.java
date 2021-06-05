@@ -19,10 +19,9 @@ import usa.modelo.dto.Grado;
 import usa.modelo.dto.Institucion;
 import usa.utils.Utils;
 
-/**/
 /**
  *
- * @author
+ * @author 
  */
 @WebServlet(name = "GradoServlet", urlPatterns = {"/Grado"})
 public class GradoServlet extends HttpServlet {
@@ -50,17 +49,17 @@ public class GradoServlet extends HttpServlet {
         String idInstitucion = request.getParameter("id");
         if (idInstitucion != null) {
             String token = request.getHeader("token");
-            if(token!=null){
+            if (token != null) {
                 IInstitucionDao institucionDaoImpl = (IInstitucionDao) institucionDao;
                 IGradoDao gradoDao = (IGradoDao) dao;
                 Institucion i = institucionDaoImpl.consultarPorId(idInstitucion);
-                if(i!=null){
+                if (i != null) {
                     LinkedList grados = gradoDao.consultarPorInstitucion(i);
-                    respuesta.put("tipo","ok");
-                    respuesta.put("clasificaciones",new JSONArray(Utils.toJson(grados)));
+                    respuesta.put("tipo", "ok");
+                    respuesta.put("clasificaciones", new JSONArray(Utils.toJson(grados)));
                 }
-            }else{
-                respuesta.put("tipo","error");
+            } else {
+                respuesta.put("tipo", "error");
                 respuesta.put("mensaje", "No autorizado");
                 response.sendError(403);
             }
@@ -92,18 +91,12 @@ public class GradoServlet extends HttpServlet {
         Grado grado = (Grado) Utils.fromJson(Utils.readParams(request), Grado.class);
         if (dao.crear(grado)) {
             json.put("tipo", "ok");
-<<<<<<< HEAD
             System.out.println("Código: " + grado.getCodigo());
-            String codigo = ((Grado)(dao.consultar(String.valueOf(grado.getClasificacion_id())))).getCodigo();
-            json.put("mensaje","Grado creado con el código " + codigo);
+            String codigo = ((Grado) (dao.consultar(String.valueOf(grado.getClasificacion_id())))).getCodigo();
+            json.put("mensaje", "Grado creado con el código " + codigo);
             json.put("codigo", codigo);
-        }else{
-=======
-            json.put("mensaje", "Grado creado con el código " + grado.getCodigo());
-            json.put("codigo", grado.getCodigo());
-        } else {
-            //
->>>>>>> Santi
+        }else {
+            
             json.put("tipo", "error");
             json.put("mensaje", "Error al crear grado " + grado.getClasificacion_id());
             String existente = ((Grado) (dao.consultar(String.valueOf(grado.getClasificacion_id())))).getCodigo();
