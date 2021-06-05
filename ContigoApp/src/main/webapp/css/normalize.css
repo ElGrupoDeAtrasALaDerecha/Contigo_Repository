@@ -9,7 +9,7 @@
   --text: #253036;
   --bk: #ebebeb;
 }
-*,*:before, *:after{ 
+*,*:before, *:after,:not([.ui.button]){ 
   /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;

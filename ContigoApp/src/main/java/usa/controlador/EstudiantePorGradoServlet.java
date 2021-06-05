@@ -17,12 +17,15 @@ import usa.modelo.dao.EstudianteDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dto.Estudiante;
 import usa.utils.Utils;
-/**/
+
 /**
+ * Servlet de consulta de estadísticas de estudiante por grado
  *
- * @author Maria Camila Fernandez ,Andres López
+ * @author Maria Camila Fernandez ,Andres López, Santiago Pérez
+ * @version 1.1
+ * @since 2021-06-03
  */
-@WebServlet(name = "EstudiantePorGradoServlet", urlPatterns = {"/EstudiantePorGradoServlet"})
+@WebServlet(name = "EstudiantePorGradoServlet", urlPatterns = {"/Estudiante/Grado"})
 public class EstudiantePorGradoServlet extends HttpServlet {
 
     /**
@@ -40,7 +43,30 @@ public class EstudiantePorGradoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        String codigo = request.getParameter("codigo");
+        String token = request.getHeader("token");
+        JSONObject respuesta = new JSONObject();
+        if (codigo != null) {
+            if (token != null) {
+                LinkedList<Estudiante> estudiantes = daoestu.listarEstudiantesPorGrado(codigo);
+                if (estudiantes != null) {
+                    respuesta.put("tipo", "ok");
+                    respuesta.put("estudiantes", new JSONArray(Utils.toJson(estudiantes)));
+                } else {
+                    respuesta.put("tipo", "error");
+                    respuesta.put("mensaje", "No se ha posido consultar el estudiant");
+                }
+            }else{
+                respuesta.put("tipo","error");
+                respuesta.put("mensaje","No autorizado");
+                response.sendError(403);
+            }
+        }else{
+            response.sendError(400);
+        }
+        out.print(respuesta.toString());
     }
 
     /**
@@ -58,28 +84,14 @@ public class EstudiantePorGradoServlet extends HttpServlet {
         JSONObject json = new JSONObject(Utils.readParams(request));
         PrintWriter out = response.getWriter();
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray();
-        Gson gson = new Gson();
-
-        LinkedList<Estudiante> estudiantes = daoestu.listarGradosEstudiante(json.getString("grado"));
+        LinkedList<Estudiante> estudiantes = daoestu.listarEstudiantesPorGrado(json.getString("grado"));
         if (estudiantes != null) {
             respuesta.put("tipo", "ok");
-            for (Estudiante i : estudiantes) {
-                System.out.println("---> " + i.getPrimerApellido());
-                arreglo.put(new JSONObject(gson.toJson(i, Estudiante.class)));
-            }
-            respuesta.put("estudiantes", arreglo);
-        } /**
-         * String grado = request.getParameter("grado"); if(grado != null){
-         * respuesta.put("estudiantes", new
-         * JSONObject(Utils.toJson(daoestu.listarGradosEstudiante(grado)))); }*
-         */
-        else {
+            respuesta.put("estudiantes", new JSONArray(Utils.toJson(estudiantes)));
+        } else {
             respuesta.put("tipo", "error");
             respuesta.put("mensaje", "No se ha posido consultar el estudiant");
         }
-
-        //respuesta.put("tipo", "ok");
         out.print(respuesta.toString());
     }
 

@@ -24,12 +24,9 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "ClasificacionServlet", urlPatterns = {"/ClasificacionServlet"})
 public class ClasificacionServlet extends HttpServlet {
-
-    //a
     
     AbstractFactory factoryDao=Producer.getFabrica("DAO");
     IDao dao = (IDao)factoryDao.obtener("ClasificacionDao");
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -62,18 +59,13 @@ public class ClasificacionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
-        Gson gson = new Gson();
-        Clasificacion clasi = (Clasificacion) gson.fromJson(parametros, Clasificacion.class);
+        Clasificacion clasi = (Clasificacion) Utils.fromJson(parametros, Clasificacion.class);
         ConversatoriosDao dao = (ConversatoriosDao) factoryDao.obtener("ConversatoriosDao");
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray();
         LinkedList<Clasificacion> clasificaciones = dao.consultar(clasi.getId());
+        JSONArray arreglo = new JSONArray(clasificaciones);
         if (clasificaciones != null) {
             respuesta.put("tipo", "ok");
-
-            for (Clasificacion i : clasificaciones) {
-                arreglo.put(new JSONObject(gson.toJson(i, Clasificacion.class)));
-            }
             respuesta.put("clasificacion", arreglo);
         } else {
             respuesta.put("tipo", "error");
@@ -92,6 +84,6 @@ public class ClasificacionServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

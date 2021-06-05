@@ -93,6 +93,8 @@ public class ConversatoriosDao implements IDaoConversatorios {
                 clasi.setIdConversatorio(rs.getInt("CONVERSATORIO_id"));
                 clasificaciones.add(clasi);
             }
+            rs.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -244,12 +246,12 @@ public class ConversatoriosDao implements IDaoConversatorios {
             datos = new LinkedList();
             datos.add(new JSONArray());
             datos.add(new JSONArray());
-            int i = 0;
             while (rs.next()) {
                 datos.get(0).put(rs.getString("titulo"));
                 datos.get(1).put(rs.getString("Inscritos"));
-                i++;
             }
+            rs.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(ConversatoriosDao.class.getName()).log(Level.SEVERE, null, ex);
 

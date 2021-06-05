@@ -10,10 +10,10 @@ import java.util.logging.Logger;
 import usa.modelo.dto.Clasificacion;
 
 /**
- *fdsfsdfsdfsd
+ * Clase de objeto de acceso a datos de las clasificaciones
  * @author andre
  */
-public class ClasificacionDao implements IDao<Clasificacion> {
+public class ClasificacionDao implements IClasificacionDao{
 
     PreparedStatement pat;
     Statement stmt;
@@ -23,7 +23,11 @@ public class ClasificacionDao implements IDao<Clasificacion> {
     public boolean crear(Clasificacion t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    /**
+     * Método que permite consultar una clasificación de un grado a partir de su id o su nombre de grado
+     * @param txt que es el valor que permite realizar la consulta
+     * @return un objeto con una clasificación o nulo si no lo encuentra
+     */
     @Override
     public Clasificacion consultar(String txt) {
         Clasificacion clasf = new Clasificacion();
@@ -58,22 +62,29 @@ public class ClasificacionDao implements IDao<Clasificacion> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Método que permite listar todas las clasificaciones de grados
+     * @return una lista con las clasificaciones
+     */
     @Override
     public LinkedList<Clasificacion> listarTodos() {
         LinkedList<Clasificacion> lista = new LinkedList();
         String sql = "";
         try {
-            sql = "select clasificacion.id,  clasificacion.grado, grado.codigo from clasificacion, grado where grado.CLASIFICACION_id = clasificacion.id; ";
+            sql = "select c.*, g.codigo from clasificacion c \n" +
+            "inner join grado as g on g.CLASIFICACION_id=c.id; ";
             pat = conn.prepareStatement(sql);
-            result = pat.executeQuery();
-            while (result.next()) {
+            ResultSet rs = pat.executeQuery();
+            while (rs.next()) {
                 Clasificacion clasf = new Clasificacion();
-                clasf.setId(result.getInt("id"));
-                clasf.setGrado(result.getString("grado"));
-                clasf.setCodigo(result.getString("codigo"));
+                clasf.setId(rs.getInt("id"));
+                clasf.setGrado(rs.getString("grado"));
+                clasf.setCodigo(rs.getString("codigo"));
                 lista.add(clasf);
                 
             }
+            rs.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -24,8 +24,9 @@ import usa.modelo.dto.Situacion;
 import usa.utils.Utils;
 
 /**
- *
+ * Servlet de historias. En este servlet se crean, consultan y modifican historias
  * @author Miguel Rippe, Santiago Cáceres, Laura Blanco y Santiago Pérez
+ * @version 1.0
  */
 @WebServlet(name = "HistoriaServlet", urlPatterns = {"/Historia"})
 public class HistoriaServlet extends HttpServlet {
@@ -36,7 +37,7 @@ public class HistoriaServlet extends HttpServlet {
     IDao personalCalificadoDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
 
     /**
-     * Handles the HTTP <code>GET</code> method.holi
+     * Handles the HTTP <code>GET</code> method
      *
      * @param request servlet request
      * @param response servlet response

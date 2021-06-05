@@ -1,8 +1,7 @@
 package usa.modelo.dto;
 
-
 /**
- * 
+ *
  */
 public class Grado {
 
@@ -12,21 +11,28 @@ public class Grado {
     public Grado() {
     }
 
+    private int id;
     /**
-     * 
+     *
      */
     private String codigo;
 
     /**
-     * 
+     *
      */
     private int institucion_id;
 
     /**
-     * 
+     *
      */
     private int clasificacion_id;
 
+    /**
+     *
+     */
+    private String grado;
+
+    
     public String getCodigo() {
         return codigo;
     }
@@ -49,6 +55,22 @@ public class Grado {
 
     public void setClasificacion_id(int clasificacion_id) {
         this.clasificacion_id = clasificacion_id;
+    }
+
+    public String getGrado() {
+        return grado;
+    }
+
+    public void setGrado(String grado) {
+        this.grado = grado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

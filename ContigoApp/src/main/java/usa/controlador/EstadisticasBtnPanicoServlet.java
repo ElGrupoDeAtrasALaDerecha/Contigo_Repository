@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,21 +48,15 @@ public class EstadisticasBtnPanicoServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         response.setContentType("application/json;charset=UTF-8");
-        
-        //Instacia de EstadisticasBtnPanicoDao
-        LinkedList<EstadisticasBtnPanico> estadisticas = estdao.listarTodos();
+
         
         //Instacias para el envio de los datosn en formato JSON
-        Gson gson = new Gson();
         JSONObject respuesta = new JSONObject();
-        JSONArray arreglo = new JSONArray();
         
         //Cada objeto de la clase EstadisticasBtnPanicoDao se agrega al arreglo JSON
         respuesta.put("tipo", "ok");
-        for (EstadisticasBtnPanico estadistica:estadisticas) {
-            arreglo.put(new JSONObject(gson.toJson(estadistica,EstadisticasBtnPanico.class)));
-        }
-        
+        JSONArray arreglo = new JSONArray(estdao.listarTodos());
+       
         //Envio de los datos al clente en formato JSON 
         respuesta.put("Estadisticas",arreglo);
         PrintWriter out = response.getWriter();

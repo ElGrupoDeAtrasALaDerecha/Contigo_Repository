@@ -14,6 +14,7 @@ import usa.adapter.CorreoProxy;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.IInstitucionDao;
 import usa.modelo.dto.Institucion;
 import usa.utils.Utils;
 
@@ -24,8 +25,9 @@ import usa.utils.Utils;
 @WebServlet(name = "InstitucionServlet", urlPatterns = {"/Institucion"})
 public class InstitucionServlet extends HttpServlet {
 
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao dao = (IDao)factoryDao.obtener("InstitucionDao");
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("InstitucionDao");
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -39,9 +41,24 @@ public class InstitucionServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject();
-        JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
-        json.put("Instituciones", arreglo);
-        System.out.println(json.toString());
+        String token = request.getHeader("token");
+        if (token != null) {
+            IInstitucionDao institucionDao=(IInstitucionDao) dao;
+            Institucion i = institucionDao.consultarPorId(token);
+            if(i!=null){
+                json.put("tipo", "ok");
+                json.put("institucion",new JSONObject (Utils.toJson(i)));
+            }else{
+                json.put("tipo","error");
+                json.put("mensaje","inválido");
+            }
+        } else {
+            JSONArray arreglo = new JSONArray(Utils.toJson(dao.listarTodos()));
+            json.put("tipo","ok");
+            json.put("Instituciones", arreglo);
+            System.out.println(json.toString());
+        }
+
         out.print(json.toString());
     }
 

@@ -501,11 +501,7 @@
 	
 	
 	let sala = buscarSalaEnAtencion(salaElegida);
-	const date1 = new Date();
-	const date2 = new Date(sala.estudiante.fechaDeNacimiento);
-	const diffTime = Math.abs(date2 - date1);
-	const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-	let edad = parseInt(diffDays/365.25);
+	let edad = calcularEdad(sala.estudiante.fechaDeNacimiento) 
 	let genero=sala.estudiante.genero;
 	let img="";
 	if(genero==="masculino"){

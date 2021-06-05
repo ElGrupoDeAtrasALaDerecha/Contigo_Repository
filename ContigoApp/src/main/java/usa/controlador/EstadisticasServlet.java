@@ -14,12 +14,20 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.EstadisticasBtnPanicoDao;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.IDaoCita;
 import usa.modelo.dao.IDaoConversatorios;
+import usa.modelo.dao.IEstadisticasBtnPanicoDao;
 import usa.modelo.dao.IGradoDao;
+import usa.modelo.dao.IHistoriasDao;
+import usa.modelo.dto.Estudiante;
+import usa.utils.Utils;
 
 /**
  * Servlet de estadísticas.
  *
+ * @author varios
+ * @version 1.1
+ * @since 2021-06-03
  */
 @WebServlet(name = "EstadisticasServlet", urlPatterns = {"/Estadisticas"})
 public class EstadisticasServlet extends HttpServlet {
@@ -28,6 +36,7 @@ public class EstadisticasServlet extends HttpServlet {
 
     /**
      * Método doGet
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -54,27 +63,46 @@ public class EstadisticasServlet extends HttpServlet {
             boton.put("datos", arregloEP);
             json.put("conversatorios", conversatorios);
             json.put("boton", boton);
-            PrintWriter out = response.getWriter();
-            out.print(json.toString());
-        } else if (parametro.equals("PorEstudiante")) { //Consulta de estadísticas por estudiante
-
-            PrintWriter out = response.getWriter();
-            out.print(json.toString());
+        } else if (parametro.equals("porEstudiante")) { //Consulta de estadísticas por estudiante
+            String documento = request.getParameter("id");
+            if (documento != null) {
+                JSONObject datosEstudiante = estadisticaEstudiante(documento);
+                json.put("tipo", "ok");
+                json.put("datos", datosEstudiante);
+            }
         } else if (parametro.equals("ClicksPorGrado")) {
             IDao dao = (IDao) factoryDao.obtener("EstadisticasBtnPanicoDao");
             EstadisticasBtnPanicoDao estdao = (EstadisticasBtnPanicoDao) dao;
             LinkedList<JSONArray> estadisticas = estdao.listarClicksPorGrado();
             json.put("grado", estadisticas.get(0));
             json.put("Clicks", estadisticas.get(1));
-            PrintWriter out = response.getWriter();
-            out.print(json.toString());
-
         }
+        PrintWriter out = response.getWriter();
+        out.print(json.toString());
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
+    }
+
+    private JSONObject estadisticaEstudiante(String documento) {
+        JSONObject datos = null;
+        IDao dao = (IDao) factoryDao.obtener("EstudianteDao");
+        Estudiante e = (Estudiante) dao.consultar(documento);
+        IDaoCita citaDao = (IDaoCita) factoryDao.obtener("CitaDao");
+        IHistoriasDao historiaDao = (IHistoriasDao) factoryDao.obtener("HistoriaDao");
+        IEstadisticasBtnPanicoDao btnPanicoDao = (IEstadisticasBtnPanicoDao) factoryDao.obtener("EstadisticasBtnPanicoDao");
+        if (e != null) {
+            datos = new JSONObject();
+            e.setDocumento(null);
+            e.setCorreo(null);
+            datos.put("estudiante", new JSONObject(Utils.toJson(e)));
+            datos.put("citas", citaDao.ultimasCitasEstudiante(documento));
+            datos.put("historias", new JSONArray(Utils.toJson(historiaDao.consultarHistoriasDeEstudiante(documento))));
+            datos.put("presion",btnPanicoDao.clicksPorestudiante(documento));
+        }
+        return datos;
     }
 
 }

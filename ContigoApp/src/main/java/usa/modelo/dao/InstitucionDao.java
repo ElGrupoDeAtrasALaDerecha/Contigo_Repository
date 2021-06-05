@@ -121,6 +121,8 @@ public class InstitucionDao implements IInstitucionDao {
                 ins.setPagina(result.getString("web"));
                 instituciones.add(ins);
             }
+            result.close();
+            pat.close();
             return instituciones;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,12 +141,14 @@ public class InstitucionDao implements IInstitucionDao {
                 nombre = result.getString("nombre");
             }
             inst = consultar(nombre);
+            result.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return inst;
     } 
-    
+    @Override
     public Institucion consultarPorId(String id){
         Institucion ins = null;
         try {
@@ -200,10 +204,7 @@ public class InstitucionDao implements IInstitucionDao {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return institucion;
+        
     }
 
-    
-    
-    
-    
 }

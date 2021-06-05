@@ -151,6 +151,8 @@ public class EstudianteDao implements IDaoEstudiante {
             while (rs.next()) {
                 estudiante.setGrado(rs.getString("GRADO_codigo"));
             }
+            rs.close();
+            pat.close();
         } catch (SQLException ex) {
             Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -187,15 +189,20 @@ public class EstudianteDao implements IDaoEstudiante {
         return estudiante;
     }
 
+    /**
+     * Método que permite listar estudiantes por grado
+     * @param codigo que es el código del grado
+     * @return una lista con los estudiantes que integran ese grado
+     */
     @Override
-    public LinkedList<Estudiante> listarGradosEstudiante(String id) {
+    public LinkedList<Estudiante> listarEstudiantesPorGrado(String codigo) {
         LinkedList<Estudiante> estudiantes = new LinkedList<>();
-        String sql = "select p.documento, p.primerNombre, p.segundoNombre, p.primerApellido, p.segundoApellido, c.grado \n" +
+        String sql = "select p.*, c.grado \n" +
         "from persona as p \n" +
         "inner join Estudiante as e on e.PERSONA_documento= p.documento\n" +
-        "inner join Grado as g  on e.Grado_codigo=g.codigo\n" +
+        "inner join Grado as g  on e.GRADO_codigo=g.codigo\n" +
         "inner join clasificacion as c on c.id=g.CLASIFICACION_id\n" +
-        "where c.id = '"+id+"';";
+        "where g.codigo = '"+codigo+"';";
         try {
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
@@ -208,7 +215,8 @@ public class EstudianteDao implements IDaoEstudiante {
                 estudi.setPrimerApellido(rs.getString("primerApellido"));
                 estudi.setSegundoApellido(rs.getString("segundoApellido"));
                 estudi.setGrado(rs.getString("grado"));
-                estudi.setCorreo(rs.getString("correo"));
+                estudi.setFechaDeNacimiento(rs.getString("fechaNacimiento"));
+                estudi.setGenero(rs.getString("genero"));
                 estudiantes.add(estudi);
             }
             rs.close();
@@ -216,6 +224,6 @@ public class EstudianteDao implements IDaoEstudiante {
         } catch (SQLException ex) {
             Logger.getLogger(PersonalCalificadoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return estudiantes; //To change body of generated methods, choose Tools | Templates.
+        return estudiantes;
     }
 }

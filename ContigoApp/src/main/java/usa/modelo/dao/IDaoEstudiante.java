@@ -13,7 +13,7 @@ import usa.modelo.dto.Estudiante;
  * @author marif
  */
 public interface IDaoEstudiante extends IDao<Estudiante>{
-    public LinkedList<Estudiante> listarGradosEstudiante(String id);
+    public LinkedList<Estudiante> listarEstudiantesPorGrado(String id);
     public Estudiante consultarPorTokenGrado(String id);
     public Estudiante consultarPorToken(String token);
 }

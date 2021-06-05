@@ -2,6 +2,7 @@ package usa.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,21 +14,25 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IGradoDao;
+import usa.modelo.dao.IInstitucionDao;
 import usa.modelo.dto.Grado;
+import usa.modelo.dto.Institucion;
 import usa.utils.Utils;
+
 /**/
 /**
  *
- * @author 
+ * @author
  */
 @WebServlet(name = "GradoServlet", urlPatterns = {"/Grado"})
 public class GradoServlet extends HttpServlet {
-    
+
     /**/
-    
-    AbstractFactory factoryDao=Producer.getFabrica("DAO");
-    IDao dao = (IDao)factoryDao.obtener("GradoDao");
+    AbstractFactory factoryDao = Producer.getFabrica("DAO");
+    IDao dao = (IDao) factoryDao.obtener("GradoDao");
     IDao clasificacion = (IDao) factoryDao.obtener("ClasificacionDao");
+    IDao institucionDao = (IDao) factoryDao.obtener("InstitucionDao");
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -35,16 +40,36 @@ public class GradoServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     
+     *
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        IGradoDao daoGrado=(IGradoDao)dao;
+        IGradoDao daoGrado = (IGradoDao) dao;
         JSONObject respuesta = new JSONObject();
-        respuesta.put("tipo", "ok");
-        respuesta.put("Grados",new JSONArray((Utils.toJson(dao.listarTodos()))));
-        respuesta.put("GradosClasificados", new JSONArray((Utils.toJson(daoGrado.listarGradosClasf()))));
+        String idInstitucion = request.getParameter("id");
+        if (idInstitucion != null) {
+            String token = request.getHeader("token");
+            if(token!=null){
+                IInstitucionDao institucionDaoImpl = (IInstitucionDao) institucionDao;
+                IGradoDao gradoDao = (IGradoDao) dao;
+                Institucion i = institucionDaoImpl.consultarPorId(idInstitucion);
+                if(i!=null){
+                    LinkedList grados = gradoDao.consultarPorInstitucion(i);
+                    respuesta.put("tipo","ok");
+                    respuesta.put("clasificaciones",new JSONArray(Utils.toJson(grados)));
+                }
+            }else{
+                respuesta.put("tipo","error");
+                respuesta.put("mensaje", "No autorizado");
+                response.sendError(403);
+            }
+        } else {
+            respuesta.put("tipo", "ok");
+            respuesta.put("Grados", new JSONArray((Utils.toJson(dao.listarTodos()))));
+            respuesta.put("GradosClasificados", new JSONArray((Utils.toJson(daoGrado.listarGradosClasf()))));
+
+        }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }
@@ -57,7 +82,6 @@ public class GradoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -66,20 +90,28 @@ public class GradoServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         //Se convierte de json a objeto Grado
         Grado grado = (Grado) Utils.fromJson(Utils.readParams(request), Grado.class);
-        if(dao.crear(grado)){
+        if (dao.crear(grado)) {
             json.put("tipo", "ok");
+<<<<<<< HEAD
             System.out.println("Código: " + grado.getCodigo());
             String codigo = ((Grado)(dao.consultar(String.valueOf(grado.getClasificacion_id())))).getCodigo();
             json.put("mensaje","Grado creado con el código " + codigo);
             json.put("codigo", codigo);
         }else{
+=======
+            json.put("mensaje", "Grado creado con el código " + grado.getCodigo());
+            json.put("codigo", grado.getCodigo());
+        } else {
+            //
+>>>>>>> Santi
             json.put("tipo", "error");
-            json.put("mensaje","Error al crear grado " + grado.getClasificacion_id());
-            String existente = ((Grado)(dao.consultar(String.valueOf(grado.getClasificacion_id())))).getCodigo();
+            json.put("mensaje", "Error al crear grado " + grado.getClasificacion_id());
+            String existente = ((Grado) (dao.consultar(String.valueOf(grado.getClasificacion_id())))).getCodigo();
             json.put("codigo", existente);
         }
         out.print(json.toString());
-    } 
+    }
+
     /**
      * Returns a short description of the servlet.
      *

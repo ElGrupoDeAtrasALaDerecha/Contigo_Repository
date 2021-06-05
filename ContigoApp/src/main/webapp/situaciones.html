@@ -1,47 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contigo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/organigrama.css" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
 
-    <link rel="stylesheet" href="css/Registro.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contigo</title>
 
-    <link rel="stylesheet" href="css/crearHistoria.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/organigrama.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-    />
-  </head>
+  <link rel="stylesheet" href="css/Registro.css" />
 
-  <body>
+  <link rel="stylesheet" href="css/crearHistoria.css" />
+  <link rel="stylesheet" href="css/navfooter.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+    rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <!--<script src="js/semantic/semantic.min.js"></script>-->
+</head>
+
+<body>
+  <div class="ui right sidebar vertical menu">
+    <button id="btnAyudaCrearSituacion" class="massive item">
+      <i class="home icon"></i>
+      ¿Cómo crear una situación?
+    </button>
+    <button id="btnAyudaEditarSituacion" class="massive item">
+      <i class="block layout icon"></i>
+      ¿Cómo editar una situación?
+    </button>
+    <button id="btnAyudaFinal" class="massive item">
+      <i class="calendar check outline icon"></i>
+      ¿Cómo establecer un final de la historia?
+    </button>
+    <button id="btnAyudaEliminarSituacion" class="massive item">
+      <i class="minus icon"></i>
+      ¿Cómo eliminar una situación de la historia?
+    </button>
+    <button id="btnAyudaComoQuedaHistoria" class="massive item">
+      <i class="question circle icon"></i>
+      ¿Cómo saber si la historia está correcta?
+    </button>
+    <button id="cerrarMenu" class="massive item">
+      <i class="window close icon"></i>
+      Cerrar menú y continuar con la historia
+    </button>
+  </div>
+  <div class="ui pusher">
     <div id="general">
       <section class="tutorial">
         <div class="Container-tutorial">
@@ -51,8 +67,9 @@
               En este tutorial te enseñaremos a usar la herramienta de edición
               de situaciones de historias. Lo primero que deberas hacer es
               pararte encima de la caja donde te apareceran tres botones,
-              selecciona el boton de edición, este te dirigira a un popup donde debes llenar los datos solicitados, a continuación oprime elboton de actualizar.
-              
+              selecciona el boton de edición, este te dirigira a un popup donde debes llenar los datos solicitados, a
+              continuación oprime elboton de actualizar.
+
             </p>
           </div>
           <div class="full">
@@ -66,22 +83,22 @@
       <button id="validar">validar</button>
       <button id="guardar">Guardar</button>
     </div>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Carga de datos de ejemplo -->
-    <script type="text/javascript" src="js/data.js"></script>
-    <!-- Libreria para la creación del organigrama -->
-    <script type="text/javascript" src="js/organigrama.js"></script>
+  </div>
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>-->
+  <!-- Carga de datos de ejemplo -->
+  <script type="text/javascript" src="js/data.js"></script>
+  <!-- Libreria para la creación del organigrama -->
+  <script type="text/javascript" src="js/organigrama.js"></script>
 
-    <script type="text/javascript"></script>
+  <script type="text/javascript"></script>
+  <!--<script src="js/js_componentes/bootstrap.min.js"></script>-->
+  <script src="js/tutorialHistoriaAyuda.js"></script>
+  <script src="js/situaciones.js"></script>
+  <script src="js/popup.js"></script>
+  <script src="js/funciones.js"></script>
+  <script src="js/templateAntiguo.js"></script>
+</body>
 
-    <script src="js/js_componentes/bootstrap.min.js"></script>
-    <script src="js/situaciones.js"></script>
-    <script src="js/popup.js"></script>
-    <script src="js/funciones.js"></script>
-    <script src="js/template.js"></script>
-  </body>
 </html>

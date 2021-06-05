@@ -53,3 +53,18 @@ function checkCookie() {
 function delete_cookie(name) {
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
+
+
+  /**
+ * Función que permite calcular una edad a partir de una fecha de nacimiento
+ * @param {String} fechaDeNacimiento que es un string con la fecha de nacimiento
+ * @returns Un número con la edad en años
+ */
+function calcularEdad(fechaDeNacimiento){
+    const date1 = new Date();
+	const date2 = new Date(fechaDeNacimiento);
+	const diffTime = Math.abs(date2 - date1);
+	const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+	let edad = parseInt(diffDays/365.25);
+    return edad;
+}
