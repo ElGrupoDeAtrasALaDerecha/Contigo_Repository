@@ -60,6 +60,8 @@ var btnCitasAgendada = document.getElementById("btnCitasAgendada");
 btnCitasAgendada.style.display = "block";
 listaPersonal.style.display = "none";
 horas.style.display = "none";
+var motivoId = document.getElementById("MotivoS");
+motivoId.style.display = "none";
 var textAreaMotivo = document.getElementById("textAreaMotivo");
 textAreaMotivo.style.display = "none";
 
@@ -155,6 +157,7 @@ function escribirMeses(month) {
     }
     filtrarHorasRepetidas();
     horas.style.display = "block";
+    motivoId.style.display = "block";
   });
 }
 
@@ -415,14 +418,7 @@ function listarPerca(perca) {
 // Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
   detectarCambioMotivo()
-  var cita = {
-    fecha: fecha,
-    hora: $("#horas2 option:selected").val(),
-    personal: $('input:radio[name=percaD]:checked').val(),
-    motivo: motivo
-  };
-  citaS = cita
-  llenarDiv(cita)
+  validarCamposLlenos()
 })
 
 function agendarCita(cita, personal) {
@@ -449,14 +445,14 @@ function obtenerHistorial() {
       token: getCookie("token"),
     },
     contentType: "JSON application/json charset=utf-8",
-    beforeSend: function () {},
+    beforeSend: function () { },
     success: function (response) {
       if (response.tipo === "ok") {
         historialCitas = response.citas;
       }
     },
-    complete: function (result) {},
-    error: function (result) {},
+    complete: function (result) { },
+    error: function (result) { },
   });
 }
 
@@ -489,12 +485,10 @@ $(function () {
     if ($(this).val() === "1") {
       textAreaMotivo.style.display = "block";
       motivo = $("#MotivoOtros").val()
-      console.log(motivo)
     } else {
       textAreaMotivo.style.display = "none";
       motivo = $("#motivoSelect").val()
       document.getElementById("MotivoOtros").value = "";
-      console.log(motivo)
     }
   });
 });
@@ -532,6 +526,7 @@ function llenarSelectMotivos(motivos) {
 
 
 function detectarCambioMotivo() {
+  console.log(motivo)
   let str = document.getElementById("MotivoOtros");
   if (str.value.trim() === "") {
   }
@@ -559,4 +554,25 @@ function traerPersonal() {
     complete: function (result) { },
     error: function (result) { },
   });
+}
+
+function validarCamposLlenos() {
+  var personalasignado = $('input:radio[name=percaD]:checked').val();
+  var horaasignada = $("#horas2 option:selected").val();
+  if (horaasignada === undefined || personalasignado === undefined || motivo === undefined || motivo === null || motivo === "") {
+    toastr.error("Error , No se completaron todos los campos requeridos");
+    contCanc++;
+    document.querySelector(".modal.is-visible").classList.remove(isVisible);
+    limpiarDiv();
+    return false;
+  } else {
+    var cita = {
+      fecha: fecha,
+      hora: $("#horas2 option:selected").val(),
+      personal: $('input:radio[name=percaD]:checked').val(),
+      motivo: motivo
+    };
+    citaS = cita
+    llenarDiv(cita)
+  }
 }
