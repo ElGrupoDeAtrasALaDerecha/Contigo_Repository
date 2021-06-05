@@ -23,8 +23,8 @@ $(document).ready(function () {
                             </ul>
                         </div>
                     </div>
-                    <a href="index.html">
-                        <div class="log-out" id="salir">
+                    <a id="salir">
+                        <div class="log-out" >
                             Salir
                             <ion-icon name="log-out-outline"></ion-icon>
                         </div>
