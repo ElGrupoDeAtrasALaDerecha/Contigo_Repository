@@ -259,6 +259,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     flex-direction: row;
     Justify-content: Space-between;
 }
-.ui .label .transition .visible{
-    margin-top: 15px;
+.Textareas{
+    overflow: hidden;
 }
