@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/css_componentes/bootstrap.min.css">
     <link rel="stylesheet" href="css/admin_inst.css">
     <link rel="stylesheet" href="css/navfooter.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/admin_perca.css">
     <link rel="stylesheet" href="css/chat.css">
@@ -24,20 +26,45 @@
 </head>
 
 <body>
-    <h2>Panel principal</h2>
     <div class="ui grid">
-        <div class="row">
-            <div class="four wide column">
-                <h2>Chats</h2>
-                <div id="lista_chats" class="ui vertical fluid tabular menu">
-                    <div id="chats_atendidos">
-                        <h4>Chats en atención</h4>
-                    </div>
-                    <div id="chats_sin_a">
-                        <h4>Chats sin atender</h4>
+        <div class="ui row">
 
+        </div>
+        <div class="ui row">
+
+        </div>
+        <div class="ui row">
+            <div class="ui seven wide column">
+
+            </div>
+            <div class="ui seven wide column">
+
+                <h2>Panel principal</h2>
+            </div>
+        </div>
+        <div class="ui stackable row">
+            <div class="ui one wide column">
+
+            </div>
+            <div class="three wide column">
+                <div class="ui segment">
+                    <div class="ui header">
+                        <h2>Chats</h2>
+                    </div>
+                    <div class="ui content">
+
+                        <div id="lista_chats" class="ui vertical fluid tabular menu">
+                            <div id="chats_atendidos">
+                                <h4>Chats en atención</h4>
+                            </div>
+                            <div id="chats_sin_a">
+                                <h4>Chats sin atender</h4>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
             <div id="chat_con_est" class="eight wide stretched column">
                 <div class="ui segment">
@@ -70,32 +97,39 @@
             </div>
 
             <div class="four wide column">
-                <h2>Información </h2>
+
 
                 <div id="informacion" class="ui segment relaxed list ">
-                    <div class="item">
-                        <img src="img/CONTI.png">
-                        <div class="content">
-                            <a class="header">Conti Buendía</a>
-                            <div class="description">
-                                <b>Nombre completo: </b> Contigo bot Buendía<br>
-                                <b>Edad: </b> un año <br>
-                                <b>Grado: </b> Sexto :D <br>
-                                <b>Institución: </b> El colegio de Contigo <br>
-                                <br>
+                    <div class="ui header">
+                        <h2>Información </h2>
+                    </div>
+                    <div class="ui content">
+                        <div class="item">
+                            <img src="img/CONTI.png">
+                            <div class="content">
+                                <a class="header">Conti Buendía</a>
+                                <div class="description">
+                                    <b>Nombre completo: </b> Contigo bot Buendía<br>
+                                    <b>Edad: </b> un año <br>
+                                    <b>Grado: </b> Sexto :D <br>
+                                    <b>Institución: </b> El colegio de Contigo <br>
+                                    <br>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
         </div>
 
     </div>
+    <footer></footer>
 </body>
 <script src="js/funciones.js"></script>
 <script src="js/wsPersonal.js"></script>
-
-
+<script type="module" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule="" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.js"></script>
 
 </html>
