@@ -1,145 +1,42 @@
-*,*:before, *:after{ 
-    /* Mantiene el tamaño de la caja sin importar el borde o el padong que se le agregue */
-    box-sizing: border-box;
-    margin: 0 0;
-    padding: 0 0;
-}
-::-webkit-scrollbar {
-    display: none;
-}
-.clearfix:before,.clearfix:after{
-    content:'';
-    display: block;
-}
-.clearfix:after{
-    clear:both;
-}
-h2{
-    /* border: solid green 1px; */
-    padding: 1% 0;
-    text-align: center;
-}
-p{
-    color: rgb(0, 0, 0);
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    padding-left: 5%;
-    text-align: left;
-}
-#contenedor{
-    /* border: solid rgb(1, 252, 1) 1px; */
-    align-items: flex-start;
+#main-box{
     display: flex;
-    margin-bottom: 7%;
+    justify-content: flex-start;
 }
-#contenedor_cc{
-    /* border: solid green 1px; */
-    background-color: white;
-    width: 50%;
-}
-#contenedor_cv{
-    /* border: solid green 1px; */
-    padding-right: 5%;
-    width: 50%;
-}
-
-::placeholder {
-    color: rgb(172, 172, 172);
-    font-style: italic;
-    font-weight: normal;
-}
-#grado_code{
-    border: solid #374a64 2px;
-    color: black;
-    font-style: normal;
-}
-.credencial{
-    border: solid 2px gray ;
-    border-radius: 34px;
-    color: grey;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
-    font-weight: lighter;
-    margin:0 auto 4%;
-    padding: 2% 5%;
+.item-content{
+    margin: 0 5%;
     width: 80%;
 }
 
-.btn{
-    background-color: #2D4059;
-    border: none;
-    color: rgb(236, 236, 236);
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
+.form-select{
+    position: relative;
 }
-.btn:hover{
-    background-color: #415e86;
-    color: #ffffff;
+.hide{
+    display: none;
 }
-.contenedor_credencial{
-    /* border: solid green 1px; */
-    text-align: center;
+h2{
+    color: var(--secondary);
+    font-weight: 600;
 }
-
-#contenido{
-    border:1px solid #000000;
+.copy{
+    color: var(--light);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px 10px 0 0;
 }
-
-#tabla_grados a{
-    color: #212529 !important;
+#tabla_grados{
+    /* margin: auto; */
+    border: 1px solid var(--light);
+    width: 65%;
 }
-
-#tabla_grados a:hover{
-    color: #112fb6 !important;
+.ds{
+    background-color: white !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Responsive Design */
-@media only screen and (max-width: 600px) {
-    html{
-        background-color: rgba(247, 0, 0, 0.103);
-    }
+#print{
+    display: flex;
+    justify-content: center;
+}
+#print-list ion-icon{
+   padding-left: 10px;
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    html{
-        background-color: rgba(247, 181, 0, 0.103);
-    }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-    html{
-        background-color: rgba(132, 247, 0, 0.103);
-    }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    html{
-        background-color: rgba(0, 16, 247, 0.103);
-    }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-    html{
-        background-color: rgba(247, 0, 247, 0.103);
-    }
-}

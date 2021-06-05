@@ -1,0 +1,112 @@
+.sidebar{
+    background-color: var(--secondary);
+    color: white;
+    height: 100vh;
+    transition: all 0.5s ease-out;
+    width: 4%;
+}
+.sidebar .link-name{
+    display: none;
+}
+.sidebar.active{
+    transition: all 0.5s ease;
+    width: 20%;
+}
+.sidebar.active  ul li .title-over{
+    display: none;
+}
+.sidebar.active .link-name{
+    display: block;
+}
+.sidebar ul, .sidebar.active ul{
+    list-style: none;
+    padding: 3% 0;
+}
+.sidebar ul li, .sidebar.active ul li{
+    font-size: 20px;
+}
+.name{
+    font-size: 30px;
+    font-weight: 700;
+}
+.name p{
+    padding-top: 1%;
+    padding-left: 5%;
+}
+.item, .name{
+    display: flex;
+    justify-content: flex-start;
+}
+.sidebar.active .item{
+    padding: 2% 0 0% 5%;
+}
+.item{
+    padding: 20% 0% 20% 30%;
+}
+.sidebar.active .name{
+    margin-bottom: 0%;
+}
+.name{
+    margin-bottom: 40%;
+}
+.left{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+    width: 100%;
+}
+.sidebar.active .left{
+    padding-right: 5%;
+}
+.item:hover{
+    background-color: var(--primary);
+}
+.item.selected{
+    background-color: var(--primary);
+}
+.arrow{
+    margin: 10px 0;
+    font-size: 30px;
+}
+.sidebar.active #sh{
+    display: none;
+}
+.sidebar.active #hd{
+    display: block;
+}
+.sidebar #sh{
+    display: block;
+    padding-top: 10px;
+    margin: 0 auto;
+}
+.sidebar #hd{
+    display: none;
+}
+.link-name{
+    padding-left: 5%;
+}
+ion-icon {
+    /* border: solid 1px red; */
+    font-size: 20px;
+    margin-top: 5px;
+}
+.sidebar ul li .title-over{
+    background-color: white;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0,0.2) ;
+    color: var(--text);
+    height: 30px;
+    left: 3%;
+    margin-top: -15px;
+    opacity: 0;
+    padding: 0% 1%; 
+    position: absolute;
+    pointer-events: none;
+    transition: 0s;
+    width: auto;
+}
+.sidebar ul li:hover .title-over{
+    transition: all 0.3s ease;
+    margin-top: -5px;
+    opacity: 1;
+}

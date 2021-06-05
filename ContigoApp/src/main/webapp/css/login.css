@@ -36,6 +36,9 @@ nav a{
     padding-bottom: 5%;
     width: 70%;
 }
+.inputs{
+    margin-top: 2%;
+}
 .form-control{
     border: none;
     border-bottom: 1px solid var(--light);

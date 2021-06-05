@@ -68,10 +68,11 @@ public class GradoServlet extends HttpServlet {
         Grado grado = (Grado) Utils.fromJson(Utils.readParams(request), Grado.class);
         if(dao.crear(grado)){
             json.put("tipo", "ok");
-            json.put("mensaje","Grado creado con el código " + grado.getCodigo());
-            json.put("codigo", grado.getCodigo());
+            System.out.println("Código: " + grado.getCodigo());
+            String codigo = ((Grado)(dao.consultar(String.valueOf(grado.getClasificacion_id())))).getCodigo();
+            json.put("mensaje","Grado creado con el código " + codigo);
+            json.put("codigo", codigo);
         }else{
-            //
             json.put("tipo", "error");
             json.put("mensaje","Error al crear grado " + grado.getClasificacion_id());
             String existente = ((Grado)(dao.consultar(String.valueOf(grado.getClasificacion_id())))).getCodigo();

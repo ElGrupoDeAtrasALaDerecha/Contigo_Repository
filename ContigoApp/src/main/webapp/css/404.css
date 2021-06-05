@@ -1,0 +1,14 @@
+
+#img-404, .btn-home{
+    margin: 0 auto;
+    width: 50%;
+}
+.btn-home{
+    display: flex;
+    justify-content: center;
+    padding: 2% ;
+    width: 70%;
+}
+.btn-home .btn{
+    width: 100%;
+}
