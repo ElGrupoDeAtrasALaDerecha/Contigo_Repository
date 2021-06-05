@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static usa.modelo.dao.IDao.conn;
+import usa.modelo.dto.Clasificacion;
+import usa.modelo.dto.ClasificacionHasHistoria;
 import usa.modelo.dto.Historia;
 
 /**
@@ -171,5 +173,31 @@ public class HistoriaDao implements IHistoriasDao {
 
         return tieneHistoria;
     }
+    
+    
+    public LinkedList<ClasificacionHasHistoria> consultarClasificacionHistoria(String id) {
+        LinkedList<ClasificacionHasHistoria> clasificaciones = new LinkedList();
+        try {
+            String sql = "select c.* from clasificacion as c\n"
+                    + "inner join CLASIFICACION_has_HISTORIA as cc on cc.CLASIFICACION_id = c.id\n"
+                    + "inner join HISTORIA as his on his.idHistoria = cc.HISTORIA_idHistoria\n"
+                    + "where his.idHistoria =\"" + id + "\";";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
 
+            while (rs.next()) {
+                ClasificacionHasHistoria clasi = new ClasificacionHasHistoria();
+                clasi.setId(rs.getInt("id"));
+                clasi.setCodigo(rs.getString("grado"));
+                clasi.setIdHistoria(id);
+                clasificaciones.add(clasi);
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return clasificaciones;
+    }
 }

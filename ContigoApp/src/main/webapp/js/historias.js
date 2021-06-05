@@ -111,32 +111,7 @@ function crearHistoria() {
 
 }
 
-function actualizarGradosHistorias() {
-    clasifica = $("#grados").val();
-    $.ajax({
-        url: "Historia",
-        type: "DELETE",
-        headers: {
-            id: getCookie("idHistoria"),
-            clasificacion: clasifica
-        },
-        contentType: "JSON application/json charset=utf-8",
-        beforeSend: function () {
-        },
-        success: function (result, textStatus, request) {
-            console.log(result);
-            if (result != "error") {
-                console.log('siiiii funciono')
-            } else {
-                console.log("error");
-            }
-        },
-        complete: function (result) {
-        },
-        error: function (result) {
-        }
-    });
-}
+
 
 function BorrarTexto() {
     document.querySelectorAll('.item[data-error] .Texto').forEach(inpEl => {

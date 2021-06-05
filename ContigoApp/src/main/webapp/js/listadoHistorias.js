@@ -1,6 +1,7 @@
 var listaHistorias;
 var usu;
 
+
 $(document).ready(function () {
     cargarListaDeHistorias();
     usu = parseInt(getCookie("tipoUsuario"));
@@ -22,7 +23,7 @@ function cargarListaDeHistorias() {
             if (response.tipo === "ok") {
                 console.log(response);
                 listaHistorias = response.historias;
-                pintarHistorias();
+                pintarHistorias(usu);
                 if (usu === 3) {
                     let btnasignar = $(".OpcBotonesEditar");
                     $(btnasignar).text('Asignar');
@@ -38,16 +39,18 @@ function cargarListaDeHistorias() {
 
 }
 
-function pintarHistorias() {
+function pintarHistorias(tipo) {
+
     for (let i = 0; i < listaHistorias.length; i++) {
+
         let historia = listaHistorias[i];
         let txt = `
                     <div id="${historia.id}" class="item">
                     <div id="opacityImg" class="opacityImg">
                         <div id="OpcBotones" class="OpcBotones">
-                            <a id="OpcBotonesVer" class="OpcBotonesVer" onClick="verHistoria()">
+                            <a id="OpcBotonesVer${historia.id}" class="OpcBotonesVer">
                             <ion-icon name="eye"></ion-icon> <span class="Ver">Ver</span></a>
-                            <a id="editar" class="OpcBotonesEditar" onclick="redirigirEdit()">
+                            <a id="editar${historia.id}" class="OpcBotonesEditar">
                             <ion-icon name="create"></ion-icon> Editar</a>
                         </div>
                         <div id="bottom" class="bottom" >
@@ -61,6 +64,29 @@ function pintarHistorias() {
 
         $("#contenedorHistorias").append(txt);
         $("#" + historia.id).css('background-image', 'url(' + historia.urlImagen + ')');
+        if (tipo == 1) {
+            $("#" + historia.id).click(function () {
+                setCookie("idHistoria", historia.id, 0.1);
+                window.location.assign("decisiones.html");
+            })
+        } else if (tipo === 2) {
+            $("#editar" + historia.id).click(function () {
+                setCookie("idHistoria", historia.id, 0.1);
+                window.location.assign("decisiones.html?idHistoria=" + historia.id);
+            });
+            $("#OpcBotonesVer" + historia.id).click(function () {
+                setCookie("idHistoria", historia.id, 0.1);
+                window.location.assign("decisiones.html?idHistoria=" + historia.id);
+            });
+        } else if (tipo == 3) {
+            $("#editar" + historia.id).click(function () {
+                traer_clasificaciones(historia.id);
+            });
+            $("#OpcBotonesVer" + historia.id).click(function () {
+                setCookie("idHistoria", historia.id, 0.1);
+                window.location.assign("decisiones.html?idHistoria=" + historia.id);
+            });
+        }
         /*$("#" + historia.id).click(function () {
             setCookie("idHistoria", historia.id, 0.1);
              window.location.assign("decisiones.html");
@@ -83,57 +109,57 @@ function ocultarBotones() {
 
 
         }
-        console.log("Holi")
     }
 }
 
 
+function traer_clasificaciones(id) {
+    $.ajax({
+        url: "Historia?id=" + id,
+        type: "GET",
+        dataType: "json",
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (response) {
+            console.log('IdHistoria', id)
+            console.log(response.clasificacion)
+            /*if (response.tipo === "ok") {
+                console.log('Clasificaciones',response.clasificacion);
+            }*/
 
-
-function verHistoria() {
-    usu = parseInt(getCookie("tipoUsuario"));
-    if (usu === 2) {
-        for (let i = 0; i < listaHistorias.length; i++) {
-            let historia = listaHistorias[i];
-            $("#" + historia.id).click(function () {
-                setCookie("idHistoria", historia.id, 0.1);
-                window.location.assign("decisiones.html?idHistoria="+historia.id);
-            })
-
+        }, complete: function (result) {
+            //ocultarBotones();
+        }, error: function (result) {
+            alert("Error interno")
         }
-    }
-
-    if (usu === 3) {
-        for (let i = 0; i < listaHistorias.length; i++) {
-            let historia = listaHistorias[i];
-            $("#" + historia.id).click(function () {
-                setCookie("idHistoria", historia.id, 0.1);
-                window.location.assign("decisiones.html?idHistoria="+historia.id);
-            })
-
-        }
-
-    }
-
+    });
 }
 
 
-function redirigirEdit() {
-    usu = parseInt(getCookie("tipoUsuario"));
-    if (usu === 2) {
-        for (let index = 0; index < listaHistorias.length; index++) {
-            let historia = listaHistorias[index];
-            $("#" + historia.id).click(function () {
-                delete_cookie("idHistoria")
-                $(location).attr('href', 'situaciones.html?idHistoria=' + historia.id);
-            })
-
+function actualizarGradosHistorias() {
+    clasifica = $("#grados").val();
+    $.ajax({
+        url: "Historia",
+        type: "DELETE",
+        headers: {
+            id: getCookie("idHistoria"),
+            clasificacion: clasifica
+        },
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            console.log(result);
+            if (result != "error") {
+                console.log('siiiii funciono')
+            } else {
+                console.log("error");
+            }
+        },
+        complete: function (result) {
+        },
+        error: function (result) {
         }
-    }
-
-    if (usu === 3) {
-        console.log('wenas')
-    }
-
-
+    });
 }
