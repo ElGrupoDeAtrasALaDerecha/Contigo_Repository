@@ -10,12 +10,15 @@ package usa.modelo.dto;
  * @author andre
  */
 public class Clasificacion {
-    
-    public Clasificacion (){
+
+    public Clasificacion() {
     }
-    
+
     private int id;
-    private String codigo; 
+    private String codigo;
+    private int idConversatorio;
+    
+    private String grado;
 
     public String getCodigo() {
         return codigo;
@@ -32,10 +35,7 @@ public class Clasificacion {
     public void setIdConversatorio(int idConversatorio) {
         this.idConversatorio = idConversatorio;
     }
-    private int idConversatorio;
     
-    private String grado;
-
     public int getId() {
         return id;
     }
@@ -51,7 +51,5 @@ public class Clasificacion {
     public void setGrado(String grado) {
         this.grado = grado;
     }
-    
-    
-    
+
 }

@@ -28,17 +28,17 @@ public class FinalDao implements IFinalDao {
 
             sql = "insert into fin (id,SITUACION_id,titulo,texto)\n"
                     + "values(?,?,?,?);";
-            pat = conn.prepareStatement(sql);
-            pat.setInt(1, fin.getId());
+            PreparedStatement pat2 = conn.prepareStatement(sql);
+            pat2.setInt(1, fin.getId());
             if (fin.getPredecesor() != 0) {
-                pat.setInt(2, fin.getPredecesor());
+                pat2.setInt(2, fin.getPredecesor());
             } else {
-                pat.setString(2, null);
+                pat2.setString(2, null);
             }
-            pat.setString(3, fin.getTitulo());
-            pat.setString(4, fin.getTexto());
-            pat.execute();
-            pat.close();
+            pat2.setString(3, fin.getTitulo());
+            pat2.setString(4, fin.getTexto());
+            pat2.execute();
+            pat2.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);

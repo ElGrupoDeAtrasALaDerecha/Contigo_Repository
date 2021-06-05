@@ -3,37 +3,6 @@ var historia;
 var situaciones;
 
 
-window.onload = function obtenerhisotia() {
-
-   
-    $.ajax({
-        url: "Historia?id=" + idHistoria,
-        type: "GET",
-        dataType: "json",
-        success: function (result, textStatus, request) {
-            if (result != "error") {
-                console.log(result);
-                historia = result.historia;
-                //document.getElementById('tituloHistoria').innerHTML = historia.titulo; 
-            } else {
-                console.log("error");
-            }
-        },
-        complete: function (result) {
-        },
-        error: function (result) {
-
-        }
-
-    });
-   
-}
-
-
-$(document).ready(function () {
-
-});
-
 function tutorial() {
     let texto = '';
 }
@@ -180,7 +149,7 @@ function crear(id) {
 
     $(".actualizarSituacion").click(function (e) {
         l = 1;// variable de tutorial
-        
+
         var titulo = $("#titulo").val();
         var descripcion = $("#descripcion").val();
         var situacionActualizada = {
@@ -227,7 +196,7 @@ function eliminarSituacion(id) {
             }
         },
         complete: function (result) {
-            if(enTutorial){
+            if (enTutorial) {
                 salirTutotial();
             }
         },
@@ -292,42 +261,64 @@ function validarHistoria(nodo) {
     let opciones = nodo.opciones;
     if (opciones !== undefined) {
         if (opciones.length === 0) {
-            console.log('si servi');
             return false;
         }
         for (let i = 0; i < opciones.length; i++) {
             var opcion = opciones[i];
             if (!validarHistoria(opcion)) {
-
-                let obj = {
-                    texto: opcion.texto,
-                    titulo: opcion.titulo,
-                    predecesor: opcion.predecesor,
-                    id: parseInt(opcion.id)
-                }
-                console.log(obj);
-                registrar(obj, "POST", "final");
-
                 return false;
             }
         }
     }
-
     return true;
-
 }
-function salirTutotial(){
-enTutorial = false;
-    let  cuadro= `<div class="full">
-    <div>
-      <div id="organigrama"></div>
-      <div id="ventana"></div>
-    </div>
-  </div>`
-    
-    let divorganigrama = $(".tutorial");
-    divorganigrama.remove();
-    $('#general').prepend(cuadro);
+
+function salirTutotial() {
+    delete_cookie('idHistoria');
+    enTutorial = false;
+    let divorganigrama = $(".full");
+    let divtutorial = $(".tutorial");
+    divtutorial.remove();
+    $('#general').prepend(divorganigrama);
 
 }
 
+$("#validar").click(function () {
+    if (!validarHistoria()) {
+        toastr.error('Hay situaciones sin finales')
+    }
+});
+
+$("#guardar").click(function () {
+    establecerFinales();
+});
+
+function establecerFinales(nodo) {
+    if (nodo === undefined) {
+        nodo = data;
+    }
+    let opciones = nodo.opciones;
+    if (opciones !== undefined) {
+        if (opciones.length !== 0) {
+            for (let i = 0; i < opciones.length; i++) {
+                let opcion = opciones[i];
+                establecerFinales(opcion);
+            }
+        } else {
+            if (nodo !== data) {
+                let obj = {
+                    texto: nodo.texto,
+                    titulo: nodo.titulo,
+                    predecesor: nodo.predecesor,
+                    id: parseInt(nodo.id)
+                }
+                console.log(obj);
+                registrar(obj, "POST", "final");
+            } else {
+                toastr.warning('No se puede establecer la situacion inicial como final')
+
+            }
+
+        }
+    }
+}

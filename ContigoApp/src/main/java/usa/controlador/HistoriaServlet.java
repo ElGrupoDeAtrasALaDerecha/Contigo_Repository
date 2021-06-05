@@ -2,6 +2,7 @@ package usa.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,9 +12,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
+import usa.modelo.dao.HistoriaDao;
 import usa.modelo.dao.IDao;
 import usa.modelo.dao.IHistoriasDao;
+import usa.modelo.dao.IPersonalCalificadoDao;
+import usa.modelo.dto.Clasificacion;
+import usa.modelo.dto.ClasificacionHasHistoria;
 import usa.modelo.dto.Historia;
+import usa.modelo.dto.PersonalCalificado;
 import usa.modelo.dto.Situacion;
 import usa.utils.Utils;
 
@@ -44,9 +50,18 @@ public class HistoriaServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
         String id = request.getParameter("id");
+        HistoriaDao daoHis = (HistoriaDao) factoryDao.obtener("HistoriaDao");
         if (id != null) {
             Historia historia = (Historia) dao.consultar(id);
             respuesta.put("historia", new JSONObject(Utils.toJson(historia)));
+   
+            LinkedList<ClasificacionHasHistoria> clasificaciones = daoHis.consultarClasificacionHistoria(id);
+            JSONArray arreglo2 = new JSONArray();
+            for (ClasificacionHasHistoria i : clasificaciones) {
+                arreglo2.put(new JSONObject(Utils.toJson(i)));
+            }
+            respuesta.put("clasificacion", arreglo2);
+
         } else {
             respuesta.put("tipo", "ok");
             respuesta.put("historias", new JSONArray(Utils.toJson(dao.listarTodos())));
@@ -79,8 +94,11 @@ public class HistoriaServlet extends HttpServlet {
             out.print(json.toString());
             return;
         }
+        IPersonalCalificadoDao personalDao = (IPersonalCalificadoDao) personalCalificadoDao;
+        PersonalCalificado personal = personalDao.consultarPorToken(token);
         System.out.println(mensaje);
         Historia historia = (Historia) Utils.fromJson(mensaje, Historia.class);
+        historia.setDocumentoCreador(personal.getDocumento());
         IHistoriasDao daoHis = (IHistoriasDao) dao;
         if (dao.crear(historia)) {
             json.put("tipo", "ok");
@@ -115,8 +133,8 @@ public class HistoriaServlet extends HttpServlet {
         JSONObject respuesta = new JSONObject();
         IHistoriasDao daoHis = (IHistoriasDao) dao;
         String id = request.getHeader("id");
-        String clasificaciones  = request.getHeader("clasificacion");
-        String [] vect = clasificaciones.split(",");
+        String clasificaciones = request.getHeader("clasificacion");
+        String[] vect = clasificaciones.split(",");
         if (id != null) {
             Historia historia = (Historia) dao.consultar(id);
             if (historia != null) {

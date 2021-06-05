@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static usa.modelo.dao.IDao.conn;
+import usa.modelo.dto.Clasificacion;
+import usa.modelo.dto.ClasificacionHasHistoria;
 import usa.modelo.dto.Historia;
 
 /**
@@ -18,7 +20,6 @@ public class HistoriaDao implements IHistoriasDao {
     PreparedStatement pat;
     ResultSet result;
 
-    
     @Override
     public boolean crear(Historia his) {
         try {
@@ -47,12 +48,12 @@ public class HistoriaDao implements IHistoriasDao {
 
     @Override
     public Historia consultar(String id) {
-        Historia his = null ;
+        Historia his = null;
         try {
-            String sql = "select * from HISTORIA where idHistoria =\""+id+"\"";
+            String sql = "select * from HISTORIA where idHistoria =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
-            while(result.next()){
+            while (result.next()) {
                 his = new Historia();
                 his.setId(result.getInt("idHistoria"));
                 his.setDocumentoCreador(result.getString("PERSONAL_PERSONA_documento"));
@@ -64,7 +65,7 @@ public class HistoriaDao implements IHistoriasDao {
         } catch (SQLException ex) {
             Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return his;
     }
 
@@ -76,7 +77,7 @@ public class HistoriaDao implements IHistoriasDao {
     @Override
     public boolean eliminar(String id) {
         try {
-            String sql = "delete from CLASIFICACION_has_HISTORIA where Historia_idHistoria="+id+";";
+            String sql = "delete from CLASIFICACION_has_HISTORIA where Historia_idHistoria=" + id + ";";
             pat = conn.prepareStatement(sql);
             pat.execute();
             pat.close();
@@ -144,7 +145,7 @@ public class HistoriaDao implements IHistoriasDao {
             while (rs.next()) {
                 his.setId(rs.getInt("idHistoria"));
                 pat.close();
-                return 1;   
+                return 1;
             }
         } catch (SQLException ex) {
             Logger.getLogger(InstitucionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -152,4 +153,51 @@ public class HistoriaDao implements IHistoriasDao {
         return 0;
     }
 
+    @Override
+    public boolean tieneHistorias(String documento) {
+        boolean tieneHistoria = false;
+        try {
+            String sql = "select count(*)>1 as tieneHistoria from HISTORIA \n"
+                    + "where PERSONAL_PERSONA_documento =\"" + documento + "\"";
+            pat = conn.prepareStatement(sql);
+            result = pat.executeQuery();
+            if(result.next()){
+                tieneHistoria = result.getBoolean("tieneHistoria");
+            }
+            result.close();
+            pat.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return tieneHistoria;
+    }
+    
+    
+    public LinkedList<ClasificacionHasHistoria> consultarClasificacionHistoria(String id) {
+        LinkedList<ClasificacionHasHistoria> clasificaciones = new LinkedList();
+        try {
+            String sql = "select c.* from clasificacion as c\n"
+                    + "inner join CLASIFICACION_has_HISTORIA as cc on cc.CLASIFICACION_id = c.id\n"
+                    + "inner join HISTORIA as his on his.idHistoria = cc.HISTORIA_idHistoria\n"
+                    + "where his.idHistoria =\"" + id + "\";";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+
+            while (rs.next()) {
+                ClasificacionHasHistoria clasi = new ClasificacionHasHistoria();
+                clasi.setId(rs.getInt("id"));
+                clasi.setCodigo(rs.getString("grado"));
+                clasi.setIdHistoria(id);
+                clasificaciones.add(clasi);
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return clasificaciones;
+    }
 }

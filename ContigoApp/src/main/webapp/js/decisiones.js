@@ -12,10 +12,10 @@ $(document).ready(function () {
             alert("inválido");
             window.location.assign("index.html");
         }
-        
+   
+    }
     cargarHistoria()
     cargarSituacion()
-    }
 });
 function cargarHistoria() {
     $.ajax({
