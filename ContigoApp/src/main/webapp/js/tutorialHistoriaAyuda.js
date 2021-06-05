@@ -58,7 +58,7 @@ function mostrarAyudaCrearSituacion(){
       ¿Como crear una situación?
     </div>
     <div class="content">
-      <form class="ui form">
+      <div class="ui form">
         <div class="ui field">
             <p>Para crear una nueva situación se debe dar click en el botón con un signo de más (+).
             Con esta opción tiene la posibilidad de indicar continuidad con la historia ya que así se crearán
@@ -72,7 +72,7 @@ function mostrarAyudaCrearSituacion(){
             <button id="btnEntendidoCrearSituacion" class="ui primary fluid button">¡Entendido!</button>
             </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
     `
