@@ -375,3 +375,50 @@ CREATE TABLE BIOGRAFIA (
 );
 
 
+CREATE TABLE `contigobd`.`peticion_contrasena_persona` (
+  `codigo` VARCHAR(20) NOT NULL,
+  `persona_documento` VARCHAR(20) NOT NULL,
+  `valido` TINYINT NOT NULL DEFAULT 0,
+  `fecha` DATE NULL,
+  INDEX `fk_peticion_contraseña_persona_persona1_idx` (`persona_documento` ASC) VISIBLE,
+  PRIMARY KEY (`codigo`, `persona_documento`),
+  CONSTRAINT `fk_peticion_contraseña_persona_persona1`
+    FOREIGN KEY (`persona_documento`)
+    REFERENCES `contigobd`.`persona` (`documento`)
+    ON DELETE NO ACTION
+    ON UPDATE cascade);
+#ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `contigobd`.`peticion_contrasena_institucion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `contigobd`.`peticion_contrasena_institucion` (
+  `codigo` VARCHAR(20) NOT NULL,
+  `institucion_id` INT UNSIGNED NOT NULL,
+  `valido` TINYINT NULL DEFAULT 0,
+  `fecha` DATE NULL,
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_peticion_contrasena_institucion_institucion1_idx` (`institucion_id` ASC) VISIBLE,
+  CONSTRAINT `fk_peticion_contrasena_institucion_institucion1`
+    FOREIGN KEY (`institucion_id`)
+    REFERENCES `contigobd`.`institucion` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE cascade);
+    
+CREATE TABLE IF NOT EXISTS `contigobd`.`grado_has_historia` (
+  `grado_codigo` VARCHAR(30) NOT NULL,
+  `historia_idHistoria` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`grado_codigo`, `historia_idHistoria`),
+  INDEX `fk_grado_has_historia_historia1_idx` (`historia_idHistoria` ASC) VISIBLE,
+  INDEX `fk_grado_has_historia_grado1_idx` (`grado_codigo` ASC) VISIBLE,
+  CONSTRAINT `fk_grado_has_historia_grado1`
+    FOREIGN KEY (`grado_codigo`)
+    REFERENCES `contigobd`.`grado` (`codigo`)
+    ON DELETE cascade
+    ON UPDATE cascade,
+  CONSTRAINT `fk_grado_has_historia_historia1`
+    FOREIGN KEY (`historia_idHistoria`)
+    REFERENCES `contigobd`.`historia` (`idHistoria`)
+    ON DELETE cascade
+    ON UPDATE cascade)
