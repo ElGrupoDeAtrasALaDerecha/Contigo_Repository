@@ -52,17 +52,16 @@ function show(txt) {
     $(selected).css("background-color", "#162997")
 }
 // 
-
-$('#grado_slect').click(function (e) {
-    var gradoSelt = $('#grado_slect option:selected').val()
-
-    var obj = {
-        clasificacion_id: gradoSelt,
-        institucion_id: id_inst
-    }
-    // console.log(obj)
-    crearGrado(obj)
-    listarGrados()
+$('#grado_slect').click(function () {
+  var gradoSelt = $('#grado_slect option:selected').val()
+  var id_inst = getCookie("ID_Inst")
+  var obj = {
+    clasificacion_id: gradoSelt,
+    institucion_id: id_inst
+  }
+  // console.log(obj)
+  crearGrado(obj)
+  listarGrados ()
 })
 /**
  * Función login
