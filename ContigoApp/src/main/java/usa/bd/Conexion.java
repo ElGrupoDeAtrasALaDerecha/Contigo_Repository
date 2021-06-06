@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Clase de conexión con la base de datos.
+ * Clase de conexión con la base de datos.-
  * @author Santiago Pérez
  */
 
