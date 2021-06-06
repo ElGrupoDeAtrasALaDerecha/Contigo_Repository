@@ -384,15 +384,17 @@ function aparecerChat(nombre) {
 						 <div id="chatCompleto2">
 							 <div id="titulo">
 								 
-								 <h1>${nombre}</h1>
-								 <div id="escribiendoEstudiante" class="escribiendoA">
-									 <h5> Escribiendo</h5>
-									 <div id="load"class="loader"></div>
-								 </div>
+								 
+								 
 								 <button id="cerrarConexion" class="ui black mini right floated button"
 										 data-content="Cerrar conexión">
 										 <i class="close icon"></i>
 								 </button>
+								 <div id="escribiendoEstudiante" class="escribiendoA">
+									 <h5> Escribiendo</h5>
+									 <div id="load"class="loader"></div>
+								 </div>
+								 <h1>${nombre}</h1>
 							 </div>
 							 <div id="chat">
 								 <div id="mensajes">
@@ -529,6 +531,9 @@ function cerrarConexionConEstudiante() {
 	$("#Enviarmensaje").val("Ha terminado de conversar con este estudiante");
 	$("#Enviarmensaje").prop("readonly", true);
 	$("body").off("keyup");
+	$("#mensajes").empty()
+	$("#titulo").find("h1").empty();
+	$("#"+salaElegida).remove();
 }
 
 /**
