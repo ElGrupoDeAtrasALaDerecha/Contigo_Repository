@@ -42,7 +42,7 @@ h1 {
   width: 500px;
   margin-bottom: 3%;
   display: flex;
-  background-image: url("Imagen/team.jpg");
+  /*background-image: url("Imagen/team.jpg");*/
   background-size: 100%;
   align-items: Flex-end;
 }
@@ -111,4 +111,10 @@ h1 {
 .BotonLH:hover{
     border: 2px solid #93a7c5;
     color: #93a7c5;
+}
+
+.pop{
+  height: 40vh !important;
+  margin-top: -20% !important;
+
 }

@@ -9,6 +9,7 @@ $(document).ready(function () {
         document.getElementById('btnCrear').style.display = 'none';
 
     }
+
 });
 
 function cargarListaDeHistorias() {
@@ -81,6 +82,7 @@ function pintarHistorias(tipo) {
         } else if (tipo == 3) {
             $("#editar" + historia.id).click(function () {
                 traer_clasificaciones(historia.id);
+
             });
             $("#OpcBotonesVer" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
@@ -124,6 +126,8 @@ function traer_clasificaciones(id) {
         success: function (response) {
             console.log('IdHistoria', id)
             console.log(response.clasificacion)
+            let clasifi = response.clasificacion;
+            pintarClasificaciones(clasifi);
             /*if (response.tipo === "ok") {
                 console.log('Clasificaciones',response.clasificacion);
             }*/
@@ -161,5 +165,63 @@ function actualizarGradosHistorias() {
         },
         error: function (result) {
         }
+    });
+}
+
+function pintarClasificaciones(clasificaciones) {
+    let opt = '';
+    let arreglo = new Array();
+
+    let texto = `
+                <div class="ui tiny modal pop">
+                    <div class="header">Asignación de grados</div>
+                    <div class="content">
+                    <div id="cursos" class="credencial">   
+                        <select id="grados" name="" class="ui search fluid dropdown selection multiple" multiple="" id="multi-select">
+                            <option value="1">Transición</option>
+                            <option value="2">Primero</option>
+                            <option value="3">Segundo</option>
+                            <option value="4">Tercero</option>
+                            <option value="5">Cuarto</option>
+                            <option value="6">Quinto</option>
+                            <option value="7">Sexto</option>
+                            <option value="8">Séptimo</option>
+                            <option value="9">Octavo</option>
+                            <option value="10">Noveno</option>
+                            <option value="11">Décimo</option>
+                            <option value="12">Once</option>
+                            <option value="13">Docente</option>
+                        </select>
+                    </div>
+                        <p>
+                        <button class="cerrar">Cerrar</button>
+                        </p>
+                        <p>
+                        <button class="aceptar">Aceptar</button>
+                        </p>
+                    </div>
+                    </div>
+                `;
+    $("#modal").append(texto);
+
+    for (let index = 0; index < clasificaciones.length; index++) {
+        opt += '<a class="ui label transition visible" data-value="' + clasificaciones[index].id + '" style="display: inline-block !important;">' + clasificaciones[index].grado + '<i class="delete icon"></i></a>';
+        //$("#grados").val(clasificaciones[index].id)
+        arreglo.push(clasificaciones[index].id)
+    }
+    $("#grados").val(arreglo)
+    $(".ui.search.fluid.dropdown.selection.multiple").append(opt);
+    $('.ui.dropdown').dropdown();
+    $('.ui.modal')
+        .modal('show')
+        ;
+
+    $(".cerrar").click(function () {
+        $('.ui.modal').modal('hide');
+        $(".cerrar").off('click');
+        $("#modal").empty();
+    });
+    $(".aceptar").click(function(){
+        actualizarGradosHistorias();
     });
 }
