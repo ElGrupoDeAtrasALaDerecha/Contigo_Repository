@@ -242,23 +242,33 @@ function pintarEscribiendo() {
 	}, 7000)
 }
 
-
+/**
+ * Función que pinta el cierre de conexión ya que el personal calificado ha terminado la sesión de chat
+ * @param {string} mensaje 
+ */
 function pintarCierreConexion(mensaje) {
 	conexionTerminada = true;
+	personalConectado=undefined;
 	pintarRespuesta(mensaje);
+	pintarConti();
 	$("#Enviarmensaje").val("En un momento serás redirigido a la ventana principal");
 	$("#Enviarmensaje").prop("readonly", true);
-	setTimeout(function () { window.location.assign("opciones.html") }, 8000);
+	setTimeout(function () { window.location.assign("opciones.html") }, 7000);
 }
 
-
+/**
+ * Función que pinta los datos del personal calificado en el chat
+ * @param {*} personal objeto json que contiene los datos del personal calificado
+ */
 function pintarPersonal(personal){
 	personalConectado=personal;
 	$("#pin").remove();
 	$("#titulo").find("h1").remove();
 	$("#titulo").prepend(`<h1>${personal.primerNombre} ${personal.primerApellido}</h1>`);
 }
-
+/**
+ * Función que pinta la imagen de conti y el título en el chat
+ */
 function pintarConti(){
 	personalConectado=undefined;
 	$("#titulo").find("h1").remove();
