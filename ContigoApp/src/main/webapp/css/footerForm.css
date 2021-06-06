@@ -1,0 +1,155 @@
+:root{
+    --primary:#407bff;
+    --secondary:#203e80;
+    --light: #ced4da;
+    --light2: #c5d7ff;
+    --succ: #3bd884;
+    --warn: #ffc107;
+    --error: #f64747;
+    --text: #253036;
+    --bk: #ebebeb;
+    --textForm:#444444;
+}
+#lines{
+    background-color: var(--bk);
+}
+.itemForm{
+    font-style: italic;
+    background-color: var(--bk);
+}
+footer{
+    background-color: var(--bk);
+    color: var(--text);
+    display: flex;
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 1%;
+}
+footer a {
+    color: var(--text);
+    text-decoration: none; 
+    background-color: var(--bk);
+    
+
+}
+footer a:hover{
+    color: var(--primary);
+    background-color: var(--bk);
+}
+footer p{
+    margin-bottom: 1rem !important;
+    background-color: var(--bk);
+}
+.box-1{
+    width: 30%;
+    background-color: var(--bk);
+}
+
+.box-2{
+    margin-top: 2%;
+    font-size: 20px;
+    width: 70%;
+    background-color: var(--bk);
+}
+.logoForm{
+    padding: 0 0;
+    background-color: var(--bk);
+}
+.title{
+    color: var(--text);
+    font-family: 'Kaushan Script';
+    font-size: 60px;
+    text-align: center;
+    background-color: var(--bk);
+}
+.box-1 .box-11{
+    display: flex;
+    justify-content: center;
+    margin-top: -10px;
+    background-color: var(--bk);
+}
+.box-1 .sepia{
+    filter: invert(0.8);
+    margin: 0 7px;
+    width: 30px;
+    background-color:transparent;
+}  
+.rxw{
+    display: flex;
+    background-color: var(--bk);
+} 
+.rxw .coll{
+    margin-right: 10%;
+    background-color: var(--bk);
+}
+.option{
+    font-weight: 600;
+    background-color: var(--bk);
+}
+
+#copyright{
+    font-size: 16px;
+    margin-top: 7%;
+    padding-left: 10%;
+    background-color: var(--bk);
+}
+#lines{
+   /* min-height: 100%; */
+   width: 90%;
+    
+}
+.brd{
+    border: 1px solid var(--error);
+}
+.row{
+    background-color:var(--bk) ;
+}
+.icon{
+    background-color: var(--bk);
+}
+
+
+/* Smartphones */
+@media (min-width: 320px) { 
+    body{
+        /* background-color: rgb(0, 255, 0); */
+    }
+ }
+ @media (min-width: 480px) { 
+    body{
+        /* background-color: rgb(255, 0, 255); */
+    }
+ }
+ /* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+    body{
+        /* background-color: yellow; */
+    }
+ }
+
+ /* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+    body{
+        /* background-color: orange ; */
+    }
+ }
+
+ /* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    body{
+        /* background-color: red; */
+    }
+    #lines{
+        height: 40vh;
+        width: 50vw;
+    }
+ }
+
+ /* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+    body{
+        /* background-color: blue; */
+    }
+ }
+
+
+

@@ -16,7 +16,7 @@ import usa.modelo.dto.Departamento;
 
 /**
  *
- * @author santi
+ * @author santi l
  */
 public class DepartamentoDao implements IDao<Departamento>{
     

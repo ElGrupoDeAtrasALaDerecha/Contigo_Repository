@@ -85,8 +85,8 @@ public class InstitucionServlet extends HttpServlet {
             if (dao.crear(ins)) {
                 json.put("tipo", "ok");
                 json.put("mensaje", "Institucion registrada correctamente");
-                CorreoProxy proxy = new CorreoProxy(new CorreoInscripcion("personalCalificado"));
-                proxy.enviarCorreo(ins.getCorreo());
+               // CorreoProxy proxy = new CorreoProxy(new CorreoInscripcion("personalCalificado"));
+                //proxy.enviarCorreo(ins.getCorreo());
             } else {
                 json.put("tipo", "error");
                 json.put("mensaje", "Error al registrar institucion");

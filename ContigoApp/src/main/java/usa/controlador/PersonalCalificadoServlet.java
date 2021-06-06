@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usa.adapter.CorreoInscripcion;
-import usa.adapter.CorreoProxy;
 import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.IDao;
@@ -91,6 +89,7 @@ public class PersonalCalificadoServlet extends HttpServlet {
             } else {
                 respuesta.put("tipo", "error");
                 respuesta.put("mensaje", "Ya existe un usuario con el correo o número de documento ingresado");
+                respuesta.put("mensaje2","No se ha agregado una imagen");
             }
         }
         PrintWriter out = response.getWriter();

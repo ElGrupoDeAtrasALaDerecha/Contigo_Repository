@@ -1,6 +1,6 @@
 var identificaciones;
 
-//porfi funciona quiero mimir :(
+//porfi funciona quiero mimir :( funciona
 
 window.onload = function tipos_id() {
     $.ajax({
@@ -186,5 +186,45 @@ function Ingresar() {
         registrar_estudiante();
 
     }
+}
+function Siguiente(){
+    let txt= `<div id="Datos">
+    <section id="table-datos">
+    <div class="form-floating mb-4 especial">
+        <input type="email" class="form-control Texto4" id="correo" placeholder=" "
+        name="Correo" required>
+        <label for="contraseña" class="label">Correo</label>
+    </div>
+    <div class="box1Table">
+        <div class="box1--section1">
+            <div class="form-floating mb-4">
+	            <input type="password" class="form-control Texto" id="contra" placeholder=" "
+	            name="Contraseña" required>
+	            <label for="contraseña" class="label">Contraseña</label>
+            </div>
+        </div>
+        <div class="box1--section2">
+            <div class="form-floating mb-4">
+	            <input type="password" class="form-control Texto" id="conficontra" placeholder=" "
+	            name="ConfirmarContraseña" required>
+	            <label for="contraseña" class="label">Confirmar contraseña</label>
+            </div>
+        </div>
+    </div>
+    <p class="parametro">Usa 8 o más caracteres con una combinación de letras, números y símbolos</p>
+    <div class="form-floating mb-4 especial">
+        <input type="text" class="form-control Texto4" id="CodigoInstitucional" placeholder=" "
+        name="Correo" required>
+        <label for="contraseña" class="label">Código institucional</label>
+    </div>
+    <p class="parametro">Código de 6 caracteres compuesto por letras y números</p>
+</section>
+
+<div id="boton">
+    <input type="submit" id="Button2" class="buttonRegistrarme" value="Registrarme" name="CrearUsuario" onclick="Ingresar()">
+</div>
+</div>
+</div>`
+    $("#Datos").replaceWith(txt);
 }
 
