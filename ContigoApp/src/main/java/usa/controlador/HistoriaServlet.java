@@ -14,17 +14,24 @@ import usa.factory.AbstractFactory;
 import usa.factory.Producer;
 import usa.modelo.dao.HistoriaDao;
 import usa.modelo.dao.IDao;
+import usa.modelo.dao.IGradoDao;
 import usa.modelo.dao.IHistoriasDao;
+import usa.modelo.dao.IInstitucionDao;
 import usa.modelo.dao.IPersonalCalificadoDao;
 import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.ClasificacionHasHistoria;
+import usa.modelo.dto.Grado;
+import usa.modelo.dto.GradoClasf;
 import usa.modelo.dto.Historia;
+import usa.modelo.dto.Institucion;
 import usa.modelo.dto.PersonalCalificado;
 import usa.modelo.dto.Situacion;
 import usa.utils.Utils;
 
 /**
- * Servlet de historias. En este servlet se crean, consultan y modifican historias
+ * Servlet de historias. En este servlet se crean, consultan y modifican
+ * historias
+ *
  * @author Miguel Rippe, Santiago Cáceres, Laura Blanco y Santiago Pérez
  * @version 1.0
  */
@@ -34,6 +41,8 @@ public class HistoriaServlet extends HttpServlet {
     AbstractFactory factoryDao = Producer.getFabrica("DAO");
     IDao dao = (IDao) factoryDao.obtener("HistoriaDao");
     IDao dao2 = (IDao) factoryDao.obtener("SituacionDao");
+    IGradoDao dao3 = (IGradoDao) factoryDao.obtener("GradoDao");
+    IInstitucionDao institucionDao = (IInstitucionDao) factoryDao.obtener("InstitucionDao");
     IDao personalCalificadoDao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
 
     /**
@@ -47,25 +56,40 @@ public class HistoriaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("application/json;charset=UTF-8");
         JSONObject respuesta = new JSONObject();
+        String parametro = request.getParameter("tipoConsulta");
+        System.out.println("entre el DoGet " + parametro);
         String id = request.getParameter("id");
         HistoriaDao daoHis = (HistoriaDao) factoryDao.obtener("HistoriaDao");
-        if (id != null) {
-            Historia historia = (Historia) dao.consultar(id);
-            respuesta.put("historia", new JSONObject(Utils.toJson(historia)));
-   
-            LinkedList<ClasificacionHasHistoria> clasificaciones = daoHis.consultarClasificacionHistoria(id);
-            JSONArray arreglo2 = new JSONArray();
-            for (ClasificacionHasHistoria i : clasificaciones) {
-                arreglo2.put(new JSONObject(Utils.toJson(i)));
+        if (parametro != null) {
+            if (parametro.equals("clasificaciones")) {
+                //clasificaciones
+                String id2 = request.getParameter("id");
+                LinkedList<ClasificacionHasHistoria> clasificaciones = daoHis.consultarClasificacionHistoria(id2);
+                JSONArray arreglo2 = new JSONArray();
+                for (ClasificacionHasHistoria i : clasificaciones) {
+                    arreglo2.put(new JSONObject(Utils.toJson(i)));
+                }
+                respuesta.put("clasificacion", arreglo2);
+            } else if (parametro.equals("idInstitucion")) {
+                //Grados 
+                String idIns = request.getHeader("idInstitu");
+                System.out.println("Id institucion" + idIns);
+                Institucion i = (Institucion) institucionDao.consultarPorId(idIns);
+                LinkedList<Grado> grados = dao3.consultarPorInstitucion(i);
+                JSONArray arreglo3 = new JSONArray(Utils.toJson(grados));
+                respuesta.put("Grados", arreglo3);
             }
-            respuesta.put("clasificacion", arreglo2);
-
         } else {
-            respuesta.put("tipo", "ok");
-            respuesta.put("historias", new JSONArray(Utils.toJson(dao.listarTodos())));
+            if (id != null) {
+                Historia historia = (Historia) dao.consultar(id);
+                respuesta.put("historia", new JSONObject(Utils.toJson(historia)));
+
+            } else {
+                respuesta.put("tipo", "ok");
+                respuesta.put("historias", new JSONArray(Utils.toJson(dao.listarTodos())));
+            }
         }
 
         PrintWriter out = response.getWriter();
@@ -136,10 +160,12 @@ public class HistoriaServlet extends HttpServlet {
         String id = request.getHeader("id");
         String clasificaciones = request.getHeader("clasificacion");
         String[] vect = clasificaciones.split(",");
+        System.out.println("idHistoria" + id);
+        System.out.println("idHistoria" + clasificaciones);
         if (id != null) {
             Historia historia = (Historia) dao.consultar(id);
             if (historia != null) {
-                if (dao.eliminar(String.valueOf(String.valueOf(id)))) {
+                if (dao.eliminar(id)) {
                     String arregloClasificaciones[] = vect;
                     for (int i = 0; i < arregloClasificaciones.length; i++) {
                         daoHis.crearClasi(arregloClasificaciones[i], historia.getId());
@@ -154,6 +180,7 @@ public class HistoriaServlet extends HttpServlet {
         } else {
             respuesta.put("tipo", "ok");
             respuesta.put("historias", new JSONArray(Utils.toJson(dao.listarTodos())));
+            respuesta.put("mensaje2", "no entro al if");
         }
 
         PrintWriter out = response.getWriter();

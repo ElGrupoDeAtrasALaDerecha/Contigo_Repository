@@ -9,7 +9,7 @@ $(document).ready(function () {
         document.getElementById('btnCrear').style.display = 'none';
 
     }
-
+    traer_grados_ins();
 });
 
 function cargarListaDeHistorias() {
@@ -30,9 +30,8 @@ function cargarListaDeHistorias() {
                     $(btnasignar).text('Asignar');
                 }
             }
-
+            
         }, complete: function (result) {
-            //ocultarBotones();
         }, error: function (result) {
             alert("Error interno")
         }
@@ -73,7 +72,7 @@ function pintarHistorias(tipo) {
         } else if (tipo === 2) {
             $("#editar" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
-                window.location.assign("decisiones.html?idHistoria=" + historia.id);
+                window.location.assign("situaciones.html?idHistoria=" + historia.id);
             });
             $("#OpcBotonesVer" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
@@ -82,17 +81,13 @@ function pintarHistorias(tipo) {
         } else if (tipo == 3) {
             $("#editar" + historia.id).click(function () {
                 traer_clasificaciones(historia.id);
-
+                
             });
             $("#OpcBotonesVer" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
                 window.location.assign("decisiones.html?idHistoria=" + historia.id);
             });
         }
-        /*$("#" + historia.id).click(function () {
-            setCookie("idHistoria", historia.id, 0.1);
-             window.location.assign("decisiones.html");
-        })*/
         ocultarBotones();
     }
 
@@ -108,8 +103,6 @@ function ocultarBotones() {
             OpcBotones[index].style.display = "none";
             opacityImg[index].style.alignItems = 'Flex-end'
             bottom[index].style.display = 'block';
-
-
         }
     }
 }
@@ -117,7 +110,7 @@ function ocultarBotones() {
 
 function traer_clasificaciones(id) {
     $.ajax({
-        url: "Historia?id=" + id,
+        url: "Historia?tipoConsulta=clasificaciones&id=" + id,
         type: "GET",
         dataType: "json",
         contentType: "JSON application/json charset=utf-8",
@@ -127,27 +120,24 @@ function traer_clasificaciones(id) {
             console.log('IdHistoria', id)
             console.log(response.clasificacion)
             let clasifi = response.clasificacion;
-            pintarClasificaciones(clasifi);
-            /*if (response.tipo === "ok") {
-                console.log('Clasificaciones',response.clasificacion);
-            }*/
+            pintarClasificaciones(clasifi, id);
 
         }, complete: function (result) {
-            //ocultarBotones();
+            
         }, error: function (result) {
-            alert("Error interno")
+            toastr.error('Error interno')
         }
     });
 }
 
 
-function actualizarGradosHistorias() {
-    clasifica = $("#grados").val();
+function actualizarGradosHistorias(id_historia) {
+    let clasifica = $("#grados").val();
     $.ajax({
         url: "Historia",
         type: "DELETE",
         headers: {
-            id: getCookie("idHistoria"),
+            id: id_historia,
             clasificacion: clasifica
         },
         contentType: "JSON application/json charset=utf-8",
@@ -155,10 +145,11 @@ function actualizarGradosHistorias() {
         },
         success: function (result, textStatus, request) {
             console.log(result);
-            if (result != "error") {
-                console.log('siiiii funciono')
+            if (result.tipo == "ok") {
+                console.log(result.mensaje)
+                toastr.success(result.mensaje)
             } else {
-                console.log("error");
+                toastr.error(result.mensaje)
             }
         },
         complete: function (result) {
@@ -168,7 +159,7 @@ function actualizarGradosHistorias() {
     });
 }
 
-function pintarClasificaciones(clasificaciones) {
+function pintarClasificaciones(clasificaciones, idHistoria) {
     let opt = '';
     let arreglo = new Array();
 
@@ -221,7 +212,28 @@ function pintarClasificaciones(clasificaciones) {
         $(".cerrar").off('click');
         $("#modal").empty();
     });
-    $(".aceptar").click(function(){
-        actualizarGradosHistorias();
+    $(".aceptar").click(function () {
+        actualizarGradosHistorias(idHistoria);
+    });
+}
+
+function traer_grados_ins() {
+    $.ajax({
+        url: "Historia?tipoConsulta=idInstitucion",
+        type: "GET",
+        headers:{
+            idInstitu: getCookie('ID_Inst'),
+        },
+        dataType: "json",
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (response) {
+            console.log(response.Grados)
+        }, complete: function (result) {
+            //ocultarBotones();
+        }, error: function (result) {
+            toastr.error('Error interno')
+        }
     });
 }

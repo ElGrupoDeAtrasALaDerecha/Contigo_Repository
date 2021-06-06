@@ -1,6 +1,7 @@
 package usa.modelo.dao;
 
 import java.util.LinkedList;
+import usa.modelo.dto.GradoClasf;
 import usa.modelo.dto.Historia;
 
 /**
@@ -14,4 +15,6 @@ public interface IHistoriasDao extends IDao<Historia>{
     int crearhistoria(Historia his);
     LinkedList<Historia> consultarHistoriasDeEstudiante(String documento);
     boolean tieneHistorias(String documento);
+    boolean asignarGradoHistoria (String id);
+    LinkedList<GradoClasf> consultarGradosInstitucion(String id_ins);
 }
