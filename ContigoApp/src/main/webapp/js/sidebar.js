@@ -40,5 +40,3 @@ $("#op5").click(function () {
     delete_cookie("documento");
     window.location.assign("index.html");
 })
-
-

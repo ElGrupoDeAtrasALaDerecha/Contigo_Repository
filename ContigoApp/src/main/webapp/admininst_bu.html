@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Semantic CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>-->
+   <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <!-- Chart JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <!-- style Sheet -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!--<link rel="stylesheet" href="css/navfooter.css">-->
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/admin_cursos.css">
+    <!--Toastr-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <title>Contigo | Admin. Cursos</title>
+</head>
+
+<body>
+    <div class="d-flex">
+        <div id="sidebar-container" class="bg-primary">
+            <div class="logo">
+                <h4 class="text-light font-weight-bold">Cursos</h4>
+            </div>
+            <div class="menu">
+                <a class="d-block text-light p-3 selected" id="m1"><i class="mr-2 lead icon ion-md-add"></i>Creación</a>
+                <a class="d-block text-light p-3 selected" id="m2"><i
+                        class="mr-2 lead icon ion-md-stats"></i>Estadísticas</a>
+                <a class="d-block text-light p-3 selected" id="m3"><i class="mr-2 lead icon ion-md-filing"></i>Hisotrial
+                    de citas</a>
+                <a class="d-block text-light p-3 selected" id="m4"><i class="mr-2 lead icon ion-md-help"></i>Ayuda</a>
+            </div>
+        </div>
+        <div class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <form class="form-inline my-2 my-lg-0 position-relative">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                    <button class="btn btn-serch position-absolute" type="submit"><i
+                            class="icon ion-md-search"></i></button>
+                </form>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <img src="" alt="" class="img-fluid rounded-circle mr-2 avatar">
+                                <!--Aquí va el nombre del usuario-->
+                          
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Mi perfil</a>
+                                <a class="dropdown-item" href="#">Suscripción</a>
+                                <div class="dropdown-divider"></div>
+                                <button id="salir" class="dropdown-item">Cerrar Sesión</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="content">
+                <section class="py-3 px-5 m1">
+                    <div class="row my-3">
+                        <div class="col-lg-9">
+                            <h2 class="font-weight-bold mb-0">Creación de grados</h2>
+                            <p>Selecciona el tipo de grado, al cual quiere genrarle un código.</p>
+                        </div>
+                        <div class="col-lg-3 d-flex">
+                            <button class="btn btn-primary w-100 align-self-center" id="print">Descargar lista <i
+                                    class=" ml-2 icon ion-md-print"></i> </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" id="inputs">
+                            <div class="form-floating">
+                                <select class="form-select pb-1" id="floatingSelect grado_slect"
+                                    aria-label="Floating label select example">
+                                    <option value="" disabled selected>Selecciona un grado</option>
+                                    <option value="1">Trasnsición</option>
+                                    <option value="2">Primero</option>
+                                    <option value="3">Segundo</option>
+                                    <option value="4">Tercero</option>
+                                    <option value="5">Cuarto</option>
+                                    <option value="6">Quinto</option>
+                                    <option value="7">Sexto</option>
+                                    <option value="8">Septimo</option>
+                                    <option value="9">Octavo</option>
+                                    <option value="10">Noveno</option>
+                                    <option value="11">Decimo</option>
+                                    <option value="12">Once</option>
+                                    <option value="13">Docentes</option>
+                                </select>
+                                <label for="floatingSelect">Grado</label>
+                            </div>
+                            <div class="form-floating my-3">
+                                <input type="text" class="form-control bg-light" id="floatingInputValue" placeholder=" "
+                                    disabled>
+                                <label for="floatingInputValue">Código del Grado</label>
+                            </div>
+                        </div>
+                        <div class="col-6 pl-5" id="output">
+                            <table class="table" id="tabla_grados">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Grado</th>
+                                        <th scope="col">Código</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <section class="py-3 px-5 m2">
+
+                    <div class="row my-3">
+                        <div class="col-lg-9">
+                            <h2 class="font-weight-bold mb-0">Estadísticas</h2>
+                            <div class="ui form">
+                                <div class="inline fields">
+                                    <label>Seleccione el tipo de información que desea consultar: </label>
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input class="seleccionGrafica" id="porGrado" type="radio"
+                                                name="tipoConsulta">
+                                            <label>Por grado</label>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input class="seleccionGrafica" id="porEstudiante" type="radio"
+                                                name="tipoConsulta">
+                                            <label>Por estudiante</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contenidoGraficas">
+
+                    </div>
+                </section>
+                <section class="m3">
+                    <h2>M3</h2>
+                </section>
+                <section class="m4">
+                    <h2>M4</h2>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <footer></footer>
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+    crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<!-- <script src="js/footer.js"></script> -->
+<script src="js/template.js"></script>
+<script src="js/funciones.js"></script>
+<script src="js/inst_admin.js"></script>
+<script src="js/conver.js"></script>
+<script src="js/estadisticasEstudiante.js"></script>
+<script src="js/Vestadisticas.js"></script>
