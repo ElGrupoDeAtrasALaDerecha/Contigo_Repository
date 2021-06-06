@@ -17,8 +17,11 @@ import usa.modelo.dto.Institucion;
 import usa.utils.Utils;
 
 /**
+ * Clase observador de sala. esta clase está atenta a cuando un personal calificado se conecta
  * @author Valeria Bermúdez, Laura Blanco, Santiago Cáceres, Camila Fernández,
  * Andrés López, Natalia Montenegro, Santiago Pérez y Miguel Rippez
+ * @version 1.1
+ * @since 2021-06-06
  */
 public class ObservadorSala extends Observer {
 
@@ -45,7 +48,6 @@ public class ObservadorSala extends Observer {
             dao = (IDao) factoryDao.obtener("GradoDao");
             IGradoDao daoGrado = (IGradoDao)dao;
             Grado grado=daoGrado.consultarUnico(objEstudiante.getString("grado"));
-            System.out.println(grado.getCodigo());
             dao = (IDao) factoryDao.obtener("ClasificacionDao");
             Clasificacion clasificacion= (Clasificacion) dao.consultar(String.valueOf(grado.getClasificacion_id()));
             dao = (IDao) factoryDao.obtener("InstitucionDao");
@@ -66,7 +68,7 @@ public class ObservadorSala extends Observer {
             //Aviso al estudiante que se conectó el personal calificado.
             JSONObject obj = new JSONObject();
             obj.put("mensaje", "Hola. Soy " + sala.getPersonaCalificada().getPrimerNombre() + " " + sala.getPersonaCalificada().getPrimerApellido() + ""
-                    + " Dame un momento reviso tu pregunta");
+                    + " Dame un momento por favor.");
 
             //Se mandan datos del personal calificado al estudiante (solo los que se pueden compartir)
             JSONObject personal = new JSONObject(Utils.toJson(sala.getPersonaCalificada()));
