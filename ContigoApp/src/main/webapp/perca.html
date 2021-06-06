@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <!-- CDNs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!-- style sheets -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navfooter.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/admin_perca.css">
+
+    <title>Contigo</title>
+</head>
+<body>
+    <div id="main-box">
+        <div class="sidebar perca">
+            <div class="name">
+                <p class="link-name">Team Contigo</p>
+                <div class="left">
+                    <ion-icon name="arrow-back-circle-outline" class="arrow" id="hd"></ion-icon>
+                    <ion-icon name="arrow-forward-circle-outline" class="arrow" id="sh"></ion-icon>
+                </div>
+            </div>
+            <ul class="nav-list">
+                <li>
+                    <div class="item selected" id="op1">
+                        <!-- <ion-icon name="chatbubbles-sharp"></ion-icon> -->
+                        <i class="bi bi-chat-left-dots-fill"></i>
+                        <p class="link-name">Chats</p>
+                        <span class="title-over">Chats</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="item" id="op2">
+                        <i class="bi bi-journal-bookmark-fill"></i>
+                        <p class="link-name">Agenda de citas</p>
+                        <span class="title-over">Agenda de citas</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="item" id="op3">
+                        <i class="bi bi-diagram-3-fill"></i>
+                        <p class="link-name">Gestión de historias</p>
+                        <span class="title-over">Gestión de historias</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="item" id="op4">
+                        <i class="bi bi-mic-fill"></i>
+                        <p class="link-name">Conversatorios</p>
+                        <span class="title-over">Conversatorios</span>
+                    </div>
+                </li>
+                <li class="last">
+                    <div class="item" id="op5">
+                        <p class="link-name" id="usr_name"></p>
+                        <!-- <ion-icon name="log-out-outline"></ion-icon>-->
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span class="title-over">Cerrar sesión</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="item-content brd" id="op1">
+            <!-- <div class="row py-2">
+                <h2 class="item-tlt">Chats</h2>
+                <p class="item-dsc">Atiende todas las dudas y brinda tranquilidad:</p>
+            </div> -->
+            <div class="ui grid">
+                <div class="ui row">
+        
+                </div>
+                <div class="ui row">
+        
+                </div>
+                <div class="ui row">
+                    <div class="ui seven wide column">
+        
+                    </div>
+                    <div class="ui seven wide column">
+                        <h2>Panel principal</h2>
+                    </div>
+                </div>
+                <div class="ui stackable row">
+                    <div class="ui one wide column">
+        
+                    </div>
+                    <div class="three wide column">
+                        <div class="ui segment">
+                            <div class="ui header">
+                                <h2>Chats</h2>
+                            </div>
+                            <div class="ui content">
+        
+                                <div id="lista_chats" class="ui vertical fluid tabular menu">
+                                    <div id="chats_atendidos">
+                                        <h4>Chats en atención</h4>
+                                    </div>
+                                    <div id="chats_sin_a">
+                                        <h4>Chats sin atender</h4>
+        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                    <div id="chat_con_est" class="eight wide stretched column">
+                        <div class="ui segment">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    <div id="chatCompleto2">
+                                        <div id="titulo">
+                                            <button id="cerrarConexion" class="ui black mini right floated button"
+                                                data-content="Cerrar conexión">
+                                                <i class="close icon"></i>
+                                            </button>
+        
+                                            <h1></h1>
+        
+                                        </div>
+                                        <div id="chat">
+                                            <div id="mensajes">
+        
+                                            </div>
+                                        </div>
+                                        <div id="mensaje">
+                                            <input id="Enviarmensaje" type="text" class="mensajeInput"
+                                                placeholder="Escribir mensaje...">
+                                            <span id="btn_enviar_mns" type="button" class="material-icons"> send</span>
+                                        </div>
+                                    </div>
+                                </font>
+                            </font>
+                        </div>
+                    </div>
+        
+                    <div class="four wide column">
+        
+        
+                        <div id="informacion" class="ui segment relaxed list ">
+                            <div class="ui header">
+                                <h2>Información </h2>
+                            </div>
+                            <div class="ui content">
+                                <div class="item">
+                                    <img src="img/CONTI.png">
+                                    <div class="content">
+                                        <a class="header">Conti Buendía</a>
+                                        <div class="description">
+                                            <b>Nombre completo: </b> Contigo bot Buendía<br>
+                                            <b>Edad: </b> un año <br>
+                                            <b>Grado: </b> Sexto :D <br>
+                                            <b>Institución: </b> El colegio de Contigo <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+        <div class="item-content px-1 py-3 hide" id="op2">
+            <div class="row">
+                <h2 class="item-tlt">Próximamente Op2</h2>
+                <p class="item-dsc">Descripción del módulo</p>
+            </div>
+        </div>
+        <div class="item-content px-1 py-3 hide" id="op3">
+            <div class="row">
+                <h2 class="item-tlt">Historias de decisión</h2>
+                <p class="item-dsc">Crea nuevas historias o edita las ya existentes.</p>
+            </div>
+            <div class="row w-50 px-5 m-auto gdh">
+                <div class="row mt-5">
+                    <button class=" btn btn-primary" id="new-h"><span >Crear historia </span> <i class="bi bi-pencil-fill"></i></button>
+                </div>
+                <div class="row text-center my-3">
+                    <p>ó</p>
+                </div>
+                <div class="row ">
+                    <select class="form-select form-select-lg mb-3 h_select" aria-label="Historias">
+                        <option value="0" disabled selected>Selecciona una historia</option>     
+                    </select>
+                </div>
+                <div class="row my-2">
+                    <button class=" btn btn-outline-primary" id="new-h">Buscar historia</button>
+                </div>
+            </div>
+        </div>
+        <div class="item-content px-1 py-3 hide" id="op4">
+            <div class="row">
+                <h2 class="item-tlt">Próximamente Op 4</h2>
+                <p class="item-dsc">Descripción del módulo</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/funciones.js"></script>
+<script src="js/wsPersonal.js"></script>
+
+

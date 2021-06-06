@@ -1,9 +1,6 @@
-body {
-	font-family: 'KaushanScript-Regular';
-	src: url('letra.ttf');
-    
-}
-
+/* body {
+	src: url('letra.ttf');   
+} */
 h1 {
     color: #ffffff;
     text-align: center;
@@ -31,13 +28,12 @@ h1 {
     margin-top: 5%;
     opacity: 100%;
     width:30%;
-    border:1px solid #000000; 
-    
+    border:1px solid var(--light); 
 }
 #titulo{
     width: 100%;
     height: 5%;
-    background-color: #222831;
+    background-color: var(--bk);
     opacity: 100%;
     border:1px solid #575353; 
 }
@@ -45,7 +41,7 @@ h1 {
   #chat {
     
     text-align:left;
-    border:1px solid #000000;
+    border:1px solid var(--light);
     width: 100%;
     background-color: rgb(255, 255, 255);
 }
@@ -65,7 +61,7 @@ h1 {
     border: solid;
     border-width: 1px;
     border-color: #9c9999 solid;
-    color: #000000;
+    color: var(--text);
     overflow: hidden;
     font-weight: lighter;
     outline: none;
@@ -101,7 +97,7 @@ h1 {
     border: solid;
     border-width: 1px;
     border-color: #9c9999 solid;
-    color: rgb(0, 0, 0);
+    color: var(--text);
     display: inline-block;
     font-size: 100%;
     font-style: open sans;

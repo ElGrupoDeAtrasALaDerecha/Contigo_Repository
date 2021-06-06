@@ -1,3 +1,22 @@
+/* Ajustes del sidebar */
+.perca .name p{
+    font-size: 25px;
+    margin-top: 5px;
+}
+.sidebar.perca ul li #op2 .title-over{
+    width: 160px;
+}
+.sidebar.perca  ul li #op3 .title-over{
+    width: 190px;
+}
+.item-content#op1{
+    padding: 0;
+    margin: 0;
+    margin-right: 5%;
+    width: 90%;
+}
+
+/* Estilos de admin_perca.html */
 #lista_chats{
     background-color: rgb(255, 255, 255);
     margin-left: 5%;
@@ -55,5 +74,8 @@ h4{
     opacity: 100%;
     width:100%;
     border:1px solid #000000; 
-    
+}
+/* Gestion de historias */
+.bi-pencil-fill{
+    padding-left: 10px;
 }
