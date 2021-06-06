@@ -96,6 +96,8 @@ function mostrarAyudaCrearSituacion(){
         e.preventDefault()
         $('#modalCrearSituacion')
         .modal('hide');
+        $('#modalCrearSituacion')
+        .remove();
         $(this).off("click");
     });
 }
