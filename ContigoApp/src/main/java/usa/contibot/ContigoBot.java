@@ -26,8 +26,8 @@ import usa.utils.Utils;
  * Clase Websocket contigo Bot
  *
  * @author Valeria Bermúdez, Santiago Pérez y Camila Fernández
- * @since 2020-03-09
- * @version 0.0.2
+ * @since 2021-06-06
+ * @version 0.0.3
  */
 @ServerEndpoint("/contiBot")
 public class ContigoBot {
@@ -64,8 +64,6 @@ public class ContigoBot {
      */
     @OnMessage
     public void onMessage(String mensaje, Session sesion) {
-        //System.out.println("Mensaje entrante " + mensaje);
-        //System.out.println("Mensaje de " + sesion.getId());
         JSONObject obj = new JSONObject(mensaje);
         String tipo = (String) obj.get("tipo");
         JSONObject objRespuesta = new JSONObject();
@@ -126,7 +124,6 @@ public class ContigoBot {
                 case "ingreso personal":
                     //Personal calificado se conecta a su menú principal
                     personalCalificado = personalDaoConcreto.consultarPorToken((String) obj.get("token"));
-                    System.out.println(SALAS.toString());
                     PERSONALES.add(sesion);
                     objRespuesta.put("tipo", "salas");
                     objRespuesta.put("salas", listarSalas());
@@ -159,7 +156,9 @@ public class ContigoBot {
                     break;
                 case "cerrar conexion":
                     sala = this.buscarSalas(obj.getInt("numeroSala"));
-                    sala.cerrarConexionAEstudiante(objRespuesta);
+                    if(sala!=null){
+                        sala.cerrarConexionAEstudiante(objRespuesta);
+                    }
                     break;
 
             }
