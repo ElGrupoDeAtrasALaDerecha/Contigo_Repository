@@ -111,6 +111,7 @@ h1 {
     vertical-align: top;
     width: 80%;
     margin-left: 3%;
+    overflow-wrap: break-word;
 }
 
 #chat #mensajes .mensaje-autor .fecha{
@@ -145,6 +146,7 @@ h1 {
     vertical-align: top;
     width: 80%;
     text-align: left;
+    overflow-wrap: break-word;
 }
 #chat #mensajes .mensaje-amigo img, #chat #mensajes .mensaje-autor img{
     border-radius: 5%;
@@ -167,6 +169,7 @@ div.escribiendoA {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+    z-index: 10000;
 }
  #load {
 	width: 10px;
