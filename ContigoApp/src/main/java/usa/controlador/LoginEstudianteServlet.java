@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package usa.controlador;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,9 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import usa.modelo.dao.EstudianteDao;
-import usa.modelo.dao.PersonalCalificadoDao;
 import usa.modelo.dto.Estudiante;
-import usa.modelo.dto.PersonalCalificado;
 import usa.utils.Utils;
 
 /**
@@ -27,32 +19,7 @@ import usa.utils.Utils;
  */
 @WebServlet(name = "LoginEstudianteServlet", urlPatterns = {"/LoginEstudiante"})
 public class LoginEstudianteServlet extends HttpServlet {
-/**/
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginEstudianteServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginEstudianteServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -73,8 +40,7 @@ public class LoginEstudianteServlet extends HttpServlet {
         JSONObject respuesta = new JSONObject();
         Estudiante estudiante = dao.consultarPorCredenciales(parametroJson.getString("documento"), parametroJson.getString("contraseña"));
         if (estudiante != null) {
-            Gson gson = new Gson();
-            JSONObject estudianteJson = new JSONObject(gson.toJson(estudiante, Estudiante.class));
+            JSONObject estudianteJson = new JSONObject(Utils.toJson(estudiante));
             estudianteJson.remove("contraseña");
             respuesta.put("tipo", "ok");
             respuesta.put("mensaje", "Bienvenido ");
