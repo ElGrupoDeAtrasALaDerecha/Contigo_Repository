@@ -23,6 +23,19 @@ $(document).ready(function () {
                             </ul>
                         </div>
                     </div>
+
+
+                    <a id="notificaciones">
+                        <div class="ui big button item">
+                            <i class="bell icon"></i>
+                            <div class="ui blue circular top right attached label">10</div>
+                        </div>
+                    </a>
+                    <a>
+                    <div class item>
+                    
+                    </div>
+                    </a>
                     <a id="salir">
                         <div class="log-out" >
                             Salir
