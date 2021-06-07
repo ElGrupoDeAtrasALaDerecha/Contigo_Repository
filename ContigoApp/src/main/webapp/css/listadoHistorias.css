@@ -114,7 +114,39 @@ h1 {
 }
 
 .pop{
-  height: 40vh !important;
+  height: 30vh !important;
   margin-top: -20% !important;
 
+}
+
+.cerrar{
+  margin-right: 3%;
+  padding: 5px 15px 5px 15px;
+  margin-top: 12%;
+  background-color: #fff;
+  border-color: #fff;
+}
+.cerrar:hover{
+  cursor: pointer;
+  background-color: #dc3545;
+  color: #fff;
+  
+}
+.aceptar{
+  padding: 5px 15px 5px 15px;
+  margin-top: 12%;
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+}
+
+.aceptar:hover{
+  cursor: pointer;
+  background-color: #fff;
+  border-color: #fff;
+  color: black;
+}
+
+.header{
+  text-align:center;
 }

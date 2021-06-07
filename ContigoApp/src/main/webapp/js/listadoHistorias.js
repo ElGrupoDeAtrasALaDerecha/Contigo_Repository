@@ -184,12 +184,8 @@ function pintarClasificaciones(clasificaciones, idHistoria) {
                             <option value="13">Docente</option>
                         </select>
                     </div>
-                        <p>
                         <button class="cerrar">Cerrar</button>
-                        </p>
-                        <p>
-                        <button class="aceptar">Aceptar</button>
-                        </p>
+                        <button class="aceptar">Asignar</button>
                     </div>
                     </div>
                 `;
