@@ -71,7 +71,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
     public PersonalCalificado consultar(String id) {
 
         PersonalCalificado personalCalificado = null;
-        String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
+        String sql = "select p.*,pc.* from PERSONA as p inner join PERSONAL as pc on pc.PERSONA_documento=p.documento "
                 + "where p.documento=" + id + ";";
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
@@ -113,7 +113,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
     @Override
     public boolean actualizar(PersonalCalificado p) {
         try {
-            String sql = "update personal as pc ,persona as p\n"
+            String sql = "update PERSONAL as pc ,PERSONA as p\n"
                     + "set p.primerNombre=?,\n"
                     + "p.segundoNombre=?,\n"
                     + "p.primerApellido=?,\n"
@@ -199,7 +199,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
     @Override
     public PersonalCalificado consultarPorToken(String token) {
         PersonalCalificado personalCalificado = null;
-        String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
+        String sql = "select p.*,pc.* from PERSONA as p inner join PERSONAL as pc on pc.PERSONA_documento=p.documento "
                 + "where p.token='" + token + "';";
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
@@ -240,7 +240,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
         PersonalCalificado personal = null;
         try {
 
-            String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento "
+            String sql = "select p.*,pc.* from PERSONA as p inner join PERSONAL as pc on pc.PERSONA_documento=p.documento "
                     + "where p.correo = \"" + correo + "\"  and p.contraseña = sha(\"" + contraseña + "\");";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
