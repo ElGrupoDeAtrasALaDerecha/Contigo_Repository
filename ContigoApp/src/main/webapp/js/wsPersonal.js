@@ -15,7 +15,7 @@ var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 /**
 * Dirección con protocolo ws
 */
-var wsUri = "ws://localhost:8080/ContigoApp/contiBot";
+var wsUri = "ws://"+window.location.host+"/ContigoApp/contiBot";
 /**
 * Websocket
 */
