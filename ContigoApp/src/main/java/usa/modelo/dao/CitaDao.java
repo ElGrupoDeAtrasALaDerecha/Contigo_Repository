@@ -56,7 +56,7 @@ public class CitaDao implements IDaoCita {
         int idr = Integer.valueOf(id);
         Cita cita = null;
         try {
-            String sql = "select * from cita where id = '" + idr + "';";
+            String sql = "select * from CITA where id = '" + idr + "';";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
 
@@ -83,7 +83,7 @@ public class CitaDao implements IDaoCita {
     @Override
     public boolean actualizar(Cita cita) {
         try {
-            String sql = "update cita\n"
+            String sql = "update CITA\n"
                     + "set ESTUDIANTE_PERSONA_documento = \"" + cita.getIdEstudiante() + "\"\n,"
                     + "estado=" + cita.getEstado() + ", "
                     + "motivo=\"" + cita.getMotivo() + "\" "
@@ -107,7 +107,7 @@ public class CitaDao implements IDaoCita {
     public LinkedList<Cita> listarTodos() {
         LinkedList<Cita> citas = new LinkedList();
         try {
-            String sql = "select *from cita ";
+            String sql = "select *from CITA ";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
@@ -193,9 +193,9 @@ public class CitaDao implements IDaoCita {
         LinkedList<Cita> historialDeCitas = new LinkedList();
         try {
             String sql = "select concat(p.primerNombre,\" \",p.segundoNombre,\" \",p.primerApellido,\" \",p.segundoApellido) as personal, pc.imagen , c.* from cita as c \n"
-                    + "inner join agenda as a on a.id=c.AGENDA_id\n"
-                    + "inner join personal as pc on pc.PERSONA_documento=a.PERSONAL_PERSONA_documento\n"
-                    + "inner join persona as p on p.documento=pc.PERSONA_documento\n"
+                    + "inner join AGENDA as a on a.id=c.AGENDA_id\n"
+                    + "inner join PERSONAL as pc on pc.PERSONA_documento=a.PERSONAL_PERSONA_documento\n"
+                    + "inner join PERSONA as p on p.documento=pc.PERSONA_documento\n"
                     + "where ESTUDIANTE_PERSONA_documento=\"" + documento + "\";";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
@@ -256,10 +256,10 @@ public class CitaDao implements IDaoCita {
         LinkedList<Cita> citasPersonal = new LinkedList();
         try {
             String sql = "select p.primerNombre,p.segundoNombre, p.primerApellido ,P.segundoApellido, es.PERSONA_documento,ci.*\n"
-                    + "       from persona as p inner join ESTUDIANTE as es \n"
+                    + "       from PERSONA as p inner join ESTUDIANTE as es \n"
                     + "       on es.PERSONA_documento = p.documento\n"
-                    + "	   inner join cita as ci on ci.ESTUDIANTE_PERSONA_documento = es.PERSONA_documento \n"
-                    + "       inner join agenda as a on a.id=ci.AGENDA_id\n"
+                    + "	   inner join CITA as ci on ci.ESTUDIANTE_PERSONA_documento = es.PERSONA_documento \n"
+                    + "       inner join AGENDA as a on a.id=ci.AGENDA_id\n"
                     + "		where PERSONAL_PERSONA_documento=\"" + id + "\";";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
@@ -291,8 +291,8 @@ public class CitaDao implements IDaoCita {
             String sql = "select t2.mes,coalesce(t1.citas,0) as citas from (\n" +
                             "select month(fecha) as mes, count(e.PERSONA_documento) as citas\n" +
                             "from cita as c\n" +
-                            "left join estudiante as e on e.PERSONA_documento=c.ESTUDIANTE_PERSONA_documento\n" +
-                            "inner join persona as p on p.documento=e.PERSONA_documento\n" +
+                            "left join ESTUDIANTE as e on e.PERSONA_documento=c.ESTUDIANTE_PERSONA_documento\n" +
+                            "inner join PERSONA as p on p.documento=e.PERSONA_documento\n" +
                             "where p.documento=\""+documento+"\" \n" +
                             "and \n" +
                             "c.fecha between LAST_DAY(DATE_SUB(NOW(), INTERVAL 6 MONTH)) and NOW()\n" +

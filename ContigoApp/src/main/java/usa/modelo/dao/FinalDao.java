@@ -21,12 +21,12 @@ public class FinalDao implements IFinalDao {
     @Override
     public boolean crear(Final fin) {
         try {
-            String sql = "delete from situacion where id = " + fin.getId() + ";";
+            String sql = "delete from SITUACION where id = " + fin.getId() + ";";
             pat = conn.prepareStatement(sql);
             pat.execute();
             pat.close();
 
-            sql = "insert into fin (id,SITUACION_id,titulo,texto)\n"
+            sql = "insert into FIN (id,SITUACION_id,titulo,texto)\n"
                     + "values(?,?,?,?);";
             PreparedStatement pat2 = conn.prepareStatement(sql);
             pat2.setInt(1, fin.getId());
@@ -52,7 +52,7 @@ public class FinalDao implements IFinalDao {
         Final situacion = null;
         try {
             String sql = "select f.*, s.HISTORIA_idHistoria from fin as f\n"
-                    + "inner join Situacion as s on s.id=f.SITUACION_id\n"
+                    + "inner join SITUACION as s on s.id=f.SITUACION_id\n"
                     + "where f.id="+id+";";
             pat = conn.prepareStatement(sql);
             ResultSet result = pat.executeQuery();
@@ -75,7 +75,7 @@ public class FinalDao implements IFinalDao {
     @Override
     public boolean actualizar(Final fin) {
         try {
-            String sql = "UPDATE fin SET titulo=?, texto=? WHERE id=?";
+            String sql = "UPDATE FIN SET titulo=?, texto=? WHERE id=?";
             pat = conn.prepareStatement(sql);
             pat.setString(1, fin.getTitulo());
             pat.setString(2, fin.getTexto());
@@ -92,7 +92,7 @@ public class FinalDao implements IFinalDao {
     @Override
     public boolean eliminar(String id) {
         try {
-            String sql = "delete from fin where id=" + id + ";";
+            String sql = "delete from FIN where id=" + id + ";";
             pat = conn.prepareStatement(sql);
             pat.execute();
             pat.close();

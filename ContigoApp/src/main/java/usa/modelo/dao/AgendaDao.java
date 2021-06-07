@@ -61,7 +61,7 @@ public class AgendaDao implements IDaoAgenda {
     public Agenda consultar(String id) {
         Agenda agenda = null;
         try {
-            String sql = "select * from agenda where personal_persona_documento = '" + id + "';";
+            String sql = "select * from AGENDA where personal_persona_documento = '" + id + "';";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             agenda = new Agenda();

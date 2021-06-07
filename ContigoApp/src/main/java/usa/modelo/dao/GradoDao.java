@@ -119,12 +119,12 @@ public class GradoDao implements IGradoDao {
         JSONArray arregloBtnE=new JSONArray();
         try {
             String sql = "select q1.totalE as \"total\", q2.totalEP as \"si\", q1.totalE-q2.totalEP as \"no\" from \n" +
-            "(select count(*) as totalE from estudiante\n" +
+            "(select count(*) as totalE from ESTUDIANTE\n" +
             "where GRADO_codigo=\'"+grado+"\') as q1, \n" +
-            "(select count(p.documento) as totalEP from Persona as p\n" +
-            "inner join Estudiante as e on e.PERSONA_documento=p.documento\n" +
+            "(select count(p.documento) as totalEP from PERSONA as p\n" +
+            "inner join ESTUDIANTE as e on e.PERSONA_documento=p.documento\n" +
             "inner join GRADO as g on g.codigo=e.GRADO_codigo\n" +
-            "where g.codigo=\'"+grado+"\' and p.documento in (select distinct ESTUDIANTE_PERSONA_documento from estadisticas_btnpanico)\n" +
+            "where g.codigo=\'"+grado+"\' and p.documento in (select distinct ESTUDIANTE_PERSONA_documento from ESTADISTICAS_BTNPANICO)\n" +
             ") as q2;";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
@@ -166,9 +166,9 @@ public class GradoDao implements IGradoDao {
     public LinkedList<Grado> consultarPorInstitucion(Institucion i) {
         LinkedList <Grado> grados= new LinkedList();
         try {
-            String sql= "select c.*, g.codigo from clasificacion c\n" +
-                    "inner join grado as g on g.CLASIFICACION_id=c.id\n" +
-                    "inner join institucion as i on i.id=INSTITUCION_id\n" +
+            String sql= "select c.*, g.codigo from CLASIFICACION c\n" +
+                    "inner join GRADO as g on g.CLASIFICACION_id=c.id\n" +
+                    "inner join INSTITUCION as i on i.id=INSTITUCION_id\n" +
                     "where i.id="+i.getId()+";";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();

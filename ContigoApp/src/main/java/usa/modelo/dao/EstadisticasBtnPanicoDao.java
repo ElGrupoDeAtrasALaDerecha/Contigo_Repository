@@ -100,10 +100,10 @@ public class EstadisticasBtnPanicoDao implements IEstadisticasBtnPanicoDao {
         LinkedList<JSONArray> listaClicks = new LinkedList<>();
         try {
             String sql = "select clasificacion.grado, count(ESTADISTICAS_BTNPANICO.ESTUDIANTE_PERSONA_documento) as Clicks\n"
-                    + "from persona, estudiante, clasificacion, grado, ESTADISTICAS_BTNPANICO\n"
-                    + "where persona.documento = estudiante.PERSONA_documento and clasificacion.id = grado.CLASIFICACION_id and estudiante.GRADO_codigo = grado.codigo\n"
-                    + "      and ESTADISTICAS_BTNPANICO.ESTUDIANTE_PERSONA_documento = estudiante.PERSONA_documento\n"
-                    + "group by clasificacion.grado ORDER BY clasificacion.id asc;";
+                    + "from PERSONA as p, ESTUDIANTE as e , CLASIFICACION as c, GRADO as g, ESTADISTICAS_BTNPANICO as eb\n"
+                    + "where p.documento = e.PERSONA_documento and c.id = g.CLASIFICACION_id and e.GRADO_codigo = g.codigo\n"
+                    + "      and eb.ESTUDIANTE_PERSONA_documento = e.PERSONA_documento\n"
+                    + "group by c.grado ORDER BY c.id asc;";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             listaClicks.add(new JSONArray());
@@ -126,8 +126,8 @@ public class EstadisticasBtnPanicoDao implements IEstadisticasBtnPanicoDao {
         try {
             String sql = "select t2.mes, coalesce(t1.clicks,0) as clicks from \n" +
                         "(\n" +
-                        "select month(FECHA) as mes, count(eb.ESTUDIANTE_PERSONA_documento) as clicks from estadisticas_btnpanico as eb\n" +
-                        "inner join estudiante as e on eb.ESTUDIANTE_PERSONA_documento=e.PERSONA_documento\n" +
+                        "select month(FECHA) as mes, count(eb.ESTUDIANTE_PERSONA_documento) as clicks from ESTADISTICAS_BTNPANICO as eb\n" +
+                        "inner join ESTUDIANTE as e on eb.ESTUDIANTE_PERSONA_documento=e.PERSONA_documento\n" +
                         "where e.PERSONA_documento=\""+documento+"\"\n" +
                         "and \n" +
                         "FECHA between FIRST_DAY(DATE_SUB(NOW(), INTERVAL 5 MONTH)) and NOW()\n" +

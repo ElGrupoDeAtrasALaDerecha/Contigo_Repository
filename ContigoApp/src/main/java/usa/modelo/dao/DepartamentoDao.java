@@ -50,7 +50,7 @@ public class DepartamentoDao implements IDao<Departamento>{
          LinkedList<Departamento> departamentos = new LinkedList<Departamento>();
         //pat sirve como el cur() de py 
         try {
-            String sql = "select * from departamento";
+            String sql = "select * from DEPARTAMENTO";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){

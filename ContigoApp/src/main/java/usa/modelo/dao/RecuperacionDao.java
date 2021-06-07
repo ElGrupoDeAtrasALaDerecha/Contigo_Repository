@@ -110,7 +110,7 @@ public class RecuperacionDao implements IRecuperacionDao {
                 int idInstitucion = rs.getInt("institucion_id");
                 rs.close();
                 pat.close();
-                sql = "update institucion as i \n"
+                sql = "update INSTITUCION as i \n"
                         + "set i.contraseña=sha(\"" + contraseña + "\")\n"
                         + "where i.id=\"" + idInstitucion + "\";";
                 pat = conn.prepareStatement(sql);

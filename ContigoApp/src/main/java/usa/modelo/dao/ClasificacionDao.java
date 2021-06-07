@@ -71,8 +71,8 @@ public class ClasificacionDao implements IClasificacionDao{
         LinkedList<Clasificacion> lista = new LinkedList();
         String sql = "";
         try {
-            sql = "select c.*, g.codigo from clasificacion c \n" +
-            "inner join grado as g on g.CLASIFICACION_id=c.id; ";
+            sql = "select c.*, g.codigo from CLASIFICACION c \n" +
+            "inner join GRADO as g on g.CLASIFICACION_id=c.id; ";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {

@@ -47,7 +47,7 @@ public class MotivoDao implements IDao<Motivo> {
     @Override
     public LinkedList<Motivo> listarTodos() {
         LinkedList<Motivo> motivos =new LinkedList<Motivo>();
-        String sql ="select * from motivo;";
+        String sql ="select * from MOTIVO;";
         try {
             pat =conn.prepareStatement(sql);
             result = pat.executeQuery();

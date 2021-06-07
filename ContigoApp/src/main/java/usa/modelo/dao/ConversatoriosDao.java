@@ -105,7 +105,7 @@ public class ConversatoriosDao implements IDaoConversatorios {
     public LinkedList<Clasificacion> consultarClasificacionConver(int id) {
         LinkedList<Clasificacion> clasificaciones = new LinkedList();
         try {
-            String sql = "select c.* from clasificacion as c\n"
+            String sql = "select c.* from CLASIFICACION as c\n"
                     + "inner join CLASIFICACION_has_CONVERSATORIO as cc on cc.CLASIFICACION_id=c.id\n"
                     + "inner join CONVERSATORIO as co on co.id=cc.CONVERSATORIO_id\n"
                     + "where co.id =\"" + id + "\";";
@@ -129,7 +129,7 @@ public class ConversatoriosDao implements IDaoConversatorios {
     public LinkedList<Conversatorio> listarTodos() {
         LinkedList<Conversatorio> conversatorios = new LinkedList();
         try {
-            String sql = "select * from Conversatorio";
+            String sql = "select * from CONVERSATORIO";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
@@ -176,7 +176,7 @@ public class ConversatoriosDao implements IDaoConversatorios {
     @Override
     public boolean actualizar(Conversatorio t) {
         try {
-            String sql = "UPDATE conversatorio SET PERSONAL_PERSONA_documento = ?,titulo= ?,cronograma = ? ,imagen = ?,descripcion = ?,lugar=?,infografia=? WHERE id=?";
+            String sql = "UPDATE CONVERSATORIO SET PERSONAL_PERSONA_documento = ?,titulo= ?,cronograma = ? ,imagen = ?,descripcion = ?,lugar=?,infografia=? WHERE id=?";
             pat = conn.prepareStatement(sql);
             pat.setString(1, t.getOrador());
             pat.setString(2, t.getTitulo());
@@ -234,9 +234,9 @@ public class ConversatoriosDao implements IDaoConversatorios {
         LinkedList<JSONArray> datos = null;
         try {
             String sql = "select C.titulo, count(EC.ESTUDIANTE_PERSONA_documento) as Inscritos from  ESTUDIANTE_has_CONVERSATORIO as EC\n"
-                    + "inner join estudiante as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n"
-                    + "inner join grado as G on E.GRADO_codigo = G.codigo\n"
-                    + "right join conversatorio as C on EC.CONVERSATORIO_id = C.id \n"
+                    + "inner join ESTUDIANTE as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n"
+                    + "inner join GRADO as G on E.GRADO_codigo = G.codigo\n"
+                    + "right join CONVERSATORIO as C on EC.CONVERSATORIO_id = C.id \n"
                     + "where G.codigo = \'" + grado + "\' \n"
                     + "group by C.id\n"
                     + "order by Inscritos desc\n"
@@ -264,10 +264,10 @@ public class ConversatoriosDao implements IDaoConversatorios {
         LinkedList<JSONArray> datos = null;
         try {
             String sql = "select C.titulo, count(EC.ESTUDIANTE_PERSONA_documento) as Inscritos from  ESTUDIANTE_has_CONVERSATORIO as EC\n"
-                    + "right join conversatorio as C on EC.CONVERSATORIO_id = C.id \n"
-                    + "inner join estudiante as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n"
-                    + "inner join grado as G on E.GRADO_codigo = G.codigo\n"
-                    + "inner join institucion as I on G.INSTITUCION_id = I.id\n"
+                    + "right join CONVERSATORIO as C on EC.CONVERSATORIO_id = C.id \n"
+                    + "inner join ESTUDIANTE as E on EC.ESTUDIANTE_PERSONA_documento = E.PERSONA_documento\n"
+                    + "inner join GRADO as G on E.GRADO_codigo = G.codigo\n"
+                    + "inner join INSTITUCION as I on G.INSTITUCION_id = I.id\n"
                     + "where I.id = " + institucion + " \n"
                     + "group by C.id\n"
                     + "order by Inscritos desc\n"

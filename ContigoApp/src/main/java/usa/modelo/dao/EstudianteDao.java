@@ -49,8 +49,8 @@ public class EstudianteDao implements IDaoEstudiante {
     public Estudiante consultar(String id) {
         Estudiante estudiante = null;
         try {
-            String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
-                    + "inner join estudiante as e on e.PERSONA_documento =p.documento\n where PERSONA_documento =\"" + id + "\"";
+            String sql = "select p.* , e.GRADO_codigo from PERSONA as p  \n"
+                    + "inner join ESTUDIANTE as e on e.PERSONA_documento =p.documento\n where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             rs = pat.executeQuery();
             while (rs.next()) {
@@ -116,8 +116,8 @@ public class EstudianteDao implements IDaoEstudiante {
         Estudiante estudiante = null;
         try {
 
-            String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
-                    + "inner join estudiante as e on e.PERSONA_documento =p.documento\n"
+            String sql = "select p.* , e.GRADO_codigo from PERSONA as p  \n"
+                    + "inner join ESTUDIANTE as e on e.PERSONA_documento =p.documento\n"
                     + "where p.token = '" + token + "';";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
@@ -144,7 +144,7 @@ public class EstudianteDao implements IDaoEstudiante {
     public Estudiante consultarPorTokenGrado(String id) {
         Estudiante estudiante = null;
         try {
-            String sql = "select * from Estudiante where PERSONA_documento =\"" + id + "\"";
+            String sql = "select * from ESTUDIANTE where PERSONA_documento =\"" + id + "\"";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             estudiante = new Estudiante();
@@ -164,8 +164,8 @@ public class EstudianteDao implements IDaoEstudiante {
         Estudiante estudiante = null;
         try {
 
-            String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
-                    + "inner join estudiante as e on e.PERSONA_documento =p.documento\n"
+            String sql = "select p.* , e.GRADO_codigo from PERSONA as p  \n"
+                    + "inner join ESTUDIANTE as e on e.PERSONA_documento =p.documento\n"
                     + "where p.documento = \"" + documento + "\"  and p.contraseña = sha(\"" + contraseña + "\");";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();

@@ -46,7 +46,7 @@ public class SituacionDao implements ISituacionDao{
     public Situacion consultar(String id) {
         Situacion situacion = null ;
         try {
-            String sql = "select * from situacion where id =\""+id+"\"";
+            String sql = "select * from SITUACION where id =\""+id+"\"";
             pat = conn.prepareStatement(sql);
             ResultSet result = pat.executeQuery();
             while(result.next()){
@@ -69,7 +69,7 @@ public class SituacionDao implements ISituacionDao{
     public boolean actualizar(Situacion situacion) {
     
        try {
-            String sql = "UPDATE situacion SET HISTORIA_idHistoria=?, titulo=?, texto=? WHERE id=?";
+            String sql = "UPDATE SITUACION SET HISTORIA_idHistoria=?, titulo=?, texto=? WHERE id=?";
             pat = conn.prepareStatement(sql);
             pat.setInt(1, situacion.getIdHistoria());
             pat.setString(2, situacion.getTitulo());
@@ -87,7 +87,7 @@ public class SituacionDao implements ISituacionDao{
     @Override
     public boolean eliminar(String id) {
        try {
-            String sql = "delete from situacion where id="+id+";";
+            String sql = "delete from SITUACION where id="+id+";";
             pat = conn.prepareStatement(sql);
             pat.execute();
             pat.close();
@@ -107,7 +107,7 @@ public class SituacionDao implements ISituacionDao{
     public Arbol consultarPorHistoria(int idHistoria) {
         Arbol situaciones = new Arbol();
         try {
-            String sql = "select * from situacion where HISTORIA_idHistoria = "+idHistoria+" order by id asc;";
+            String sql = "select * from SITUACION where HISTORIA_idHistoria = "+idHistoria+" order by id asc;";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             int i = 0;
@@ -123,7 +123,7 @@ public class SituacionDao implements ISituacionDao{
             pat.close();
             rs.close();
             sql="select f.* from fin as f\n" +
-            "inner join Situacion as s on s.id=f.SITUACION_id\n" +
+            "inner join SITUACION as s on s.id=f.SITUACION_id\n" +
             "where s.HISTORIA_idHistoria='"+idHistoria+"';";
             pat = conn.prepareStatement(sql);
             rs = pat.executeQuery();

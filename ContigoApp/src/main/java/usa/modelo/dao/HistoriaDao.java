@@ -26,7 +26,7 @@ public class HistoriaDao implements IHistoriasDao {
     @Override
     public boolean crear(Historia his) {
         try {
-            String sql = "insert into  historia (PERSONAL_PERSONA_documento,titulo,descripcion,urlImagen) "
+            String sql = "insert into  HISTORIA (PERSONAL_PERSONA_documento,titulo,descripcion,urlImagen) "
                     + "values (?,?,?,?)";
             pat = conn.prepareStatement(sql);
             pat.setString(1, his.getDocumentoCreador());
@@ -134,7 +134,7 @@ public class HistoriaDao implements IHistoriasDao {
     @Override
     public int crearhistoria(Historia his) {
         try {
-            String sql = "insert into  historia (PERSONAL_PERSONA_documento,titulo,descripcion,urlImagen) "
+            String sql = "insert into  HISTORIA (PERSONAL_PERSONA_documento,titulo,descripcion,urlImagen) "
                     + "values (?,?,?,?)";
             pat = conn.prepareStatement(sql);
             pat.setString(1, his.getDocumentoCreador());
@@ -162,9 +162,9 @@ public class HistoriaDao implements IHistoriasDao {
         LinkedList<Historia> historias= new LinkedList();
         try {
             
-            String sql = "select h.* from estudiante_has_historia as eh\n" +
-                            "inner join estudiante as e on e.PERSONA_documento=eh.ESTUDIANTE_PERSONA_documento\n" +
-                            "inner join historia as h on h.idHistoria=eh.HISTORIA_idHistoria\n" +
+            String sql = "select h.* from ESTUDIANTE_has_HISTORIA as eh\n" +
+                            "inner join ESTUDIANTE as e on e.PERSONA_documento=eh.ESTUDIANTE_PERSONA_documento\n" +
+                            "inner join HISTORIA as h on h.idHistoria=eh.HISTORIA_idHistoria\n" +
                             "where e.PERSONA_documento=\""+documento+"\";";
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
@@ -209,7 +209,7 @@ public class HistoriaDao implements IHistoriasDao {
     public LinkedList<ClasificacionHasHistoria> consultarClasificacionHistoria(String id) {
         LinkedList<ClasificacionHasHistoria> clasificaciones = new LinkedList();
         try {
-            String sql = "select c.* from clasificacion as c\n"
+            String sql = "select c.* from CLASIFICACION as c\n"
                     + "inner join CLASIFICACION_has_HISTORIA as cc on cc.CLASIFICACION_id = c.id\n"
                     + "inner join HISTORIA as his on his.idHistoria = cc.HISTORIA_idHistoria\n"
                     + "where his.idHistoria =\"" + id + "\";";
