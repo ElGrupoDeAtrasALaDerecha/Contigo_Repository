@@ -1,6 +1,17 @@
 var identificaciones;
 
-//porfi funciona quiero mimir :( funciona
+var TipoDocumento;
+var TIoCC;
+var PrimerNombre;
+var PrimerApellido;
+var SegundoNombre;
+var Genero;
+var CodigoInstitucional;
+var SegundoApellido;
+var correo;
+var FechaNacimiento;
+var contra;
+var conficontra;
 
 window.onload = function tipos_id() {
     $.ajax({
@@ -33,35 +44,21 @@ window.onload = function tipos_id() {
 }
 
 function registrar_estudiante() {
-    tidocu = $("#TipoDocumento").val();
-    numdocu = $("#TIoCC").val();
-    pnom = $("#PrimerNombre").val();
-    pape = $("#PrimerApellido").val();
-    gen = $("#Genero").val();
-    fena = $("#FechaNacimiento").val();
-    codins = $("#CodigoInstitucional").val();
-    snom = $("#SegundoNombre").val();
-    sape = $("#SegundoApellido").val();
-    con = $("#contra").val();
-    correo= $("#correo").val();
-    if (tidocu == "") {
-        toastr.warning('Por favor escoja un tipo de documento')
-    }
 
     informacion = {
-        documento: numdocu,
-        tipoDocumento: parseInt(tidocu, 10),
-        primerNombre: pnom,
-        segundoNombre: snom,
-        primerApellido: pape,
-        segundoApellido: sape,
-        fechaDeNacimiento: fena,
-        contraseña: con,
-        genero: gen,
-        grado: codins,
+        documento: TIoCC,
+        tipoDocumento: parseInt(TipoDocumento, 10),
+        primerNombre: PrimerNombre,
+        segundoNombre: SegundoNombre,
+        primerApellido: PrimerApellido,
+        segundoApellido: SegundoApellido,
+        fechaDeNacimiento: FechaNacimiento,
+        contraseña: contra,
+        genero: Genero,
+        grado: CodigoInstitucional,
         correo: correo
     };
-
+    
     $.ajax({
         url: "Estudiante",
         type: "POST",
@@ -75,12 +72,14 @@ function registrar_estudiante() {
             if (result.tipo != "error") {
                 console.log(result);
                 toastr.success('Estudiante creado con exito')
-                $(location).attr('href', 'ingresar.html');
+                $(location).attr('href', 'login_est.html');
 
             } else {
                 if (result.mensaje === "Error el estudiante ya esta registrado") {
                     console.log(result);
-                    toastr.error('Error ya existe un estudiante registrado con este documento')    
+                    toastr.error('Error ya existe un estudiante registrado con este documento')
+                }else if(result.mensaje2 === "Error ese correo ya esta registrado"){
+                    toastr.error('Error ya existe un estudiante con ese correo')
                 } else {
                     console.log(result);
                     toastr.error('Código institucional erroneo')
@@ -90,121 +89,114 @@ function registrar_estudiante() {
         },
         complete: function (result) {
 
-
         },
         error: function (result) {
             console.log(result);
         }
 
     });
-
-
 }
 
 
 function BorrarTexto() {
-    document.querySelectorAll('.Espacios[data-error] .Texto').forEach(inpEl => {
+    document.querySelectorAll('.item[data-error] .Texto').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+
+    document.querySelectorAll('.item[data-error] .Texto2').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+
+    document.querySelectorAll('.item[data-error] .Texto3').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+
+    document.querySelectorAll('.item[data-error] .Texto4').forEach(inpEl => {
         inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
     })
 }
 
-function Ingresar() {
-    TipoDocumento = document.getElementById("TipoDocumento").value;
-    TIoCC = document.getElementById("TIoCC").value;
-    PrimerNombre = document.getElementById("PrimerNombre").value;
-    PrimerApellido = document.getElementById("PrimerApellido").value;
-    Genero = document.getElementById("Genero").value;
-    CodigoInstitucional = document.getElementById("CodigoInstitucional").value;
-    SegundoApellido = document.getElementById("SegundoApellido").value;
-    correo = document.getElementById("correo").value;
-    FechaNacimiento = document.getElementById("FechaNacimiento").value;
-    contra = document.getElementById("contra").value;
-    conficontra = document.getElementById("conficontra").value;
-    var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-    var esValido = expReg.test(correo);
+function validar_Uno() {
+    TipoDocumento = $("#TipoDocumento").val();
+    TIoCC = $("#TIoCC").val();
+    PrimerNombre = $("#PrimerNombre").val();
+    PrimerApellido = $("#PrimerApellido").val();
+    Genero = $("#Genero").val();
+    SegundoApellido = $("#SegundoApellido").val();
+    FechaNacimiento = $("#FechaNacimiento").val();
+    SegundoNombre = $("#SegundoNombre").val();
 
-    if (TipoDocumento == "Tipo de documento" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || CodigoInstitucional == "" || SegundoApellido == "" || correo == "" || FechaNacimiento == "" || contra == "" || conficontra == "") {
-        if (TipoDocumento == "") {
-            document.getElementsByClassName("Espacios tip")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
+    if (TipoDocumento == "Tipo" || TIoCC == "" || PrimerNombre == "" || PrimerApellido == "" || Genero == "Genero" || SegundoApellido == "" || FechaNacimiento == "") {
+        if (TipoDocumento == "Tipo") {
+            document.getElementsByClassName("item form-floating")[0].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor seleccione que tipo de documento tiene')
         }
         if (TIoCC == "") {
-            document.getElementsByClassName("Espacios num")[0].setAttribute("data-error", "Campo obligatorio");
+            document.getElementsByClassName("item form-floating")[1].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese su número de documento')
             BorrarTexto();
         }
         if (PrimerNombre == "") {
-            document.getElementsByClassName("Espacios pri")[0].setAttribute("data-error", "Campo obligatorio");
+            document.getElementsByClassName("item form-floating")[2].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese su primer nombre')
             BorrarTexto();
         }
         if (PrimerApellido == "") {
-            document.getElementsByClassName("Espacios ape")[0].setAttribute("data-error", "Campo obligatorio");
+            document.getElementsByClassName("item form-floating")[3].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese su primer apellido')
+            BorrarTexto();
+        }
+        if (FechaNacimiento == "") {
+            document.getElementsByClassName("item form-floating")[4].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor seleccione su fecha de nacimiento')
+        }
+        if (SegundoApellido == "") {
+            document.getElementsByClassName("item form-floating")[6].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese su segundo apellido')
             BorrarTexto();
         }
         if (Genero == "Genero") {
-            document.getElementsByClassName("Espacios gen")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
+            document.getElementsByClassName("item form-floating")[7].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor seleccione su genero')
         }
-        if (CodigoInstitucional == "") {
-            document.getElementsByClassName("Espacios cod")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }
-
-        if (FechaNacimiento == "") {
-            document.getElementsByClassName("Espacios fec")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }
-        if (SegundoApellido == "") {
-            document.getElementsByClassName("Espacios seg")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }
-        if (correo == "") {
-            document.getElementsByClassName("Espacios cor")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        }
-
-        if (contra == "") {
-            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        } else if (contra.length <= 8) {
-            document.getElementsByClassName("Espacios con")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
-            BorrarTexto();
-        }
-        if (conficontra == "") {
-            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "Campo obligatorio");
-            BorrarTexto();
-        } else if (conficontra.length <= 8) {
-            document.getElementsByClassName("Espacios confi")[0].setAttribute("data-error", "La contraseña debe tener mas de 8 digitos");
-            BorrarTexto();
-        }
-
-
-    } else if (contra != conficontra) {
-        toastr.warning('Las contraseñas no coinciden')
-    }else if(esValido != true){
-        toastr.error('Correo no valido')
     } else {
-        registrar_estudiante();
-
+        Siguiente();
     }
 }
-function Siguiente(){
-    let txt= `<div id="Datos">
+
+
+$("#dv3").click(function () {
+    document.getElementsByClassName("item form-floating")[4].removeAttribute('data-error')
+});
+$("#dv11").click(function () {
+    document.getElementsByClassName("item form-floating")[7].removeAttribute('data-error')
+});
+$("#dv12").click(function () {
+    document.getElementsByClassName("item form-floating")[0].removeAttribute('data-error')
+});
+
+$("#Button2").click(function () {
+    validar_Uno();
+});
+
+function Siguiente() {
+    let txt = `<div id="Datos">
     <section id="table-datos">
-    <div class="form-floating mb-4 especial">
+    <div class="item form-floating mb-4 especial">
         <input type="email" class="form-control Texto4" id="correo" placeholder=" "
         name="Correo" required>
         <label for="contraseña" class="label">Correo</label>
     </div>
     <div class="box1Table">
         <div class="box1--section1">
-            <div class="form-floating mb-4">
+            <div class="item form-floating mb-4">
 	            <input type="password" class="form-control Texto" id="contra" placeholder=" "
 	            name="Contraseña" required>
 	            <label for="contraseña" class="label">Contraseña</label>
             </div>
         </div>
         <div class="box1--section2">
-            <div class="form-floating mb-4">
+            <div class="item form-floating mb-4">
 	            <input type="password" class="form-control Texto" id="conficontra" placeholder=" "
 	            name="ConfirmarContraseña" required>
 	            <label for="contraseña" class="label">Confirmar contraseña</label>
@@ -212,7 +204,7 @@ function Siguiente(){
         </div>
     </div>
     <p class="parametro">Usa 8 o más caracteres con una combinación de letras, números y símbolos</p>
-    <div class="form-floating mb-4 especial">
+    <div class="item form-floating mb-4 especial">
         <input type="text" class="form-control Texto4" id="CodigoInstitucional" placeholder=" "
         name="Correo" required>
         <label for="contraseña" class="label">Código institucional</label>
@@ -221,10 +213,49 @@ function Siguiente(){
 </section>
 
 <div id="boton">
-    <input type="submit" id="Button2" class="buttonRegistrarme" value="Registrarme" name="CrearUsuario" onclick="Ingresar()">
+    <input type="submit" id="Button3" class="buttonRegistrarme" value="Registrarme" name="CrearUsuario" onclick="validar_Dos()">
 </div>
 </div>
 </div>`
     $("#Datos").replaceWith(txt);
 }
 
+function validar_Dos() {
+    CodigoInstitucional = $("#CodigoInstitucional").val();
+    correo = $("#correo").val();
+    contra = $("#contra").val();
+    conficontra = $("#conficontra").val();
+    let expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    let esValido = expReg.test(correo);
+
+    if (CodigoInstitucional == "" || correo == "" || contra == "" || conficontra == "" || contra.length < 8 || conficontra < 8 ) {
+        if (correo == "") {
+            document.getElementsByClassName("item form-floating")[0].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese un correo')
+            BorrarTexto();
+        }
+        if (contra == "") {
+            document.getElementsByClassName("item form-floating")[1].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese una contraseña')
+            BorrarTexto();
+        }
+        if (conficontra == "") {
+            document.getElementsByClassName("item form-floating")[2].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese la confirmación de la contraseña')
+            BorrarTexto();
+        }
+        if (CodigoInstitucional == "") {
+            document.getElementsByClassName("item form-floating")[3].setAttribute("data-error", "Campo obligatorio");
+            toastr.warning('Por favor ingrese un código institucional')
+        }
+        if(contra.length < 8 || conficontra < 8){
+            toastr.warning('La contraseña debe tener minimo 8 caracteres')
+        }
+    } else if (!esValido) {
+        toastr.error('El correo ingresado no es valido')
+    } else if (contra != conficontra) {
+        toastr.error('Las contraseñas no coinciden')
+    } else {
+        registrar_estudiante();
+    }
+}

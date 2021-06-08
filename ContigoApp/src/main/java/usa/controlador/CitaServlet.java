@@ -140,6 +140,7 @@ public class CitaServlet extends HttpServlet {
                 }
             }
         }
+        out.print(json.toString());
     }
 
     /**
