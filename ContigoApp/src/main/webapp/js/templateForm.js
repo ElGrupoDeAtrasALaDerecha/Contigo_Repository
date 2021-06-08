@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
     const menuSuperior = `
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ui fixed menu">
             <div class="container-fluid">
                 <a class="navbar-brand" href="opciones.html">Contigo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +12,7 @@ $(document).ready(function () {
                         <div class="navitems">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="decisiones.html">Decisiones</a>
+                                    <a class="nav-link active" aria-current="page" href="listadoHistorias.html">Decisiones</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="citas.html">Citas</a>
@@ -23,8 +23,25 @@ $(document).ready(function () {
                             </ul>
                         </div>
                     </div>
-                    <a href="index.html">
-                        <div class="log-out" id="salir">
+
+
+                    <a id="notificaciones">
+                        
+                        <div id="menuNotificaciones" class="ui scrolling pointing dropdown link right item">
+                        
+                            <i class="big bell icon"></i> 
+                            <div id="itemsNotificaciones" class="menu">
+                                <div class="ui header">Notificaciones</div>  
+                            </div>
+                        </div>
+                    </a>
+                    <a>
+                    <div class item>
+                    
+                    </div>
+                    </a>
+                    <a id="salir">
+                        <div class="log-out" >
                             Salir
                             <ion-icon name="log-out-outline"></ion-icon>
                         </div>
@@ -89,6 +106,7 @@ $(document).ready(function () {
     $("#salir").click(function(){
         cerrarSesion();
     });
+    verNotificaciones();
 })
 
 function cerrarSesion() {
@@ -96,4 +114,117 @@ function cerrarSesion() {
     delete_cookie("tipoUsuario");
     delete_cookie("documento");
     window.location.assign("index.html");
+}
+
+function verNotificaciones(){
+    
+    let tipoUsuario=getCookie("tipoUsuario");
+    if(tipoUsuario==="1" || tipoUsuario==="2"){
+        $.ajax({
+            url: 'Notificacion',
+            method: 'GET',
+            dataType: 'json',
+            headers:{
+                token:getCookie("token")
+            },
+            success: function (response) {
+                if(response.tipo==="ok"){
+                    notificaciones=response.notificaciones
+                    pintarNotificaciones();
+                }
+            },
+            error: function (response) {
+                //window.location.assign("index.html")
+            }
+        })
+    }
+}
+
+
+function pintarNotificaciones(){
+    
+    if(notificaciones.length===0){
+        let tituloNueva=`<div class="header">No hay notificaciones para mostrar</div>`;
+        $("#itemsNotificaciones").append(tituloNueva);
+    }else{
+        let notificacionesNuevas=0
+        for (let i = 0; i < notificaciones.length; i++) {
+            
+            let notificacion = notificaciones[i];
+            if(notificacion.vista===false && i===0){
+                let tituloNueva=`<div class="ui header">Nuevas</div>`;
+                    $("#itemsNotificaciones").append(tituloNueva);
+            }
+            else if(notificacion.vista ===true && i===0){
+                let tituloNueva=`<div class="ui header">Antiguas</div>`;
+                    $("#itemsNotificaciones").append(tituloNueva);
+            }
+            else if(notificacion.vista===true && notificaciones[i-1].vista===false){
+                let tituloNueva=`<div class="ui header">Antiguas</div>`;
+                    $("#itemsNotificaciones").append(tituloNueva);
+            }
+            let txtActiva="";
+            if(notificacion.vista===false){
+                txtActiva="active";
+                notificacionesNuevas++;
+            }
+            let txt=`<div id="n-${notificacion.id}" class="ui ${txtActiva} item">
+                        <div class="ui header">
+                            ${notificacion.titulo}
+                        </div>
+                        <div class="ui content">
+                            ${notificacion.texto}
+                        </div>
+                    </div>
+                    <div class="ui divider"> </div>`
+            $("#itemsNotificaciones").append(txt);
+           
+                $("#n-"+notificacion.id).click(function(){
+                    console.log("Dio click")
+                    if(notificacion.vista===false){    
+                        actualizarNotificacion(notificacion);
+                    }
+                })
+            
+        }
+        if(notificacionesNuevas!==0){
+            let numeroEnNotificaciones=`<div class="ui blue circular top left attached label">${notificacionesNuevas}</div>`
+            $(".bell.icon").after(numeroEnNotificaciones);
+        }
+        $("#menuNotificaciones").dropdown();
+    }
+    
+}
+/**
+ * Función que actualiza el estado de una notificación (que pasa de)
+ * @param {*} notificacion 
+ */
+function actualizarNotificacion(notificacion){
+    $.ajax({
+        url: 'Notificacion',
+        method: 'PUT',
+        dataType: 'json',
+        data: JSON.stringify(notificacion),
+        contentType: "JSON application/json charset=utf-8",
+        headers:{
+            token:getCookie("token")
+        },
+        success: function (response) {
+            
+        },
+        complete: function(){
+            if(notificacion.tipo==="cita"){
+                window.location.assign("admin_perca.html")
+            }
+            if(notificacion.tipo==="conversatorio"){
+                window.location.assign("Conversatorios.html");
+            }
+            if(notificacion.tipo==="historia"){
+                window.location.assign("listadoHistorias.html");
+            }
+        },
+        error: function (response) {
+            //window.location.assign("index.html")
+        }
+    })
 }

@@ -36,7 +36,7 @@ function loginPersonalCalificado(obj) {
         setCookie("tipoUsuario", 2, 0.5);
         toastr.success("Mensaje: " + response.mensaje);
 
-        $(location).attr('href', 'admin_perca.html');
+        $(location).attr('href', 'perca.html');
       }
       else {
         toastr.error("Error: " + response.mensaje)

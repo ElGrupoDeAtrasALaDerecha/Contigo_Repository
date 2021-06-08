@@ -19,7 +19,7 @@ import usa.modelo.dto.EstudianteConversatorio;
 public interface IDaoConversatorios extends IDao<Conversatorio> {
     int crearConver(Conversatorio conver);
     int crearClasi(String con, int resultado);
-    boolean consultarEstuConver(String idEstudiante);
+
     boolean registrarEstuConver(EstudianteConversatorio estu);
     boolean eliminarRegistroEstu(String idConversatorio, String idEstudiante);
     EstudianteConversatorio consultarEstConversatorio(String idConversatorio, String idEstudiante);

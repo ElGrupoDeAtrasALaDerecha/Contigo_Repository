@@ -37,6 +37,8 @@ public class REstudianteConversatorio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        String id = request.getParameter("id");
         String idEstudiante = request.getParameter("idEstudiante");
         JSONObject respuesta = new JSONObject();
         IDaoConversatorios daoConver = (IDaoConversatorios) dao;

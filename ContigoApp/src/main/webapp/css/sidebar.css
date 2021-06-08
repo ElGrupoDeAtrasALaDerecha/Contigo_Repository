@@ -38,14 +38,14 @@
     padding-left: 5%;
     width: 100%;
 }
-.item, .name{
+.item:not(.ui.item), .name{
     display: flex;
     justify-content: flex-start;
 }
-.sidebar.active .item{
+.sidebar.active .item:not(.ui.item){
     padding: 4% 0 0% 5%;
 }
-.item{
+.item:not(.ui.item){
     padding: 20% 0% 20% 30%;
 }
 .sidebar.active .name{
@@ -63,10 +63,10 @@
 .sidebar.active .left{
     padding-right: 5%;
 }
-.item:hover{
+.item:hover:not(.ui.item){
     background-color: var(--primary);
 }
-.item.selected{
+.item.selected:not(.ui.item){
     background-color: var(--primary);
 }
 .arrow{

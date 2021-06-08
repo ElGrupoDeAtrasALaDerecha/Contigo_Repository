@@ -18,7 +18,7 @@ h1 {
   background-color: #ffffff;
   display: inline-flex;
 }
-.item {
+.item:not(.ui.item) {
   margin-right: 5px;
   margin-left: 5px;
   height: 380px;
@@ -140,6 +140,6 @@ h1 {
   color: black;
 }
 
-.header{
+.header:not(.ui.header){
   text-align:center;
 }
