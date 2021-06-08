@@ -91,7 +91,7 @@ function registrar_institucion() {
             if (result.tipo != "error") {
                 console.log(result);
                 toastr.success('Institcución creada con exito')
-                $(location).attr('href', 'login_est.html');
+                $(location).attr('href', 'login_ins.html');
             } else {
                 if (result.mensaje === "Ya existe una institucion con este nombre") {
                     console.log(result);

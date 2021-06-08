@@ -107,17 +107,19 @@ h1 {
 }
 
 .pop{
-  height: 30vh !important;
+  height: 35vh !important;
   margin-top: -20% !important;
 
 }
-
+/*
 .cerrar{
+  position: absolute;
   margin-right: 3%;
   padding: 5px 15px 5px 15px;
-  margin-top: 12%;
+  margin-top: -12%;
   background-color: #fff;
   border-color: #fff;
+ 
 }
 .cerrar:hover{
   cursor: pointer;
@@ -125,9 +127,11 @@ h1 {
   color: #fff;
   
 }
+
 .aceptar{
+  position: absolute;
   padding: 5px 15px 5px 15px;
-  margin-top: 12%;
+  top: -3%;
   background-color: #28a745;
   border-color: #28a745;
   color: #fff;
@@ -139,7 +143,11 @@ h1 {
   border-color: #fff;
   color: black;
 }
-
+*/
 .header:not(.ui.header){
   text-align:center;
+}
+
+.ui.cancel.red.button.cerrar{
+  margin-top: 35px !important;
 }

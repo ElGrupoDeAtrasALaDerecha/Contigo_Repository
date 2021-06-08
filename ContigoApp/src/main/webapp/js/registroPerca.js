@@ -101,6 +101,24 @@ function crearPerca() {
 
 }
 
+function BorrarTexto() {
+    document.querySelectorAll('.item[data-error] .Texto').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+
+    document.querySelectorAll('.item[data-error] .Texto2').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+
+    document.querySelectorAll('.item[data-error] .Texto3').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+
+    document.querySelectorAll('.item[data-error] .Texto4').forEach(inpEl => {
+        inpEl.addEventListener('input', () => inpEl.parentElement.removeAttribute('data-error'));
+    })
+}
+
 function validar() {
     let doc = $("#documento").val();
     let pNombre = $("#primerNombre").val();
@@ -117,7 +135,7 @@ function validar() {
     var esValido = expReg.test(correo);
 
 
-    if (doc == "" || pNombre == "" || pApellido == "" || correo == "" || fechaNacimiento == "" || sApellido == "" || con == "" || gen == "" || conficontra == "" || img == "" || tipo == "Tipo" || gen == "Genero") {
+    if (doc == "" || pNombre == "" || pApellido == "" || correo == "" || fechaNacimiento == "" || sApellido == "" || con == "" || gen == "" || conficontra == "" || img == "" || tipo == "Tipo" || gen == "Genero" || con.length < 8 || conficontra.length < 8) {
 
         if (pNombre == "") {
             document.getElementsByClassName("item form-floating mb-4")[1].setAttribute('data-error', 'Campo Obligatorio')
@@ -159,6 +177,7 @@ function validar() {
         if (conficontra == "") {
             document.getElementsByClassName("item form-floating mb-4")[10].setAttribute('data-error', 'Campo Obligatorio')
             toastr.warning('Falta la confirmación de la contraseña')
+            BorrarTexto();
         }
         if (con.length < 8 || conficontra.length < 8) {
             toastr.warning('la contraseña debe ser de minimo 8 caracteres')

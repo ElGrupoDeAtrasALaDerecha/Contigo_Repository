@@ -78,11 +78,11 @@ function registrar_estudiante() {
                 if (result.mensaje === "Error el estudiante ya esta registrado") {
                     console.log(result);
                     toastr.error('Error ya existe un estudiante registrado con este documento')
-                }else if(result.mensaje2 === "Error ese correo ya esta registrado"){
-                    toastr.error('Error ya existe un estudiante con ese correo')
+                }else if(result.mensaje2 !== "Error ese correo ya esta registrado"){
+                    toastr.error('Código institucional erroneo')
                 } else {
                     console.log(result);
-                    toastr.error('Código institucional erroneo')
+                    toastr.error('Error ya existe un estudiante con ese correo')
                 }
             }
 
@@ -174,6 +174,9 @@ $("#dv11").click(function () {
 $("#dv12").click(function () {
     document.getElementsByClassName("item form-floating")[0].removeAttribute('data-error')
 });
+$("#dv20").click(function () {
+    document.getElementsByClassName("item form-floating")[3].removeAttribute('data-error')
+});
 
 $("#Button2").click(function () {
     validar_Uno();
@@ -204,7 +207,7 @@ function Siguiente() {
         </div>
     </div>
     <p class="parametro">Usa 8 o más caracteres con una combinación de letras, números y símbolos</p>
-    <div class="item form-floating mb-4 especial">
+    <div class="item form-floating mb-4 especial" id="dv20">
         <input type="text" class="form-control Texto4" id="CodigoInstitucional" placeholder=" "
         name="Correo" required>
         <label for="contraseña" class="label">Código institucional</label>

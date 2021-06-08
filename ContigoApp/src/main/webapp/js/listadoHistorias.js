@@ -70,7 +70,7 @@ function pintarHistorias(tipo) {
         if (tipo == 1) {
             $("#" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
-                window.location.assign("decisiones.html");
+                window.location.assign("deci.html");
             })
         } else if (tipo === 2) {
             $("#editar" + historia.id).click(function () {
@@ -79,7 +79,7 @@ function pintarHistorias(tipo) {
             });
             $("#OpcBotonesVer" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
-                window.location.assign("decisiones.html?idHistoria=" + historia.id);
+                window.location.assign("deci.html?idHistoria=" + historia.id);
             });
         } else if (tipo == 3) {
             $("#editar" + historia.id).click(function () {
@@ -88,7 +88,7 @@ function pintarHistorias(tipo) {
             });
             $("#OpcBotonesVer" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
-                window.location.assign("decisiones.html?idHistoria=" + historia.id);
+                window.location.assign("deci.html?idHistoria=" + historia.id);
             });
         }
         ocultarBotones();
@@ -169,28 +169,31 @@ function pintarClasificaciones(clasificaciones, idHistoria) {
     let texto = `
                 <div class="ui tiny modal pop">
                     <div class="header">Asignación de grados</div>
-                    <div class="content">
-                    <div id="cursos" class="credencial">   
-                        <select id="grados" name="" class="ui search fluid dropdown selection multiple" multiple="" id="multi-select">
-                            <option value="1">Transición</option>
-                            <option value="2">Primero</option>
-                            <option value="3">Segundo</option>
-                            <option value="4">Tercero</option>
-                            <option value="5">Cuarto</option>
-                            <option value="6">Quinto</option>
-                            <option value="7">Sexto</option>
-                            <option value="8">Séptimo</option>
-                            <option value="9">Octavo</option>
-                            <option value="10">Noveno</option>
-                            <option value="11">Décimo</option>
-                            <option value="12">Once</option>
-                            <option value="13">Docente</option>
-                        </select>
-                    </div>
-                        <button class="cerrar">Cerrar</button>
-                        <button class="aceptar">Asignar</button>
-                    </div>
-                    </div>
+                        <div class="content">
+                            <div id="cursos" class="credencial">   
+                                <select id="grados" name="" class="ui search fluid dropdown selection multiple" multiple="" id="multi-select">
+                                    <option value="1">Transición</option>
+                                    <option value="2">Primero</option>
+                                    <option value="3">Segundo</option>
+                                    <option value="4">Tercero</option>
+                                    <option value="5">Cuarto</option>
+                                    <option value="6">Quinto</option>
+                                    <option value="7">Sexto</option>
+                                    <option value="8">Séptimo</option>
+                                    <option value="9">Octavo</option>
+                                    <option value="10">Noveno</option>
+                                    <option value="11">Décimo</option>
+                                    <option value="12">Once</option>
+                                </select>
+                            </div>
+                            <button class="ui cancel red button cerrar">Cerrar</button>
+                            <button class="ui approve green button aceptar">Asignar</button>
+                        </div>
+                            
+                                
+                            
+                </div>
+                    
                 `;
     $("#modal").append(texto);
 
@@ -209,7 +212,7 @@ function pintarClasificaciones(clasificaciones, idHistoria) {
     $(".cerrar").click(function () {
         $('.ui.modal').modal('hide');
         $(".cerrar").off('click');
-        $("#modal").empty();
+        $(".ui.modal").remove();
     });
     $(".aceptar").click(function () {
         actualizarGradosHistorias(idHistoria);
