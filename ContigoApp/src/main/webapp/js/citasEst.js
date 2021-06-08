@@ -404,8 +404,12 @@ function listarPerca(perca) {
   listaPersonal.style.display = "block";
   $("#perca").empty()
   for (let index = 0; index < perca.length; index++) {
+    let txtInfo=""
+    if(perca[index].personal.info!==undefined){
+      txtInfo=`data-content="${perca[index].personal.info[0].biografia}"`
+    }
     let texto = `<div class="item"> 
-    <img class ="biografiapersonal" src="${perca[index].imagen}" data-content="${perca[index].personal.info[0].biografia}"> 
+    <img class ="biografiapersonal" src="${perca[index].imagen}" ${txtInfo}> 
     <input type="radio" id="${perca[index].id_perca}" name="percaD" value=" ${perca[index].nombre_perca}" >
      <label for="${perca[index].id_perca} "> 
      <div class="content"> 
