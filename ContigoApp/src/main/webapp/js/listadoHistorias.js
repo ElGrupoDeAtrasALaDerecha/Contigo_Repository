@@ -9,7 +9,10 @@ $(document).ready(function () {
         document.getElementById('btnCrear').style.display = 'none';
 
     }
-    traer_grados_ins();
+    if (usu === 3) {
+        traer_grados_ins();    
+    }
+    
 });
 
 function cargarListaDeHistorias() {
