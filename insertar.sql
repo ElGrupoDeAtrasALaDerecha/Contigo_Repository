@@ -11,7 +11,7 @@ INSERT INTO METODO_PAGO (nombre) VALUES ("Pago Colegio Gimnasio Los Pinares");
 #Personal calificado
 call insertarPersonalCalificado(  "1000853623",1,"Santiago","","Pérez" ,"González","1","2000-07-26","12345","masculino","santipego0001@gmail.com","https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg");
 call insertarPersonalCalificado("1000853622",1,"Valeria","","Bermúdez" ,"González","1234","2000-07-26","12346","femenino","aja@gmail.com","https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg");
-call insertarPersonalCalificado("10008",1,"Valeria","","Bermúdez" ,"González","22222222","2000-07-26","12347999","femenino","aja2@gmail.com","/https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg");
+call insertarPersonalCalificado("10008",1,"Valeria","","Bermúdez" ,"González","22222222","2000-07-26","12347999","femenino","aja2@gmail.com","https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg");
 
 
 #Clasificación
@@ -57,37 +57,6 @@ insert into CONVERSATORIO (PERSONAL_PERSONA_documento,titulo,cronograma,imagen,d
 insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (1,1);
 insert into CLASIFICACION_has_CONVERSATORIO (CLASIFICACION_id,CONVERSATORIO_id) values (2,1);
 
-insert into HISTORIA (PERSONAL_PERSONA_documento,titulo,descripcion,urlImagen) 
-values ("1000853623","Juanita y sus amigos", "Juanita que es una niña valiente y muy inteligente llega a un nuevo colegio y se da
-                            cuenta que es
-                            diferente a sus compañeras, por esto se vuelve insegura y tímida lo que hace que le cueste hacer
-                            amigos, ¿Te acercarías a hablar con juanita?","img/school.jpg");
-insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
-values(null,1,"Amigo de Juanita","Muy bien. No te dejas llevar por las apariencias");
-
-insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
-values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias");
-
-insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
-values(1,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias");
-
-insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
-values(2,1,"Amigo de Miguel","Muy bien. No te dejas llevar por las apariencias");
-
-insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
-values(2,1,"Amigo de S4","Muy bien. No te dejas llevar por las apariencias");
-
-insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
-values(3,1,"Amigo de S4","Muy bien. No te dejas llevar por las apariencias");
-
-insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
-values(6,1,"Amigo de cx","Muy bien. No te dejas llevar por las apariencias");
-
-insert into SITUACION (SITUACION_id,HISTORIA_idHistoria,titulo,texto)
-values(6,1,"Amigo de cx","Muy bien. No te dejas llevar por las apariencias");
-
-insert into FIN (SITUACION_id,titulo,texto)
-values(8,"Acompañas a cx","Muy bien. Lo has logrado excelentemente :D");
 insert into ESTUDIANTE_has_CONVERSATORIO (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"1007718536");
 insert into ESTUDIANTE_has_CONVERSATORIO (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"123456789");
 insert into ESTUDIANTE_has_CONVERSATORIO (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
@@ -98,8 +67,8 @@ insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("1
 insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-3-28","2021-3-30","9","11");
 insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-3-28","2021-4-5","9","11");
 insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-05-05","2021-05-20","9","11");
-
-
+insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-06-09","2021-06-09","11","12");
+insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853623","2021-06-09","2021-06-09","11","12");
 
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,9,"2021-03-28",1,"https://meet.google.com/snf-yxio-tdp");
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,10,"2021-03-28",1,"https://meet.google.com/snf-yxio-tdp");
@@ -108,15 +77,18 @@ insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (1,9,"2021-0
 
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,9,"2021-05-07",1,"https://meet.google.com/snf-yxio-tdp");
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-05-07",1,"https://meet.google.com/snf-yxio-tdp");
-
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-05-11",1,"https://meet.google.com/snf-yxio-tdp");
+
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (4,11,"2021-06-09",1,"https://meet.google.com/snf-yxio-tdp");
+
+insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (5,11,"2021-06-09",1,"https://meet.google.com/snf-yxio-tdp");
 
 call insertarBiografia("1000853623","Hola, soy estudiante de ingeniería de sistemas y Telecomunicaciones. Soy uno de los fundadores de Contigo");
 call insertarExperiencia("1000853623","Tutor","Tutor autónomo de cálculo y programación");
 #call insertarCertificado("1000853623","Comunicación asertiva","Miami me lo confirmó");
 
 insert into NOTIFICACION (titulo,texto,vista,persona_documento,fecha,tipo) 
-values("Su institución ha hecho visible un conversatorio", "Se ha hecho visible el conversatorio de amor propio",false,"123456789",sysdate());
+values("Su institución ha hecho visible un conversatorio", "Se ha hecho visible el conversatorio de amor propio",false,"123456789",sysdate(),"conversatorio");
 
 insert into NOTIFICACION (titulo,texto,vista,persona_documento,fecha,tipo) 
 values("Su institución ha hecho visible un conversatorio", "Se ha hecho visible el conversatorio de amor propio",false,"123456789",sysdate(),"conversatorio");
@@ -131,3 +103,34 @@ values("Tiene una cita", "Alguien ha solicitado cita con usted",false,"100085362
 
 
 insert into MOTIVO(id) values ("Empatía");
+
+
+
+INSERT INTO `HISTORIA` VALUES (1,'1000853623','Juanita y sus amigos','Juanita que es una niña valiente y muy inteligente llega a un nuevo colegio y se da\n                            cuenta que es\n                            diferente a sus compañeras, por esto se vuelve insegura y tímida lo que hace que le cueste hacer\n                            amigos, ¿Te acercarías a hablar con juanita?','img/school.jpg'),
+							(2,'1000853623','Aburrimiento en la tarde','Estaba aburrida una tarde y mientras pensaba qué podría hacer, recordé que tenía tareas, sin embargo...','http://res.cloudinary.com/miguel26697/image/upload/v1623103426/nk6uanw7xfu2xrhhsuyq.jpg'),(3,'1000853622','Aburrimiento en la tarde','Un día estuve aburrida y pensando qué podría hacer, recordé que tenía tareas, pero no supe qué hacer primero, si desaburrirme o terminar mi tareas.','http://res.cloudinary.com/miguel26697/image/upload/v1623103963/uuo5f3cyxmrpvhfncsuz.jpg');
+
+INSERT INTO `SITUACION` VALUES (1,NULL,1,'Amigo de Juanita','Muy bien. No te dejas llevar por las apariencias'),(2,2,1,'Amigo de Miguel','Muy bien. No te dejas llevar por las apariencias'),
+(3,1,1,'Amigo de Miguel','Muy bien. No te dejas llevar por las apariencias'),
+(4,2,1,'Amigo de Miguel','Muy bien. No te dejas llevar por las apariencias'),
+(5,2,1,'Amigo de S4','Muy bien. No te dejas llevar por las apariencias'),
+(6,3,1,'Amigo de S4','Muy bien. No te dejas llevar por las apariencias'),
+(7,6,1,'Amigo de cx','Muy bien. No te dejas llevar por las apariencias'),
+(8,6,1,'Amigo de cx','Muy bien. No te dejas llevar por las apariencias'),
+(9,NULL,2,'',''),
+(10,NULL,3,'Estoy aburrido y no sé qué hacer','Luego recuerdo que tengo tareas'),
+(12,10,3,'Me doy una siesta','Cuando despierto, ya no estoy aburrida'),
+(13,10,3,'Decido hacer las tareas','Luego quiero jugar'),
+(14,10,3,'Decido jugar ','Luego realizo mis tareas'),
+(15,12,3,'Despierto con muchas energías','Me voy a la calle a montar bicicleta'),
+(17,13,3,'Llamo a mi amigo para que me ayude con mis tareas','Terminamos las tareas rápido y luego vamos a jugar'),
+(18,13,3,'Termino mis tareas','Termino todas mis tareas, pero ya es muy tarde para jugar'),
+(21,14,3,'Olvido mis tareas','Me quedo jugando todo el día y no hago mis tareas'),
+(22,14,3,'Termino de jugar','Me canso de jugar y termino mis tareas');
+
+
+INSERT INTO `FIN` VALUES (1,8,'Muy bien. Lo has logrado excelentemente :D','Acompañas a cx'),
+(16,15,'Me pongo a hacer tareas en lo que queda del día','Llego cansada a mi casa'),
+(19,17,'Disfruto de lo que queda del día, sin preocuparme por las tareas','Tengo un buen día'),
+(20,18,'Llamo a mis amigos y paso una noche divertida con mis amigos','Decido hacer una pijamada'),
+(23,21,'Me tengo que acostar tarde para terminar mis tareas','Me acuesto tarde'),
+(24,22,'Me acuesto a dormir, sin preocupaciones','Termino mis tareas de manera exitosa');
