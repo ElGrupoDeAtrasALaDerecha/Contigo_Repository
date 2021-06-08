@@ -218,7 +218,7 @@ function actualizarNotificacion(notificacion){
                 window.location.assign("admin_perca.html")
             }
             if(notificacion.tipo==="conversatorio"){
-                window.localtion.assign("Conversatorios.html");
+                window.location.assign("Conversatorios.html");
             }
             if(notificacion.tipo==="historia"){
                 window.location.assign("listadoHistorias.html");
