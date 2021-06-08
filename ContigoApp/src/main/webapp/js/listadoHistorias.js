@@ -9,6 +9,10 @@ $(document).ready(function () {
         document.getElementById('btnCrear').style.display = 'none';
 
     }
+    if (usu === 3) {
+        traer_grados_ins();    
+    }
+    
 });
 
 function cargarListaDeHistorias() {
@@ -29,9 +33,8 @@ function cargarListaDeHistorias() {
                     $(btnasignar).text('Asignar');
                 }
             }
-
+            
         }, complete: function (result) {
-            //ocultarBotones();
         }, error: function (result) {
             alert("Error interno")
         }
@@ -72,7 +75,7 @@ function pintarHistorias(tipo) {
         } else if (tipo === 2) {
             $("#editar" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
-                window.location.assign("decisiones.html?idHistoria=" + historia.id);
+                window.location.assign("situaciones.html?idHistoria=" + historia.id);
             });
             $("#OpcBotonesVer" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
@@ -81,16 +84,13 @@ function pintarHistorias(tipo) {
         } else if (tipo == 3) {
             $("#editar" + historia.id).click(function () {
                 traer_clasificaciones(historia.id);
+                
             });
             $("#OpcBotonesVer" + historia.id).click(function () {
                 setCookie("idHistoria", historia.id, 0.1);
                 window.location.assign("decisiones.html?idHistoria=" + historia.id);
             });
         }
-        /*$("#" + historia.id).click(function () {
-            setCookie("idHistoria", historia.id, 0.1);
-             window.location.assign("decisiones.html");
-        })*/
         ocultarBotones();
     }
 
@@ -106,8 +106,6 @@ function ocultarBotones() {
             OpcBotones[index].style.display = "none";
             opacityImg[index].style.alignItems = 'Flex-end'
             bottom[index].style.display = 'block';
-
-
         }
     }
 }
@@ -115,7 +113,7 @@ function ocultarBotones() {
 
 function traer_clasificaciones(id) {
     $.ajax({
-        url: "Historia?id=" + id,
+        url: "Historia?tipoConsulta=clasificaciones&id=" + id,
         type: "GET",
         dataType: "json",
         contentType: "JSON application/json charset=utf-8",
@@ -124,26 +122,25 @@ function traer_clasificaciones(id) {
         success: function (response) {
             console.log('IdHistoria', id)
             console.log(response.clasificacion)
-            /*if (response.tipo === "ok") {
-                console.log('Clasificaciones',response.clasificacion);
-            }*/
+            let clasifi = response.clasificacion;
+            pintarClasificaciones(clasifi, id);
 
         }, complete: function (result) {
-            //ocultarBotones();
+            
         }, error: function (result) {
-            alert("Error interno")
+            toastr.error('Error interno')
         }
     });
 }
 
 
-function actualizarGradosHistorias() {
-    clasifica = $("#grados").val();
+function actualizarGradosHistorias(id_historia) {
+    let clasifica = $("#grados").val();
     $.ajax({
         url: "Historia",
         type: "DELETE",
         headers: {
-            id: getCookie("idHistoria"),
+            id: id_historia,
             clasificacion: clasifica
         },
         contentType: "JSON application/json charset=utf-8",
@@ -151,15 +148,91 @@ function actualizarGradosHistorias() {
         },
         success: function (result, textStatus, request) {
             console.log(result);
-            if (result != "error") {
-                console.log('siiiii funciono')
+            if (result.tipo == "ok") {
+                console.log(result.mensaje)
+                toastr.success(result.mensaje)
             } else {
-                console.log("error");
+                toastr.error(result.mensaje)
             }
         },
         complete: function (result) {
         },
         error: function (result) {
+        }
+    });
+}
+
+function pintarClasificaciones(clasificaciones, idHistoria) {
+    let opt = '';
+    let arreglo = new Array();
+
+    let texto = `
+                <div class="ui tiny modal pop">
+                    <div class="header">Asignación de grados</div>
+                    <div class="content">
+                    <div id="cursos" class="credencial">   
+                        <select id="grados" name="" class="ui search fluid dropdown selection multiple" multiple="" id="multi-select">
+                            <option value="1">Transición</option>
+                            <option value="2">Primero</option>
+                            <option value="3">Segundo</option>
+                            <option value="4">Tercero</option>
+                            <option value="5">Cuarto</option>
+                            <option value="6">Quinto</option>
+                            <option value="7">Sexto</option>
+                            <option value="8">Séptimo</option>
+                            <option value="9">Octavo</option>
+                            <option value="10">Noveno</option>
+                            <option value="11">Décimo</option>
+                            <option value="12">Once</option>
+                            <option value="13">Docente</option>
+                        </select>
+                    </div>
+                        <button class="cerrar">Cerrar</button>
+                        <button class="aceptar">Asignar</button>
+                    </div>
+                    </div>
+                `;
+    $("#modal").append(texto);
+
+    for (let index = 0; index < clasificaciones.length; index++) {
+        opt += '<a class="ui label transition visible" data-value="' + clasificaciones[index].id + '" style="display: inline-block !important;">' + clasificaciones[index].grado + '<i class="delete icon"></i></a>';
+        //$("#grados").val(clasificaciones[index].id)
+        arreglo.push(clasificaciones[index].id)
+    }
+    $("#grados").val(arreglo)
+    $(".ui.search.fluid.dropdown.selection.multiple").append(opt);
+    $('.ui.dropdown').dropdown();
+    $('.ui.modal')
+        .modal('show')
+        ;
+
+    $(".cerrar").click(function () {
+        $('.ui.modal').modal('hide');
+        $(".cerrar").off('click');
+        $("#modal").empty();
+    });
+    $(".aceptar").click(function () {
+        actualizarGradosHistorias(idHistoria);
+    });
+}
+
+function traer_grados_ins() {
+    $.ajax({
+        url: "Historia?tipoConsulta=idInstitucion",
+        type: "GET",
+        headers:{
+            idInstitu: getCookie('ID_Inst'),
+        },
+        dataType: "json",
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (response) {
+            console.log(response.Grados)
+        }, complete: function (result) {
+            //ocultarBotones();
+        }, error: function (result) {
+            toastr.error('Error interno')
         }
     });
 }

@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static usa.modelo.dao.IDao.conn;
-import usa.modelo.dto.Clasificacion;
 import usa.modelo.dto.ClasificacionHasHistoria;
+import usa.modelo.dto.GradoClasf;
 import usa.modelo.dto.Historia;
 
 /**
@@ -159,7 +159,7 @@ public class HistoriaDao implements IHistoriasDao {
 
     @Override
     public LinkedList<Historia> consultarHistoriasDeEstudiante(String documento) {
-        LinkedList<Historia> historias= new LinkedList();
+        LinkedList<Historia> historias = new LinkedList();
         try {
             
             String sql = "select h.* from ESTUDIANTE_has_HISTORIA as eh\n" +
@@ -184,6 +184,7 @@ public class HistoriaDao implements IHistoriasDao {
         }
         return historias;
     }
+
     @Override
     public boolean tieneHistorias(String documento) {
         boolean tieneHistoria = false;
@@ -192,7 +193,7 @@ public class HistoriaDao implements IHistoriasDao {
                     + "where PERSONAL_PERSONA_documento =\"" + documento + "\"";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
-            if(result.next()){
+            if (result.next()) {
                 tieneHistoria = result.getBoolean("tieneHistoria");
             }
             result.close();
@@ -204,8 +205,7 @@ public class HistoriaDao implements IHistoriasDao {
 
         return tieneHistoria;
     }
-    
-    
+
     public LinkedList<ClasificacionHasHistoria> consultarClasificacionHistoria(String id) {
         LinkedList<ClasificacionHasHistoria> clasificaciones = new LinkedList();
         try {
@@ -230,5 +230,30 @@ public class HistoriaDao implements IHistoriasDao {
 
         }
         return clasificaciones;
+    }
+
+    @Override
+    public boolean asignarGradoHistoria(String id) {
+        return true;
+    }
+
+    @Override
+    public LinkedList<GradoClasf> consultarGradosInstitucion(String id_ins) {
+        LinkedList<GradoClasf> clasifi = new LinkedList();
+        try {
+            String sql = "select codigo from grado where INSTITUCION_id =\"" + id_ins + "\";";
+            pat = conn.prepareStatement(sql);
+            ResultSet rs = pat.executeQuery();
+            while(rs.next()){
+                GradoClasf clasificacioneGrados = new GradoClasf();
+                clasificacioneGrados.setCodigo(rs.getString("codigo"));
+                clasifi.add(clasificacioneGrados);
+            }
+            rs.close();
+            pat.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return clasifi;
     }
 }
