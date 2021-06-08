@@ -26,21 +26,81 @@ p{
 
 }
 /*-----Banner-------*/
-.navbar-brand {
-	font-family: 'Kaushan Script', cursive;;
-	src: url('letra.ttf');
-	color: #ffffff;
-	font-size: 26px;
+nav a{
+    text-decoration: none;
 }
-.navbar-brand:hover {
-	color: #222831;
+.navbar-brand{
+    font-family: 'Kaushan Script';
+    font-size: 35px;
+	float:left;
+	margin-top: 0.5%;
 }
-.navbar-toggle {
-	background-color: #fff;
+.navbar-nav li a{
+    color: var(--text) !important;
 }
-.navbar-toggle .icon-bar {
-	background-color: RGBA(0, 0, 0, 0.48);
+
+nav a, .navitems a, .log-out a{
+    color: var(--text);
+    text-decoration: none;
 }
+
+.log-out{
+
+    align-items: right;
+	display: flex;
+    font-size: 20px;
+	width: 100px;
+	float:right;
+	margin-top: 2%;
+
+
+}
+
+li.nav-item::marker{
+	color:white
+}
+
+nav a:hover, .navitems a:hover, .navbar-nav li a:hover, .log-out a{
+    color: var(--primary) !important;
+}
+
+	.navbar-nav.me-auto.mb-2.mb-lg-0{
+	width: 100%;
+	}
+	.nav-item{
+	margin-left: 5%;
+	margin-top: 2%;
+	}
+	
+
+
+                                
+
+.collapse.navbar-collapse{
+	align-items: center;
+	float:right;
+	width: 70%;
+}
+
+                            
+.navitems{
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+	width: 100%;
+	float:right
+}
+.container-fluid{
+	width: 1000%;
+	height: 80px;
+}
+.minav{
+	margin-left: 10%;
+	width: 80%;
+	align-items: center;
+	float:left;
+}
+
 /*-----Fondo de pagina principal-------*/
 
 .banner {
@@ -54,11 +114,12 @@ p{
 	cursor: default;
 	text-align: center;
 	width: 100%;
+	height: 40%;
 	float: left;
 }
 
 .bg-overlay {
-	padding: 60px 0 60px;
+	padding: 170px 0 170px;
 	background-color: RGBA(34, 40, 49, 0.84);
 }
 
@@ -106,6 +167,7 @@ p{
 	cursor: default;
 	text-align: center;
 	width:100% ;
+	height: 150%;
 	float: left;
 }
 

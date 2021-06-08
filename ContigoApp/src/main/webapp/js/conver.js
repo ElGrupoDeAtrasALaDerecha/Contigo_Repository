@@ -244,7 +244,7 @@ function LlamarConver(arregloConver) {
 function listarConver(conversatorio) {
     $("#conver").empty();
     for (var i = 0; i < conversatorio.length; i++) {
-        text = '<div id = "' + conversatorio[i].id + '" class="col-md-6 col-sm-6 conversatorio">' +
+        text = '<div id = "' + conversatorio[i].id + '" class="col-md-4 col-md-4 conversatorio">' +
             '<div id="Caja-texto">' +
             '<img src="' + conversatorio[i].imagen + '" class="img-portafolio">' +
             '<div class="textoSobre-img">' + conversatorio[i].titulo +
