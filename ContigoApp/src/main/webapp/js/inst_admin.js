@@ -17,7 +17,8 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.tipo === "ok") {
                     institucion = response.institucion;
-                    $("#navbarDropdown").append(institucion.nombre);
+                    console.log(institucion.nombre)
+                    $("#usr_name").append(institucion.nombre)
                 } else {
                     toastr.warning(response.mensaje)
                 }
@@ -28,29 +29,8 @@ $(document).ready(function () {
         });
 
     }
-    $("#m1").css("background-color", "#162997")
-    $(".m1").css("display", "block")
-    $(".m2").css("display", "none")
-    $(".m3").css("display", "none")
-    $(".m4").css("display", "none")
 })
 
-$(".d-block").click(function () {
-    var selected = '#' + ($(this).attr('id'))
-    $(".selected").css("background-color", "#111B54")
-    $(selected).css("background-color", "#162997")
-    show(($(this).attr('id')))
-})
-
-function show(txt) {
-    $(".m1").css("display", "none")
-    $(".m2").css("display", "none")
-    $(".m3").css("display", "none")
-    $(".m4").css("display", "none")
-    $("." + txt).css("display", "block")
-    var selected = '#' + txt
-    $(selected).css("background-color", "#162997")
-}
 // 
 $('#grado_slect').click(function () {
   var gradoSelt = $('#grado_slect option:selected').val()

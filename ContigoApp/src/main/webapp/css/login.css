@@ -74,10 +74,41 @@ ion-icon {
 }
 .users{
     display: flex;
-    justify-content: flex-end;
-    padding-right: 3%;
+    justify-content: center;
+    /* margin-right: 5%; */
     width: 100%;
 }
 .users a{
     padding-right: 5%;
+}
+.back{
+    padding: 3px 10px;
+}
+.user, .user-in, .back:hover{
+    background-color: rgba(56, 56, 56, 0.377); 
+    border-radius: 10px;
+    color: var(--bk);
+}
+.user, .user-in{
+    padding: 5px 20px;
+}
+.user:hover{
+    background-color: rgba(192, 190, 190, 0.377); 
+    border-radius: 10px;
+    color: white;
+}
+.user-in{
+    background-color: var(--bkf); 
+    color: var(--text);
+}
+#recuperarContra{
+    background: none;
+    color: var(--text);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    margin-top: -15px;
+    margin-bottom: 5%;
+}
+#recuperarContra:hover{
+    color: var(--primary);
 }

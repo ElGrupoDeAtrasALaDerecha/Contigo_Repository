@@ -1,22 +1,16 @@
-#main-box{
-    display: flex;
-    justify-content: flex-start;
+/* Ajustes del sidebar */
+.sidebar ul li #op3 .title-over{
+    width: 160px;
 }
-.item-content{
-    margin: 0 5%;
-    width: 80%;
+.sidebar ul li #op5 .title-over {
+    width: 130px;
+}
+.sidebar.active #op5{
+    padding-bottom: 5%;
 }
 
-.form-select{
-    position: relative;
-}
-.hide{
-    display: none;
-}
-h2{
-    color: var(--secondary);
-    font-weight: 600;
-}
+/*Estilos porpios de admin-inst.html */
+
 .copy{
     color: var(--light);
     position: absolute;

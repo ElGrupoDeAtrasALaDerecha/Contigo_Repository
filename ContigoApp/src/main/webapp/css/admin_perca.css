@@ -1,3 +1,22 @@
+/* Ajustes del sidebar */
+.perca .name p{
+    font-size: 25px;
+    margin-top: 5px;
+}
+.sidebar.perca ul li #op2 .title-over{
+    width: 160px;
+}
+.sidebar.perca  ul li #op3 .title-over{
+    width: 190px;
+}
+.item-content#op1{
+    padding: 0;
+    margin: 0;
+    padding-right: 5%;
+    width: 90%;
+}
+
+/* Estilos de admin_perca.html */
 #lista_chats{
     background-color: rgb(255, 255, 255);
     margin-left: 5%;
@@ -61,4 +80,35 @@ b{
 }
 b2{
     color: black;
+}
+
+/* Agenda de citas */
+.modal{
+    color: var(--text);
+    overflow-x: hidden;
+    margin-left: -1%;
+    
+}
+.modal-title{
+    color: var(--secondary);
+}
+.modal-footer .col button{
+    width: 100%;
+}
+
+/* Gestion de historias */
+.bi-pencil-fill{
+    padding-left: 10px;
+}
+#op3 .modal .form-floating label{
+    margin-left: 10px;
+}
+#op3 .modal select{
+    font-size: 14px;
+}
+.img-h{
+    border-color: var(--light);
+    border-radius: 5px;
+    color: var(--primary);
+    padding:10px 10px;
 }
