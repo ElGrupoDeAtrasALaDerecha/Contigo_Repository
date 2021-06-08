@@ -73,8 +73,8 @@ h1{
     margin-bottom: 15px;
 }
 #Descripcion{
-    resize: none;
-    
+    padding: 30px 11px;
+    /* resize: none; */
 }
 .img-uploader{
     width: 0.1px;
@@ -96,13 +96,13 @@ h1{
   }
   
 .Espacios[data-error] .Texto{
-    border-color: red;
-    color: red;
+    border-color: var(--error);
+    color: var(--error);
 }
 .Espacios[data-error]::after{
     content: attr(data-error);
     font-size: 0.85em;
-    color:red;
+    color: var(--error);
     display: block;
     padding-left: 20px;
 }
@@ -253,13 +253,12 @@ h1{
 }
 
 .item[data-error] .Texto{
-    border-color: red;
-    color: red;
+    border-color: var(--error);
+    color: var(--error);
     
 }
-
 .item[data-error] .ui.search.fluid.dropdown{
-    border-color: red;
-    color: red;
+    border-color: var(--error);
+    color: var(--error);
 }
 

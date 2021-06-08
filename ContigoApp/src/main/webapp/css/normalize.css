@@ -7,6 +7,7 @@
   --warn: #ffc107;
   --error: #f64747;
   --text: #253036;
+  --desc: #444444;
   --bk: #ebebeb;
   --bkf: #ebebeb71;
 
@@ -22,13 +23,22 @@
   border: 1px solid red;
 }
 .img-over-color{
-  background-color: rgba(37, 48, 54, 0.51);
+  background-color: rgba(37, 46, 54, 0.51);
 }
 .ef1{
   transition:all 0.2s ease-in;
 }
 .ef1:hover{
   transition:all 0.3s ease-out;
+}
+.btn-outline-secondary, .btn-outline-secondary:hover{
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.btn-outline-secondary:hover{
+  background-color: white;
+  /* border-color: var(--secondary);
+  color: var(--secondary); */
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */

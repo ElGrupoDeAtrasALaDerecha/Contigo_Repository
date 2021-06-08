@@ -144,7 +144,15 @@ ion-icon {
 .hide{
     display: none;
 }
-h2{
+h2, .item-tlt{
     color: var(--secondary);
     font-weight: 600;
+    margin-bottom: 0;
+}
+.item-dsc{
+    color: var(--desc);    
+    font-size: 16px;
+}
+.w-sidebar{
+    margin-left: 8%;
 }
