@@ -54,7 +54,7 @@ function pintarHistorias(tipo) {
                             <ion-icon name="create"></ion-icon> Editar</a>
                         </div>
                         <div id="bottom" class="bottom" >
-                            <a  href="decisiones.html?idHistoria=${historia.id}" class="textTitle">${historia.titulo}
+                            <a  href="deci.html?idHistoria=${historia.id}" class="textTitle">${historia.titulo}
                                 <p class="text">${historia.descripcion}</p>
                             </a>
                         </div>
