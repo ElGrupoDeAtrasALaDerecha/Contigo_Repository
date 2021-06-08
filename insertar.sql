@@ -1,12 +1,12 @@
 #Docs
 
 Insert INTO TIPO_DOCUMENTO (tipo) values ("Cédula de ciudadanía");
-INSERT INTO tipo_documento (tipo) values ("Tarjeta de indentidad");
-INSERT INTO tipo_documento (tipo) values ("Registro civil");
-INSERT INTO tipo_documento (tipo) values ("Cédula de extranjería");
+INSERT INTO TIPO_DOCUMENTO (tipo) values ("Tarjeta de indentidad");
+INSERT INTO TIPO_DOCUMENTO (tipo) values ("Registro civil");
+INSERT INTO TIPO_DOCUMENTO (tipo) values ("Cédula de extranjería");
 
 #Método de pago
-INSERT INTO metodo_pago (nombre) VALUES ("Pago Colegio Gimnasio Los Pinares");
+INSERT INTO METODO_PAGO (nombre) VALUES ("Pago Colegio Gimnasio Los Pinares");
 
 #Personal calificado
 call insertarPersonalCalificado(  "1000853623",1,"Santiago","","Pérez" ,"González","1","2000-07-26","12345","masculino","santipego0001@gmail.com","https://www.definicionabc.com/wp-content/uploads/2015/03/orador.jpg");
@@ -30,12 +30,12 @@ insert into CLASIFICACION (grado) values("Once");
 insert into CLASIFICACION (grado) values("Docentes");
 
 
-INSERT INTO institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web) 
+INSERT INTO INSTITUCION (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web) 
 VALUES (5,1,"Colegio Gimnasio Los Pinares", "colegiogimnasio@gmail.com","Cra. 35 #9 Sur 160",true,false,"Los Balsos II","42686034",sha("1234"),"https://bit.ly/3thUZop");
 
 #Grados
-insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("aaaaa",1,(select id from institucion where correo="colegiogimnasio@gmail.com"));
-insert into Grado (codigo,CLASIFICACION_id,INSTITUCION_id) values ("11B",2,(select id from institucion where correo="colegiogimnasio@gmail.com"));
+insert into GRADO (codigo,CLASIFICACION_id,INSTITUCION_id) values ("aaaaa",1,(select id from INSTITUCION where correo="colegiogimnasio@gmail.com"));
+insert into GRADO (codigo,CLASIFICACION_id,INSTITUCION_id) values ("11B",2,(select id from INSTITUCION where correo="colegiogimnasio@gmail.com"));
 
 #Estudiante
 call insertarEstudiante("1000853620",1,"Valeria","","Bermúdez" ,"González","3","2000-07-26","12348","femenino","aaaaa","");
@@ -88,9 +88,9 @@ values(6,1,"Amigo de cx","Muy bien. No te dejas llevar por las apariencias");
 
 insert into FIN (SITUACION_id,titulo,texto)
 values(8,"Acompañas a cx","Muy bien. Lo has logrado excelentemente :D");
-insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"1007718536");
-insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"123456789");
-insert into estudiante_has_conversatorio (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
+insert into ESTUDIANTE_has_CONVERSATORIO (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"1007718536");
+insert into ESTUDIANTE_has_CONVERSATORIO (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (1,"123456789");
+insert into ESTUDIANTE_has_CONVERSATORIO (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
 
 insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("123456789",sysdate());
 #insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("100718536",sysdate());
@@ -111,6 +111,20 @@ insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-
 
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-05-11",1,"https://meet.google.com/snf-yxio-tdp");
 
-call insertarBiografia("1000853623","Hola, soy inge");
-call insertarExperiencia("1000853623","Tutor","Tutor autónomo de cálculo");
-call insertarCertificado("1000853623","Comunicación asertiva","Miami me lo confirmó");
+call insertarBiografia("1000853623","Hola, soy estudiante de ingeniería de sistemas y Telecomunicaciones. Soy uno de los fundadores de Contigo");
+call insertarExperiencia("1000853623","Tutor","Tutor autónomo de cálculo y programación");
+#call insertarCertificado("1000853623","Comunicación asertiva","Miami me lo confirmó");
+
+insert into NOTIFICACION (titulo,texto,vista,persona_documento,fecha,tipo) 
+values("Su institución ha hecho visible un conversatorio", "Se ha hecho visible el conversatorio de amor propio",false,"123456789",sysdate());
+
+insert into NOTIFICACION (titulo,texto,vista,persona_documento,fecha,tipo) 
+values("Su institución ha hecho visible un conversatorio", "Se ha hecho visible el conversatorio de amor propio",false,"123456789",sysdate(),"conversatorio");
+insert into NOTIFICACION (titulo,texto,vista,persona_documento,fecha,tipo) 
+values("Tiene una cita", "Alguien ha solicitado cita con usted",true,"1000853623",sysdate(),"cita");
+insert into NOTIFICACION (titulo,texto,vista,persona_documento,fecha,tipo) 
+values("Tiene una cita", "Alguien ha solicitado cita con usted",false,"1000853623",sysdate(),"cita");
+
+
+insert into NOTIFICACION (titulo,texto,vista,persona_documento,fecha,tipo)  
+values("Tiene una cita", "Alguien ha solicitado cita con usted",false,"1000853623",sysdate(),"cita");

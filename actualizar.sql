@@ -52,3 +52,8 @@ where persona_documento="1000853623" and valido=true;
 update persona as p 
 set p.contraseña=sha("password")
 where p.documento="1000853623";
+
+
+update NOTIFICACION 
+set vista=1
+where persona_documento="123456789";
