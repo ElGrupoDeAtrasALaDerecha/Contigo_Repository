@@ -13,7 +13,6 @@
   border: none;
   outline: none;
   font-size: inherit;
-  
 }
 .btn-group {
   text-align: center;
@@ -24,9 +23,20 @@
 #btnRegistrarEstu{
   margin-top: 2%;
   display: inline-block;
-  margin-left: 45%;  
+  margin-left: 45%; 
+  font-size: 17px; 
+
 }
 
+#btnCancelarC{
+  margin-top: 2%;
+  display: inline-block;
+  margin-left: 42%;  
+}
+
+#btnConfirmarC{
+  font-size: 17px;
+}
 /*.open-modal {
   font-weight: inherit;
   font-size: 20px;
@@ -48,7 +58,8 @@
   border: none;
   outline: none;
   font-size: inherit;
-  
+  justify-content: right;
+  margin-left: 30%;
 }
 
 
@@ -90,8 +101,7 @@
   padding: 1rem;
 }
 
-.modal-header,
-.modal-footer {
+.modal-header,.modal-footer {
   background: #222831;
   color: #fff;
 }
@@ -99,12 +109,11 @@
 .modal-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.modal-header .close-modal {
+  justify-content:center;
   font-size: 1.5rem;
 }
+
+
 
 .modal p + p {
   margin-top: 1rem;

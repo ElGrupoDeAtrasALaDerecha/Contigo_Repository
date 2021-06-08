@@ -309,7 +309,7 @@ public class ConversatoriosDao implements IDaoConversatorios {
     public EstudianteConversatorio consultarEstConversatorio(String idConversatorio, String idEstudiante) {
         EstudianteConversatorio conver = null;
         try {
-            String sql = "select * from ESTUDIANTE_has_CONVERSATORIO where CONVERSATORIO_id = " + idConversatorio + " and ESTUDIANTE_PERSONA_documento=" + idEstudiante + ";";
+            String sql = "select * from ESTUDIANTE_has_CONVERSATORIO where CONVERSATORIO_id = " + idConversatorio + " and ESTUDIANTE_PERSONA_documento='" + idEstudiante + "';";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {

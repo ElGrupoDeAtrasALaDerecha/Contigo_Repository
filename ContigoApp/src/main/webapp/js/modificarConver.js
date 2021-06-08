@@ -85,6 +85,8 @@ $(document).ready(function () {
     documento = getCookie("documento");
     $('.ui.dropdown').dropdown();
     console.log(id);
+    console.log(usuario)
+    console.log(token)
     if (id !== "") {
 
         btnActualizar = document.getElementById("btnCrear");
@@ -96,6 +98,9 @@ $(document).ready(function () {
             type: "GET",
             dataType: "json",
             contentType: "JSON application/json charset=utf-8",
+            headers:{
+                token:token
+            },
             beforeSend: function () {
             },
             success: function (result, textStatus, request) {
@@ -267,6 +272,9 @@ function crearConversatorio(personal, metodo) {
         url: "Conversatorio",
         type: metodo,
         dataType: "json",
+        headers:{
+            token:getCookie("token")
+        },
         data: JSON.stringify(informacion),
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {

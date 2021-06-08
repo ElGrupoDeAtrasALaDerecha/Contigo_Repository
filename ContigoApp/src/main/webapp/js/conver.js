@@ -1,17 +1,23 @@
 var usuario
 var token
 var documento
+var conversatorio
+var btnRegistrar = document.getElementById("btnRegistrarEstu");
+var oradordiv;
 
 /*******************************************DIV EMERGENTE************************************************* */
+
 const openEls = document.querySelectorAll("[data-open]");
 const closeEls = document.querySelectorAll("[data-close]");
 const isVisible = "is-visible";
 for (const el of openEls) {
+    
     el.addEventListener("click", function () {
         const modalId = this.dataset.open;
         console.log(modalId)
         document.getElementById(modalId).classList.add(isVisible);
     });
+    
 }
 
 for (const el of closeEls) {
@@ -40,30 +46,26 @@ var contConf = 0;
 var contCanc = 0;
 
 function llenarDiv(array, oradordiv) {
+    limpiarDiv();
     divTexto =
-        `<p>DATOS DEL CONVERSATORIO: </p>` +
-        `<p>Conversatorio: ${array.titulo} </p>` +
-        `<p>Orador: ${oradordiv.primerNombre} ${oradordiv.primerApellido} </p>` +
-        `<p>Lugar: ${array.lugar} </p>` +
-        `<p>Cronograma: ${array.cronograma} </p>` +
+        `<p><b>DATOS DEL CONVERSATORIO </b></p>` +
+        `<p><b>Conversatorio:</b> ${array.titulo} </p>` +
+        `<p><b>Orador: </b> ${oradordiv.primerNombre} ${oradordiv.primerApellido} </p>` +
+        `<p><b>Lugar:</b> ${array.lugar} </p>` +
+        `<p><b>Cronograma:</b> ${array.cronograma} </p>` +
         `<div class="ui buttons">
-        <button id="btnCancelarC" class="ui button">Cancelar registro</button>
-        <div class="o"></div>
         <button id="btnConfirmarC" class="ui blue button">Confirmar registro</button>
         </div>`;
     $("#divEmergente").append(divTexto);
-
     $("#btnCancelarC").click(function () {
         cancelarRegistro();
-        document.querySelector(".modal.is-visible").classList.remove(isVisible);
-        limpiarDiv();
-        return false;
     });
 
     $("#btnConfirmarC").click(function () {
         registrarEstudiante();
     });
 }
+
 
 
 function limpiarDiv() {
@@ -73,10 +75,10 @@ function limpiarDiv() {
 /* Inico de la pagina y carga de los elementos*/
 
 $(document).ready(function () {
-
     usuario = parseInt(getCookie("tipoUsuario"));
     token = getCookie("token");
     documento = getCookie("documento");
+    confimarSiEstaRegistrado();
     $('.ui.dropdown').dropdown();
     console.log(usuario)
     console.log(documento)
@@ -88,8 +90,8 @@ $(document).ready(function () {
             url: "Conversatorio",
             type: "GET",
             dataType: "json",
-            headers:{
-                token:getCookie("token")
+            headers: {
+                token: getCookie("token")
             },
             contentType: "JSON application/json charset=utf-8",
             beforeSend: function () {
@@ -98,6 +100,7 @@ $(document).ready(function () {
                 console.log(result)
                 conversatorios = result.conversatorios;
                 listarConver(conversatorios);
+             
                 if (result != "error") {
                     console.log(result);
                 } else {
@@ -127,6 +130,7 @@ function LlamarGrado() {
         success: function (result, textStatus, request) {
             grado = result.Grados;
             LlamarEstudiante(grado);
+            console.log(result)
             if (result != "error") {
             } else {
                 console.log("error");
@@ -244,6 +248,7 @@ function listarConver(conversatorio) {
             '<div id="Caja-texto">' +
             '<img src="' + conversatorio[i].imagen + '" class="img-portafolio">' +
             '<div class="textoSobre-img">' + conversatorio[i].titulo +
+            '<p>'+ conversatorio[i].descripcion + '</p>'+
             '</div>' +
             '</div>' +
             '</div>';
@@ -263,6 +268,7 @@ function listarConver(conversatorio) {
     for (var i = 0; i < conversatorio.length; i++) {
         if (parseInt(conversatorio[i].id) === parseInt(getCookie("idcar"))) {
             TraerOrador(conversatorio[i], conversatorio[i].orador);
+            orador = conversatorio[i].orador
         }
     }
 
@@ -271,7 +277,7 @@ function listarConver(conversatorio) {
         setCookie("idConversatorio", "", 0.5);
     });
 };
-var conversatorio
+
 function TraerOrador(conver, orador) {
     conversatorio = conver
     $.ajax({
@@ -279,8 +285,8 @@ function TraerOrador(conver, orador) {
         type: "GET",
         dataType: "json",
         contentType: "JSON application/json charset=utf-8",
-        headers:{
-            token:getCookie("token")
+        headers: {
+            token: getCookie("token")
         },
         beforeSend: function () {
         },
@@ -297,8 +303,7 @@ function TraerOrador(conver, orador) {
         }
     });
 }
-var btnRegistrar = document.getElementById("btnRegistrarEstu");
-var oradordiv;
+
 /**
  * 
  * @param {*} array 
@@ -308,43 +313,49 @@ var oradordiv;
 function colocarInfo(array, orador, personal) {
     for (var i = 0; i < personal.length; i++) {
         if (personal[i].documento === orador) {
-            let bio = buscarBiografia(personal[i]);
-            let txtBio="";
-            if(bio!==undefined){
-                txtBio=bio;
+            var bio = buscarBiografia(personal[i]);
+            var txtBio = "";
+            if (bio !== undefined) {
+                txtBio = bio;
             }
             oradordiv = personal[i];
             text = '<br>' +
+            '<div class= "divimg">'+
                 '<img src="' + personal[i].imagen + '" class="imgRedonda">' +
-                '<br> Orador:' +
-                '<center>' +
+                '</div>'+
                 '<h2>' +
-                '<span> ' + personal[i].primerNombre + ' ' + personal[i].primerApellido + '</span>' +
+                '<div class= "oradorAling">'+
+                '<span > ' + personal[i].primerNombre + ' ' + personal[i].primerApellido + '</span>' +
+                '<p> Orador </p>'
+                '</div>'
                 '<br>' +
-                '</h2>' +
-                '</center>' +
-                '<br>' +
-                `<p> ${txtBio}</p>` +
-                '<br>'
+                '</h2>' 
+              
+                
             $("#orador").append(text);
             break;
         }
     }
+    
     text = '<br>' +
-        'Descripcion:' +
-        '<br><br>' +
+        '<h2>Descripcion:</h2>' +
+        '<br>' +
         '<p>' + array.descripcion + '</p>' +
-        '<br><br>' +
-        'Lugar:' +
-        '<br><br>' +
+        '<br>' +
+        '<h2>Lugar:</h2>' +
+        '<br>' +
         '<p>' + array.lugar + '</p>' +
-        '<br><br>' +
-        'Cronograma:' +
-        '<br><br>' +
-        '<p>' + array.cronograma + '</p>' +
-        '<br><br><br><br><br><br><br><br>' +
-        '<br><br><br><br><br><br><br><br>' +
-        '<br><br><br><br>'
+        '<br>' +
+        '<h2>Cronograma:</h2>' +
+        '<br>' +
+        '<p>' + array.cronograma + '</p>'+
+        '<br>' +
+        '<h2>Orador:</h2>' +
+        '<br>' +
+        `<p>${txtBio}</p>`
+        
+
+    
 
     $("#cronograma").append(text);
 
@@ -361,37 +372,78 @@ function colocarInfo(array, orador, personal) {
         '<h3><span></span> </h3>'
     if (usuario === 1) {
         btnRegistrar.style.display = "block"
-        //text += '<button id="btnRegistrarEstu"  class="banner-button" onclick="divConfRegistro();">Registrarse</button>'
     } else if (usuario === 2) {
-       btnRegistrar.style.display = "none"
-        text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
-    }else if (usuario === 3) {
         btnRegistrar.style.display = "none"
-         text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
-     }
+        text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
+    } else if (usuario === 3) {
+        btnRegistrar.style.display = "none"
+        text += '<button id="btnModificar" class="banner-button" onclick="ModificarConversatorio();">Modificar</button>'
+    }
     $("#titulo").append(text);
     document.getElementById("banner2").style.background = "url(" + array.imagen + ") repeat";
+    function llenar(){
 
+    }
     $("#btnRegistrarEstu").click(function () {
+        console.log("hola")
         llenarDiv(array, oradordiv);
     })
 }
+function llenar(){
+    llenarDiv(conversatorio, oradordiv);
+}
 
+/* Registro del estudiante en el conversatorio */
+function confimarSiEstaRegistrado(){
+
+    $.ajax({
+        url: "REstudianteConversatorio?id=" + parseInt(getCookie("idcar")) + "&idEstudiante=" + documento,
+        type: "GET",
+        contentType: "JSON application/json charset=utf-8",
+        beforeSend: function () {
+        },
+        success: function (result, textStatus, request) {
+            console.log(result)
+            if (result.tipo == "error") {
+            
+                btnRegistrar.innerText = "Registrarse"
+                btnRegistrar.setAttribute("id", "btnRegistrarEstu");
+                btnRegistrar.removeAttribute("onClick", "cancelarRegistro();");
+                btnRegistrar.setAttribute("data-open", "modal1")
+                btnRegistrar.setAttribute("onClick", "llenar();");
+                
+            } else {
+                btnRegistrar.innerText = "Cancelar Registro"
+                btnRegistrar.setAttribute("id", "btnCancelarC");
+                btnRegistrar.removeAttribute("data-open")
+                btnRegistrar.setAttribute("onClick", "cancelarRegistro();");
+            }
+        }, complete: function (result) {
+          
+        }, error: function (result) {
+    
+        }
+    });
+
+
+}
 
 
 function cancelarRegistro() {
-    console.log(conversatorio.id)
+
     $.ajax({
-        url: "REstudianteConversatorio?id=" + parseInt(idConversatorio)+"&idEstudiante="+ documento,
+        url: "REstudianteConversatorio?id=" + parseInt(getCookie("idcar")) + "&idEstudiante=" + documento,
         type: "DELETE",
         contentType: "JSON application/json charset=utf-8",
         beforeSend: function () {
         },
         success: function (result, textStatus, request) {
             if (result.tipo == "error") {
-                toastr.error(result.mensaje)
+               
+                confimarSiEstaRegistrado();
             } else {
                 toastr.success(result.mensaje)
+                confimarSiEstaRegistrado();
             }
         }, complete: function (result) {
             console.log(result)
@@ -400,8 +452,6 @@ function cancelarRegistro() {
         }
     });
 }
-
-
 
 function registrarEstudiante() {
 
@@ -421,9 +471,13 @@ function registrarEstudiante() {
         },
         success: function (result, textStatus, request) {
             if (result.tipo == "error") {
-                toastr.error(result.mensaje)
+             
+                confimarSiEstaRegistrado();
             } else {
                 toastr.success(result.mensaje)
+                document.querySelector(".modal.is-visible").classList.remove(isVisible);
+                confimarSiEstaRegistrado();
+               
             }
         }, complete: function (result) {
             console.log(result)
@@ -434,7 +488,7 @@ function registrarEstudiante() {
 }
 
 function ModificarConversatorio() {
-    setCookie("idConversatorio",conversatorio.id , 0.3);
+    setCookie("idConversatorio", conversatorio.id, 0.3);
     window.location.assign("crear_cnv.html")
 
 }
@@ -445,14 +499,14 @@ function ModificarConversatorio() {
  * Método que permite buscar la biografía de un personal
  * @param {personal} personal 
  */
-function buscarBiografia(personal){
-    let info=personal.info;
-    if(info!==undefined){
+function buscarBiografia(personal) {
+    let info = personal.info;
+    if (info !== undefined) {
         for (let i = 0; i < info.length; i++) {
-            if(info[i].hasOwnProperty("biografia"))
-            return info[i].biografia;
+            if (info[i].hasOwnProperty("biografia"))
+                return info[i].biografia;
         }
-    }else{
+    } else {
         return undefined;
     }
 }

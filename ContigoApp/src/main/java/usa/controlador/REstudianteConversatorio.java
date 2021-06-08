@@ -37,11 +37,23 @@ public class REstudianteConversatorio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String idEstudiante = request.getParameter("idEstudiante");
+        JSONObject respuesta = new JSONObject();
+        IDaoConversatorios daoConver = (IDaoConversatorios) dao;
+        System.out.println(id + "  " + idEstudiante);
+        EstudianteConversatorio estuConsultar = (EstudianteConversatorio) daoConver.consultarEstConversatorio(id, idEstudiante);
+        if (estuConsultar != null) {
+            respuesta.put("tipo", "ok");
+            respuesta.put("mensaje", "El estudiante esta registrado");
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "El estudiante no esta registrado");
+        }
+        PrintWriter out = response.getWriter();
+        out.print(respuesta.toString());
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -50,28 +62,27 @@ public class REstudianteConversatorio extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         response.setContentType("application/json;charset=UTF-8");
         String parametros = Utils.readParams(request);
         System.out.println(parametros);
-        IDaoConversatorios daoConver=(IDaoConversatorios)dao;
+        IDaoConversatorios daoConver = (IDaoConversatorios) dao;
         EstudianteConversatorio esco = (EstudianteConversatorio) Utils.fromJson(parametros, EstudianteConversatorio.class);
         ObservadorEstudianteConversatorio observador= new ObservadorEstudianteConversatorio(esco);
         
         JSONObject respuesta = new JSONObject();
-        
-            if (daoConver.registrarEstuConver(esco)) {
-                respuesta.put("tipo", "ok");
-                respuesta.put("mensaje", "El estudiante fue registrado en el conversatorio");
-                esco.setEstado(1);
-            } else {
-                respuesta.put("tipo", "error");
-                respuesta.put("mensaje", "Ya esta registrado en el conversatorio");
-            }
+
+        if (daoConver.registrarEstuConver(esco)) {
+            respuesta.put("tipo", "ok");
+            respuesta.put("mensaje", "El estudiante fue registrado en el conversatorio");
+        } else {
+            respuesta.put("tipo", "error");
+            respuesta.put("mensaje", "Ya esta registrado en el conversatorio");
+        }
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }
-    
+
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
@@ -92,7 +103,7 @@ public class REstudianteConversatorio extends HttpServlet {
             respuesta.put("tipo", "error");
             respuesta.put("mensaje", "No esta registrado en el conversatorio");
         }
-      
+
         PrintWriter out = response.getWriter();
         out.print(respuesta.toString());
     }
