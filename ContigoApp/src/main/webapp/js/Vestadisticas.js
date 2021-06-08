@@ -489,7 +489,7 @@ $(".seleccionGrafica").click(function () {
         $("#contenidoGraficas").empty();
         $("#contenidoGraficas").append(vistaGraficaPorGrado);
         llenarSelectGrados(arregloGrados);
-        $("#gradosSlt").on("click", function () {
+        $("#gradosSlt").on("change", function () {
             let codigoGrado = document.getElementById('gradosSlt').value
             solicitarDatosGrafica(codigoGrado);
             consultarInformacion()
