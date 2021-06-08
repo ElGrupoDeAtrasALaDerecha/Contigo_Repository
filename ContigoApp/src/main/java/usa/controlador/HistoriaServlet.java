@@ -51,7 +51,7 @@ public class HistoriaServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs jskjdks
+     * @throws IOException if an I/O error occurs jskjdkssdsadasd
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -168,7 +168,7 @@ public class HistoriaServlet extends HttpServlet {
                 if (dao.eliminar(id)) {
                     String arregloClasificaciones[] = vect;
                     for (int i = 0; i < arregloClasificaciones.length; i++) {
-                        daoHis.crearClasi(arregloClasificaciones[i], historia.getId());
+                        daoHis.crearClasi(String.valueOf(historia.getId()),Integer.parseInt(arregloClasificaciones[i]));
                     }
                     respuesta.put("tipo", "ok");
                     respuesta.put("mensaje", "Grados Actualizados");

@@ -119,8 +119,8 @@ public class HistoriaDao implements IHistoriasDao {
         try {
             String sql = "insert into CLASIFICACION_has_HISTORIA (CLASIFICACION_id,HISTORIA_idHistoria) values (?,?);";
             pat = conn.prepareStatement(sql);
-            pat.setString(1, his);
-            pat.setString(2, String.valueOf(resultado));
+            pat.setString(1, String.valueOf(resultado));
+            pat.setString(2, his);
             pat.execute();
             pat.close();
             return 0;
