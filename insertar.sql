@@ -128,3 +128,6 @@ values("Tiene una cita", "Alguien ha solicitado cita con usted",false,"100085362
 
 insert into NOTIFICACION (titulo,texto,vista,persona_documento,fecha,tipo)  
 values("Tiene una cita", "Alguien ha solicitado cita con usted",false,"1000853623",sysdate(),"cita");
+
+
+insert into MOTIVO(id) values ("Empatía");

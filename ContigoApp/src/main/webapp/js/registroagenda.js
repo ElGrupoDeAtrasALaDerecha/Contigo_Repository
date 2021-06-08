@@ -40,7 +40,7 @@ function validarFechasHoras() {
     var f1 = new Date(fechainicio);
     var f2 = new Date(fechafin);
     if (f1 <= f2) {
-        if (horainicio < horafin+1) {
+        if (parseInt(horainicio) <= parseInt(horafin)) {
             var obj = {
                 personal: personal,
                 fechainicio: fechainicio,
@@ -83,3 +83,4 @@ function limpiarInput(){
     document.getElementById("fecha").value = "";
     document.getElementById("fecha2").value = "";
 }
+

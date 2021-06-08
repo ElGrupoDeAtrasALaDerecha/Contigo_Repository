@@ -438,3 +438,7 @@ CREATE TABLE IF NOT EXISTS `contigoBD`.`NOTIFICACION` (
     REFERENCES `contigoBD`.`PERSONA` (`documento`)
     ON DELETE cascade
     ON UPDATE NO ACTION);
+CREATE TABLE MOTIVO(
+	ID VARCHAR(200) NOT NULL,
+    primary key(id)
+);
