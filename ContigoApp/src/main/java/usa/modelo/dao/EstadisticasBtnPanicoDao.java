@@ -99,7 +99,7 @@ public class EstadisticasBtnPanicoDao implements IEstadisticasBtnPanicoDao {
     public LinkedList<JSONArray> listarClicksPorGrado() {
         LinkedList<JSONArray> listaClicks = new LinkedList<>();
         try {
-            String sql = "select clasificacion.grado, count(ESTADISTICAS_BTNPANICO.ESTUDIANTE_PERSONA_documento) as Clicks\n"
+            String sql = "select c.grado, count(eb.ESTUDIANTE_PERSONA_documento) as Clicks\n"
                     + "from PERSONA as p, ESTUDIANTE as e , CLASIFICACION as c, GRADO as g, ESTADISTICAS_BTNPANICO as eb\n"
                     + "where p.documento = e.PERSONA_documento and c.id = g.CLASIFICACION_id and e.GRADO_codigo = g.codigo\n"
                     + "      and eb.ESTUDIANTE_PERSONA_documento = e.PERSONA_documento\n"
