@@ -124,7 +124,7 @@ public class ConversatorioServlet extends HttpServlet {
         if (conversatorioAActualizar != null) {
             conversatorioAActualizar.setOrador(conver.getOrador());
             conversatorioAActualizar.setTitulo(conver.getTitulo());
-            conversatorioAActualizar.setDescripcion(conver.getCronograma());
+            conversatorioAActualizar.setCronograma(conver.getCronograma());
             conversatorioAActualizar.setImagen(conver.getImagen());
             conversatorioAActualizar.setDescripcion(conver.getDescripcion());
             conversatorioAActualizar.setLugar(conver.getLugar());
