@@ -176,6 +176,7 @@ h1 a{
 .ui.modal.is-visible {
   visibility: visible;
   opacity: 1;
+  width: 100%;
 }
 
 .ui.modal-dialog {
@@ -208,7 +209,7 @@ h1 a{
   font-size: 1.5rem;
 }
 
-.modal p + p {
+.ui.modal p + p {
   margin-top: 1rem;
 }
 
@@ -220,51 +221,51 @@ h1 a{
 }
 /* ANIMATIONS
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-[data-animation] .modal-dialog {
+[data-animation] .ui.modal-dialog {
   opacity: 0;
   transition: all 0.5s var(--bounceEasing);
 }
 
-[data-animation].is-visible .modal-dialog {
+[data-animation].is-visible .ui.modal-dialog {
   opacity: 1;
   transition-delay: 0.2s;
 }
 
-[data-animation="slideInOutDown"] .modal-dialog {
+[data-animation="slideInOutDown"] .ui.modal-dialog {
   transform: translateY(100%);
 }
 
-[data-animation="slideInOutTop"] .modal-dialog {
+[data-animation="slideInOutTop"] .ui.modal-dialog {
   transform: translateY(-100%);
 }
 
-[data-animation="slideInOutLeft"] .modal-dialog {
+[data-animation="slideInOutLeft"] .ui.modal-dialog {
   transform: translateX(-100%);
 }
 
-[data-animation="slideInOutRight"] .modal-dialog {
+[data-animation="slideInOutRight"] .ui.modal-dialog {
   transform: translateX(100%);
 }
 
-[data-animation="zoomInOut"] .modal-dialog {
+[data-animation="zoomInOut"] .ui.modal-dialog {
   transform: scale(0.2);
 }
 
-[data-animation="rotateInOutDown"] .modal-dialog {
+[data-animation="rotateInOutDown"] .ui.modal-dialog {
   transform-origin: top left;
   transform: rotate(-1turn);
 }
 
-[data-animation="mixInAnimations"].is-visible .modal-dialog {
+[data-animation="mixInAnimations"].is-visible .ui.modal-dialog {
   animation: mixInAnimations 2s 0.2s linear forwards;
 }
 
-[data-animation="slideInOutDown"].is-visible .modal-dialog,
-[data-animation="slideInOutTop"].is-visible .modal-dialog,
-[data-animation="slideInOutLeft"].is-visible .modal-dialog,
-[data-animation="slideInOutRight"].is-visible .modal-dialog,
-[data-animation="zoomInOut"].is-visible .modal-dialog,
-[data-animation="rotateInOutDown"].is-visible .modal-dialog {
+[data-animation="slideInOutDown"].is-visible .ui.modal-dialog,
+[data-animation="slideInOutTop"].is-visible .ui.modal-dialog,
+[data-animation="slideInOutLeft"].is-visible .ui.modal-dialog,
+[data-animation="slideInOutRight"].is-visible .ui.modal-dialog,
+[data-animation="zoomInOut"].is-visible .ui.modal-dialog,
+[data-animation="rotateInOutDown"].is-visible .ui.modal-dialog {
   transform: none;
 }
 
