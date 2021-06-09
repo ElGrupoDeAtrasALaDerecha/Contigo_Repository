@@ -18,7 +18,7 @@ public class Conexion extends IConexionBD{
     private final String url = "jdbc:mysql://"+host+":"+port+"/"+bd+"?user="+user+"&password="+password+"&serverTimezone=UTC&autoReconnect=true&useSSL=false";
     private static Connection con = null;
     /**
-     * Constructor privado de la clase conexión
+     * Constructor privado de la clase conexión  
      * 
      */
     private Conexion() {
@@ -49,7 +49,7 @@ public class Conexion extends IConexionBD{
     @Override
     public void desconectar() {
         con = null;
-        System.out.println("conexion terminada");
+        System.out.println("conexion terminada"); 
     }
 
     public static IConexionBD getInstance() {

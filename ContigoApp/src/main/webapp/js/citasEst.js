@@ -70,7 +70,7 @@ function escribirMeses(month) {
     for (let i = inicioDia(); i > 0; i--) {
       dates.innerHTML += `<div class="date item ">
             <button id="${obtenerDias(monthNumber - 1) - (i - 1)
-        }" class="ui inverted  disabled basic button">
+        }" class="ui inverted disabled basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
@@ -117,14 +117,14 @@ function escribirMeses(month) {
     for (let i = inicioDia(); i > 0; i--) {
       dates.innerHTML += `<div class="date item ">
             <button id="${obtenerDias(monthNumber - 1) - (i - 1)
-        }" class="ui inverted blue basic button">
+        }" class="ui disabled gray basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
     }
     for (let i = 1; i <= obtenerDias(month); i++) {
       dates.innerHTML += `<div class="date">
-            <button id="${i}"class="ui inverted blue basic button">
+            <button id="${i}"class="ui gray basic button">
             ${i}
             </button>
             </div>`;
@@ -132,7 +132,7 @@ function escribirMeses(month) {
   }
 
   var contador = 0;
-  $(".ui.inverted.basic.button").click(function (e) {
+  $(".ui.gray.basic.button").click(function (e) {
     contador++;
     mes = month + 1;
     fecha = currentYear + "-" + mes + "-" + $(this).attr("id");
@@ -150,6 +150,8 @@ function escribirMeses(month) {
     }
     for (let i = 0; i < listCitas.length; i++) {
       // console.log("for" + i)
+      console.log("Estoy ace")         
+      console.log(fecha)         
       if (listCitas[i].fecha === fecha) {
         console.log(listCitas[i].horaInicio);
         horasdisponibles.push(listCitas[i].horaInicio);
@@ -163,7 +165,7 @@ function escribirMeses(month) {
 
 function filtrarHorasRepetidas() {
   var horasUnicas = horasdisponibles.filter(function (item, index, array) {
-    return array.indexOf(item) === index;
+  return array.indexOf(item) === index;
   });
   cargarHorasSelect(horasUnicas);
 }
@@ -418,8 +420,7 @@ function listarPerca(perca) {
     $("#perca").append(texto)
   }
   $('.biografiapersonal')
-    .popup()
-    ;
+    .popup();
 }
 // Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
