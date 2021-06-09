@@ -15,7 +15,7 @@ $(document).ready(function () {
                                     <a class="nav-link active" aria-current="page" href="listadoHistorias.html">Decisiones</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="citas.html">Citas</a>
+                                    <a class="nav-link active" aria-current="page" href="citasEst.html">Citas</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="Conversatorios.html">Conversatorios</a>
