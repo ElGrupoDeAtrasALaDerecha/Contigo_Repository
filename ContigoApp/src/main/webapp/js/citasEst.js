@@ -28,7 +28,7 @@ var motivos;
 $(document).ready(function () {
   cargarCitas();
   obtenerMotivos();
-  traerPersonal();
+  //traerPersonal();
 });
 
 let currentDate = new Date(); //fecha del pc como ref
@@ -149,11 +149,7 @@ function escribirMeses(month) {
       fecha = currentYear + "-" + mes + "-" + variable;
     }
     for (let i = 0; i < listCitas.length; i++) {
-      // console.log("for" + i)
-      console.log("Estoy ace")         
-      console.log(fecha)         
       if (listCitas[i].fecha === fecha) {
-        console.log(listCitas[i].horaInicio);
         horasdisponibles.push(listCitas[i].horaInicio);
       }
     }
@@ -237,14 +233,12 @@ function nuevaFecha() {
 
 function selectHorario(fecha) {
   var cita = fecha + "-" + select;
-  console.log(cita);
   // value = select.value, //El valor seleccionado
   // text = select.options[select.selectedIndex].innerText; //El texto de la opción seleccionada
   ListaPersonalC(value);
 }
 
 function ListaPersonalC(e) {
-  console.log(e);
   if (value !== "") {
     listaPersonal.style.display = "block";
   } else {
@@ -256,7 +250,6 @@ function ListaPersonalC(e) {
 const openEls = document.querySelectorAll("[data-open]");
 const closeEls = document.querySelectorAll("[data-close]");
 const isVisible = "is-visible";
-console.log(openEls)
 for (const el of openEls) {
   el.addEventListener("click", function () {
     const modalId = this.dataset.open;
@@ -305,14 +298,13 @@ function llenarDiv(cita) {
 
   $("#btnCancelarC").click(function () {
     contCanc++;
-    console.log(contCanc);
     document.querySelector(".modal.is-visible").classList.remove(isVisible);
     limpiarDiv();
     return false;
   });
 
   $("#btnConfirmarC").click(function () {
-    agendarCita(citaS, personal)
+    agendarCita(citaS)
   });
 }
 
@@ -368,7 +360,6 @@ function getPerca(cita) {
     success: function (response) {
       if (response.tipo === "ok") {
         citaDelDia = response.perca;
-        console.log(response)
         listarPerca(response.perca)
       }
     },
@@ -387,7 +378,6 @@ function cargarCitas() {
     success: function (response) {
       if (response.tipo === "ok") {
         listCitas = response.citas;
-        console.log(response.citas);
       } else {
         console.log("falla")
       }
@@ -401,7 +391,6 @@ function cargarCitas() {
 var personal
 var citaS
 function listarPerca(perca) {
-  console.log(perca)
   personal = perca
   listaPersonal.style.display = "block";
   $("#perca").empty()
@@ -412,35 +401,25 @@ function listarPerca(perca) {
     }
     let texto = `<div class="item"> 
     <img class ="biografiapersonal" src="${perca[index].imagen}" ${txtInfo}> 
-    <input type="radio" id="${perca[index].id_perca}" name="percaD" value=" ${perca[index].nombre_perca}" >
-     <label for="${perca[index].id_perca} "> 
+    <input type="radio" id="${perca[index].id}" name="percaD" value=" ${perca[index].nombre_perca}" >
+     <label for="${perca[index].id} "> 
      <div class="content"> 
-     <a id="personalCalificadoLista" class="header" href="#"> ${perca[index].nombre_perca}  </a> 
+     <a id="personalCalificadoLista" class="header"> ${perca[index].nombre_perca}  </a> 
      </div> </label> </div>`
     $("#perca").append(texto)
   }
   $('.biografiapersonal')
     .popup();
+  $('.biografiapersonal').css('width','30px')
 }
-// Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
+
 $("#btnAgenddamiento").click(function getDatos() {
   detectarCambioMotivo()
   validarCamposLlenos()
 })
 
 function agendarCita(cita, personal) {
-  for (let index = 0; index < personal.length; index++) {
-    if (personal[index].nombre_perca == cita.personal) {
-      cita.idc = personal[index].id
-      break;
-    }
-    console.log(cita)
-  }
-  var obj = {
-    id: cita.idc,
-    motivo: motivo
-  }
-  solicitarCita(obj);
+  solicitarCita(cita);
 }
 
 function obtenerHistorial() {
@@ -512,7 +491,6 @@ function obtenerMotivos() {
     success: function (response) {
       if (response.tipo === "ok") {
         motivos = response.motivos;
-        console.log(response.motivos)
         llenarSelectMotivos(motivos)
       }
     },
@@ -533,7 +511,6 @@ function llenarSelectMotivos(motivos) {
 
 
 function detectarCambioMotivo() {
-  console.log(motivo)
   let str = document.getElementById("MotivoOtros");
   if (str.value.trim() === "") {
   }
@@ -543,7 +520,7 @@ function detectarCambioMotivo() {
 }
 
 
-function traerPersonal() {
+/**function traerPersonal() {
   $.ajax({
     url: "PersonalCalificado",
     type: "GET",
@@ -561,7 +538,7 @@ function traerPersonal() {
     complete: function (result) { },
     error: function (result) { },
   });
-}
+}*/
 
 function validarCamposLlenos() {
   var personalasignado = $('input:radio[name=percaD]:checked').val();
@@ -576,7 +553,8 @@ function validarCamposLlenos() {
     var cita = {
       fecha: fecha,
       hora: $("#horas2 option:selected").val(),
-      personal: $('input:radio[name=percaD]:checked').val(),
+      id: $('input:radio[name=percaD]:checked').prop("id"),
+      personal:$('input:radio[name=percaD]:checked').val(),
       motivo: motivo
     };
     citaS = cita

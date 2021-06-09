@@ -103,17 +103,20 @@ public class CitaServlet extends HttpServlet {
         if (cita != null && e != null) {
             ObservadorCita observador = new ObservadorCita(cita);
             cita.setIdEstudiante(e.getDocumento());
-            cita.setEstado(2);
+            
             cita.setMotivo(motivo);
             if (dao.actualizar(cita)) {
                 respuesta.put("tipo", "ok");
                 respuesta.put("mensaje", "Estudiante registrado en la cita");
+                out.print(respuesta.toString());
+                cita.setEstado(2);
             }
         } else {
             respuesta.put("tipo", "error");
             respuesta.put("mensaje", "Ese estudiante o cita no existe");
+            out.print(respuesta.toString());
         }
-        out.print(respuesta.toString());
+        
 
     }
 
