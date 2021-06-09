@@ -2,122 +2,145 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contigo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="css/css_componentes/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/navfooter.css">
+    <!-- CDNs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- style sheets -->
+    <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/citasEst.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <title>Contigo</title>
 </head>
 
 <body>
     <div class="ui grid">
         <div class="ui row">
-
+        <!-- Segerencia: Remplazar por 4 br en template.js -->
         </div>
     </div>
     <br>
-    <h1 class="title">Agendamiento de citas</h1>
     <br>
-    <div id="todo">
-        <div id="calendarioCompleto" class="calendar">
-            <div class="calendarInfo">
-                <div class="calendar__prev" id="prev-month"><i class="bi bi-chevron-left"></i></div>
-                <div class="calendar__month" id="month"></div>
-                <div class="calendar__year" id="year"></div>
-                <div class="calendar__next" id="next-month"><i class="bi bi-chevron-right"></i></i></div>
+    <div class="row h-75">
+        <h1 class="title-c">Agendamiento de citas <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-question-circle-fill"></i></a></h1>  
+  
+        <!-- Modal -->
+        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Instrucciones para agendar un cita</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>Selecciona una fecha, al hacer esto veras los horarios disponibles</li>
+                        <li>Selecciona un hora para ver el personal que tiene citas disponibles</li>
+                        <li>Seleccion el personal calificado que más te guste</li>
+                        <li>Ingresa el motivo por el cual desea la cita</li>
+                        <li>Da clci en "Agendar cita"</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
             </div>
-
-            <div class="week">
-                <div class="calendar__day calendar__item">LU</div>
-                <div class="calendar__day calendar__item">MA</div>
-                <div class="calendar__day calendar__item">MI</div>
-                <div class="calendar__day calendar__item">JU</div>
-                <div class="calendar__day calendar__item">VI</div>
-                <div class="calendar__day calendar__item">SA</div>
-                <div class="calendar__day calendar__item">DO</div>
             </div>
-
-            <div class="dates" id="dates"></div>
         </div>
-
-        <div id="horas">
-            <p>Hora de la cita</p>
-            <div class="item">
-                <select id="horas2" name="horas2">
-                    <option value="">Horas</option>
-                </select>
-            </div>
-            <form action="" id="checkPerca">
-                <div id="listaPersonal">
-                    <p>Personal disponible</p>
-                    <div class="ui middle aligned divided list" id="perca">
-
+        
+        <div class="col-6">       
+            <div id="todo">
+                <div id="calendarioCompleto" class="calendar">
+                    <div class="calendarInfo">
+                        <div class="calendar__prev" id="prev-month"><i class="bi bi-chevron-left"></i></div>
+                        <div class="calendar__month" id="month"></div>
+                        <div class="calendar__year" id="year"></div>
+                        <div class="calendar__next" id="next-month"><i class="bi bi-chevron-right"></i></i></div>
                     </div>
+
+                    <div class="week">
+                        <div class="calendar__day calendar__item">LU</div>
+                        <div class="calendar__day calendar__item">MA</div>
+                        <div class="calendar__day calendar__item">MI</div>
+                        <div class="calendar__day calendar__item">JU</div>
+                        <div class="calendar__day calendar__item">VI</div>
+                        <div class="calendar__day calendar__item">SA</div>
+                        <div class="calendar__day calendar__item">DO</div>
+                    </div>
+                    <div class="dates" id="dates"></div>
                 </div>
-            </form>
-            <div id="MotivoS">
-                <p>Motivo de la Cita</p>
-                <select id="motivoSelect" name="motivoSelect" required>
-                    <option value="">Motivos</option>
-                    <option value="1">Otros</option>
-                </select>
-                <div id="textAreaMotivo">
-                    <textarea type="text" class="credencial" id="MotivoOtros" placeholder="Motivo de consulta"
-                    ></textarea>
+            </div>
+            <div class="ui modal" id="modal1" data-animation="slideInOutLeft">
+                <div class="ui modal-dialog">
+                    <header class="ui modal-header">
+                        Agendamiento de citas
+                        <button class="ui close-modal" data-close>
+                            X
+                        </button>
+                    </header>
+                    <section id="divEmergente" class="ui modal-content">
+
+                    </section>
                 </div>
-                
             </div>
         </div>
-
-    </div>
-
-    </div>
-
-    <div id="btnCitasAgendada" class="btn-group">
-        <button id="btnAgenddamiento" type="button" class="open-modal" data-open="modal1">
-            Agendar cita
-        </button>
-    </div>
-
-    <div class="modal" id="modal1" data-animation="slideInOutLeft">
-        <div class="modal-dialog">
-            <header class="modal-header">
-                Agendamiento de citas
-                <button class="close-modal" data-close>
-                    X
+        <div class="col-3">
+            <div id="horas" class="">
+                <p>Hora de la cita</p>
+                <div class="">
+                    <select class="form-select" id="horas2" name="horas2">
+                        <option value="">Horas</option>
+                    </select>
+                </div>
+                <form action="" id="checkPerca">
+                    <div id="listaPersonal" class="my-3">
+                        <p>Personal disponible</p>
+                        <div class="ui middle aligned divided list" id="perca">
+                            
+                        </div>
+                    </div>
+                </form>
+                <div id="MotivoS">
+                    <p>Motivo de la Cita</p>
+                    <select id="motivoSelect" class="form-select my-3" name="motivoSelect" required>
+                        <option value="">Motivos</option>
+                        <option value="1">Otros</option>
+                    </select>
+                    <div id="textAreaMotivo">
+                        <textarea type="text" class="form-control" id="MotivoOtros" placeholder="Motivo de consulta"
+                        ></textarea>
+                    </div>             
+                </div>
+            </div>
+            <div id="btnCitasAgendada" class="btn-group">
+                <button id="btnAgenddamiento" type="button" class="btn btn-primary open-modal" data-open="modal1">
+                    Agendar cita
                 </button>
-            </header>
-            <section id="divEmergente" class="modal-content">
-
-            </section>
-        </div>
+            </div>
+        </div>    
+        <div class="col-3 px-5">
+            <a href="historialCitas.html">
+                <button id="" type="button" class=" btn btn-outline-primary open-modal" > Historial de citas </button>
+            </a>
+        </div> 
     </div>
-<a href="historialCitas.html">
-    <button id=""type="button" class="open-modal" >
-        Historial de citas
-    </button>
-</a>
-
-
-    <br> <br>
-
     <footer></footer>
-
 </body>
 <script src="js/template.js"></script>
-<script src="js/funciones.js"></script>
+<!-- <script src="js/funciones.js"></script> -->
 <script src="js/citasEst.js"></script>
 <script language="JavaScript"></script>
 <script type="text/javascript" src="js/js_componentes/bootstrap.min.js"></script>

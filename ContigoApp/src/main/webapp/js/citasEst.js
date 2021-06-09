@@ -70,7 +70,7 @@ function escribirMeses(month) {
     for (let i = inicioDia(); i > 0; i--) {
       dates.innerHTML += `<div class="date item ">
             <button id="${obtenerDias(monthNumber - 1) - (i - 1)
-        }" class="ui inverted  disabled basic button">
+        }" class="ui inverted disabled basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
@@ -117,14 +117,14 @@ function escribirMeses(month) {
     for (let i = inicioDia(); i > 0; i--) {
       dates.innerHTML += `<div class="date item ">
             <button id="${obtenerDias(monthNumber - 1) - (i - 1)
-        }" class="ui inverted blue basic button">
+        }" class="ui disabled gray basic button">
                 ${obtenerDias(monthNumber - 1) - (i - 1)}
                 </button>
                 </div>`;
     }
     for (let i = 1; i <= obtenerDias(month); i++) {
       dates.innerHTML += `<div class="date">
-            <button id="${i}"class="ui inverted blue basic button">
+            <button id="${i}"class="ui gray basic button">
             ${i}
             </button>
             </div>`;
@@ -418,8 +418,7 @@ function listarPerca(perca) {
     $("#perca").append(texto)
   }
   $('.biografiapersonal')
-    .popup()
-    ;
+    .popup();
 }
 // Comentario para arreglar la línea temporal del desfase por culpa de ustedes y no mia
 $("#btnAgenddamiento").click(function getDatos() {
