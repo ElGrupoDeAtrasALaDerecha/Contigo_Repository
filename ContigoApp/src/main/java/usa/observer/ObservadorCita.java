@@ -49,7 +49,8 @@ public class ObservadorCita extends Observer {
                 Agenda a=(Agenda) dao.consultar(String.valueOf(cita.getIdAgenda()));
                 dao = (IDao) factoryDao.obtener("PersonalCalificadoDao");
                 pc=(PersonalCalificado) dao.consultar(String.valueOf(a.getIdPersonal()));
-                if (pc.getCorreo() != null) {
+                if (pc != null) {
+                    proxy= new CorreoProxy(new CorreoCita(cita,"cancelado"));
                     proxy.enviarCorreo(pc.getCorreo());
                 }
                 break;
@@ -57,7 +58,7 @@ public class ObservadorCita extends Observer {
             case 5:
                 dao= (IDao) factoryDao.obtener("EstudianteDao");
                 e = (Estudiante) dao.consultar(cita.getIdEstudiante());
-                proxy= new CorreoProxy(new CorreoCita(cita));
+                proxy= new CorreoProxy(new CorreoCita(cita,"cancelado"));
                 if (e.getCorreo() != null) {
                     proxy.enviarCorreo(e.getCorreo());
                 }

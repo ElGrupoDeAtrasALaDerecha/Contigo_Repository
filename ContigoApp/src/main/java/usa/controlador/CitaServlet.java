@@ -103,13 +103,12 @@ public class CitaServlet extends HttpServlet {
         if (cita != null && e != null) {
             ObservadorCita observador = new ObservadorCita(cita);
             cita.setIdEstudiante(e.getDocumento());
-            
+            cita.setEstado(2);
             cita.setMotivo(motivo);
             if (dao.actualizar(cita)) {
                 respuesta.put("tipo", "ok");
                 respuesta.put("mensaje", "Estudiante registrado en la cita");
                 out.print(respuesta.toString());
-                cita.setEstado(2);
             }
         } else {
             respuesta.put("tipo", "error");
@@ -126,10 +125,11 @@ public class CitaServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject json = new JSONObject(Utils.readParams(request));
         String id = String.valueOf(json.getInt("id"));
+        ObservadorCita observador;
         Cita citaActualizar = (Cita) dao.consultar(id);
         if (citaActualizar != null) {
             IDaoCita daocita = (IDaoCita) dao;
-            ObservadorCita observador = new ObservadorCita(citaActualizar);
+             observador= new ObservadorCita(citaActualizar);
             citaActualizar.setEstado(json.getInt("estado"));
             if (json.getInt("estado") == 3 || json.getInt("estado") == 7) {
                 citaActualizar.setMotivo(json.getString("motivo"));
@@ -141,9 +141,22 @@ public class CitaServlet extends HttpServlet {
                     json.put("tipo", "error");
                     json.put("mensaje", "No se ha podido guardar el registro");
                 }
+                out.print(json.toString());
+            }else if (json.getInt("estado")==4){
+                observador = new ObservadorCita(citaActualizar);
+                if(daocita.actualizar(citaActualizar)){
+                    citaActualizar.setEstado(1);
+                    citaActualizar.setIdEstudiante(null);
+                    if(daocita.crear(citaActualizar)){
+                        json.put("tipo", "ok");
+                        json.put("mensaje", "Cita cancelada");
+                        out.print(json.toString());
+                    }
+                }
+                citaActualizar.setEstado(json.getInt("estado"));
             }
         }
-        out.print(json.toString());
+        
     }
 
     /**

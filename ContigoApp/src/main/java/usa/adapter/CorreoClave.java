@@ -21,6 +21,6 @@ public class CorreoClave {
      * @return un string con el link de recuperación de contraseña
      */
     public String generarLink() {
-        return "http://localhost:8080/ContigoApp/recuperarContraseña.html?codigo=" + codigo;
+        return "http://184:8080/ContigoApp/recuperarContraseña.html?codigo=" + codigo;
     }
 }

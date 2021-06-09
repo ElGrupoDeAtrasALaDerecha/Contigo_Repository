@@ -1,5 +1,5 @@
 
-
+var historialCita;
 
 
 $(document).ready(function () {
@@ -17,7 +17,7 @@ function cargarHistorialE() {
         beforeSend: function () {
         },
         success: function (response) {
-            var historialCita = response.citas
+            historialCita = response.citas
             mostrarHistorial(historialCita);
 
         }, complete: function (result) {
@@ -31,7 +31,7 @@ function cargarHistorialE() {
 
 function mostrarHistorial(historialCita) {
     console.log(historialCita)
-    $("#historial").append("")
+    $("#historial").empty();
     var texto = "";
     for (let i = 0; i < historialCita.length; i++) {
         texto = ""
@@ -63,7 +63,7 @@ function mostrarHistorial(historialCita) {
         if (historialCita[i].estado === 1) {
             texto += '<div id="estado" class="ui blue inverted segment">Cita sin Asignar</div>'
         } else if (historialCita[i].estado === 2) {
-            texto += '<div id="estado" class="ui green inverted segment">Cita Asignada</div> '
+            texto += '<button id="'+historialCita[i].id+'" class="ui red cancel button">Cancelar cita</button><div id="estado" class="ui green inverted segment">Cita Asignada</div> '
         } else if (historialCita[i].estado === 3) {
             texto += '<div id="estado" class="ui grey inverted segment">Cita Asistida</div>'
         } else if (historialCita[i].estado === 4) {
@@ -73,29 +73,50 @@ function mostrarHistorial(historialCita) {
             '</div>' +
             '</div>'
         $("#historial").append(texto)
-        $(".cancelar").click(function(){
-            /*Aquí se supone que se cancela la cita
-            $.ajax({
-                url: "Cita",
-                type: "",
-                headers: {
-                    token: getCookie("token")
-                },
-                dataType: "json",
-                contentType: "JSON application/json charset=utf-8",
-                beforeSend: function () {
-                },
-                success: function (response) {
-                    var historialCita = response.citas
-                    mostrarHistorial(historialCita);
-        
-                }, complete: function (result) {
-        
-                }, error: function (result) {
-                    console.log(result);
-        
-                }
-            });*/
-        })
+        $(".cancel").click(function(){
+        /*Aquí se supone que se cancela la cita*/
+        let id = $(this).prop("id");
+        let cita = buscarCita(id);
+        cita.estado=4;
+        $.ajax({
+            url: "Cita",
+            type: "PUT",
+            headers: {
+                token: getCookie("token")
+            },
+            dataType: "json",
+            data:JSON.stringify(cita),
+            contentType: "JSON application/json charset=utf-8",
+            beforeSend: function () {
+                let txt = `<div class="ui active inverted dimmer">
+            <div class="ui indeterminate text loader">Cargando imagen</div>
+          </div>`;
+            $("body").append(txt);
+            },
+            success: function (response) {
+                var historialCita = response.citas
+                mostrarHistorial(historialCita);
+                toastr.success(response.mensaje)
+    
+            }, complete: function (result) {
+                $('.ui.active.inverted.dimmer').remove();
+                
+            }, error: function (result) {
+                console.log(result);
+    
+            }
+        });
+    })
     }
+    
+}
+
+
+function buscarCita(id){
+    for (let i = 0; i < historialCita.length; i++) {
+        if(historialCita[i].id==id){
+            return historialCita[i];
+        }
+    }
+    return undefined;
 }
