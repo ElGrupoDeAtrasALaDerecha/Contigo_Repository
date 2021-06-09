@@ -20,30 +20,40 @@
     <!-- style sheets -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/admin_inst.css">
     <title>Contigo</title>
 </head>
 <body>
+    <div class="ui grid">
+        
+    <div class="ui row">
+        
+    </div>
+    <div class="ui row">
+        
+    </div>
+    </div>
     <div id="main-box">
         <div class="sidebar">
             <div class="name">
                 <p class="link-name">Cursos</p>
                 <div class="left">
-                    <ion-icon name="arrow-back-circle-outline" class="arrow" id="hd"></ion-icon>
-                    <ion-icon name="arrow-forward-circle-outline" class="arrow" id="sh"></ion-icon>
+                    <ion-icon class="enElSidebar" name="arrow-back-circle-outline" class="arrow" id="hd"></ion-icon>
+                    <ion-icon class="enElSidebar" name="arrow-forward-circle-outline" class="arrow" id="sh"></ion-icon>
                 </div>
             </div>
             <ul class="nav-list">
                 <li>
                     <div class="item selected" id="op1">
-                        <ion-icon name="add-outline"></ion-icon>
+                        <ion-icon  class="enElSidebar" name="add-outline"></ion-icon>
                         <p class="link-name">Crear</p>
                         <span class="title-over">Crear</span>
                     </div>
                 </li>
                 <li>
                     <div class="item" id="op2">
-                        <ion-icon name="stats-chart"></ion-icon>
+                        <ion-icon class="enElSidebar" name="stats-chart"></ion-icon>
                         <p class="link-name">Estadísticas</p>
                         <span class="title-over">Estadísticas</span>
                     </div>
@@ -58,7 +68,7 @@
                 </li>
                 <li>
                     <div class="item" id="op4">
-                        <ion-icon name="help"></ion-icon>
+                        <ion-icon class="enElSidebar" name="help"></ion-icon>
                         <p class="link-name">Ayuda</p>
                         <span class="title-over">Ayuda</span>
                     </div>
@@ -167,8 +177,9 @@
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 <script src="js/sidebar.js"></script>
-<!-- <script src="js/funciones.js"></script> -->
-<script src="js/inst_admin.js"></script>
+ <script src="js/funciones.js"></script>
+ <script src="js/inst_admin.js"></script>
 <script src="js/conver.js"></script>
 <script src="js/estadisticasEstudiante.js"></script>
 <script src="js/Vestadisticas.js"></script>
+<script src="js/template.js"></script>
