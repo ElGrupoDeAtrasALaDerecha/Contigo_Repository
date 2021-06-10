@@ -52,8 +52,8 @@ function pintarPagina() {
 
                     </div>
                 </div>`
-    $("#menu").after(txt);
-    $("input").keydown(function (e) {
+    $("body").append(txt);
+    /**$("input").keydown(function (e) {
         $(".ui.segment").remove();
         $("#confirmacion").removeClass("error");
         let contraseña = $("#contra").val();
@@ -71,7 +71,7 @@ function pintarPagina() {
                 $("#confirmacion").removeClass("error");
             }
         }
-    });
+    });*/
     $("#btnCambiar").click(function () {
         let contraseña = $("#contra").val();
         let repetirContraseña = $("#confirmacion").val();
