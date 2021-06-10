@@ -62,7 +62,8 @@ insert into ESTUDIANTE_has_CONVERSATORIO (CONVERSATORIO_id, ESTUDIANTE_PERSONA_d
 insert into ESTUDIANTE_has_CONVERSATORIO (CONVERSATORIO_id, ESTUDIANTE_PERSONA_documento) values (2,"123456789");
 
 insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("123456789",sysdate());
-#insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("100718536",sysdate());
+insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("123456789","2021-04-19");
+insert into ESTADISTICAS_BTNPANICO(ESTUDIANTE_PERSONA_documento,FECHA) values("1007718536","2021-03-12");
 
 insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-3-28","2021-3-30","9","11");
 insert into AGENDA (PERSONAL_PERSONA_documento, fechaInicio, fechaFin,horaInicio ,horaFin ) values ("1000853622","2021-3-28","2021-4-5","9","11");
@@ -81,7 +82,11 @@ insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (3,10,"2021-
 
 insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (4,11,"2021-06-09",1,"https://meet.google.com/snf-yxio-tdp");
 
-insert into CITA (AGENDA_id ,horaInicio,fecha,estado,lugar ) values (5,11,"2021-06-09",1,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id,ESTUDIANTE_PERSONA_documento ,horaInicio,fecha,estado,lugar ) values (5,"123456789",12,"2021-06-09",3,"https://meet.google.com/snf-yxio-tdp");
+
+insert into CITA (AGENDA_id,ESTUDIANTE_PERSONA_documento ,horaInicio,fecha,estado,lugar ) values (5,"1007718536",1,"2021-06-09",3,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id,ESTUDIANTE_PERSONA_documento ,horaInicio,fecha,estado,lugar ) values (5,"1007718536",1,"2021-03-09",3,"https://meet.google.com/snf-yxio-tdp");
+insert into CITA (AGENDA_id,ESTUDIANTE_PERSONA_documento ,horaInicio,fecha,estado,lugar ) values (5,"123456789",1,"2021-04-09",3,"https://meet.google.com/snf-yxio-tdp");
 
 call insertarBiografia("1000853623","Hola, soy estudiante de ingeniería de sistemas y Telecomunicaciones. Soy uno de los fundadores de Contigo");
 call insertarExperiencia("1000853623","Tutor","Tutor autónomo de cálculo y programación");
@@ -134,3 +139,8 @@ INSERT INTO `FIN` VALUES (1,8,'Muy bien. Lo has logrado excelentemente :D','Acom
 (20,18,'Llamo a mis amigos y paso una noche divertida con mis amigos','Decido hacer una pijamada'),
 (23,21,'Me tengo que acostar tarde para terminar mis tareas','Me acuesto tarde'),
 (24,22,'Me acuesto a dormir, sin preocupaciones','Termino mis tareas de manera exitosa');
+
+insert into estudiante_has_historia values ("1007718536",2);
+insert into estudiante_has_historia values ("123456789",1);
+
+
