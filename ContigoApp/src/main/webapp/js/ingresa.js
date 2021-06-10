@@ -74,7 +74,12 @@ function loginInstitucion(obj) {
 }
 
 $("#sigin").click(function(){
-    window.location.href="RegistroEstudiante.html"
+    if(document.title==="Contigo|Ingreso institución"){
+        window.location.href="Registro.html"
+    }else{
+        window.location.href="RegistroEstudiante.html"
+    }
+    
 })
 // Login Estudiante
 var ingresoE= document.getElementById("ing_est");
