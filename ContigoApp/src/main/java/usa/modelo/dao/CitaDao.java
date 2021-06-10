@@ -171,7 +171,7 @@ public class CitaDao implements IDaoCita {
 
     public boolean registroSucedidoEstudiante(Cita ci) {
         System.out.println("" + ci.getEstado());
-        String sql = "update cita set estado=?, motivo=?,recomendaciones=? where id=?;";
+        String sql = "update CITA set estado=?, motivo=?,recomendaciones=? where id=?;";
         try {
             System.out.println("entro");
             pat = conn.prepareStatement(sql);
@@ -192,7 +192,7 @@ public class CitaDao implements IDaoCita {
     public LinkedList<Cita> listarHistorial(String documento) {
         LinkedList<Cita> historialDeCitas = new LinkedList();
         try {
-            String sql = "select concat(p.primerNombre,\" \",p.segundoNombre,\" \",p.primerApellido,\" \",p.segundoApellido) as personal, pc.imagen , c.* from cita as c \n"
+            String sql = "select concat(p.primerNombre,\" \",p.segundoNombre,\" \",p.primerApellido,\" \",p.segundoApellido) as personal, pc.imagen , c.* from CITA as c \n"
                     + "inner join AGENDA as a on a.id=c.AGENDA_id\n"
                     + "inner join PERSONAL as pc on pc.PERSONA_documento=a.PERSONAL_PERSONA_documento\n"
                     + "inner join PERSONA as p on p.documento=pc.PERSONA_documento\n"
@@ -290,7 +290,7 @@ public class CitaDao implements IDaoCita {
         try {
             String sql = "select t2.mes,coalesce(t1.citas,0) as citas from (\n" +
                             "select month(fecha) as mes, count(e.PERSONA_documento) as citas\n" +
-                            "from cita as c\n" +
+                            "from CITA as c\n" +
                             "left join ESTUDIANTE as e on e.PERSONA_documento=c.ESTUDIANTE_PERSONA_documento\n" +
                             "inner join PERSONA as p on p.documento=e.PERSONA_documento\n" +
                             "where p.documento=\""+documento+"\" \n" +

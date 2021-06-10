@@ -156,7 +156,7 @@ public class PersonalCalificadoDao implements IPersonalCalificadoDao {
     @Override
     public LinkedList<PersonalCalificado> listarTodos() {
         LinkedList<PersonalCalificado> personales = new LinkedList();;
-        String sql = "select p.*,pc.* from Persona as p inner join Personal as pc on pc.PERSONA_documento=p.documento;";
+        String sql = "select p.*,pc.* from PERSONAL as p inner join Personal as pc on pc.PERSONA_documento=p.documento;";
         try {
             PreparedStatement pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();

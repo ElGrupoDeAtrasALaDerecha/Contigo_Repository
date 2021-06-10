@@ -125,7 +125,7 @@ public class RecuperacionDao implements IRecuperacionDao {
                 rs = pat.executeQuery();
                 if (rs.next()) {
                     String documento = rs.getString("persona_documento");
-                    sql = "update persona as p \n"
+                    sql = "update PERSONA as p \n"
                             + "set p.contraseña=sha(\"" + contraseña + "\")\n"
                             + "where p.documento=\"" + documento + "\";";
                     rs.close();
@@ -153,7 +153,7 @@ public class RecuperacionDao implements IRecuperacionDao {
         ResultSet rs;
         boolean tieneCodigo = false;
         String sql = "select pci.* from peticion_contrasena_institucion as pci \n"
-                + "inner join institucion as i on i.id=pci.institucion_id\n"
+                + "inner join INSTITUCION as i on i.id=pci.institucion_id\n"
                 + "where i.correo=\"" + i.getCorreo() + "\" and pci.valido=true;";
         try {
             pat = conn.prepareStatement(sql);
@@ -175,7 +175,7 @@ public class RecuperacionDao implements IRecuperacionDao {
         ResultSet rs;
         boolean tieneCodigo = false;
         String sql = "select pcp.* from peticion_contrasena_persona as pcp\n"
-                + "inner join persona as p on p.documento=pcp.persona_documento\n"
+                + "inner join PERSONA as p on p.documento=pcp.persona_documento\n"
                 + "where p.documento=\""+p.getDocumento()+"\" and pcp.valido=true;";
         try {
             pat = conn.prepareStatement(sql);

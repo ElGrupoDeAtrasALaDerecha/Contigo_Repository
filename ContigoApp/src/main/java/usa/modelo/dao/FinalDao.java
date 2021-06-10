@@ -51,7 +51,7 @@ public class FinalDao implements IFinalDao {
     public Final consultar(String id) {
         Final situacion = null;
         try {
-            String sql = "select f.*, s.HISTORIA_idHistoria from fin as f\n"
+            String sql = "select f.*, s.HISTORIA_idHistoria from FIN as f\n"
                     + "inner join SITUACION as s on s.id=f.SITUACION_id\n"
                     + "where f.id="+id+";";
             pat = conn.prepareStatement(sql);

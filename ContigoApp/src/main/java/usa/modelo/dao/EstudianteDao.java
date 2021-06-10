@@ -88,8 +88,8 @@ public class EstudianteDao implements IDaoEstudiante {
     public LinkedList<Estudiante> listarTodos() {
         LinkedList<Estudiante> estudiantes = new LinkedList();
         try {
-            String sql = "select p.* , e.GRADO_codigo from persona as p  \n"
-                    + "inner join estudiante as e on e.PERSONA_documento =p.documento\n";
+            String sql = "select p.* , e.GRADO_codigo from PERSONA as p  \n"
+                    + "inner join ESTUDIANTE as e on e.PERSONA_documento =p.documento\n";
             pat = conn.prepareStatement(sql);
             ResultSet rs = pat.executeQuery();
             while (rs.next()) {
@@ -198,10 +198,10 @@ public class EstudianteDao implements IDaoEstudiante {
     public LinkedList<Estudiante> listarEstudiantesPorGrado(String codigo) {
         LinkedList<Estudiante> estudiantes = new LinkedList<>();
         String sql = "select p.*, c.grado \n" +
-        "from persona as p \n" +
-        "inner join Estudiante as e on e.PERSONA_documento= p.documento\n" +
-        "inner join Grado as g  on e.GRADO_codigo=g.codigo\n" +
-        "inner join clasificacion as c on c.id=g.CLASIFICACION_id\n" +
+        "from PERSONA as p \n" +
+        "inner join ESTUDIANTE as e on e.PERSONA_documento= p.documento\n" +
+        "inner join GRADO as g  on e.GRADO_codigo=g.codigo\n" +
+        "inner join CLASIFICACION as c on c.id=g.CLASIFICACION_id\n" +
         "where g.codigo = '"+codigo+"';";
         try {
             pat = conn.prepareStatement(sql);

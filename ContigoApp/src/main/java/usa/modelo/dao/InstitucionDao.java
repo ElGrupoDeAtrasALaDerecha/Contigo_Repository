@@ -27,7 +27,7 @@ public class InstitucionDao implements IInstitucionDao {
     public boolean crear(Institucion ins) {
         
         try {
-            String sql = "insert into  institucion (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web ) "
+            String sql = "insert into  INSTITUCION (MUNICIPIO_id, METODO_PAGO_id, nombre, correo, direccion, tipoInstitucion, calendario, barrio, telefono, contraseña, web ) "
                     + "values (?,?,?,?,?,?,?,?,?,sha(?),?)";
             pat = conn.prepareStatement(sql);
             pat.setInt(1, ins.getIdMunicipio());
@@ -56,7 +56,7 @@ public class InstitucionDao implements IInstitucionDao {
     public Institucion consultar(String nom) {
         Institucion ins = null;
         try {
-            String sql = "select * from institucion where nombre =\""+ nom+"\"";
+            String sql = "select * from INSTITUCION where nombre =\""+ nom+"\"";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();    
             while(result.next()){
@@ -102,7 +102,7 @@ public class InstitucionDao implements IInstitucionDao {
         LinkedList<Institucion> instituciones = new LinkedList<Institucion>();
         //pat sirve como el cur() de py 
         try {
-            String sql = "select * from institucion";
+            String sql = "select * from INSTITUCION";
             Connection conn = conexion.tomarConexion();
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
@@ -134,7 +134,7 @@ public class InstitucionDao implements IInstitucionDao {
         String nombre = "no name";
         Institucion inst = null;
         try {
-            String sql = "select * from institucion where correo = \"" + correo + "\" and contraseña = sha(\"" + contraseña + "\");";
+            String sql = "select * from INSTITUCION where correo = \"" + correo + "\" and contraseña = sha(\"" + contraseña + "\");";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             while(result.next()){
@@ -152,7 +152,7 @@ public class InstitucionDao implements IInstitucionDao {
     public Institucion consultarPorId(String id){
         Institucion ins = null;
         try {
-            String sql = "select * from institucion where id =\""+ id+"\"";
+            String sql = "select * from INSTITUCION where id =\""+ id+"\"";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();    
             while(result.next()){
@@ -182,7 +182,7 @@ public class InstitucionDao implements IInstitucionDao {
     public Institucion consultarPorCorreo(String correo) {
         Institucion institucion = null;
         try {
-            String sql = "select * from institucion where correo = \"" + correo +"\";";
+            String sql = "select * from INSTITUCION where correo = \"" + correo +"\";";
             pat = conn.prepareStatement(sql);
             result = pat.executeQuery();
             if(result.next()){

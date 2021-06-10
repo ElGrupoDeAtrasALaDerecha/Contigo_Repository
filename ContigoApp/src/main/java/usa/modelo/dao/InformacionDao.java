@@ -66,7 +66,7 @@ public class InformacionDao implements IDaoInformacion {
 
         for (String tipo : tipos) {
             //Se consulta por cada tipo de información personal
-            String sql = "select i.*,t.* from informacion as i\n"
+            String sql = "select i.*,t.* from INFORMACION as i\n"
                     + "inner join " + tipo.toUpperCase() + " as t on t.INFORMACION_id=i.id\n"
                     + "where i.PERSONAL_PERSONA_documento=\"" + p.getDocumento() + "\";";
             //Se inicia la consulta

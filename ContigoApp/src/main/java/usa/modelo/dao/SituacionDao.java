@@ -122,7 +122,7 @@ public class SituacionDao implements ISituacionDao{
             }
             pat.close();
             rs.close();
-            sql="select f.* from fin as f\n" +
+            sql="select f.* from FIN as f\n" +
             "inner join SITUACION as s on s.id=f.SITUACION_id\n" +
             "where s.HISTORIA_idHistoria='"+idHistoria+"';";
             pat = conn.prepareStatement(sql);
