@@ -458,3 +458,7 @@ CREATE TABLE MOTIVO(
 	id VARCHAR(200) NOT NULL,
     primary key(id)
 );
+
+#Corrige problemas con group by y order by
+SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
